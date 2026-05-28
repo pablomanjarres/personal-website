@@ -21,7 +21,7 @@ const tokens: CSSProperties = {
   ["--fg" as string]: FG,
   ["--accent" as string]: ACCENT,
   ["--muted" as string]: MUTED,
-  ["--ff-display" as string]: "var(--font-sans), system-ui, sans-serif",
+  ["--ff-display" as string]: "var(--font-display), 'Archivo Black', system-ui, sans-serif",
   ["--ff-body" as string]: "var(--font-sans), system-ui, sans-serif",
   ["--ff-mono" as string]: "var(--font-mono), ui-monospace, monospace",
 };
