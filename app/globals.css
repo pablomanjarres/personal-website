@@ -82,7 +82,7 @@ a:focus-visible {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  --margin: clamp(72px, 11vw, 198px);
+  --margin: clamp(110px, 17vw, 280px);
   background-image: repeating-linear-gradient(
       0deg,
       transparent 0 31px,
@@ -103,7 +103,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   padding: clamp(18px, 3vh, 34px) clamp(20px, 4vw, 56px) clamp(16px, 3vh, 30px)
-    clamp(96px, 13vw, 228px);
+    clamp(150px, 21vw, 320px);
 }
 
 .meta {
@@ -157,9 +157,9 @@ a:focus-visible {
 .headline {
   margin: clamp(10px, 2vh, 18px) 0 0;
   font-family: var(--ff-display);
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(2.3rem, 8.2vw, 5.75rem);
-  line-height: 0.94;
+  line-height: 0.92;
   letter-spacing: -0.025em;
 }
 .headline .accent {
@@ -178,7 +178,7 @@ a:focus-visible {
 }
 .lede .brand {
   font-family: var(--ff-display);
-  font-weight: 600;
+  font-weight: 400;
   font-style: italic;
   color: var(--accent);
 }
@@ -273,7 +273,7 @@ a:focus-visible {
 .email-note {
   font-family: var(--ff-display);
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(16px, 1.8vw, 22px);
   color: var(--accent);
   transform: rotate(-4deg);
