@@ -155,7 +155,7 @@ function Badge({
     if (ref.current) ref.current.style.opacity = "1";
   }, [index, vw, vh, size, apply]);
 
-  // idle drift + spin decay — direct DOM, no React renders
+  // idle drift + spin decay - direct DOM, no React renders
   useEffect(() => {
     let raf = 0;
     const loop = () => {
@@ -246,7 +246,7 @@ function Badge({
       href={social.url}
       target="_blank"
       rel="noreferrer"
-      aria-label={`${social.label} — ${social.handle}`}
+      aria-label={`${social.label}, ${social.handle}`}
       draggable={false}
       onPointerDown={onDown}
       onClick={(e) => {
@@ -381,13 +381,13 @@ export default function Atelier() {
         />
       </svg>
 
-      <div className="peel">※ pg. D — peel a pin, drop it anywhere</div>
+      <div className="peel">※ pg. D · peel a pin, drop it anywhere</div>
 
       <div className="wrap">
         <header className="meta">
-          <span className="who">Notebook № 8 · Atelier — pablomanjarres</span>
+          <span className="who">Notebook № 8 · Atelier · pablomanjarres</span>
           <span className="mid">
-            {profile.location} — <Clock />
+            {profile.location} · <Clock />
           </span>
           <span className="status">
             <span className="pulse">●</span> in studio
@@ -396,7 +396,7 @@ export default function Atelier() {
 
         <section className="hero">
           <div className="intro">
-            <div className="kicker">¶ 01 — Who</div>
+            <div className="kicker">¶ 01 · Who</div>
             <h1 className="headline">
               17 y/o,
               <br />
@@ -410,9 +410,9 @@ export default function Atelier() {
             </h1>
 
             <p className="lede">
-              Building <span className="brand">@{profile.building}</span> — the team you&apos;d hire
+              Building <span className="brand">@{profile.building}</span>, the team you&apos;d hire
               if you had the budget, built from AI agents you run like a CEO. The pins come off the
-              page — drag one anywhere.
+              page. Drag one anywhere.
             </p>
 
             <a className="noelle-cta" href="https://trynoelle.com" target="_blank" rel="noreferrer">
@@ -453,7 +453,7 @@ export default function Atelier() {
             </div>
           </div>
 
-          <div className="findme">¶ 02 — Find me · 6 pins · throw to spin</div>
+          <div className="findme">¶ 02 · Find me · 6 pins · throw to spin</div>
         </section>
       </div>
 
