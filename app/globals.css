@@ -279,6 +279,14 @@ a:focus-visible {
   transform: rotate(-4deg);
   white-space: nowrap;
 }
+/* write-me arrow: points left at the pill on the wide layout (desktop),
+   swapped for an up-arrow on mobile where the pill sits directly above */
+.arr-desk {
+  display: inline-block;
+}
+.arr-mob {
+  display: none;
+}
 
 .peel {
   position: absolute;
@@ -398,6 +406,24 @@ a:focus-visible {
     padding: 13px 18px;
     gap: 9px;
     letter-spacing: 0.1em;
+  }
+
+  /* stack the email and its note vertically so the note always sits directly
+     below the pill - then the up-arrow reliably points at it (a plain
+     flex-wrap would leave the note beside the pill at wider mobile widths) */
+  .email-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .email-note {
+    margin-left: 12px;
+  }
+  .arr-desk {
+    display: none;
+  }
+  .arr-mob {
+    display: inline-block;
   }
 
   /* findme turns into the header for the sticker sheet that follows it */

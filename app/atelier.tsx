@@ -463,7 +463,10 @@ export default function Atelier() {
                 {profile.email}
                 <span style={{ color: "var(--muted)" }}>↗</span>
               </a>
-              <span className="email-note">← write me ✶</span>
+              <span className="email-note">
+                <span className="arr-desk" aria-hidden>←</span>
+                <span className="arr-mob" aria-hidden>↑</span> write me ✶
+              </span>
             </div>
           </div>
 
