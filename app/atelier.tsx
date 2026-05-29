@@ -61,16 +61,27 @@ function badgeSize(w: number, h: number) {
   return Math.round(clamp(Math.min(w * 0.13, h * 0.21), 104, 170));
 }
 
-function computeStart(i: number, w: number, h: number, size: number) {
-  const mobile = w < 860;
+function mobileBadgeSize(w: number) {
+  // a touch smaller than w/4 so a rotated pin + its drop-shadow clears the
+  // screen edges (the die-cut rim/shadow needs ~16px beyond the circle).
+  return Math.round(clamp(w * 0.215, 76, 98));
+}
+
+// Position a pin within its coordinate space (w x h). On desktop the space is
+// the viewport (the fixed pinboard); on mobile it is the in-flow sticker zone.
+function computeStart(i: number, mobile: boolean, w: number, h: number, size: number) {
   const table = mobile ? MOB : DESK;
   const [fx, fy, r] = table[i] ?? [0.5, 0.5, 0];
-  const x = mobile
-    ? clamp(fx * w, 8, w - size - 8)
-    : clamp(fx * w, w * 0.46, w - size - 12);
-  const y = mobile
-    ? clamp(fy * h, h * 0.46, h - size - 10)
-    : clamp(fy * h, 96, h - size - 14);
+  if (mobile) {
+    const pad = 12;
+    return {
+      x: clamp(fx * w, pad, Math.max(pad, w - size - pad)),
+      y: clamp(fy * h, pad, Math.max(pad, h - size - pad)),
+      r,
+    };
+  }
+  const x = clamp(fx * w, w * 0.46, w - size - 12);
+  const y = clamp(fy * h, 96, h - size - 14);
   return { x, y, r };
 }
 
@@ -123,15 +134,17 @@ function Badge({
   social,
   color,
   size,
-  vw,
-  vh,
+  mobile,
+  spaceW,
+  spaceH,
 }: {
   index: number;
   social: Social;
   color: BadgeColor;
   size: number;
-  vw: number;
-  vh: number;
+  mobile: boolean;
+  spaceW: number;
+  spaceH: number;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const st = useRef<BadgeState>({ x: 0, y: 0, r: 0, spin: 0, dragging: false, moved: false });
@@ -147,13 +160,13 @@ function Badge({
   // place on mount + reposition on viewport change (unless user moved it)
   useLayoutEffect(() => {
     if (st.current.moved) return;
-    const { x, y, r } = computeStart(index, vw, vh, size);
+    const { x, y, r } = computeStart(index, mobile, spaceW, spaceH, size);
     st.current.x = x;
     st.current.y = y;
     if (!st.current.dragging) st.current.r = r;
     apply();
     if (ref.current) ref.current.style.opacity = "1";
-  }, [index, vw, vh, size, apply]);
+  }, [index, mobile, spaceW, spaceH, size, apply]);
 
   // idle drift + spin decay - direct DOM, no React renders
   useEffect(() => {
@@ -333,10 +346,21 @@ function Badge({
 // ---- the page --------------------------------------------------------------
 export default function Atelier() {
   const [vp, setVp] = useState({ w: 1280, h: 800 });
+  // The pinboard's own box. Pins are placed within it: on desktop it is the
+  // fixed full-viewport layer; on mobile it is the in-flow sticker zone.
+  const [board, setBoard] = useState({ w: 1280, h: 800 });
+  const boardRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     let raf = 0;
-    const measure = () => setVp({ w: window.innerWidth, h: window.innerHeight });
+    const measure = () => {
+      setVp({ w: window.innerWidth, h: window.innerHeight });
+      const el = boardRef.current;
+      if (el) {
+        const r = el.getBoundingClientRect();
+        setBoard({ w: r.width, h: r.height });
+      }
+    };
     const onResize = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(measure);
@@ -349,7 +373,8 @@ export default function Atelier() {
     };
   }, []);
 
-  const size = badgeSize(vp.w, vp.h);
+  const mobile = vp.w < 860;
+  const size = mobile ? mobileBadgeSize(vp.w) : badgeSize(vp.w, vp.h);
 
   return (
     <main className="atelier" style={tokens}>
@@ -460,7 +485,7 @@ export default function Atelier() {
       <div className="pageno">pg. 015 / D</div>
 
       {/* draggable pins layer */}
-      <div className="pinboard">
+      <div className="pinboard" ref={boardRef}>
         {profile.socials.map((s, i) => (
           <Badge
             key={s.id}
@@ -468,8 +493,9 @@ export default function Atelier() {
             social={s}
             color={BADGE_COLORS[i] ?? BADGE_COLORS[0]}
             size={size}
-            vw={vp.w}
-            vh={vp.h}
+            mobile={mobile}
+            spaceW={board.w}
+            spaceH={board.h}
           />
         ))}
       </div>
