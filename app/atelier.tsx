@@ -46,13 +46,15 @@ const DESK: [number, number, number][] = [
   [0.585, 0.66, -12],
   [0.8, 0.68, 5],
 ];
+// mobile: a loosely-placed "sticker sheet" of fractions WITHIN the pinboard's
+// own box (not the viewport) - two rows, gently staggered, never over the copy.
 const MOB: [number, number, number][] = [
-  [0.06, 0.5, -8],
-  [0.4, 0.47, 6],
-  [0.7, 0.52, -4],
-  [0.12, 0.71, 9],
-  [0.44, 0.73, -10],
-  [0.72, 0.71, 5],
+  [0.06, 0.08, -7],
+  [0.35, 0.13, 6],
+  [0.65, 0.07, -5],
+  [0.12, 0.52, 8],
+  [0.38, 0.57, -9],
+  [0.65, 0.5, 4],
 ];
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
