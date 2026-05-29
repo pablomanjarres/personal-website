@@ -363,3 +363,40 @@ a:focus-visible {
   pointer-events: none;
   z-index: 4;
 }
+
+/* ---- phones / small screens --------------------------------------------- */
+/* Below the JS breakpoint (vp.w < 860): the poster becomes a scrollable,
+   full-width page and the pins drop into their own in-flow "sticker sheet". */
+@media (max-width: 859.98px) {
+  .atelier {
+    height: auto;
+    min-height: 100svh;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  /* thin notebook rule near the left edge instead of a huge gutter */
+  .paper {
+    --margin: clamp(18px, 6vw, 40px);
+  }
+
+  .wrap {
+    height: auto;
+    padding: clamp(16px, 3vh, 26px) clamp(18px, 5vw, 30px) clamp(22px, 3vh, 32px)
+      clamp(26px, 7vw, 52px);
+  }
+
+  .hero {
+    flex: 0 0 auto;
+    margin-top: clamp(14px, 2.5vh, 26px);
+  }
+
+  /* keep the CTA's nowrap label from overflowing narrow screens */
+  .noelle-cta {
+    max-width: 100%;
+    justify-content: center;
+    padding: 13px 18px;
+    gap: 9px;
+    letter-spacing: 0.1em;
+  }
+}
