@@ -399,4 +399,19 @@ a:focus-visible {
     gap: 9px;
     letter-spacing: 0.1em;
   }
+
+  /* findme turns into the header for the sticker sheet that follows it */
+  .findme {
+    margin-top: clamp(26px, 5vh, 40px);
+    padding-top: 12px;
+    border-top: 1.5px solid var(--fg);
+  }
+
+  /* the pin layer leaves the fixed viewport and becomes an in-flow zone */
+  .pinboard {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: clamp(320px, 46svh, 440px);
+  }
 }
