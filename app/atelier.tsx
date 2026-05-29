@@ -383,21 +383,8 @@ export default function Atelier() {
       <div className="paper" />
       <div className="corner-fold" />
 
-      {/* paperclip flourish */}
-      <svg
-        aria-hidden
-        viewBox="0 0 56 110"
-        style={{
-          position: "absolute",
-          left: "clamp(110px, 15vw, 240px)",
-          top: "clamp(34px, 5vh, 58px)",
-          width: 40,
-          height: 78,
-          transform: "rotate(-8deg)",
-          pointerEvents: "none",
-          zIndex: 4,
-        }}
-      >
+      {/* paperclip flourish (positioned in CSS so it can hide on mobile) */}
+      <svg aria-hidden className="paperclip" viewBox="0 0 56 110">
         <path
           d="M 16 8 Q 8 8 8 22 L 8 78 Q 8 96 28 96 Q 48 96 48 78 L 48 30 Q 48 18 36 18 Q 24 18 24 30 L 24 70"
           stroke="var(--fg)"

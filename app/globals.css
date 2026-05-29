@@ -351,3 +351,15 @@ a:focus-visible {
 .badge svg {
   display: block;
 }
+
+/* paperclip flourish - positioned here (not inline) so mobile can hide it */
+.paperclip {
+  position: absolute;
+  left: clamp(110px, 15vw, 240px);
+  top: clamp(34px, 5vh, 58px);
+  width: 40px;
+  height: 78px;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  z-index: 4;
+}
