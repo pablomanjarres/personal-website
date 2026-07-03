@@ -28,7 +28,13 @@ export async function generateMetadata({
       description: project.tagline,
       url: `https://pablomanjarres.com/portfolio/projects/${project.slug}`,
       type: "article",
-      ...(project.cover ? { images: [project.cover] } : {}),
+      images: [`/og/${project.slug}.png`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: project.tagline,
+      images: [`/og/${project.slug}.png`],
     },
   };
 }

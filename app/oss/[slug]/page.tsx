@@ -25,8 +25,14 @@ export async function generateMetadata({
       title,
       description: h.subtitle,
       url: `https://pablomanjarres.com/oss/${h.slug}`,
-      images: [`/oss/${h.slug}.png`],
+      images: [`/og/${h.slug}.png`],
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: h.subtitle,
+      images: [`/og/${h.slug}.png`],
     },
   };
 }

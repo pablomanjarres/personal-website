@@ -56,11 +56,13 @@ export const metadata: Metadata = {
     url: "https://pablomanjarres.com",
     siteName: "Pablo Manjarres",
     type: "website",
+    images: ["/og/home.png"],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Pablo Manjarres",
     description: "17 y/o solo founder & content creator. Building Noelle.",
+    images: ["/og/home.png"],
   },
 };
 
