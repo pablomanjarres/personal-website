@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects, type ProjectLink } from "../../../projects";
-import { Chip, Status } from "../../components";
+import { Chip, DemoFrame, PreviewPlate, Status } from "../../components";
 
 // Only the known projects exist; unknown slugs 404 at build/runtime.
 export const dynamicParams = false;
@@ -67,6 +67,15 @@ export default async function ProjectPage({
     project.stack.slice(0, 5).join(" · ") +
     (project.stack.length > 5 ? ` · +${project.stack.length - 5}` : "");
 
+  const liveLink = project.links.find((l) => l.kind === "live");
+  const repoLink = project.links.find((l) => l.kind === "repo");
+  const openUrl = liveLink?.url ?? repoLink?.url;
+  const demoLabel =
+    project.demoLabel ??
+    (liveLink
+      ? liveLink.url.replace(/^https?:\/\//, "").replace(/\/$/, "")
+      : "preview");
+
   return (
     <div className="folio-inner">
       <Link href="/portfolio" className="folio-back">
@@ -120,12 +129,28 @@ export default async function ProjectPage({
         </div>
       )}
 
-      {project.cover && (
-        <div className="proj-cover">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.cover} alt={`${project.title} screenshot`} loading="lazy" />
-        </div>
-      )}
+      <section className="proj-preview">
+        {project.embedUrl || project.cover ? (
+          <DemoFrame
+            label={demoLabel}
+            title={project.title}
+            embedUrl={project.embedUrl}
+            cover={project.cover}
+            openUrl={openUrl}
+          />
+        ) : (
+          <PreviewPlate project={project} />
+        )}
+        <p className="proj-preview-note">
+          {project.embedUrl
+            ? "Live demo. Click Run to load the real app and use it right here, or open it full-screen."
+            : liveLink
+              ? "Preview. Click it to open the live app."
+              : project.cover
+                ? "Preview."
+                : "Runs as a local app. The full teardown is below."}
+        </p>
+      </section>
 
       <div className="proj-body">
         <section className="proj-section">
@@ -192,10 +217,19 @@ export default async function ProjectPage({
             {project.tags.map((t) => (
               <Chip key={t} label={t} />
             ))}
-            {project.stack.map((s) => (
-              <Chip key={s} label={s} accent />
-            ))}
           </div>
+          {project.stack.length > 0 && (
+            <details className="stack-details">
+              <summary>
+                Full tech stack <span className="stack-count">{project.stack.length}</span>
+              </summary>
+              <div className="proj-tags proj-tags-stack">
+                {project.stack.map((s) => (
+                  <Chip key={s} label={s} accent />
+                ))}
+              </div>
+            </details>
+          )}
         </section>
       </div>
 
