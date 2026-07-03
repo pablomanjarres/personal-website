@@ -95,6 +95,7 @@ export function DemoFrame({
   cover,
   openUrl,
   plain,
+  video,
 }: {
   label: string;
   title: string;
@@ -102,6 +103,7 @@ export function DemoFrame({
   cover?: string;
   openUrl?: string;
   plain?: boolean;
+  video?: string;
 }) {
   // Desktop-app screenshot: the image already has its own window chrome, so
   // show it in a plain frame instead of a browser bar.
@@ -139,7 +141,16 @@ export function DemoFrame({
         )}
       </div>
       <div className="browser-body">
-        {embedUrl ? (
+        {video ? (
+          <video
+            className="browser-video"
+            src={video}
+            poster={cover}
+            controls
+            playsInline
+            preload="metadata"
+          />
+        ) : embedUrl ? (
           <LiveEmbed embedUrl={embedUrl} cover={cover} title={title} />
         ) : cover && openUrl ? (
           <a href={openUrl} target="_blank" rel="noreferrer" className="browser-shot">
