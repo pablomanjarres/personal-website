@@ -46,14 +46,15 @@ export default async function OssHero({
       <div className="osh-scrim" />
 
       <nav className="osh-bar">
-        <Link className="osh-brand" href="/oss">
-          <b>◈</b> {h.title}
+        <Link className="osh-brand" href="/">
+          <b>✦</b> Pablo
         </Link>
         <div className="osh-nav">
+          <Link href="/oss">Open source</Link>
+          <Link href="/portfolio">Portfolio</Link>
           <a href={h.repo} target="_blank" rel="noreferrer">
             GitHub ↗
           </a>
-          <Link href="/portfolio">Portfolio</Link>
         </div>
       </nav>
 
