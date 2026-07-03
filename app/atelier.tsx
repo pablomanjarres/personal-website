@@ -393,6 +393,9 @@ export default function Atelier() {
             <Link href="/portfolio" className="topnav-link">
               portfolio
             </Link>
+            <Link href="/oss" className="topnav-link">
+              open source
+            </Link>
             <a
               className="topnav-link"
               href={profile.booking}

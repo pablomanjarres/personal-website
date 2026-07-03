@@ -12,9 +12,10 @@ export default function OssIndex() {
     <main className="osh-index">
       <nav className="osh-bar" style={{ padding: 0, marginBottom: 8 }}>
         <Link className="osh-brand" href="/">
-          <b>◈</b> PABLO
+          <b>✦</b> Pablo
         </Link>
         <div className="osh-nav">
+          <Link href="/">Home</Link>
           <Link href="/portfolio">Portfolio</Link>
           <a href="https://github.com/pablomanjarres" target="_blank" rel="noreferrer">
             GitHub ↗
