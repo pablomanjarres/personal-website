@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { Archivo_Black, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Archivo_Black, IBM_Plex_Sans, IBM_Plex_Mono, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
+
+const pixelify = Pixelify_Sans({
+  variable: "--font-pixel",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 const archivo = Archivo_Black({
   variable: "--font-display",
@@ -49,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} ${pixelify.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

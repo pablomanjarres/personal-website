@@ -385,6 +385,25 @@ export default function Atelier() {
       <div className="peel">※ pg. D · peel a pin, drop it anywhere</div>
 
       <div className="wrap">
+        <nav className="topnav">
+          <Link href="/" className="topnav-brand">
+            <span aria-hidden>✦</span> PABLO
+          </Link>
+          <div className="topnav-links">
+            <Link href="/portfolio" className="topnav-link">
+              portfolio
+            </Link>
+            <a
+              className="topnav-link"
+              href={profile.booking}
+              target="_blank"
+              rel="noreferrer"
+            >
+              book a call
+            </a>
+          </div>
+        </nav>
+
         <header className="meta">
           <span className="who">Notebook № 8 · Atelier · pablomanjarres</span>
           <span className="mid">
@@ -426,26 +445,6 @@ export default function Atelier() {
               </span>
               trynoelle.com
               <span className="arr" aria-hidden>
-                ↗
-              </span>
-            </a>
-
-            <Link className="folio-link" href="/portfolio">
-              <span className="folio-mark" aria-hidden>
-                ¶ 03
-              </span>
-              browse the work
-              <span className="folio-arr" aria-hidden>
-                →
-              </span>
-            </Link>
-
-            <a className="folio-link" href={profile.booking} target="_blank" rel="noreferrer">
-              <span className="folio-mark" aria-hidden>
-                ✦
-              </span>
-              book a call
-              <span className="folio-arr" aria-hidden>
                 ↗
               </span>
             </a>
