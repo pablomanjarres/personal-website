@@ -120,8 +120,19 @@ export default async function ProjectPage({
         </div>
       </div>
 
-      {project.links.length > 0 && (
+      {(project.links.length > 0 || project.embedUrl) && (
         <div className="proj-links">
+          {project.embedUrl && !liveLink && (
+            <a
+              href={project.embedUrl}
+              className={project.featured ? "proj-btn accent" : "proj-btn primary"}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open live demo
+              <span aria-hidden>↗</span>
+            </a>
+          )}
           {project.links.map((l) => (
             <a
               key={l.url}
