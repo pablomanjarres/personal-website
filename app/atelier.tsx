@@ -440,6 +440,16 @@ export default function Atelier() {
               </span>
             </Link>
 
+            <a className="folio-link" href={profile.booking} target="_blank" rel="noreferrer">
+              <span className="folio-mark" aria-hidden>
+                ✦
+              </span>
+              book a call
+              <span className="folio-arr" aria-hidden>
+                ↗
+              </span>
+            </a>
+
             <div className="email-row">
               <a className="email-pill" href={`mailto:${profile.email}`}>
                 <svg className="email-circle" viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden>

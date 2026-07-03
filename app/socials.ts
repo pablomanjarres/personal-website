@@ -14,6 +14,7 @@ export const profile = {
   building: "Noelle",
   location: "Earth",
   email: "pablo@pablomanjarres.com",
+  booking: "https://calendly.com/pablo-pablomanjarres/meet-with-me",
   socials: [
     { id: "ig", label: "Instagram", handle: "@pablomanjarress", url: "https://instagram.com/pablomanjarress", num: "01", icon: "/icons/instagram.svg" },
     { id: "tt", label: "TikTok", handle: "@pablomanjarres.dev", url: "https://tiktok.com/@pablomanjarres.dev", num: "02", icon: "/icons/tiktok.svg" },

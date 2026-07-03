@@ -31,8 +31,10 @@ export type Project = {
   metrics?: string[];
   links: ProjectLink[];
   cover?: string; // preview screenshot: /portfolio/previews/<slug>.ext or a remote URL
+  video?: string; // preview video (mp4/webm) shown in place of the cover
   embedUrl?: string; // if the live site allows framing, embed it as an interactive demo
   demoLabel?: string; // URL/text shown in the preview's browser bar (e.g. "trynoelle.com")
+  previewKind?: "web" | "app"; // "app" = desktop screenshot shown in a plain window, not a browser bar
   featured?: boolean; // flagship — larger card + live-product CTA
   external?: string; // its own live domain, when applicable
   accent?: string; // optional per-project accent hex
@@ -227,7 +229,9 @@ export const projects: Project[] = [
         "url": "https://github.com/pablomanjarres/cortex",
         "kind": "repo"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/cortex.png",
+    "previewKind": "app"
   },
   {
     "slug": "band-of-agents",
@@ -345,7 +349,9 @@ export const projects: Project[] = [
         "url": "https://github.com/pablomanjarres/content-pipeline",
         "kind": "repo"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/content-pipeline.png",
+    "previewKind": "app"
   },
   {
     "slug": "forge",
@@ -399,7 +405,9 @@ export const projects: Project[] = [
         "url": "https://github.com/pablomanjarres/forge",
         "kind": "repo"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/forge.png",
+    "previewKind": "app"
   },
   {
     "slug": "archgraph",
@@ -408,7 +416,7 @@ export const projects: Project[] = [
     "tagline": "Point an AI agent at a repo, get a C4 architecture diagram that's actually true.",
     "oneLiner": "AI-generated C4 architecture diagrams from any codebase",
     "year": "2026",
-    "status": "shipped",
+    "status": "live",
     "role": "Solo · design + engineering",
     "tags": [
       "dev tool",
@@ -447,12 +455,19 @@ export const projects: Project[] = [
     ],
     "links": [
       {
+        "label": "archgraph.vercel.app",
+        "url": "https://archgraph.vercel.app",
+        "kind": "live"
+      },
+      {
         "label": "GitHub",
         "url": "https://github.com/pablomanjarresneg/archgraph",
         "kind": "repo"
       }
     ],
-    "cover": "/portfolio/previews/archgraph.png"
+    "cover": "/portfolio/previews/archgraph.png",
+    "embedUrl": "https://archgraph.vercel.app",
+    "demoLabel": "archgraph.vercel.app"
   },
   {
     "slug": "omegahack",
@@ -577,7 +592,7 @@ export const projects: Project[] = [
     "tagline": "Two ways to explore what you know: a drag-and-drop widget OS, and a galaxy of subjects you fly through as an astronaut.",
     "oneLiner": "A widget OS and a 3D universe for learning.",
     "year": "2025",
-    "status": "prototype",
+    "status": "live",
     "role": "Solo · design + engineering",
     "tags": [
       "EdTech",
@@ -617,12 +632,18 @@ export const projects: Project[] = [
     ],
     "links": [
       {
+        "label": "lumen-frontier.vercel.app",
+        "url": "https://lumen-frontier.vercel.app",
+        "kind": "live"
+      },
+      {
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/Lumen-Frontier",
         "kind": "repo"
       }
     ],
-    "cover": "/portfolio/previews/lumen-frontier.png"
+    "cover": "/portfolio/previews/lumen-frontier.png",
+    "demoLabel": "lumen-frontier.vercel.app"
   }
 ];
 

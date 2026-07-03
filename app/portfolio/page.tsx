@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "../projects";
+import { profile } from "../socials";
 import { ProjectCard } from "./components";
 
 export const metadata: Metadata = {
@@ -44,6 +45,12 @@ export default function PortfolioIndex() {
         <div className="folio-count">
           ✶ pull a plate — every project has a page, source, and where it lives
         </div>
+        <a className="folio-cta" href={profile.booking} target="_blank" rel="noreferrer">
+          <span aria-hidden>✦</span> Book a call
+          <span className="folio-cta-arr" aria-hidden>
+            ↗
+          </span>
+        </a>
       </section>
 
       <section className="folio-grid">
@@ -54,6 +61,9 @@ export default function PortfolioIndex() {
 
       <footer className="folio-foot">
         <Link href="/">← back to the poster</Link>
+        <a href={profile.booking} target="_blank" rel="noreferrer">
+          book a call ↗
+        </a>
         <span>pg. 016 / D · pablomanjarres.com</span>
       </footer>
     </div>
