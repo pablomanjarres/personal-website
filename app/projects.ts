@@ -25,7 +25,7 @@ export type Project = {
   role: string;
   tags: string[];
   stack: string[];
-  summary: string; // the "normal readme" — 1-2 short paragraphs
+  summary: string; // the "normal readme", 1-2 short paragraphs
   problem: string;
   highlights: string[];
   metrics?: string[];
@@ -36,7 +36,7 @@ export type Project = {
   demoLabel?: string; // URL/text shown in the preview's browser bar (e.g. "trynoelle.com")
   previewKind?: "web" | "app";
   subProjects?: { name: string; kind: string; oneLiner: string }[]; // "app" = desktop screenshot shown in a plain window, not a browser bar
-  featured?: boolean; // flagship — larger card + live-product CTA
+  featured?: boolean; // flagship, larger card + live-product CTA
   external?: string; // its own live domain, when applicable
   accent?: string; // optional per-project accent hex
 };
@@ -469,7 +469,7 @@ export const projects: Project[] = [
     "slug": "content-pipeline",
     "num": "05",
     "title": "Content Pipeline",
-    "tagline": "Every platform, every draft, every lead — one local-first desktop app that never phones home.",
+    "tagline": "Every platform, every draft, every lead, one local-first desktop app that never phones home.",
     "oneLiner": "Local-first content and outreach command center for a founder",
     "year": "2026",
     "status": "shipped",
