@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
-import { Archivo_Black, IBM_Plex_Sans, IBM_Plex_Mono, Pixelify_Sans } from "next/font/google";
+import {
+  Archivo_Black,
+  IBM_Plex_Sans,
+  IBM_Plex_Mono,
+  Pixelify_Sans,
+  Instrument_Serif,
+} from "next/font/google";
 import "./globals.css";
+
+const instrument = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 const pixelify = Pixelify_Sans({
   variable: "--font-pixel",
@@ -56,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} ${pixelify.variable} h-full antialiased`}>
+    <html lang="en" className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} ${pixelify.variable} ${instrument.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );
