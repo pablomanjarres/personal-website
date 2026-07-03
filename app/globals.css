@@ -216,6 +216,33 @@ a:focus-visible {
   transform: translate(2px, -2px);
 }
 
+/* secondary link from the poster into the portfolio */
+.folio-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  margin-top: clamp(12px, 1.8vh, 18px);
+  font-family: var(--ff-mono);
+  font-size: clamp(10px, 1.05vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-decoration: none;
+}
+.folio-link:hover {
+  color: var(--accent);
+}
+.folio-link .folio-mark {
+  color: var(--accent);
+}
+.folio-link .folio-arr {
+  transition: transform 0.18s ease;
+}
+.folio-link:hover .folio-arr {
+  transform: translateX(3px);
+}
+
 .findme {
   position: absolute;
   top: 0;

@@ -6,25 +6,12 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-  type CSSProperties,
 } from "react";
+import Link from "next/link";
 import { profile, type Social } from "./socials";
+import { BG, FG, ACCENT, MUTED, tokens } from "./theme";
 
-// ---- fixed palette (Terracotta) + font tokens -----------------------------
-const BG = "#f3e8d3";
-const FG = "#1c1812";
-const ACCENT = "#c8542a";
-const MUTED = "#7a5a3a";
-
-const tokens: CSSProperties = {
-  ["--bg" as string]: BG,
-  ["--fg" as string]: FG,
-  ["--accent" as string]: ACCENT,
-  ["--muted" as string]: MUTED,
-  ["--ff-display" as string]: "var(--font-display), 'Archivo Black', system-ui, sans-serif",
-  ["--ff-body" as string]: "var(--font-sans), system-ui, sans-serif",
-  ["--ff-mono" as string]: "var(--font-mono), ui-monospace, monospace",
-};
+// palette + font tokens now live in ./theme (shared with the portfolio pages)
 
 type BadgeColor = { fill: string; stroke: string };
 const BADGE_COLORS: BadgeColor[] = [
@@ -442,6 +429,16 @@ export default function Atelier() {
                 ↗
               </span>
             </a>
+
+            <Link className="folio-link" href="/portfolio">
+              <span className="folio-mark" aria-hidden>
+                ¶ 03
+              </span>
+              browse the work
+              <span className="folio-arr" aria-hidden>
+                →
+              </span>
+            </Link>
 
             <div className="email-row">
               <a className="email-pill" href={`mailto:${profile.email}`}>
