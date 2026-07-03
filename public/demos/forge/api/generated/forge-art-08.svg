@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <radialGradient id="g8" cx="30%" cy="25%" r="90%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#f43f5e" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#08080a" stop-opacity="1"/>
+    </radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="60"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1280" height="800" fill="#08080a"/>
+  <rect width="1280" height="800" fill="url(#g8)"/>
+  <circle cx="8" cy="627" r="125" fill="#f59e0b" opacity="0.18" filter="url(#blur)"/><circle cx="971" cy="95" r="242" fill="#f59e0b" opacity="0.20" filter="url(#blur)"/><circle cx="746" cy="656" r="244" fill="#f43f5e" opacity="0.14" filter="url(#blur)"/><circle cx="1195" cy="429" r="99" fill="#f59e0b" opacity="0.26" filter="url(#blur)"/><circle cx="507" cy="691" r="263" fill="#f43f5e" opacity="0.24" filter="url(#blur)"/>
+  <line x1="956" y1="448" x2="1206" y2="179" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="956" cy="448" r="3" fill="#f59e0b" opacity="0.6"/><line x1="306" y1="195" x2="479" y2="60" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="306" cy="195" r="3" fill="#f59e0b" opacity="0.6"/><line x1="575" y1="615" x2="1250" y2="121" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="575" cy="615" r="3" fill="#f59e0b" opacity="0.6"/><line x1="1034" y1="743" x2="323" y2="731" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="1034" cy="743" r="3" fill="#f59e0b" opacity="0.6"/><line x1="297" y1="143" x2="509" y2="39" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="297" cy="143" r="3" fill="#f59e0b" opacity="0.6"/><line x1="447" y1="288" x2="43" y2="135" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="447" cy="288" r="3" fill="#f59e0b" opacity="0.6"/><line x1="421" y1="612" x2="1191" y2="483" stroke="#f43f5e" stroke-width="1" opacity="0.18"/><circle cx="421" cy="612" r="3" fill="#f59e0b" opacity="0.6"/>
+  <rect width="1280" height="800" filter="url(#grain)" opacity="0.5"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#fafafa">
+    <text x="56" y="680" font-size="20" opacity="0.55" letter-spacing="3">FORGE // GENERATED</text>
+    <text x="56" y="730" font-size="52" font-weight="700" letter-spacing="-1">Molten horizon</text>
+    <text x="56" y="764" font-size="20" opacity="0.5">gemini-2.5-flash-image · 1280×800</text>
+  </g>
+  <circle cx="1210" cy="70" r="20" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.8"/>
+  <circle cx="1210" cy="70" r="7" fill="#f59e0b"/>
+</svg>

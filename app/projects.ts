@@ -318,7 +318,7 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/cortex.png",
-    "embedUrl": "https://cortex-live-demo.vercel.app",
+    "embedUrl": "/demos/cortex/index.html",
     "demoLabel": "cortex · founder dashboard",
     "subProjects": [
       {
@@ -523,7 +523,7 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/content-pipeline.png",
-    "embedUrl": "https://cp-web-demo.vercel.app",
+    "embedUrl": "/demos/cp/index.html",
     "demoLabel": "content pipeline · content studio",
     "subProjects": [
       {
@@ -627,7 +627,7 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/forge.png",
-    "embedUrl": "https://forge-web-demo.vercel.app",
+    "embedUrl": "/demos/forge/index.html",
     "demoLabel": "forge · media + agent studio",
     "subProjects": [
       {
@@ -942,7 +942,7 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/localhost-mirror.png",
-    "embedUrl": "https://lm-demo.vercel.app",
+    "embedUrl": "/demos/lm/index.html",
     "demoLabel": "localhost mirror · live tunnels",
     "subProjects": [
       {
