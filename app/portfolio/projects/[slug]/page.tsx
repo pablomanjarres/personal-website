@@ -136,7 +136,7 @@ export default async function ProjectPage({
       )}
 
       <section className="proj-preview">
-        {project.embedUrl || project.cover ? (
+        {project.embedUrl || project.cover || project.video ? (
           <DemoFrame
             label={demoLabel}
             title={project.title}
@@ -144,12 +144,15 @@ export default async function ProjectPage({
             cover={project.cover}
             openUrl={openUrl}
             plain={project.previewKind === "app"}
+            video={project.video}
           />
         ) : (
           <PreviewPlate project={project} />
         )}
         <p className="proj-preview-note">
-          {project.embedUrl
+          {project.video
+            ? "A recorded walkthrough of the real product."
+            : project.embedUrl
             ? "Live demo. Click Run to load the real app and use it right here, or open it full-screen."
             : project.previewKind === "app"
               ? "The desktop app in action."
