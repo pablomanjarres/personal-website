@@ -137,6 +137,7 @@ export default async function ProjectPage({
             embedUrl={project.embedUrl}
             cover={project.cover}
             openUrl={openUrl}
+            plain={project.previewKind === "app"}
           />
         ) : (
           <PreviewPlate project={project} />
@@ -144,11 +145,13 @@ export default async function ProjectPage({
         <p className="proj-preview-note">
           {project.embedUrl
             ? "Live demo. Click Run to load the real app and use it right here, or open it full-screen."
-            : liveLink
-              ? "Preview. Click it to open the live app."
-              : project.cover
-                ? "Preview."
-                : "Runs as a local app. The full teardown is below."}
+            : project.previewKind === "app"
+              ? "The desktop app in action."
+              : liveLink
+                ? "Preview. Click it to open the live app."
+                : project.cover
+                  ? "Preview."
+                  : "Runs as a local app. The full teardown is below."}
         </p>
       </section>
 

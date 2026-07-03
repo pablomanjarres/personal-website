@@ -94,13 +94,35 @@ export function DemoFrame({
   embedUrl,
   cover,
   openUrl,
+  plain,
 }: {
   label: string;
   title: string;
   embedUrl?: string;
   cover?: string;
   openUrl?: string;
+  plain?: boolean;
 }) {
+  // Desktop-app screenshot: the image already has its own window chrome, so
+  // show it in a plain frame instead of a browser bar.
+  if (plain && cover) {
+    const img = (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={cover} alt={`${title} screenshot`} loading="lazy" />
+    );
+    return (
+      <div className="app-window">
+        {openUrl ? (
+          <a href={openUrl} target="_blank" rel="noreferrer" className="browser-shot">
+            {img}
+          </a>
+        ) : (
+          img
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={embedUrl ? "browser is-live" : "browser"}>
       <div className="browser-bar">
