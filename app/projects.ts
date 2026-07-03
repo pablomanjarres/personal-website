@@ -30,7 +30,9 @@ export type Project = {
   highlights: string[];
   metrics?: string[];
   links: ProjectLink[];
-  cover?: string; // /portfolio/covers/<slug>.ext or a remote URL
+  cover?: string; // preview screenshot: /portfolio/previews/<slug>.ext or a remote URL
+  embedUrl?: string; // if the live site allows framing, embed it as an interactive demo
+  demoLabel?: string; // URL/text shown in the preview's browser bar (e.g. "trynoelle.com")
   featured?: boolean; // flagship — larger card + live-product CTA
   external?: string; // its own live domain, when applicable
   accent?: string; // optional per-project accent hex
@@ -100,7 +102,7 @@ export const projects: Project[] = [
         "kind": "repo"
       }
     ],
-    "cover": "/portfolio/covers/noelle.png",
+    "cover": "/portfolio/previews/noelle.png",
     "featured": true
   },
   {
@@ -169,7 +171,7 @@ export const projects: Project[] = [
         "kind": "docs"
       }
     ],
-    "cover": "/portfolio/covers/nella.png",
+    "cover": "/portfolio/previews/nella.png",
     "featured": true
   },
   {
@@ -287,7 +289,10 @@ export const projects: Project[] = [
         "url": "https://artifact-viewer-one.vercel.app",
         "kind": "live"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/band-of-agents.png",
+    "embedUrl": "https://artifact-viewer-one.vercel.app",
+    "demoLabel": "artifact-viewer-one.vercel.app"
   },
   {
     "slug": "content-pipeline",
@@ -446,7 +451,8 @@ export const projects: Project[] = [
         "url": "https://github.com/pablomanjarresneg/archgraph",
         "kind": "repo"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/archgraph.png"
   },
   {
     "slug": "omegahack",
@@ -508,7 +514,10 @@ export const projects: Project[] = [
         "url": "https://omega-landing-zeta.vercel.app",
         "kind": "live"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/omegahack.png",
+    "embedUrl": "https://omega-landing-zeta.vercel.app",
+    "demoLabel": "omega-landing-zeta.vercel.app"
   },
   {
     "slug": "localhost-mirror",
@@ -612,7 +621,8 @@ export const projects: Project[] = [
         "url": "https://github.com/pablomanjarres/Lumen-Frontier",
         "kind": "repo"
       }
-    ]
+    ],
+    "cover": "/portfolio/previews/lumen-frontier.png"
   }
 ];
 
