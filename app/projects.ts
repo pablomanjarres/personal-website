@@ -80,7 +80,7 @@ export const projects: Project[] = [
     "summary": "Noelle is a dashboard where a small team hires AI agents arranged as a company org chart. A CEO sits at the top, leads under it, specialists under them. The specialists actually work. Vega watches X, finds people worth replying to, and writes drafts. Lyra does the same for LinkedIn connections. Orion watches subreddits. Nova tears down Instagram and TikTok videos and scripts new ones. None of them post. Each one queues a draft and waits for a human to approve it.\n\nUnder the hood it is a real backend, not a prompt wrapper. Workers run in stages (discover, profile, classify, draft, send) on a personal VM and write to Postgres. Drafts are grounded in a retrieval layer built from the operator's own writing so they sound like a person, and a verifier pass strips the tells that make text read as AI. A self-host CLI stands the whole system up on your own machine against a local database.",
     "problem": "Growing an audience by replying to the right people works, but it eats hours. The lazy fix is to point an LLM at your mentions, and it produces obvious slop that gets ignored or gets the account flagged. Noelle keeps a human on the approve button while agents handle discovery, research, and the first draft, and it spends most of its effort making those drafts not read like a bot.",
     "highlights": [
-      "Four draft-only agents built from one shared pipeline: Vega on X, Lyra on LinkedIn, Orion on Reddit, Nova on Instagram and TikTok. Each runs the same stages (discover, profile, classify, draft) and then waits for human approval. Only the X agent has a send path, and it's gated; the rest never post.",
+      "Four draft-only agents: Vega on X, Lyra on LinkedIn, Orion on Reddit, Nova on Instagram and TikTok. Vega, Lyra, and Orion run the same stages: discover, profile, classify, and draft a reply. Nova runs a different pipeline, it studies the creators you pick, breaks down why their videos work, and drafts short-form ideas and scripts, not replies. All four queue a draft and wait for a human to approve it. Only the X agent has a send path, and it's gated; the rest never post.",
       "A multi-stage worker pool (discovery, classifier, drafter, profiler, ideation, send) runs as systemd template instances on a single VM and claims work from Postgres with SKIP LOCKED, so the pool can scale out or move to a managed runtime without changing the work-claim contract.",
       "Grounded drafting: a hybrid retrieval layer (BM25 plus dense voyage-context-4 vectors) pulls voice anchors from the operator's own writing, a vision model captions attached images, and a post-draft verifier judges the result and hard-zeros AI tells like em dashes and forced enthusiasm.",
       "One model router fronts six LLM backends. Codex (gpt-5 via ChatGPT OAuth) is primary; Bedrock Claude, Vertex (Claude and Gemini), direct Anthropic, a Gemini-key backend, and a local claude-cli path that bills a Claude subscription instead of per-token are the fallbacks. Every call is spend-capped by a budget bucket.",
@@ -1037,6 +1037,7 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/lumen-frontier.png",
+    "embedUrl": "https://lumen-frontier.vercel.app",
     "demoLabel": "lumen-frontier.vercel.app",
     "subProjects": [
       {
