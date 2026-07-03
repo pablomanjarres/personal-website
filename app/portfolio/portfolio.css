@@ -775,6 +775,61 @@
   margin-top: 12px;
 }
 
+/* what's inside: sub-projects list */
+.h-count {
+  margin-left: 8px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.subproj-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5px;
+  border: 1.5px solid color-mix(in srgb, var(--fg) 22%, transparent);
+  border-radius: 4px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 18%, transparent);
+}
+.subproj {
+  background: var(--bg);
+  padding: 13px 15px;
+}
+.subproj-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.subproj-name {
+  font-family: var(--ff-mono);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--accent);
+  background: none;
+  padding: 0;
+}
+.subproj-kind {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid color-mix(in srgb, var(--fg) 28%, transparent);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+.subproj-one {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--fg) 82%, transparent);
+}
+
 /* body */
 .proj-body {
   margin-top: clamp(30px, 6vh, 52px);
