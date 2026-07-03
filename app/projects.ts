@@ -106,7 +106,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/noelle",
+        "url": "https://pablomanjarres.com/oss/noelle",
         "kind": "demo"
       }
     ],
@@ -227,7 +227,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/nella",
+        "url": "https://pablomanjarres.com/oss/nella",
         "kind": "demo"
       }
     ],
@@ -311,7 +311,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/cortex",
+        "url": "https://pablomanjarres.com/oss/cortex",
         "kind": "demo"
       }
     ],
@@ -412,7 +412,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/band-of-agents",
+        "url": "https://pablomanjarres.com/oss/band-of-agents",
         "kind": "demo"
       }
     ],
@@ -515,7 +515,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/content-pipeline",
+        "url": "https://pablomanjarres.com/oss/content-pipeline",
         "kind": "demo"
       }
     ],
@@ -618,7 +618,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/forge",
+        "url": "https://pablomanjarres.com/oss/forge",
         "kind": "demo"
       }
     ],
@@ -724,7 +724,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/archgraph",
+        "url": "https://pablomanjarres.com/oss/archgraph",
         "kind": "demo"
       }
     ],
@@ -826,7 +826,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/omegahack",
+        "url": "https://pablomanjarres.com/oss/omegahack",
         "kind": "demo"
       }
     ],
@@ -932,7 +932,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/localhost-mirror",
+        "url": "https://pablomanjarres.com/oss/localhost-mirror",
         "kind": "demo"
       }
     ],
@@ -1032,7 +1032,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Landing page",
-        "url": "https://pablo-oss.vercel.app/lumen-frontier",
+        "url": "https://pablomanjarres.com/oss/lumen-frontier",
         "kind": "demo"
       }
     ],
