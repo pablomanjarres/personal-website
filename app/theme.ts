@@ -17,4 +17,5 @@ export const tokens: CSSProperties = {
   ["--ff-display" as string]: "var(--font-display), 'Archivo Black', system-ui, sans-serif",
   ["--ff-body" as string]: "var(--font-sans), system-ui, sans-serif",
   ["--ff-mono" as string]: "var(--font-mono), ui-monospace, monospace",
+  ["--ff-pixel" as string]: "var(--font-pixel), 'Pixelify Sans', ui-monospace, monospace",
 };
