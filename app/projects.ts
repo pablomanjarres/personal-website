@@ -553,7 +553,13 @@ export const projects: Project[] = [
       "10s health checks, 60s idle auto-shutdown",
       "~2,300 LOC across CLI, daemon, and macOS app"
     ],
-    "links": []
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/pablomanjarres/localhost-mirror",
+        "kind": "repo"
+      }
+    ]
   },
   {
     "slug": "lumen-frontier",
