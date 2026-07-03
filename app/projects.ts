@@ -287,21 +287,21 @@ export const projects: Project[] = [
       "launchd",
       "Supabase"
     ],
-    "summary": "Cortex is a macOS desktop app that pulls a founder's whole life into one private dashboard: habits, sprints, reading, CRM, calendar, coursework, finances, go-to-market state, and live founder metrics (GitHub commits, Lemon Squeezy MRR, Vercel deploys, Supabase signups). Everything is stored locally and encrypted at rest with AES-256-GCM, with the master key held in the macOS Keychain. A built-in web server on port 3456 makes the same dashboard reachable from a phone over Tailscale as a PWA.\n\nThe interesting part is the seam to AI. Cortex ships a Model Context Protocol server with 51 tools across 18 groups that proxies the app's local API, so Claude can read and write habits, journal entries, contacts, calendar events, and founder metrics directly. On top of that sits Opportunity Radar, a scheduled, prompt-injection-safe pipeline that scrapes social feeds on a VM, has a tool-less LLM classify and score them against an editable profile, then ingests the survivors into the dashboard with identity-level dedup. It is a personal tool built to production standards, not a demo.",
+    "summary": "Cortex is a macOS desktop app that pulls a founder's whole life into one private dashboard: habits, sprints, reading, CRM, calendar, coursework, finances, go-to-market state, and live founder metrics (GitHub commits, Lemon Squeezy MRR, Vercel deploys, Supabase signups). Everything is stored locally and encrypted at rest with AES-256-GCM, with the master key held in the macOS Keychain. A built-in web server on port 3456 makes the same dashboard reachable from a phone over Tailscale as a PWA.\n\nThe interesting part is the seam to AI. Cortex ships a Model Context Protocol server with 51 tools across 18 groups that proxies the app's local API, so Claude can read and write habits, journal entries, contacts, calendar events, and founder metrics directly. On top of that sits Opportunity Radar, a scheduled, prompt-injection-safe pipeline that scrapes social feeds on a VM, has a tool-less LLM classify and score them against an editable profile, then ingests the survivors into the dashboard with identity-level dedup. You steer it in plain language with hunt orders, and a sibling tracker watches fast-growing GitHub projects with stars and forks charts. It is a personal tool built to production standards, not a demo.",
     "problem": "Founders and students juggle habits, revenue, deploys, coursework, contacts, and a firehose of opportunities across a dozen disconnected tools, with no single private place to see and audit it all. Cortex is a local-first, encrypted desktop dashboard that unifies those signals and exposes them to an AI agent.",
     "highlights": [
       "Encrypts every data file at rest with AES-256-GCM in a custom binary container (4-byte magic, 2-byte version, per-write 12-byte IV, 16-byte GCM auth tag). The 32-byte master key is sealed with Electron safeStorage (Keychain-backed on macOS), and a one-time migration rewrites any plaintext JSON to ciphertext behind a sentinel guard.",
       "Ships a 51-tool Model Context Protocol server (18 groups: habits, books, CRM, calendar, GTM, finance, Obsidian vault, founder metrics) that proxies the app's localhost:3456 API, so Claude can read and write real data. Runs over stdio by default, with an optional --http transport for Tailscale access.",
       "Three-tier persistence hook: Electron IPC to encrypted JSON, then the HTTP web API, then localStorage, with size-adaptive debounce (150/500/1000ms) and batched queueMicrotask writes. The web server socket is IP-gated to localhost and the Tailscale CGNAT range (100.64.0.0/10).",
-      "Opportunity Radar: a launchd-scheduled pipeline that scrapes feeds on a Lima VM, then classifies and scores them with a tool-less `claude -p` call. Untrusted scraped text is fenced as data and the model can run no tools, so a prompt-injected post can't escalate. Survivors are deduped by normalized apply-URL, title, and host across X, Reddit, and Devpost.",
+      "Opportunity Radar: a launchd-scheduled pipeline that scrapes feeds on a Lima VM, then classifies and scores them with a tool-less `claude -p` call against an editable profile. Untrusted scraped text is fenced as data and the model can run no tools, so a prompt-injected post can't escalate. You steer it in plain language with hunt orders, survivors are deduped by normalized apply-URL, title, and host across X, Reddit, and Devpost, and a sibling tracker charts fast-growing GitHub projects by stars and forks.",
       "A KeepAlive watcher daemon turns a 'Run radar' button press into a full pipeline run by polling a runStatus flag over the HTTP API every 5 seconds. It is decoupled from Electron and self-heals stale runs after 45 minutes, so it needs zero app-code changes.",
       "Bridges founder integrations (GitHub commits, Lemon Squeezy MRR, Vercel deploys, Supabase signups) and an Obsidian journal vault into a weekly-audit rollup, surfaced in both the UI and over MCP."
     ],
     "metrics": [
       "51 MCP tools across 18 groups",
       "20 feature modules",
-      "~21,000 lines of TypeScript",
-      "126 commits, solo, over ~3.5 months"
+      "~22,000 lines of TypeScript",
+      "140 commits, solo, over ~3.5 months"
     ],
     "links": [
       {
@@ -316,7 +316,8 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/cortex.png",
-    "previewKind": "app",
+    "embedUrl": "https://cortex-live-demo.vercel.app",
+    "demoLabel": "cortex · founder dashboard",
     "subProjects": [
       {
         "name": "cortex",
@@ -520,7 +521,8 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/content-pipeline.png",
-    "previewKind": "app",
+    "embedUrl": "https://cp-web-demo.vercel.app",
+    "demoLabel": "content pipeline · content studio",
     "subProjects": [
       {
         "name": "Content Pipeline (Electron desktop app)",
@@ -623,7 +625,8 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/forge.png",
-    "previewKind": "app",
+    "embedUrl": "https://forge-web-demo.vercel.app",
+    "demoLabel": "forge · media + agent studio",
     "subProjects": [
       {
         "name": "electron/main.ts",
@@ -936,6 +939,9 @@ export const projects: Project[] = [
         "kind": "demo"
       }
     ],
+    "cover": "/portfolio/previews/localhost-mirror.png",
+    "embedUrl": "https://lm-demo.vercel.app",
+    "demoLabel": "localhost mirror · live tunnels",
     "subProjects": [
       {
         "name": "lm",
