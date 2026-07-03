@@ -1,0 +1,938 @@
+/* ============================================================================
+   CAROL · omegahack — "The Deadline Dossier"
+   A warm civic-archive landing: aged-paper cream, warm ink, wax-seal red, and
+   an ochre legal-deadline clock. All styles scoped to this CSS Module.
+   Signature: the official rubber-seal stamp on the primary CTAs.
+   ========================================================================== */
+
+/* Registered globally, but namespaced to the slug so it can never collide. */
+@property --omegahack-arc {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.root {
+  /* ---- palette (two-hex accent swap) ---- */
+  --paper: #f4eddd;
+  --paper-2: #efe4cf;
+  --paper-3: #e8dbbf;
+  --ink: #211c15;
+  --ink-2: #4a4034;
+  --ink-soft: rgba(33, 28, 21, 0.72);
+  --ink-faint: rgba(33, 28, 21, 0.5);
+  --seal: #b0342a;
+  --seal-dark: #8e2a20;
+  --seal-lite: #c2463a;
+  --amber: #c8891e;
+  --amber-lite: #e0a63b;
+  --rule: #d9cdb2;
+
+  /* ---- type ---- */
+  --f-display: var(--font-omegahack-display), "Libre Caslon Display", Georgia, serif;
+  --f-body: var(--font-omegahack-body), "Public Sans", system-ui, sans-serif;
+  --f-mono: var(--font-omegahack-mono), "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ---- motion ---- */
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* paper & stamp textures (grayscale fractal noise, multiply-blended) */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  --ink-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='60'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.6'/%3E%3C/svg%3E");
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- atmosphere */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.topRule {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--seal);
+  box-shadow: 0 2px 0 rgba(200, 137, 30, 0.35);
+}
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+}
+.ledger {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--rule) 0 1px,
+    transparent 1px 34px
+  );
+  opacity: 0.28;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 82%, transparent);
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 12%, transparent 45%, rgba(33, 28, 21, 0.07) 100%),
+    radial-gradient(80% 60% at 82% 78%, rgba(200, 137, 30, 0.05), transparent 60%);
+}
+.watermark {
+  position: absolute;
+  right: -3vw;
+  bottom: -14vw;
+  font-family: var(--f-display);
+  font-size: 46vw;
+  line-height: 0.7;
+  color: var(--ink);
+  opacity: 0.028;
+  transform: rotate(-9deg);
+  user-select: none;
+}
+
+/* ------------------------------------------------------------------- shared */
+.root :focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------- nav */
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(18px, 3vw, 30px) clamp(20px, 5vw, 62px);
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  font-family: var(--f-display);
+  font-size: clamp(19px, 2vw, 24px);
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brandMark {
+  color: var(--seal);
+  font-family: var(--f-body);
+  font-size: 0.82em;
+  transform: translateY(-1px);
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 30px);
+}
+.navLink {
+  position: relative;
+  font-family: var(--f-mono);
+  font-size: clamp(11px, 1.2vw, 12.5px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 3px;
+  transition: color 0.18s ease;
+}
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--seal);
+  transition: right 0.24s var(--ease-out);
+}
+.navLink:hover {
+  color: var(--seal);
+}
+.navLink:hover::after {
+  right: 0;
+}
+
+/* --------------------------------------------------------------------- hero */
+.hero {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 68px);
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(34px, 6vw, 76px) clamp(20px, 5vw, 62px);
+}
+
+/* -------- masthead (left) -------- */
+.masthead {
+  max-width: 40rem;
+}
+.kickerMask {
+  overflow: hidden;
+  display: block;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: clamp(10.5px, 1vw, 12.5px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--seal);
+}
+.kickerDot {
+  width: 8px;
+  height: 8px;
+  background: var(--seal);
+  transform: rotate(45deg);
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px rgba(176, 52, 42, 0.4);
+}
+
+.title {
+  margin: clamp(16px, 2vw, 24px) 0 0;
+  font-family: var(--f-display);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.7rem, 7vw, 5.1rem);
+  color: var(--ink);
+}
+.titleMask {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.04em;
+  margin: 0 -0.04em;
+}
+.titleLine {
+  display: block;
+}
+.titleLine2 {
+  position: relative;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+}
+.titleAccent {
+  color: var(--seal);
+  font-style: italic;
+}
+.titleRule {
+  display: block;
+  height: 3px;
+  width: min(230px, 62%);
+  margin-top: 0.16em;
+  background: linear-gradient(90deg, var(--amber), var(--amber-lite));
+  transform-origin: left center;
+}
+
+.subtitle {
+  margin: clamp(22px, 3vw, 30px) 0 0;
+  max-width: 52ch;
+  font-size: clamp(15px, 1.45vw, 18px);
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+.note {
+  margin: 16px 0 0;
+  max-width: 52ch;
+  font-size: clamp(12.5px, 1.2vw, 14px);
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+.kbd {
+  font-family: var(--f-mono);
+  font-size: 0.86em;
+  color: var(--ink);
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 0.06em 0.42em;
+  white-space: nowrap;
+}
+
+/* -------- CTA row -------- */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+/* ======================= SIGNATURE: OFFICIAL SEAL STAMP ==================== */
+.seal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 15px 26px;
+  border-radius: 13px;
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--paper);
+  background: var(--seal-dark); /* base so worn flecks never punch to the page */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -3px 7px rgba(0, 0, 0, 0.34),
+    0 10px 22px rgba(142, 42, 32, 0.34),
+    0 2px 4px rgba(33, 28, 21, 0.24);
+  transition: transform 0.28s var(--ease-back), filter 0.2s ease,
+    box-shadow 0.24s ease;
+}
+/* the seal-red dome fill */
+.sealInk {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(
+    circle at 34% 26%,
+    var(--seal-lite),
+    var(--seal) 46%,
+    var(--seal-dark) 100%
+  );
+}
+/* worn-ink mottling: grayscale noise multiplied onto the dome */
+.sealGrain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--ink-grain);
+  background-size: 140px 60px;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+/* the double-ruled "official" frame */
+.sealFrame {
+  position: absolute;
+  inset: 5px;
+  border: 1.4px solid rgba(244, 237, 221, 0.55);
+  border-radius: 9px;
+  pointer-events: none;
+}
+.sealFrame::before {
+  content: "";
+  position: absolute;
+  inset: 2.4px;
+  border: 1px solid rgba(244, 237, 221, 0.32);
+  border-radius: 7px;
+}
+.sealLabel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.sealStar {
+  color: var(--amber-lite);
+  font-size: 1.05em;
+  transform: translateY(-0.5px);
+}
+.seal:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -3px 7px rgba(0, 0, 0, 0.34),
+    0 14px 30px rgba(142, 42, 32, 0.4),
+    0 2px 4px rgba(33, 28, 21, 0.24);
+}
+/* the press — a rubber stamp thunking down */
+.seal:active {
+  transform: scale(0.94) rotate(-1.4deg);
+  filter: brightness(0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.4),
+    0 5px 12px rgba(142, 42, 32, 0.3);
+}
+
+/* ghost / outline stamp (secondary — "Live demo") */
+.sealGhost {
+  color: var(--seal);
+  background: var(--paper-2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 6px 16px rgba(33, 28, 21, 0.12);
+}
+.sealGhost .sealInk {
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+}
+.sealGhost .sealGrain {
+  opacity: 0.28;
+}
+.sealGhost .sealFrame {
+  border-color: rgba(176, 52, 42, 0.55);
+}
+.sealGhost .sealFrame::before {
+  border-color: rgba(176, 52, 42, 0.3);
+}
+.sealGhost .sealStar {
+  color: var(--seal);
+}
+.sealGhost:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 12px 24px rgba(33, 28, 21, 0.16);
+}
+.sealGhost:active {
+  transform: scale(0.94) rotate(-1.2deg);
+  filter: brightness(0.98);
+}
+
+/* quiet ledger text link ("Write-up") */
+.ledgerLink {
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 2px;
+  background-image: linear-gradient(var(--seal), var(--seal));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: color 0.18s ease, background-size 0.28s var(--ease-out);
+}
+.ledgerLink:hover {
+  color: var(--seal);
+  background-size: 100% 1.5px;
+}
+.ledgerArrow {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+/* ===================== DOSSIER (right) — the case file ===================== */
+.dossier {
+  position: relative;
+  justify-self: center;
+  width: min(430px, 100%);
+  transform: rotate(-1.3deg);
+}
+.deskShadow {
+  position: absolute;
+  inset: 8% -6% -10% -6%;
+  z-index: -1;
+  background: radial-gradient(60% 50% at 50% 60%, rgba(33, 28, 21, 0.16), transparent 72%);
+  filter: blur(6px);
+}
+
+/* peeking back cards (documents underneath) */
+.cardBack,
+.cardBack2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 12px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  box-shadow: 0 8px 20px rgba(33, 28, 21, 0.1);
+}
+.cardBack {
+  top: -14px;
+  height: 64px;
+  transform: rotate(-3.4deg);
+  --rot: -3.4deg;
+  --tx: -10px;
+}
+.cardBack2 {
+  top: -26px;
+  height: 64px;
+  transform: rotate(3.6deg);
+  --rot: 3.6deg;
+  --tx: 12px;
+}
+.backMeta {
+  position: absolute;
+  top: 12px;
+  left: 18px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+
+/* the active case cover */
+.caseCard {
+  --rot: 0deg;
+  --tx: 0px;
+  position: relative;
+  z-index: 1;
+  padding: 26px 26px 20px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border: 1px solid var(--rule);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 18px 42px rgba(33, 28, 21, 0.2),
+    0 3px 10px rgba(33, 28, 21, 0.12);
+}
+.caseCard::after {
+  /* faint paper grain on the card */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background-image: var(--grain);
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.caseHead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.caseWord {
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ink);
+}
+.caseExp {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--seal);
+  text-transform: uppercase;
+}
+.caseTag {
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+
+/* wax-seal stamp pinned to the corner (echoes the CTA) */
+.waxSeal {
+  position: absolute;
+  top: -20px;
+  right: -12px;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--paper);
+  background: radial-gradient(circle at 36% 30%, var(--seal-lite), var(--seal) 52%, var(--seal-dark));
+  border: 2px solid rgba(244, 237, 221, 0.85);
+  box-shadow:
+    inset 0 0 0 3.5px var(--seal),
+    inset 0 0 0 4.5px rgba(244, 237, 221, 0.6),
+    0 8px 16px rgba(142, 42, 32, 0.36);
+  transform: rotate(-11deg);
+  overflow: hidden;
+}
+.waxSeal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--ink-grain);
+  background-size: 140px 60px;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+.waxText {
+  position: relative;
+  font-family: var(--f-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+/* radicado line with redaction bar + decrypt reveal */
+.radRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 16px;
+}
+.radLabel {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.radValueWrap {
+  position: relative;
+  display: inline-block;
+}
+.radValue {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.redactBar {
+  position: absolute;
+  inset: -2px -4px;
+  background: var(--ink);
+  border-radius: 2px;
+  transform: scaleX(0); /* resting = revealed */
+  transform-origin: right center;
+}
+
+.subjectRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.typeChip {
+  flex: none;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--seal);
+  border: 1px solid var(--seal);
+  border-radius: 4px;
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+.subjectLine {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* -------- the SLA countdown ring -------- */
+.ringWrap {
+  position: relative;
+  width: clamp(190px, 44vw, 232px);
+  aspect-ratio: 1;
+  margin: 20px auto 6px;
+}
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -90deg,
+    var(--amber) 0deg,
+    var(--seal-lite) calc(var(--omegahack-arc) * 0.6),
+    var(--seal) var(--omegahack-arc),
+    rgba(33, 28, 21, 0.08) var(--omegahack-arc)
+  );
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 15px), #000 calc(100% - 14px));
+  mask: radial-gradient(farthest-side, #0000 calc(100% - 15px), #000 calc(100% - 14px));
+}
+.ringGlow {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 22px rgba(200, 137, 30, 0.28);
+  opacity: 0.6;
+}
+.ringWrap[data-urgent="true"] .ringGlow {
+  box-shadow: 0 0 26px rgba(176, 52, 42, 0.5);
+  opacity: 1;
+}
+.ringTicks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ringCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.ringLabel {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.ringTime {
+  font-family: var(--f-mono);
+  font-size: clamp(1.7rem, 5.4vw, 2.15rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.ringWrap[data-urgent="true"] .ringTime {
+  color: var(--seal);
+}
+.ringSub {
+  font-family: var(--f-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  color: var(--seal);
+  text-transform: uppercase;
+}
+
+.caseFoot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  margin-top: 4px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.caseFootDot {
+  color: var(--amber);
+  font-size: 7px;
+}
+
+/* ------------------------------------------------------------------ footer */
+.foot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(16px, 2.5vw, 24px) clamp(20px, 5vw, 62px);
+  border-top: 1px solid var(--rule);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.footTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--seal);
+}
+.footTag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--seal);
+  transform: rotate(45deg);
+}
+
+/* ============================ page-load choreography ======================= */
+/* Base state below = the finished/static look (also the reduced-motion and
+   no-JS fallback). Entrance animations are added only when motion is welcome. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .kicker,
+  .titleLine {
+    animation: oh-rise 0.85s var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+  .titleRule {
+    transform: scaleX(0);
+    animation: oh-draw 0.7s var(--ease-out) 0.86s both;
+  }
+  .subtitle,
+  .note,
+  .ledgerLink {
+    animation: oh-fade-up 0.7s var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+  .seal,
+  .sealGhost {
+    animation: oh-stamp 0.6s var(--ease-back) backwards;
+    animation-delay: var(--d, 0s);
+  }
+  .cardBack,
+  .cardBack2,
+  .caseCard {
+    animation: oh-deal 0.8s var(--ease-back) backwards;
+    animation-delay: var(--d, 0s);
+  }
+  .waxSeal {
+    animation: oh-seal-land 0.6s var(--ease-back) 1.15s backwards;
+  }
+  .redactBar {
+    animation: oh-redact 0.72s var(--ease-out) 1.35s backwards;
+  }
+  .ring {
+    animation: oh-wind 1.25s var(--ease-out) 0.8s both;
+  }
+}
+
+@keyframes oh-rise {
+  from {
+    transform: translateY(112%);
+  }
+}
+@keyframes oh-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes oh-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes oh-stamp {
+  0% {
+    transform: scale(1.5) rotate(-8deg);
+    opacity: 0;
+    filter: blur(3px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+@keyframes oh-deal {
+  from {
+    opacity: 0;
+    transform: translate(var(--tx, 0), 46px) rotate(calc(var(--rot, 0deg) - 6deg)) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(var(--tx, 0), 0) rotate(var(--rot, 0deg)) scale(1);
+  }
+}
+@keyframes oh-seal-land {
+  0% {
+    transform: scale(1.7) rotate(-30deg);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-11deg);
+    opacity: 1;
+    filter: none;
+  }
+}
+@keyframes oh-redact {
+  0%,
+  20% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+@keyframes oh-wind {
+  from {
+    --omegahack-arc: 0deg;
+  }
+  to {
+    --omegahack-arc: var(--arc, 0deg);
+  }
+}
+
+/* ----------------------------------------------------------- responsive */
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: clamp(40px, 8vw, 60px);
+    padding-top: clamp(30px, 8vw, 54px);
+  }
+  .masthead {
+    max-width: none;
+  }
+  .dossier {
+    justify-self: center;
+    margin-top: 8px;
+  }
+}
+@media (max-width: 560px) {
+  .navLinks {
+    gap: 14px;
+  }
+  .dossier {
+    width: min(360px, 100%);
+  }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .subjectLine {
+    max-width: 200px;
+  }
+}
+
+/* keep the clock legible if the tab is very short */
+@media (max-height: 560px) {
+  .ringWrap {
+    width: clamp(160px, 40vw, 200px);
+  }
+}
