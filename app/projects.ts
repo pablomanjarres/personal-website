@@ -103,6 +103,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/nella-labs/noelle",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/noelle",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/noelle.png",
@@ -219,6 +224,11 @@ export const projects: Project[] = [
         "label": "Docs",
         "url": "https://docs.getnella.dev",
         "kind": "docs"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/nella",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/nella.png",
@@ -298,6 +308,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/cortex",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/cortex",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/cortex.png",
@@ -394,6 +409,11 @@ export const projects: Project[] = [
         "label": "Hosted demo",
         "url": "https://artifact-viewer-one.vercel.app",
         "kind": "live"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/band-of-agents",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/band-of-agents.png",
@@ -492,6 +512,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/content-pipeline",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/content-pipeline",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/content-pipeline.png",
@@ -590,6 +615,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/forge",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/forge",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/forge.png",
@@ -691,6 +721,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarresneg/archgraph",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/archgraph",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/archgraph.png",
@@ -788,6 +823,11 @@ export const projects: Project[] = [
         "label": "Live (CAROL citizen portal)",
         "url": "https://omega-landing-zeta.vercel.app",
         "kind": "live"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/omegahack",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/omegahack.png",
@@ -889,6 +929,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/localhost-mirror",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/localhost-mirror",
+        "kind": "demo"
       }
     ],
     "subProjects": [
@@ -984,6 +1029,11 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/Lumen-Frontier",
         "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablo-oss.vercel.app/lumen-frontier",
+        "kind": "demo"
       }
     ],
     "cover": "/portfolio/previews/lumen-frontier.png",
