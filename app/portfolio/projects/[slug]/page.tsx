@@ -75,7 +75,9 @@ export default async function ProjectPage({
 
   const liveLink = project.links.find((l) => l.kind === "live");
   const repoLink = project.links.find((l) => l.kind === "repo");
-  const openUrl = liveLink?.url ?? repoLink?.url;
+  // The OPEN button opens the demo full-screen when there is one (same as
+  // Archgraph), falling back to the live site, then the repo.
+  const openUrl = project.embedUrl ?? liveLink?.url ?? repoLink?.url;
   const demoLabel =
     project.demoLabel ??
     (liveLink
