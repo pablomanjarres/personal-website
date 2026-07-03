@@ -212,6 +212,26 @@ export default async function ProjectPage({
           </section>
         )}
 
+        {project.subProjects && project.subProjects.length > 0 && (
+          <section className="proj-section">
+            <div className="h">
+              <span className="n">◆</span>What&apos;s inside
+              <span className="h-count">{project.subProjects.length} parts</span>
+            </div>
+            <ul className="subproj-list">
+              {project.subProjects.map((s) => (
+                <li className="subproj" key={s.name}>
+                  <div className="subproj-head">
+                    <code className="subproj-name">{s.name}</code>
+                    <span className="subproj-kind">{s.kind}</span>
+                  </div>
+                  <p className="subproj-one">{s.oneLiner}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section className="proj-section">
           <div className="h">
             <span className="n">·</span>Tags

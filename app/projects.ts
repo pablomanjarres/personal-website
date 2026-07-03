@@ -34,7 +34,8 @@ export type Project = {
   video?: string; // preview video (mp4/webm) shown in place of the cover
   embedUrl?: string; // if the live site allows framing, embed it as an interactive demo
   demoLabel?: string; // URL/text shown in the preview's browser bar (e.g. "trynoelle.com")
-  previewKind?: "web" | "app"; // "app" = desktop screenshot shown in a plain window, not a browser bar
+  previewKind?: "web" | "app";
+  subProjects?: { name: string; kind: string; oneLiner: string }[]; // "app" = desktop screenshot shown in a plain window, not a browser bar
   featured?: boolean; // flagship — larger card + live-product CTA
   external?: string; // its own live domain, when applicable
   accent?: string; // optional per-project accent hex
@@ -105,7 +106,54 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/noelle.png",
-    "featured": true
+    "featured": true,
+    "subProjects": [
+      {
+        "name": "@noelle/app",
+        "kind": "app",
+        "oneLiner": "The Next.js dashboard at app.trynoelle.com where you hire agents as an org chart, watch each intern work, and approve every draft before it ships."
+      },
+      {
+        "name": "@noelle/agents",
+        "kind": "library",
+        "oneLiner": "The agent type registry: YAML manifests plus TS classes that define the CEO, the marketing lead, and the four growth interns, and wire each into the reports-to hierarchy."
+      },
+      {
+        "name": "@noelle/x-intern",
+        "kind": "worker",
+        "oneLiner": "Vega, the X Growth Intern: a worker pool (discovery, classifier, drafter, send) that finds leads, grades them, and queues on-brand X reply drafts for your approval."
+      },
+      {
+        "name": "@noelle/linkedin-intern",
+        "kind": "worker",
+        "oneLiner": "Lyra, the draft-only LinkedIn intern that watches your connections' posts, profiles each author, and drafts replies and DMs you send by hand."
+      },
+      {
+        "name": "@noelle/reddit-intern",
+        "kind": "worker",
+        "oneLiner": "Orion, the draft-only Reddit intern that watches a list of subreddits and drafts on-brand replies to in-ICP threads for your approval."
+      },
+      {
+        "name": "@noelle/video-intern",
+        "kind": "worker",
+        "oneLiner": "Nova, the draft-only intern that studies the IG and TikTok creators you pick, breaks down why their videos work, and drafts short-form ideas and scripts."
+      },
+      {
+        "name": "@noelle/linkedin-actuator",
+        "kind": "extension",
+        "oneLiner": "Lyra's hands: a Chrome MV3 extension that carries out approved LinkedIn likes, comments, and DMs through the browser session you already own."
+      },
+      {
+        "name": "@noelle/cli",
+        "kind": "cli",
+        "oneLiner": "The noelle command that stands up a fully self-hosted Noelle on your own VM, with local Postgres, a single-operator identity, and the dashboard, API, and workers."
+      },
+      {
+        "name": "@noelle/api-vm",
+        "kind": "service",
+        "oneLiner": "The Hono backend at api.trynoelle.com behind a Cloudflare tunnel that takes shape-validated writes from the interns' drafters into the noelle schema."
+      }
+    ]
   },
   {
     "slug": "nella",
@@ -174,7 +222,29 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/nella.png",
-    "featured": true
+    "featured": true,
+    "subProjects": [
+      {
+        "name": "@getnella/mcp",
+        "kind": "mcp+cli",
+        "oneLiner": "The published package (v0.2.7): an MCP server plus the `nella` CLI that indexes a repo, then hands grounded search, code context, and multi-agent coordination tools to Claude Code, Cursor, and VS Code."
+      },
+      {
+        "name": "@usenella/core",
+        "kind": "library",
+        "oneLiner": "The engine behind everything else: AST-based chunking, hybrid semantic and BM25 search, a dependency graph, and persistent context that tracks assumptions, a change ledger, and dependency drift."
+      },
+      {
+        "name": "@usenella/api",
+        "kind": "service",
+        "oneLiner": "The Express REST service exposing workspace, search, validation, context, and auth endpoints, backed by a BullMQ job queue and WebSocket progress updates."
+      },
+      {
+        "name": "@usenella/benchmark",
+        "kind": "library",
+        "oneLiner": "A suite that runs coding agents (Claude Sonnet/Opus, GPT-4o) against tasks and scores pass rate, constraint violations, scope creep, and cost, plus a prompt-injection detection test across eight attack categories."
+      }
+    ]
   },
   {
     "slug": "cortex",
@@ -231,7 +301,39 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/cortex.png",
-    "previewKind": "app"
+    "previewKind": "app",
+    "subProjects": [
+      {
+        "name": "cortex",
+        "kind": "app",
+        "oneLiner": "The Electron 41 + React 19 macOS desktop app: around 20 feature modules (daily, habits, founder, CRM, finances, courses, GTM) on an OLED-black Tailwind v4 UI, persisted through Electron IPC, then the HTTP API, then localStorage."
+      },
+      {
+        "name": "cortex-mcp-server",
+        "kind": "mcp",
+        "oneLiner": "A 51-tool MCP server across 18 groups that proxies the app's localhost:3456 API, so Claude can read and write habits, journal, contacts, calendar, GTM, and founder metrics over stdio or an optional --http transport."
+      },
+      {
+        "name": "opportunity-radar",
+        "kind": "worker",
+        "oneLiner": "A launchd-scheduled pipeline that scrapes feeds on a Lima VM, has a tool-less claude -p call score them against an editable profile, then validates and dedupes survivors by apply-URL, title, and host before POSTing them back to the app."
+      },
+      {
+        "name": "electron main (:3456 web server)",
+        "kind": "service",
+        "oneLiner": "The Electron main process owns the encrypted data directory, the tray, and context-isolated preload IPC, and runs a Tailscale-gated HTTP server on port 3456 that serves the same dashboard as a PWA to the phone."
+      },
+      {
+        "name": "crypto container (electron/crypto.ts)",
+        "kind": "library",
+        "oneLiner": "Encrypts every data file with AES-256-GCM in a custom binary format (CTX1 magic, version byte, 12-byte per-write IV, 16-byte auth tag), keyed by a 32-byte master key held behind Electron safeStorage and the macOS Keychain."
+      },
+      {
+        "name": "integrations (electron/integrations)",
+        "kind": "library",
+        "oneLiner": "Founder-metric clients for GitHub, Lemon Squeezy (MRR), Vercel, Supabase, the Mars Obsidian journal vault, and Paperclip, feeding the weekly-audit rollup shown in the UI and over MCP."
+      }
+    ]
   },
   {
     "slug": "band-of-agents",
@@ -296,7 +398,49 @@ export const projects: Project[] = [
     ],
     "cover": "/portfolio/previews/band-of-agents.png",
     "embedUrl": "https://artifact-viewer-one.vercel.app",
-    "demoLabel": "artifact-viewer-one.vercel.app"
+    "demoLabel": "artifact-viewer-one.vercel.app",
+    "subProjects": [
+      {
+        "name": "band-review-board-web",
+        "kind": "app",
+        "oneLiner": "React, Tailwind, and React Router console (web/) that streams a live review over SSE: the campaign board, the material by region verdict matrix, the analyzing panel, and the rulebook editor."
+      },
+      {
+        "name": "server",
+        "kind": "service",
+        "oneLiner": "Hono HTTP and SSE backend (src/server) that starts a review locally or against a live Band room and relays every board event to the web console."
+      },
+      {
+        "name": "agents",
+        "kind": "library",
+        "oneLiner": "The full cast in src/agents: Conductor, Scout, Claim and Evidence, Precedent, Disclosure, the US, EU, and LATAM reviewers, the brand reviewers, the Mediator, the Risk Adjudicator, and Remediation, plus the lighter classic Coordinator and Reconcile board."
+      },
+      {
+        "name": "board",
+        "kind": "library",
+        "oneLiner": "The orchestration engine in src/board: board, campaign, and pod sessions, the pod hub, and the event model that carries findings and verdicts through a deterministic decision sequence."
+      },
+      {
+        "name": "band",
+        "kind": "library",
+        "oneLiner": "The Band.ai coordination seam in src/band: a real @band-ai/sdk transport and an in-process fake for tests, shared-context rehydration, and cross-framework wiring."
+      },
+      {
+        "name": "models",
+        "kind": "library",
+        "oneLiner": "A provider-agnostic ModelClient in src/models whose MODEL_MODE routing fans each agent across AIML, Vertex/Gemini, Bedrock/Claude, and Featherless, with per-call spend tracking and retry."
+      },
+      {
+        "name": "perception",
+        "kind": "worker",
+        "oneLiner": "The multimodal pre-pass in src/perception that samples video keyframes, runs vision, and transcribes audio so every text reviewer can see and hear the asset before it grades."
+      },
+      {
+        "name": "domain",
+        "kind": "library",
+        "oneLiner": "Campaign, asset, rulebook, and finding Zod types in src/domain, plus rulebook smart-import from .md or .json and curated per-market presets (US FTC, EU health claims, LATAM)."
+      }
+    ]
   },
   {
     "slug": "content-pipeline",
@@ -351,7 +495,49 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/content-pipeline.png",
-    "previewKind": "app"
+    "previewKind": "app",
+    "subProjects": [
+      {
+        "name": "Content Pipeline (Electron desktop app)",
+        "kind": "app",
+        "oneLiner": "macOS menu-bar shell (Electron 41, appId com.contentpipeline.app) that runs the Express server in-process, shows live pipeline counts in a tray it rebuilds every 30 seconds, and exports selected clips out of the Photos app over an AppleScript IPC handler."
+      },
+      {
+        "name": "server",
+        "kind": "service",
+        "oneLiner": "Express 5 API in server/index.ts (about 3,100 lines) that stores every video, post, idea, and lead as plain JSON files under data/projects/, writes them atomically through a tmp-and-rename helper, and answers only requests from localhost or the Tailscale CGNAT range."
+      },
+      {
+        "name": "React dashboard (src/)",
+        "kind": "app",
+        "oneLiner": "React 19 and Framer Motion hash-routed single-page UI with no router library, holding the Overview, Media, Shorts, Ideas, Outbound, Watchlist, Sent, and Ops tabs of the command center."
+      },
+      {
+        "name": "obsidian-sync",
+        "kind": "worker",
+        "oneLiner": "Writes posts, videos, DMs, and replies out to the Mars Obsidian vault as dated markdown (keeping Pablo's hand edits intact on round-trip) and reads voice-anchor edits back into the pipeline."
+      },
+      {
+        "name": "memory",
+        "kind": "library",
+        "oneLiner": "Read and write API over the openclaw-memory markdown vault (one file per lead, plus entities, insights, and pablo self-context) that backs the /api/rag/search and /api/memory/context lookups and the Algolia lead index."
+      },
+      {
+        "name": "viral-sync + watchlist",
+        "kind": "worker",
+        "oneLiner": "Parses the creator list in viral-watchlist.md, syncs those handles to Supabase, and pulls recent viral-intel rows that the script-pack skill uses to shape hook and format choices."
+      },
+      {
+        "name": "openclaw-admin",
+        "kind": "service",
+        "oneLiner": "Authenticated proxy behind the Ops page that starts, stops, and restarts the classifier and drafter worker pools (plus the gateway and cortex-relay services) on the remote OpenClaw outreach VM over Tailscale."
+      },
+      {
+        "name": "script-pack",
+        "kind": "skill",
+        "oneLiner": "Claude Code slash-command that drafts 1 to 7 short-form video scripts in Pablo's voice, anchored on the Mars vault and shaped by scraped viral patterns, then writes them into the pipeline as scripted videos once he approves the dry run."
+      }
+    ]
   },
   {
     "slug": "forge",
@@ -407,7 +593,49 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/forge.png",
-    "previewKind": "app"
+    "previewKind": "app",
+    "subProjects": [
+      {
+        "name": "electron/main.ts",
+        "kind": "app",
+        "oneLiner": "macOS menu-bar shell that spawns the Express backend as a child process, holds the tray menu (show window, MCP status, copy LAN IP), and stores provider keys in the Keychain."
+      },
+      {
+        "name": "server/index.ts",
+        "kind": "service",
+        "oneLiner": "Express 5 API on port 3400 that routes media generation, agent tasks, Remotion templates, git repos, providers, and workspace files, with a WebSocket for live task and render progress."
+      },
+      {
+        "name": "server/mcp-server.ts",
+        "kind": "mcp",
+        "oneLiner": "Standalone stdio MCP server that hands Claude Code eleven forge_* tools (generate, edit, and upscale media; list repos and media; run and create templates) by calling the Forge API."
+      },
+      {
+        "name": "src (Forge dashboard)",
+        "kind": "app",
+        "oneLiner": "React 19 and Vite dashboard (templates, images, video, audio, gallery, editor, agents, repos, providers, workspace, settings) that drives every backend route and serves as the localhost:3400 browser view."
+      },
+      {
+        "name": "server/gemini-compose.ts",
+        "kind": "library",
+        "oneLiner": "Asks Gemini for structured JSON plus relevant SKILL.md context to synthesize a self-contained Remotion component, then writes it under the active project's src/ai-generated/ folder."
+      },
+      {
+        "name": "server/remotion-templates.ts",
+        "kind": "library",
+        "oneLiner": "Remotion template engine that scans a project's Root.tsx for literal Composition tags, tracks parameterized and standalone templates, and maps rendered videos into the shared media root."
+      },
+      {
+        "name": "server/providers",
+        "kind": "library",
+        "oneLiner": "Provider adapters for Gemini (Imagen, Veo, TTS), ElevenLabs voice, RunPod serverless GPU (Qwen-Edit, RealESRGAN, Qwen3-TTS), and Codex and Claude CLI subprocess launchers for agent tasks."
+      },
+      {
+        "name": "server/skills.ts",
+        "kind": "library",
+        "oneLiner": "Skills bridge that indexes SKILL.md files across the Claude, Stitch, and Projects skill roots and loads raw content on demand for Gemini's system prompt."
+      }
+    ]
   },
   {
     "slug": "archgraph",
@@ -467,7 +695,39 @@ export const projects: Project[] = [
     ],
     "cover": "/portfolio/previews/archgraph.png",
     "embedUrl": "https://archgraph.vercel.app",
-    "demoLabel": "archgraph.vercel.app"
+    "demoLabel": "archgraph.vercel.app",
+    "subProjects": [
+      {
+        "name": "archgraph serve",
+        "kind": "cli",
+        "oneLiner": "The archgraph serve [project] command starts a Vite server that feeds a project's .archgraph/model.json into the viewer and reloads on change, with a --model flag for paths like .nella/graph/model.json."
+      },
+      {
+        "name": "graph",
+        "kind": "skill",
+        "oneLiner": "The /graph Claude Code skill runs four parallel research agents over a codebase (systems, external stores, data flows, actors) and writes the C4 model.json the viewer reads."
+      },
+      {
+        "name": "archgraph viewer",
+        "kind": "app",
+        "oneLiner": "React 19 and ReactFlow 12 single-page app that renders the C4 model as an interactive canvas with actor, system, app, store, and component nodes plus a detail panel and multi-project list."
+      },
+      {
+        "name": "layout",
+        "kind": "library",
+        "oneLiner": "ELK.js layered auto-layout that places nodes and nested group containers left to right, then hands the coordinates back to ReactFlow for rendering."
+      },
+      {
+        "name": "model",
+        "kind": "library",
+        "oneLiner": "The versioned ArchGraphModel schema (objects, connections, groups, technologies, tags, diagrams, flows) that the skill writes and the viewer validates on load."
+      },
+      {
+        "name": "tech-catalog",
+        "kind": "library",
+        "oneLiner": "A registry of about thirty technologies with brand colors and categories that render as tech pills and icons on each node."
+      }
+    ]
   },
   {
     "slug": "omegahack",
@@ -532,7 +792,54 @@ export const projects: Project[] = [
     ],
     "cover": "/portfolio/previews/omegahack.png",
     "embedUrl": "https://omega-landing-zeta.vercel.app",
-    "demoLabel": "omega-landing-zeta.vercel.app"
+    "demoLabel": "omega-landing-zeta.vercel.app",
+    "subProjects": [
+      {
+        "name": "@omega/intake-agent",
+        "kind": "library",
+        "oneLiner": "Orchestrates the whole PQRSD intake: schema validation, PII redaction, a validity agent, the Article 16 gates of Ley 1755, classification, tags and deadline, writing one pqr row plus an audit event."
+      },
+      {
+        "name": "@omega/classifier",
+        "kind": "library",
+        "oneLiner": "Sends the PII-free text to Claude and returns a structured verdict: request type, the competent secretaría (one of 26 official codes), comuna, namespaced thematic tags and signals like tutela risk."
+      },
+      {
+        "name": "@omega/deadline-engine",
+        "kind": "library",
+        "oneLiner": "Computes Colombian legal deadlines in business days on America/Bogota, covering movable holidays, the extension capped at twice the original term (Ley 1755/2015) and per-tenant suspensions, fully offline with 393 tests."
+      },
+      {
+        "name": "@omega/habeas-data",
+        "kind": "library",
+        "oneLiner": "Classifies and redacts personal data under Ley 1581/2012 (Colombian habeas data) with zero external dependencies, so raw citizen text never reaches a model unredacted."
+      },
+      {
+        "name": "@omega/problem-groups",
+        "kind": "library",
+        "oneLiner": "Clusters recurring PQRs from the same tenant by cosine similarity, shared tags and matching comuna, and flags a group as hot once its volume and velocity cross tenant thresholds."
+      },
+      {
+        "name": "@omega/rag",
+        "kind": "library",
+        "oneLiner": "Retrieval utilities for the legal Q&A: header-aware chunking, 1024-dim Azure embeddings, a hybrid vector plus full-text retriever, and a client for the internal Nella API."
+      },
+      {
+        "name": "@omega/workbench",
+        "kind": "app",
+        "oneLiner": "Internal Next.js console for the legal team: case review and reply drafting, queues filtered by secretaría and status, problem-group navigation and an append-only audit trail (port 3001)."
+      },
+      {
+        "name": "@omega/web",
+        "kind": "app",
+        "oneLiner": "Public Next.js site for citizens plus the /transparencia dashboard, which serves comuna and secretaría aggregates behind a k-anonymity floor of 5 (port 3000)."
+      },
+      {
+        "name": "@omega/secretaria",
+        "kind": "app",
+        "oneLiner": "Per-secretaría Next.js console scoped strictly to one department's cases, staff and deadline-compliance KPIs (port 3002)."
+      }
+    ]
   },
   {
     "slug": "localhost-mirror",
@@ -582,6 +889,43 @@ export const projects: Project[] = [
         "label": "GitHub",
         "url": "https://github.com/pablomanjarres/localhost-mirror",
         "kind": "repo"
+      }
+    ],
+    "subProjects": [
+      {
+        "name": "lm",
+        "kind": "cli",
+        "oneLiner": "Terminal CLI (the `lm` bin) whose expose, list, stop, status, dashboard, and shutdown commands drive the daemon over its localhost management API on 127.0.0.1:19099."
+      },
+      {
+        "name": "LocalhostMirror",
+        "kind": "app",
+        "oneLiner": "SwiftUI macOS menu-bar app (a MenuBarExtra, LSUIElement) that lists every listening port and lets you expose, stop, copy the tailnet URL, or kill any of them, polling the daemon every three seconds."
+      },
+      {
+        "name": "daemon",
+        "kind": "service",
+        "oneLiner": "Background service running a localhost-only management API on :19099 plus a tailnet-facing proxy and dashboard server on :19100, auto-starting on the first expose and shutting itself down 60 seconds after the last tunnel closes unless run with --persistent."
+      },
+      {
+        "name": "api",
+        "kind": "library",
+        "oneLiner": "Request router that maps an lm_tunnel cookie or a /name path to a per-port http-proxy instance (one cached per target port), forwards WebSocket upgrades, gates optional per-tunnel nanoid tokens, and serves the tunnel CRUD REST API."
+      },
+      {
+        "name": "PortScanner",
+        "kind": "library",
+        "oneLiner": "Swift scan engine that lists TCP listeners with lsof every three seconds, reads per-process CPU, RAM, and zombie state from ps, finds the owning project by walking up for package.json, Cargo.toml, go.mod, or .git, and raises alerts for CPU over 80 percent, RAM over 500MB, or a process that died."
+      },
+      {
+        "name": "CommonPorts",
+        "kind": "library",
+        "oneLiner": "Lookup table that labels and colors a detected port from 87 known dev ports (Next.js, Vite, Postgres, Redis, Ollama, and more) plus 28 process-name heuristics."
+      },
+      {
+        "name": "dashboard",
+        "kind": "app",
+        "oneLiner": "Single-file dark web dashboard (index.html served at /lm/) that the daemon serves over the tailnet to list, expose, and stop tunnels from the browser."
       }
     ]
   },
@@ -643,7 +987,39 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/lumen-frontier.png",
-    "demoLabel": "lumen-frontier.vercel.app"
+    "demoLabel": "lumen-frontier.vercel.app",
+    "subProjects": [
+      {
+        "name": "@lumen-frontier/frontend",
+        "kind": "app",
+        "oneLiner": "The deployed Astro 4 site with React 18 islands, serving three routes (landing, dashboard, and the 3D lumenverse) with TypeScript, Tailwind, and nanostores as the state bus between islands."
+      },
+      {
+        "name": "LumenOS",
+        "kind": "app",
+        "oneLiner": "A desktop-style study dashboard where every tool is a widget you drag by its header, resize from the corner, add from a categorized marketplace, and arrange on a canvas that saves back to localStorage."
+      },
+      {
+        "name": "Lumenverse",
+        "kind": "app",
+        "oneLiner": "A 985-line Three.js first-person scene where each subject is a glowing planet you fly to as a tethered astronaut, with helmet visor, gloves, a HUD, pointer-lock mouse-look, WASD flight, and a rocket fly-to animation."
+      },
+      {
+        "name": "widget-system",
+        "kind": "library",
+        "oneLiner": "The registry-driven engine behind LumenOS: it lazy-loads 13 widgets with React.lazy and Suspense and runs direct manipulation through custom useDrag and useResize hooks with per-widget size limits."
+      },
+      {
+        "name": "backend",
+        "kind": "service",
+        "oneLiner": "A FastAPI scaffold for future auth and cross-device sync, wired for SQLAlchemy and Supabase, currently a stub that is excluded from the Vercel build."
+      },
+      {
+        "name": "api",
+        "kind": "service",
+        "oneLiner": "A Vercel serverless handler at api/index.py that wraps the FastAPI app with Mangum for ASGI compatibility, ready as the entry point once the backend goes live."
+      }
+    ]
   }
 ];
 
