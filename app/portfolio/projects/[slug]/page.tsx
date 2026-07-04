@@ -1,3 +1,4 @@
+import { Fragment, type CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -84,8 +85,10 @@ export default async function ProjectPage({
       ? liveLink.url.replace(/^https?:\/\//, "").replace(/\/$/, "")
       : "preview");
 
+  const titleWords = project.title.split(" ");
+
   return (
-    <div className="folio-inner">
+    <div className="folio-inner proj-page">
       <Link href="/portfolio" className="folio-back">
         <span className="b-arr" aria-hidden>
           ←
@@ -93,13 +96,32 @@ export default async function ProjectPage({
         index · all work
       </Link>
 
-      <div className="proj-kicker">
-        <span className="n">¶ {project.num}</span> · {project.tags[0] ?? "Project"}
-      </div>
-      <h1 className="proj-title">{project.title}</h1>
-      <p className="proj-tagline">{project.tagline}</p>
+      <header className="proj-masthead">
+        <div className="proj-kicker load-rise" style={{ "--i": 0 } as CSSProperties}>
+          <span className="n">¶ {project.num}</span> · {project.tags[0] ?? "Project"}
+        </div>
+        <h1 className="proj-title">
+          {titleWords.map((w, i) => (
+            <Fragment key={i}>
+              {i > 0 ? " " : ""}
+              <span className="rise-word" style={{ "--i": i } as CSSProperties}>
+                {w}
+              </span>
+            </Fragment>
+          ))}
+        </h1>
+        <p
+          className="proj-tagline load-rise"
+          style={{ "--i": titleWords.length + 1 } as CSSProperties}
+        >
+          {project.tagline}
+        </p>
+      </header>
 
-      <div className="proj-spec">
+      <div
+        className="proj-spec load-rise"
+        style={{ "--i": titleWords.length + 2 } as CSSProperties}
+      >
         <div className="spec-item">
           <span className="k">Year</span>
           <span className="v">{project.year}</span>
@@ -121,7 +143,10 @@ export default async function ProjectPage({
       </div>
 
       {(project.links.length > 0 || project.embedUrl) && (
-        <div className="proj-links">
+        <div
+          className="proj-links load-rise"
+          style={{ "--i": titleWords.length + 3 } as CSSProperties}
+        >
           {project.embedUrl && !liveLink && (
             <a
               href={project.embedUrl}
@@ -148,7 +173,10 @@ export default async function ProjectPage({
         </div>
       )}
 
-      <section className="proj-preview">
+      <section
+        className="proj-preview load-rise"
+        style={{ "--i": titleWords.length + 4 } as CSSProperties}
+      >
         {project.embedUrl || project.cover || project.video ? (
           <DemoFrame
             label={demoLabel}
@@ -178,11 +206,11 @@ export default async function ProjectPage({
       </section>
 
       <div className="proj-body">
-        <section className="proj-section">
+        <section className="proj-section folio-reveal">
           <div className="h">
             <span className="n">01</span>Overview
           </div>
-          <div className="proj-prose">
+          <div className="proj-prose proj-prose--lead">
             {paragraphs(project.summary).map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -190,7 +218,7 @@ export default async function ProjectPage({
         </section>
 
         {project.problem && (
-          <section className="proj-section">
+          <section className="proj-section folio-reveal">
             <div className="h">
               <span className="n">02</span>The problem
             </div>
@@ -203,20 +231,26 @@ export default async function ProjectPage({
         )}
 
         {project.highlights.length > 0 && (
-          <section className="proj-section">
+          <section className="proj-section folio-reveal">
             <div className="h">
               <span className="n">03</span>Highlights
             </div>
             <ul className="proj-highlights">
               {project.highlights.map((h, i) => (
-                <li key={i}>{h}</li>
+                <li
+                  key={i}
+                  className="folio-reveal-item"
+                  style={{ "--i": i } as CSSProperties}
+                >
+                  {h}
+                </li>
               ))}
             </ul>
           </section>
         )}
 
         {project.metrics && project.metrics.length > 0 && (
-          <section className="proj-section">
+          <section className="proj-section folio-reveal">
             <div className="h">
               <span className="n">04</span>By the numbers
             </div>
@@ -224,7 +258,11 @@ export default async function ProjectPage({
               {project.metrics.map((m, i) => {
                 const { value, label } = splitMetric(m);
                 return (
-                  <div className="metric" key={i}>
+                  <div
+                    className="metric folio-reveal-item"
+                    key={i}
+                    style={{ "--i": i } as CSSProperties}
+                  >
                     {value && <div className="m-v">{value}</div>}
                     <div className={value ? "m-k" : "m-k m-k-lg"}>{label}</div>
                   </div>
@@ -235,14 +273,18 @@ export default async function ProjectPage({
         )}
 
         {project.subProjects && project.subProjects.length > 0 && (
-          <section className="proj-section">
+          <section className="proj-section folio-reveal">
             <div className="h">
               <span className="n">◆</span>What&apos;s inside
               <span className="h-count">{project.subProjects.length} parts</span>
             </div>
             <ul className="subproj-list">
-              {project.subProjects.map((s) => (
-                <li className="subproj" key={s.name}>
+              {project.subProjects.map((s, i) => (
+                <li
+                  className="subproj folio-reveal-item"
+                  key={s.name}
+                  style={{ "--i": i } as CSSProperties}
+                >
                   <div className="subproj-head">
                     <code className="subproj-name">{s.name}</code>
                     <span className="subproj-kind">{s.kind}</span>
@@ -254,7 +296,7 @@ export default async function ProjectPage({
           </section>
         )}
 
-        <section className="proj-section">
+        <section className="proj-section folio-reveal">
           <div className="h">
             <span className="n">·</span>Tags
           </div>

@@ -1,6 +1,8 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { Project, ProjectStatus } from "../projects";
 import { LiveEmbed } from "./LiveEmbed";
+import { ScrambleText } from "./effects";
 
 const STATUS_LABEL: Record<ProjectStatus, string> = {
   live: "live",
@@ -23,6 +25,19 @@ export function Chip({ label, accent }: { label: string; accent?: boolean }) {
   return <span className={accent ? "chip chip-accent" : "chip"}>{label}</span>;
 }
 
+// Four L-shaped corner ticks — a registration/crop-mark motif that makes every
+// card read as a specimen plate. Decorative, hidden from the a11y tree.
+function CropMarks() {
+  return (
+    <span className="card-marks" aria-hidden>
+      <i />
+      <i />
+      <i />
+      <i />
+    </span>
+  );
+}
+
 // The visual for a card / detail hero. A real screenshot when we have one,
 // otherwise a branded plate so every project still has a preview.
 function Shot({ project }: { project: Project }) {
@@ -40,22 +55,57 @@ function Shot({ project }: { project: Project }) {
   );
 }
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  index = 0,
+}: {
+  project: Project;
+  index?: number;
+}) {
   const href = `/portfolio/projects/${project.slug}`;
+  const featured = project.featured;
   return (
     <Link
       href={href}
-      className={project.featured ? "folio-card is-featured" : "folio-card"}
+      className={featured ? "folio-card is-featured" : "folio-card"}
       aria-label={`${project.title} — ${project.oneLiner}`}
+      style={{ "--i": index } as CSSProperties}
     >
+      <CropMarks />
+      {featured && (
+        <svg
+          className="card-frame"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <rect
+            pathLength={1}
+            x="1.2"
+            y="1.2"
+            width="97.6"
+            height="97.6"
+            rx="1.5"
+          />
+        </svg>
+      )}
       <div className="card-shot">
         <Shot project={project} />
-        <span className="card-shot-num">{project.num}</span>
-        {project.featured && <span className="card-shot-flag">✶ flagship</span>}
+        <span className="card-sheen" aria-hidden />
+        <span className="card-shot-num">
+          <ScrambleText text={project.num} delay={120 + index * 55} />
+        </span>
+        {featured && (
+          <span className="card-shot-flag">
+            <span aria-hidden>✶</span> flagship
+          </span>
+        )}
       </div>
       <div className="card-body">
         <div className="card-top">
-          <h2 className="card-title">{project.title}</h2>
+          <h2 className="card-title">
+            <span className="card-title-ink">{project.title}</span>
+          </h2>
           <Status status={project.status} />
         </div>
         <p className="card-oneliner">{project.oneLiner}</p>
@@ -79,6 +129,7 @@ export function ProjectCard({ project }: { project: Project }) {
 export function PreviewPlate({ project }: { project: Project }) {
   return (
     <div className="proj-plate">
+      <span className="proj-plate-rings" aria-hidden />
       <span className="shot-ph-kind">{project.tags[0] ?? "project"}</span>
       <span className="proj-plate-title">{project.title}</span>
       <span className="proj-plate-sub">{project.oneLiner}</span>

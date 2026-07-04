@@ -1,0 +1,750 @@
+/* ==========================================================================
+   Archgraph — "self-drawing blueprint drafting table"
+   Cyan-on-navy technical linework · Chakra Petch drafting type · amber nodes.
+   All classes/@keyframes are CSS-Module-scoped. Motion is opt-in via
+   prefers-reduced-motion:no-preference, so the reduced/static state is the
+   finished drawing.
+   ========================================================================== */
+
+.root {
+  --ink: #0a1626;
+  --ink-2: #071120;
+  --panel: #10233a;
+  --paper: #e6eef6;
+  --cyan: #38bdf8;
+  --cyan-bright: #7dd3fc;
+  --cyan-dim: rgba(56, 189, 248, 0.55);
+  --amber: #f5a524;
+  --hair: rgba(56, 189, 248, 0.2);
+  --grid-minor: rgba(56, 189, 248, 0.05);
+  --grid-major: rgba(56, 189, 248, 0.11);
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-archgraph-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Atmosphere layers ------------------------------------------------- */
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--ink);
+  background-image:
+    repeating-linear-gradient(0deg, var(--grid-minor) 0 1px, transparent 1px 27px),
+    repeating-linear-gradient(90deg, var(--grid-minor) 0 1px, transparent 1px 27px),
+    repeating-linear-gradient(0deg, var(--grid-major) 0 1px, transparent 1px 135px),
+    repeating-linear-gradient(90deg, var(--grid-major) 0 1px, transparent 1px 135px);
+  background-position: center top;
+  mask-image: radial-gradient(130% 120% at 50% 30%, #000 55%, transparent 100%);
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 78% 42%, rgba(56, 189, 248, 0.1), transparent 46%),
+    radial-gradient(140% 120% at 50% 0%, rgba(56, 189, 248, 0.06), transparent 40%),
+    radial-gradient(130% 100% at 50% 108%, rgba(3, 8, 16, 0.72), transparent 55%);
+}
+.noise {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 130px 130px;
+}
+
+/* Inset drafting-sheet frame + registration ticks */
+.frame {
+  position: absolute;
+  inset: clamp(10px, 1.6vw, 20px);
+  z-index: 1;
+  pointer-events: none;
+  border: 1px solid var(--hair);
+}
+.corner {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  z-index: 1;
+  pointer-events: none;
+  border: 0 solid var(--cyan);
+  opacity: 0.7;
+}
+.cTL { top: clamp(10px, 1.6vw, 20px); left: clamp(10px, 1.6vw, 20px); border-top-width: 1.5px; border-left-width: 1.5px; }
+.cTR { top: clamp(10px, 1.6vw, 20px); right: clamp(10px, 1.6vw, 20px); border-top-width: 1.5px; border-right-width: 1.5px; }
+.cBL { bottom: clamp(10px, 1.6vw, 20px); left: clamp(10px, 1.6vw, 20px); border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.cBR { bottom: clamp(10px, 1.6vw, 20px); right: clamp(10px, 1.6vw, 20px); border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+/* ---- Nav --------------------------------------------------------------- */
+.bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(18px, 2.6vw, 30px) clamp(24px, 5vw, 60px) clamp(12px, 1.6vw, 18px);
+}
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  text-decoration: none;
+  color: var(--paper);
+  font-family: var(--font-archgraph-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(16px, 1.9vw, 20px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.brandMark {
+  color: var(--cyan);
+  font-size: 0.9em;
+  transform: translateY(-1px);
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 30px);
+}
+.navLink {
+  position: relative;
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: clamp(10.5px, 1.05vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(230, 238, 246, 0.66);
+  transition: color 0.18s ease;
+}
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -6px;
+  height: 1.5px;
+  background: var(--cyan);
+  transition: right 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--cyan-bright);
+  outline: none;
+}
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  right: 0;
+}
+.navExt {
+  color: var(--amber);
+}
+
+/* ---- Stage layout ------------------------------------------------------ */
+.stage {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 60px);
+  padding: clamp(14px, 2.4vw, 30px) clamp(24px, 5vw, 60px) clamp(20px, 3vw, 34px);
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.col {
+  max-width: 620px;
+}
+
+/* Kicker */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: clamp(9.5px, 1vw, 11.5px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin: 0 0 clamp(16px, 2vw, 24px);
+}
+.kTick {
+  width: 22px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--amber), var(--cyan));
+  display: inline-block;
+}
+
+/* Headline — Chakra Petch, conveyor word reveal */
+.title {
+  margin: 0;
+  font-family: var(--font-archgraph-display), sans-serif;
+  text-transform: uppercase;
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  color: var(--paper);
+  font-size: clamp(2.5rem, 6.6vw, 5.1rem);
+}
+.lineLead,
+.lineMain {
+  display: block;
+}
+.lineLead {
+  font-weight: 500;
+  color: rgba(230, 238, 246, 0.9);
+}
+.lineMain {
+  font-weight: 700;
+}
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+  margin-right: 0.26em;
+}
+.word {
+  display: inline-block;
+  will-change: transform;
+}
+.titleFoot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(14px, 1.8vw, 20px);
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(230, 238, 246, 0.42);
+}
+.titleFoot .bar2 {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--hair), transparent);
+  max-width: 180px;
+}
+
+/* Body copy */
+.sub {
+  margin: clamp(20px, 2.6vw, 30px) 0 0;
+  max-width: 46ch;
+  font-size: clamp(14.5px, 1.35vw, 17px);
+  line-height: 1.62;
+  color: rgba(230, 238, 246, 0.78);
+}
+.note {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin: clamp(16px, 2vw, 22px) 0 0;
+  max-width: 48ch;
+  padding: 11px 14px 11px 13px;
+  border-left: 2px solid var(--cyan);
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.07), rgba(56, 189, 248, 0));
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: clamp(11px, 1.1vw, 12.5px);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: rgba(230, 238, 246, 0.66);
+}
+.prompt {
+  color: var(--cyan);
+  font-weight: 700;
+  user-select: none;
+}
+
+/* CTA row */
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 16px);
+  margin-top: clamp(24px, 3vw, 34px);
+}
+
+/* Draw-on button (signature) */
+.drawBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 24px;
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--paper);
+  text-decoration: none;
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: visible;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.2s ease, box-shadow 0.25s ease;
+}
+.drawBtn.ghost {
+  background: transparent;
+  color: rgba(230, 238, 246, 0.82);
+}
+.drawBtn:hover {
+  transform: translateY(-2px);
+  background: #14304d;
+  box-shadow: 0 12px 30px -14px rgba(56, 189, 248, 0.55);
+}
+.drawBtn.ghost:hover {
+  background: rgba(56, 189, 248, 0.06);
+  color: var(--cyan-bright);
+}
+.drawBtn:active {
+  transform: translateY(0) scale(0.985);
+}
+.drawBtn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+.drawLabel {
+  position: relative;
+  z-index: 1;
+  transition: letter-spacing 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.star {
+  color: var(--amber);
+}
+.arrow {
+  color: var(--cyan);
+  transition: transform 0.25s ease;
+}
+.drawBtn:hover .arrow {
+  transform: translate(2px, -2px);
+}
+.drawSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.drawRect {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0; /* reduced-motion / no-JS fallback: fully inked */
+  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.5));
+}
+.node {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 7px rgba(245, 165, 36, 0.9);
+  opacity: 0;
+  transition: opacity 0.2s ease 0.34s;
+}
+.n1 { top: -2.5px; left: -2.5px; }
+.n2 { bottom: -2.5px; right: -2.5px; }
+.drawBtn:hover .node,
+.drawBtn:focus-visible .node {
+  opacity: 1;
+}
+
+.writeup {
+  position: relative;
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(230, 238, 246, 0.6);
+  padding: 6px 2px;
+  transition: color 0.18s ease;
+}
+.writeup::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--cyan);
+  transition: right 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.writeup:hover,
+.writeup:focus-visible {
+  color: var(--cyan-bright);
+  outline: none;
+}
+.writeup:hover::after,
+.writeup:focus-visible::after {
+  right: 0;
+}
+
+/* ---- Diagram ----------------------------------------------------------- */
+.diagramWrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.diagram {
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+.diagram text {
+  font-family: var(--font-archgraph-mono), monospace;
+}
+
+/* floor grid + boundary + edges (self-drawing strokes) */
+.floorLine {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1;
+  stroke-opacity: 0.22;
+  vector-effect: non-scaling-stroke;
+}
+.boundary {
+  fill: rgba(56, 189, 248, 0.03);
+  stroke: var(--cyan);
+  stroke-width: 1.1;
+  stroke-opacity: 0.4;
+  stroke-dasharray: 5 5;
+  vector-effect: non-scaling-stroke;
+  opacity: 1;
+}
+.edge {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 3px rgba(56, 189, 248, 0.4));
+}
+
+/* Isometric box faces */
+.face {
+  vector-effect: non-scaling-stroke;
+  stroke: var(--cyan);
+  stroke-linejoin: round;
+}
+.fTop {
+  fill: var(--cyan);
+  fill-opacity: 0.13;
+  stroke: var(--cyan-bright);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.35));
+}
+.fLeft {
+  fill: var(--cyan);
+  fill-opacity: 0.06;
+  stroke-width: 1.2;
+  stroke-opacity: 0.75;
+}
+.fRight {
+  fill: #030a14;
+  fill-opacity: 0.5;
+  stroke-width: 1.2;
+  stroke-opacity: 0.6;
+}
+
+/* node labels + amber node dots */
+.nodeId {
+  fill: var(--cyan-bright);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+.nodeName {
+  fill: rgba(230, 238, 246, 0.9);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.nodeLabel {
+  opacity: 1;
+}
+.dot {
+  fill: var(--amber);
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 5px rgba(245, 165, 36, 0.85));
+}
+.dotRing {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 1;
+  stroke-opacity: 0.55;
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
+}
+
+/* dimension line */
+.dimLine,
+.dimTick {
+  stroke: var(--cyan);
+  stroke-opacity: 0.55;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+.dimLabel {
+  fill: var(--cyan);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  opacity: 0.85;
+}
+
+/* ---- Title block (architect's stamp) ----------------------------------- */
+.titleBlock {
+  position: absolute;
+  right: clamp(18px, 3vw, 40px);
+  bottom: clamp(52px, 7vw, 74px);
+  z-index: 3;
+  width: 240px;
+  padding: 0;
+  border: 1px solid var(--hair);
+  background: linear-gradient(180deg, rgba(16, 35, 58, 0.72), rgba(7, 17, 32, 0.72));
+  backdrop-filter: blur(3px);
+  font-family: var(--font-archgraph-mono), monospace;
+  color: rgba(230, 238, 246, 0.78);
+}
+.tbHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 11px;
+  border-bottom: 1px solid var(--hair);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+}
+.tbHead .amberDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 6px rgba(245, 165, 36, 0.9);
+}
+.tbGrid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.tbGrid span {
+  padding: 6px 11px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.09);
+}
+.tbGrid span:nth-child(odd) {
+  color: rgba(230, 238, 246, 0.42);
+  border-right: 1px solid rgba(56, 189, 248, 0.09);
+}
+.tbGrid span:nth-child(even) {
+  color: var(--paper);
+  text-align: right;
+}
+
+/* ---- Footer ------------------------------------------------------------ */
+.foot {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(14px, 2vw, 20px) clamp(24px, 5vw, 60px);
+  border-top: 1px solid var(--hair);
+  margin: 0 clamp(24px, 5vw, 60px);
+  font-family: var(--font-archgraph-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(230, 238, 246, 0.46);
+}
+.footLic {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+}
+.footLic::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--amber);
+  box-shadow: 0 0 6px rgba(245, 165, 36, 0.8);
+}
+
+/* ==========================================================================
+   MOTION — opt-in only. Default state above is the finished drawing.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* page-load atmosphere */
+  .grid {
+    animation: ag-grid-in 1s ease both;
+  }
+  .frame,
+  .corner {
+    opacity: 0;
+    animation: ag-fade 0.6s ease 0.15s both;
+  }
+  .corner { animation-delay: 0.3s; }
+
+  /* nav */
+  .brand { opacity: 0; animation: ag-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both; }
+  .navLink { opacity: 0; animation: ag-up 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .navLink:nth-child(1) { animation-delay: 0.18s; }
+  .navLink:nth-child(2) { animation-delay: 0.26s; }
+  .navLink:nth-child(3) { animation-delay: 0.34s; }
+
+  /* headline conveyor */
+  .word {
+    transform: translateY(112%);
+    animation: ag-rise 0.72s cubic-bezier(0.22, 0.68, 0.16, 1) var(--d, 0ms) both;
+  }
+
+  /* staggered text */
+  .kicker,
+  .titleFoot,
+  .sub,
+  .note,
+  .cta,
+  .titleBlock {
+    opacity: 0;
+    animation: ag-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  /* diagram — self-drawing strokes */
+  .floorLine,
+  .edge,
+  .dimLine {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: ag-draw 0.6s cubic-bezier(0.6, 0, 0.35, 1) var(--d, 0ms) both;
+  }
+  .boundary {
+    opacity: 0;
+    animation: ag-fade 0.7s ease var(--d, 0ms) both;
+  }
+  .face {
+    fill-opacity: 0;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation:
+      ag-draw 0.58s cubic-bezier(0.6, 0, 0.35, 1) var(--d, 0ms) both,
+      ag-fill-t 0.5s ease calc(var(--d, 0ms) + 300ms) both;
+  }
+  .fLeft { animation-name: ag-draw, ag-fill-l; }
+  .fRight { animation-name: ag-draw, ag-fill-r; }
+  .nodeLabel,
+  .dimLabel {
+    opacity: 0;
+    animation: ag-fade 0.45s ease var(--d, 0ms) both;
+  }
+  .dot,
+  .dotRing {
+    transform: scale(0);
+    animation: ag-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0ms) both;
+  }
+  .dimTick {
+    opacity: 0;
+    animation: ag-fade 0.4s ease var(--d, 0ms) both;
+  }
+
+  /* draw-on button: retract stroke, re-ink on hover/focus */
+  .drawRect {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.58s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .drawBtn:hover .drawRect,
+  .drawBtn:focus-visible .drawRect {
+    stroke-dashoffset: 0;
+  }
+  .drawBtn:hover .drawLabel,
+  .drawBtn:focus-visible .drawLabel {
+    letter-spacing: 0.14em;
+  }
+}
+
+@keyframes ag-grid-in {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes ag-fade {
+  from { opacity: 0; }
+}
+@keyframes ag-up {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ag-rise {
+  from { transform: translateY(112%); }
+  to { transform: translateY(0); }
+}
+@keyframes ag-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ag-fill-t { to { fill-opacity: 0.13; } }
+@keyframes ag-fill-l { to { fill-opacity: 0.06; } }
+@keyframes ag-fill-r { to { fill-opacity: 0.5; } }
+@keyframes ag-pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+/* ---- Responsive -------------------------------------------------------- */
+@media (max-width: 900px) {
+  .stage {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: clamp(20px, 5vw, 40px);
+    padding-top: clamp(8px, 3vw, 20px);
+  }
+  .col { max-width: 640px; }
+  .diagramWrap { order: 2; }
+  .diagram { max-width: 460px; margin: 0 auto; }
+  .titleBlock { display: none; }
+  .sub, .note { max-width: 56ch; }
+}
+
+@media (max-width: 560px) {
+  .navLinks { gap: 14px; }
+  .navLink { font-size: 10px; letter-spacing: 0.1em; }
+  .drawBtn { padding: 12px 18px; font-size: 11px; }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .diagram { max-width: 380px; }
+}
