@@ -71,12 +71,14 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
   return (
     <main className={styles.root}>
-      {/* atmosphere — all decorative */}
+      {/* atmosphere — the cinematic pixel-art is the hero; the cipher accents +
+          legibility scrim sit ON TOP of it without ever hiding it */}
+      <div className={styles.bg} aria-hidden="true" />
       <CipherRain className={styles.rain} />
       <div className={styles.coreWrap} aria-hidden="true">
         <CipherCore className={styles.core} styles={styles} />
       </div>
-      <div className={styles.rainMask} aria-hidden="true" />
+      <div className={styles.scrim} aria-hidden="true" />
       <div className={styles.vignette} aria-hidden="true" />
       <div className={styles.grain} aria-hidden="true" />
 

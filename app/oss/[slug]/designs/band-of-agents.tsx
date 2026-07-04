@@ -52,8 +52,9 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
           className={styles.art}
           style={{ ["--bg"]: `url('/oss/${slug}.png')` } as CSSProperties}
         />
-        <div className={styles.grid} />
         <div className={styles.glow} />
+        <div className={styles.grid} />
+        <div className={styles.scrim} />
         <div className={styles.grain} />
         <div className={styles.vignette} />
         <span className={styles.watermark}>§</span>

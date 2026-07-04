@@ -9,6 +9,8 @@ import Archgraph from "./archgraph";
 import Omegahack from "./omegahack";
 import LocalhostMirror from "./localhost-mirror";
 import LumenFrontier from "./lumen-frontier";
+import GritXAwa from "./grit-x-awa";
+import StudyHub from "./study-hub";
 
 // The contract every design (bespoke or default) satisfies.
 export type DesignComponent = ComponentType<{ hero: Hero; slug: string }>;
@@ -25,6 +27,8 @@ const registry: Record<string, DesignComponent> = {
   omegahack: Omegahack,
   "localhost-mirror": LocalhostMirror,
   "lumen-frontier": LumenFrontier,
+  "grit-x-awa": GritXAwa,
+  "study-hub": StudyHub,
 };
 
 export function getDesign(slug: string): DesignComponent {

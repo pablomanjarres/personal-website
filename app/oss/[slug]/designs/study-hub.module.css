@@ -1,0 +1,603 @@
+/* Study Hub — refined academic / editorial-dark hero. Scoped CSS Module (class +
+   keyframe names are route-hashed by Next, so nothing here can collide with
+   another /oss design). Editorial serif display + Caveat-style marginalia, a
+   curated per-subject accent triad (sapphire · jade · amethyst) that drifts on a
+   single registered custom property, on deep near-black over a ruled-paper grain.
+   Every looping animation is gated behind prefers-reduced-motion; the static
+   fallback is the finished page. */
+
+/* The one drifting accent. Registered (uniquely per slug, per CONTRACT §2) so it
+   can interpolate smoothly through the three subject hues. */
+@property --studyhub-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #4d8df5;
+}
+
+.root {
+  /* palette */
+  --bg: #0b0b0f;
+  --ink: #f4f4f6;
+  --ink-soft: #c7c7d0;
+  --ink-mute: #8a8a95;
+  --ink-faint: #5b5b65;
+  --hair: #24242c;
+  --lf: #4d8df5;
+  --eda: #26bd93;
+  --sgd: #9b7cf6;
+  --margin: rgba(200, 84, 42, 0.5); /* legal-pad margin rule */
+  --accent: var(--studyhub-accent, #4d8df5);
+  /* type */
+  --display: var(--font-study-hub-display, "Instrument Serif", "Fraunces", Georgia, "Times New Roman", serif);
+  --body: var(--font-study-hub-body, "Instrument Sans", system-ui, -apple-system, sans-serif);
+  --note: var(--font-study-hub-note, "Caveat", "Bradley Hand", "Segoe Print", cursive);
+  --mono: var(--font-study-hub-mono, ui-monospace, "SF Mono", "JetBrains Mono", monospace);
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  font-family: var(--body);
+  background:
+    radial-gradient(120% 80% at 82% 8%, rgba(155, 124, 246, 0.06), transparent 55%),
+    radial-gradient(110% 80% at 8% 96%, rgba(77, 141, 245, 0.06), transparent 58%),
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- atmosphere ---------- */
+.bgArt {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--bg-art);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: cover;
+  opacity: 0.1;
+  filter: blur(2px) saturate(0.6);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 42%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 42%, #000 100%);
+}
+
+/* ruled-notebook horizontal lines */
+.paper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 33px,
+    rgba(255, 255, 255, 0.022) 33px,
+    rgba(255, 255, 255, 0.022) 34px
+  );
+  mask-image: radial-gradient(120% 100% at 30% 40%, #000 30%, rgba(0, 0, 0, 0.35) 100%);
+  -webkit-mask-image: radial-gradient(120% 100% at 30% 40%, #000 30%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+/* vertical legal-pad margin rule */
+.marginRule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(24px, 5vw, 62px);
+  z-index: 0;
+  width: 1px;
+  pointer-events: none;
+  background: var(--margin);
+  opacity: 0.5;
+  box-shadow: 0 0 10px rgba(200, 84, 42, 0.18);
+}
+
+.fieldWrap {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: -6%;
+  width: min(720px, 66vw);
+  height: min(560px, 72vh);
+  transform: translateY(-50%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.field {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(11, 11, 15, 0.82) 0%, rgba(11, 11, 15, 0.2) 40%, rgba(11, 11, 15, 0) 62%),
+    radial-gradient(120% 120% at 50% 44%, transparent 54%, rgba(0, 0, 0, 0.58) 100%);
+  box-shadow: inset 0 0 200px 26px rgba(0, 0, 0, 0.7);
+}
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+/* ---------- editorial frame label ---------- */
+.frame {
+  position: absolute;
+  top: clamp(14px, 2vw, 22px);
+  right: clamp(24px, 5vw, 62px);
+  z-index: 3;
+  pointer-events: none;
+}
+.frameLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  color: var(--ink-faint);
+}
+
+/* ---------- nav ---------- */
+.nav {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(20px, 3vw, 32px) clamp(24px, 5vw, 62px);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--display);
+  font-size: clamp(18px, 2vw, 22px);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--ink);
+}
+.brandMark {
+  color: var(--accent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 30px);
+}
+.navLink {
+  position: relative;
+  font-family: var(--mono);
+  font-size: clamp(12px, 1.3vw, 13.5px);
+  letter-spacing: 0.02em;
+  color: var(--ink-mute);
+  text-decoration: none;
+  padding: 4px 1px;
+  transition: color 0.18s ease;
+}
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+  transition: right 0.24s ease;
+}
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--ink);
+}
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  right: 0;
+}
+.navLink:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  z-index: 4;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: min(900px, 94vw);
+  padding: clamp(8px, 3vh, 40px) clamp(24px, 5vw, 62px);
+}
+
+.kickerRow {
+  display: flex;
+  align-items: center;
+  gap: 14px 20px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.28em;
+  color: var(--ink-soft);
+}
+.kickerTick {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 85%, transparent);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(20px, 3vw, 30px);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  border: 1px solid color-mix(in srgb, var(--chip) 34%, var(--hair));
+  border-radius: 999px;
+  padding: 5px 12px 5px 10px;
+  background: color-mix(in srgb, var(--chip) 8%, transparent);
+}
+.chipDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--chip);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--chip) 70%, transparent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.005em;
+  font-size: clamp(2.9rem, 9vw, 6.4rem);
+  color: var(--ink);
+}
+.titleLead {
+  display: block;
+  color: var(--ink);
+}
+.titleMainWrap {
+  display: inline-block;
+  position: relative;
+}
+.titleMain {
+  display: inline-block;
+  font-style: italic;
+  color: var(--accent);
+  text-shadow: 0 0 42px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.underline {
+  position: absolute;
+  left: -0.5%;
+  bottom: -0.14em;
+  width: 101%;
+  height: 0.24em;
+  overflow: visible;
+}
+.underlineReveal {
+  /* marker class; the draw animation lives on .underlinePath */
+  opacity: 1;
+}
+.underlinePath {
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 40%, transparent));
+  opacity: 0.85;
+}
+
+.subtitle {
+  margin: clamp(24px, 3.4vw, 34px) 0 0;
+  max-width: 62ch;
+  font-family: var(--body);
+  font-size: clamp(15px, 1.55vw, 18px);
+  line-height: 1.64;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.note {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin: 16px 0 0;
+  max-width: 70ch;
+  font-family: var(--mono);
+  font-size: clamp(12px, 1.25vw, 13.5px);
+  line-height: 1.62;
+  color: var(--ink-mute);
+}
+.notePrompt {
+  color: var(--accent);
+  flex: none;
+}
+.noteBody {
+  min-width: 0;
+}
+.code {
+  font-family: var(--mono);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+/* ---------- CTAs — highlighter-marker sweep ---------- */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+.cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.25s ease,
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+.cta:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  outline-offset: 3px;
+}
+/* the marker stroke that sweeps across on hover */
+.hl {
+  position: absolute;
+  z-index: 0;
+  left: 6px;
+  right: 6px;
+  top: 50%;
+  height: 62%;
+  transform: translateY(-50%) scaleX(0) skewX(-9deg);
+  transform-origin: left center;
+  border-radius: 3px;
+  background: var(--accent);
+  opacity: 0.24;
+  mix-blend-mode: screen;
+  transition: transform 0.34s cubic-bezier(0.2, 0.7, 0.15, 1);
+}
+.cta:hover .hl,
+.cta:focus-visible .hl {
+  transform: translateY(-50%) scaleX(1) skewX(-9deg);
+}
+.ctaLabel,
+.ctaIcon {
+  position: relative;
+  z-index: 1;
+}
+.ctaIcon {
+  font-size: 13px;
+  line-height: 1;
+}
+.ctaPrimary {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 68%, transparent);
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--accent) 24%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.ctaPrimary:hover,
+.ctaPrimary:focus-visible {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 34px color-mix(in srgb, var(--accent) 40%, transparent),
+    inset 0 0 18px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.ctaGhost {
+  color: var(--ink-mute);
+  background: rgba(23, 23, 27, 0.5);
+  border: 1px solid var(--hair);
+}
+.ctaGhost:hover,
+.ctaGhost:focus-visible {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* ---------- marginalia (Caveat handwriting) ---------- */
+.margNote {
+  position: absolute;
+  right: clamp(24px, 6vw, 70px);
+  bottom: clamp(90px, 16vh, 150px);
+  max-width: 220px;
+  font-family: var(--note);
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.15;
+  color: var(--ink-soft);
+  transform: rotate(-5deg);
+  text-align: left;
+  opacity: 0.9;
+}
+.margArrow {
+  display: block;
+  width: 56px;
+  height: 36px;
+  margin: 0 0 2px auto;
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: clamp(16px, 2.4vw, 24px) clamp(24px, 5vw, 62px);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-mute);
+}
+.license {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink-soft);
+}
+.mark {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.hudRight {
+  color: var(--ink-mute);
+  opacity: 0.85;
+}
+
+/* ---------- reveal utilities (base = finished/static) ---------- */
+.reveal,
+.fade,
+.underlineReveal {
+  opacity: 1;
+}
+
+/* ---------- MOTION (only when the user allows it) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .root {
+    animation: sh-accent-cycle 21s ease-in-out infinite;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: sh-rise 0.8s cubic-bezier(0.2, 0.7, 0.15, 1) var(--delay, 0ms) both;
+  }
+  .fade {
+    opacity: 0;
+    animation: sh-fade 0.7s ease var(--delay, 0ms) both;
+  }
+
+  .kickerTick {
+    animation: sh-pulse 2.6s ease-in-out infinite;
+  }
+
+  .underlinePath {
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    animation: sh-draw 0.95s cubic-bezier(0.2, 0.7, 0.15, 1) var(--delay, 1200ms) forwards;
+  }
+}
+
+@keyframes sh-accent-cycle {
+  0%,
+  100% {
+    --studyhub-accent: #4d8df5;
+  }
+  33% {
+    --studyhub-accent: #26bd93;
+  }
+  66% {
+    --studyhub-accent: #9b7cf6;
+  }
+}
+@keyframes sh-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sh-fade {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sh-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.32);
+    opacity: 0.55;
+  }
+}
+@keyframes sh-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .fieldWrap {
+    right: -24%;
+    opacity: 0.5;
+  }
+}
+@media (max-width: 680px) {
+  .fieldWrap {
+    display: none;
+  }
+  .margNote {
+    display: none;
+  }
+  .vignette {
+    background:
+      linear-gradient(0deg, rgba(11, 11, 15, 0.7) 0%, rgba(11, 11, 15, 0) 52%),
+      radial-gradient(140% 90% at 50% 40%, transparent 50%, rgba(0, 0, 0, 0.55) 100%);
+  }
+  .footer {
+    gap: 6px 12px;
+  }
+  .hudRight {
+    order: 3;
+    width: 100%;
+  }
+}

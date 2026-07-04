@@ -28,33 +28,46 @@
   flex-direction: column;
   color: var(--fg);
   font-family: var(--body);
-  background:
-    radial-gradient(125% 85% at 12% 92%, rgba(34, 230, 164, 0.06), transparent 55%),
-    radial-gradient(90% 70% at 88% 8%, rgba(34, 230, 164, 0.04), transparent 60%),
-    var(--bg);
+  /* solid dark base — the pixel-art (.bg) paints over this full-bleed */
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
 }
 
 /* ---------- atmosphere ---------- */
-.rain {
+/* The cinematic pixel-art hero — full-bleed base layer everything sits on. */
+.bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+  background: url("/oss/cortex.png") center / cover no-repeat;
+  background-color: #05070a;
+}
+
+/* Ciphertext rain — now a SUBTLE additive accent over the art. `screen` blend
+   makes the canvas's built-up black backdrop vanish (screen with black = no
+   change), leaving only the teal glyph-glow drifting over the scene. */
+.rain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: block;
   pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: screen;
   /* resolved via computed font-family in CipherRain so canvas gets a real font */
   font-family: var(--font-cortex-mono), ui-monospace, monospace;
 }
 
 .coreWrap {
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   top: 50%;
   right: -14%;
   width: min(760px, 74vw);
   aspect-ratio: 1 / 1;
   transform: translateY(-50%);
-  opacity: 0.5;
+  opacity: 0.32;
   pointer-events: none;
 }
 .core {
@@ -106,27 +119,46 @@
   stroke-width: 1;
 }
 
-.rainMask {
+/* Legibility scrim: darkens the left text column + top/bottom edges so the
+   bespoke headline/copy stay crisp, while the lit desk + cipher board keep their
+   glow on the right. Modeled on the Lumen scrim. */
+.scrim {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(130% 100% at 14% 42%, #000 0%, rgba(0, 0, 0, 0.8) 26%, rgba(0, 0, 0, 0) 60%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.74) 0%, rgba(0, 0, 0, 0.12) 46%, rgba(0, 0, 0, 0) 66%);
+    linear-gradient(
+      100deg,
+      rgba(4, 8, 6, 0.95) 0%,
+      rgba(4, 8, 6, 0.9) 18%,
+      rgba(4, 8, 6, 0.72) 38%,
+      rgba(4, 8, 6, 0.46) 54%,
+      rgba(4, 8, 6, 0.2) 70%,
+      rgba(4, 8, 6, 0.04) 85%,
+      rgba(4, 8, 6, 0) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(4, 8, 6, 0.88) 0%,
+      rgba(4, 8, 6, 0.4) 15%,
+      rgba(4, 8, 6, 0) 38%,
+      rgba(4, 8, 6, 0) 74%,
+      rgba(4, 8, 6, 0.38) 100%
+    );
 }
 .vignette {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  background: radial-gradient(120% 120% at 50% 46%, transparent 52%, rgba(0, 0, 0, 0.6) 100%);
-  box-shadow: inset 0 0 220px 30px rgba(0, 0, 0, 0.75);
+  background: radial-gradient(120% 120% at 50% 46%, transparent 52%, rgba(0, 0, 0, 0.55) 100%);
+  box-shadow: inset 0 0 200px 26px rgba(0, 0, 0, 0.7);
 }
 .grain {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
   opacity: 0.05;
   mix-blend-mode: screen;
@@ -564,7 +596,7 @@
 }
 @keyframes cx-corefade {
   to {
-    opacity: 0.5;
+    opacity: 0.32;
   }
 }
 @keyframes cx-corescale {
@@ -634,17 +666,23 @@
   .coreWrap {
     right: -30%;
     width: min(620px, 96vw);
-    opacity: 0.4;
+    opacity: 0.3;
   }
 }
 @media (max-width: 640px) {
   .coreWrap {
     display: none;
   }
-  .rainMask {
-    background:
-      radial-gradient(150% 90% at 50% 40%, #000 0%, rgba(0, 0, 0, 0.72) 32%, rgba(0, 0, 0, 0) 66%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%);
+  /* On narrow screens the type is full-width & vertically centered, so darken the
+     whole column top-to-bottom (art still reads through the lighter middle). */
+  .scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 8, 6, 0.9) 0%,
+      rgba(4, 8, 6, 0.68) 30%,
+      rgba(4, 8, 6, 0.6) 56%,
+      rgba(4, 8, 6, 0.82) 100%
+    );
   }
   .telemetry {
     gap: 6px;

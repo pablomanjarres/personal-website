@@ -123,6 +123,30 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/localhost-mirror",
     "live": null,
     "oss": true
+  },
+  {
+    "slug": "grit-x-awa",
+    "title": "GRIT-X-AWA",
+    "kicker": "GRIT-X-AWA · OPEN SOURCE",
+    "titleLead": "Classify exoplanets",
+    "titleMain": "from Kepler and TESS.",
+    "subtitle": "GRIT-X-AWA is a web observatory for exoplanet classification: upload a Kepler or TESS CSV, or enter a candidate by hand, and a three-model gradient-boosting ensemble returns a labeled disposition with per-class confidence. A three.js starfield, a paginated data browser, 3D orbital views, and an in-app chatbot wrap the model, and the whole thing runs keyless in demo mode with canned predictions and bundled sample data.",
+    "note": "Run `cd frontend && npm install && npm run dev` for the keyless demo at localhost:4321; set `PUBLIC_DEMO=false` with a live FastAPI backend to hit the real ensemble.",
+    "repo": "https://github.com/pablomanjarres/NASA-Space-Apps-Challenge",
+    "live": "https://grit-x-awa.vercel.app",
+    "oss": true
+  },
+  {
+    "slug": "study-hub",
+    "title": "Study Hub",
+    "kicker": "STUDY HUB · OPEN SOURCE",
+    "titleLead": "Three courses,",
+    "titleMain": "step by step.",
+    "subtitle": "Study Hub is a study platform for three university CS courses (formal languages, data structures, and database systems) with problems, three-depth solutions, explanations, and handwritten notes pre-authored as MDX. The theory that actually moves is interactive: DFA, NFA, PDA, and Turing-machine graphs you step through one symbol at a time, parse tables, grammar transforms, and sorting and schema visualizers, all offline and key-free.",
+    "note": "Run `pnpm install && pnpm dev` on port 5847, or `claude mcp add study-hub -- node mcp/dist/index.js` to give Claude the 16-tool content server.",
+    "repo": "https://github.com/pablomanjarres/study-hub",
+    "live": "https://study-hub.vercel.app",
+    "oss": true
   }
 ];
 
