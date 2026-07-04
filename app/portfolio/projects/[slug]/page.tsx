@@ -76,7 +76,9 @@ export default async function ProjectPage({
 
   const liveLink = project.links.find((l) => l.kind === "live");
   const repoLink = project.links.find((l) => l.kind === "repo");
-  const openUrl = liveLink?.url ?? repoLink?.url;
+  // The OPEN button opens the demo full-screen when there is one (same as
+  // Archgraph), falling back to the live site, then the repo.
+  const openUrl = project.embedUrl ?? liveLink?.url ?? repoLink?.url;
   const demoLabel =
     project.demoLabel ??
     (liveLink
@@ -140,11 +142,22 @@ export default async function ProjectPage({
         </div>
       </div>
 
-      {project.links.length > 0 && (
+      {(project.links.length > 0 || project.embedUrl) && (
         <div
           className="proj-links load-rise"
           style={{ "--i": titleWords.length + 3 } as CSSProperties}
         >
+          {project.embedUrl && !liveLink && (
+            <a
+              href={project.embedUrl}
+              className={project.featured ? "proj-btn accent" : "proj-btn primary"}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open live demo
+              <span aria-hidden>↗</span>
+            </a>
+          )}
           {project.links.map((l) => (
             <a
               key={l.url}
