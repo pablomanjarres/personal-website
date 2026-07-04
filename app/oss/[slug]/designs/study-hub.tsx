@@ -14,7 +14,7 @@
 // hiding it. All looping motion is gated behind prefers-reduced-motion.
 // See ./CONTRACT.md — the signature/props/nav shape are locked.
 import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Hero } from "../../heroes";
 import styles from "./study-hub.module.css";
@@ -267,9 +267,101 @@ function AutomatonField({ className }: { className?: string }) {
   return <canvas ref={ref} className={className} aria-hidden="true" />;
 }
 
+// ---------------------------------------------------------------------------
+// RunGuide - a right-side "run it yourself" drawer. Opened by the hero button,
+// it slides in a dark frosted panel with the offline, key-free setup steps.
+// Escape / backdrop close it; the slide is gated behind prefers-reduced-motion.
+// ---------------------------------------------------------------------------
+function RunGuide({
+  open,
+  onClose,
+  repo,
+}: {
+  open: boolean;
+  onClose: () => void;
+  repo: string;
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
+  const steps: { n: string; title: string; code: string; hint?: string }[] = [
+    { n: "01", title: "Clone the repo", code: `git clone ${repo}` },
+    {
+      n: "02",
+      title: "Install & run",
+      code: "pnpm install && pnpm dev",
+      hint: "Opens http://localhost:5847 - no API keys, fully offline.",
+    },
+    {
+      n: "03",
+      title: "Optional · hand it to Claude",
+      code: "claude mcp add study-hub -- node mcp/dist/index.js",
+      hint: "A 16-tool content server to read and add problems, solutions and notes.",
+    },
+  ];
+
+  return (
+    <div
+      className={`${styles.drawer} ${open ? styles.drawerOpen : ""}`}
+      aria-hidden={!open}
+    >
+      <div className={styles.drawerBackdrop} onClick={onClose} />
+      <aside
+        className={styles.drawerPanel}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Run it yourself"
+      >
+        <div className={styles.drawerHead}>
+          <span className={styles.drawerKicker}>RUN IT YOURSELF</span>
+          <button
+            type="button"
+            className={styles.drawerClose}
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+        <p className={styles.drawerLede}>
+          All the study material lives in the repo. No API keys, no backend - it
+          runs fully offline on your machine.
+        </p>
+        <ol className={styles.drawerSteps}>
+          {steps.map((step) => (
+            <li key={step.n} className={styles.drawerStep}>
+              <span className={styles.drawerStepNum}>{step.n}</span>
+              <div className={styles.drawerStepBody}>
+                <span className={styles.drawerStepTitle}>{step.title}</span>
+                <code className={styles.drawerCode}>{step.code}</code>
+                {step.hint && <span className={styles.drawerHint}>{step.hint}</span>}
+              </div>
+            </li>
+          ))}
+        </ol>
+        <a
+          className={styles.drawerRepo}
+          href={repo}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open the repo on GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </aside>
+    </div>
+  );
+}
+
 export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
   const h = hero;
   const writeup = `https://pablomanjarres.com/portfolio/projects/${slug}`;
+  const [guideOpen, setGuideOpen] = useState(false);
 
   return (
     <main className={styles.root} style={{ ["--bg-art" as string]: `url('/oss/${slug}.png')` }}>
@@ -354,14 +446,20 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
           {h.subtitle}
         </p>
 
-        <p className={`${styles.note} ${styles.reveal}`} style={ms(T.note)}>
-          <span className={styles.notePrompt} aria-hidden="true">
+        <button
+          type="button"
+          className={`${styles.runBtn} ${styles.reveal}`}
+          style={ms(T.note)}
+          onClick={() => setGuideOpen(true)}
+        >
+          <span className={styles.runBtnIcon} aria-hidden="true">
             ▸
           </span>
-          <span className={styles.noteBody}>
-            <NoteBody text={h.note} />
+          <span className={styles.runBtnLabel}>Run it yourself</span>
+          <span className={styles.runBtnArrow} aria-hidden="true">
+            →
           </span>
-        </p>
+        </button>
 
         <div className={styles.ctaRow}>
           <Cta href={h.repo} label="Star on GitHub" icon="★" external primary delay={T.cta1} />
@@ -399,6 +497,8 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
         </span>
         <span>© 2026 Pablo Manjarres</span>
       </footer>
+
+      <RunGuide open={guideOpen} onClose={() => setGuideOpen(false)} repo={h.repo} />
     </main>
   );
 }

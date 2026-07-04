@@ -16,8 +16,6 @@ import { BG, FG, ACCENT, MUTED, tokens } from "./theme";
 
 type BadgeColor = { fill: string; stroke: string };
 const BADGE_COLORS: BadgeColor[] = [
-  { fill: BG, stroke: FG }, // instagram (black glyph)
-  { fill: ACCENT, stroke: BG }, // tiktok (tri-color, transparent)
   { fill: BG, stroke: ACCENT }, // x (black)
   { fill: MUTED, stroke: BG }, // linkedin (white)
   { fill: FG, stroke: BG }, // reddit (orange)
@@ -27,8 +25,6 @@ const BADGE_COLORS: BadgeColor[] = [
 // ---- responsive starting positions ----------------------------------------
 // fractions of viewport for the badge's top-left corner: [fx, fy, rotation]
 const DESK: [number, number, number][] = [
-  [0.5, 0.14, -8],
-  [0.71, 0.18, 6],
   [0.56, 0.4, -3],
   [0.78, 0.44, 10],
   [0.585, 0.66, -12],
@@ -37,8 +33,6 @@ const DESK: [number, number, number][] = [
 // mobile: a loosely-placed "sticker sheet" of fractions WITHIN the pinboard's
 // own box (not the viewport) - two rows, gently staggered, never over the copy.
 const MOB: [number, number, number][] = [
-  [0.06, 0.08, -7],
-  [0.35, 0.13, 6],
   [0.65, 0.07, -5],
   [0.12, 0.52, 8],
   [0.38, 0.57, -9],

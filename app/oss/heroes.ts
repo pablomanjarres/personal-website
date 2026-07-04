@@ -133,7 +133,7 @@ export const heroes: Hero[] = [
     "subtitle": "GRIT-X-AWA is a web observatory for exoplanet classification: upload a Kepler or TESS CSV, or enter a candidate by hand, and a three-model gradient-boosting ensemble returns a labeled disposition with per-class confidence. A three.js starfield, a paginated data browser, 3D orbital views, and an in-app chatbot wrap the model, and the whole thing runs keyless in demo mode with canned predictions and bundled sample data.",
     "note": "Run `cd frontend && npm install && npm run dev` for the keyless demo at localhost:4321; set `PUBLIC_DEMO=false` with a live FastAPI backend to hit the real ensemble.",
     "repo": "https://github.com/pablomanjarres/NASA-Space-Apps-Challenge",
-    "live": "https://grit-x-awa.vercel.app",
+    "live": "https://grit-x-awa-kappa.vercel.app",
     "oss": true
   },
   {
