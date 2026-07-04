@@ -39,6 +39,9 @@ export default function OssIndex() {
             <div className="osh-card-in">
               <span className="osh-card-k">{h.kicker}</span>
               <span className="osh-card-t">{h.title}</span>
+              <span className="osh-card-d">
+                {h.titleLead} {h.titleMain}
+              </span>
             </div>
           </Link>
         ))}
