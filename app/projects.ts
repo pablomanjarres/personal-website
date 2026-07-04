@@ -1140,7 +1140,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Live demo",
-        "url": "https://grit-x-awa.vercel.app",
+        "url": "https://grit-x-awa-kappa.vercel.app",
         "kind": "live"
       },
       {
@@ -1150,8 +1150,8 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/grit-x-awa.png",
-    "embedUrl": "https://grit-x-awa.vercel.app",
-    "demoLabel": "grit-x-awa.vercel.app",
+    "embedUrl": "https://grit-x-awa-kappa.vercel.app",
+    "demoLabel": "grit-x-awa-kappa.vercel.app",
     "previewKind": "web",
     "subProjects": [
       {
