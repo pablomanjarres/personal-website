@@ -145,7 +145,7 @@ export const heroes: Hero[] = [
     "subtitle": "Study Hub is a study platform for three university CS courses (formal languages, data structures, and database systems) with problems, three-depth solutions, explanations, and handwritten notes pre-authored as MDX. The theory that actually moves is interactive: DFA, NFA, PDA, and Turing-machine graphs you step through one symbol at a time, parse tables, grammar transforms, and sorting and schema visualizers, all offline and key-free.",
     "note": "Run `pnpm install && pnpm dev` on port 5847, or `claude mcp add study-hub -- node mcp/dist/index.js` to give Claude the 16-tool content server.",
     "repo": "https://github.com/pablomanjarres/study-hub",
-    "live": "https://study-hub.vercel.app",
+    "live": "https://study-hub-three-orpin.vercel.app",
     "oss": true
   }
 ];

@@ -1239,7 +1239,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Live demo",
-        "url": "https://study-hub.vercel.app",
+        "url": "https://study-hub-three-orpin.vercel.app",
         "kind": "live"
       },
       {
@@ -1249,8 +1249,8 @@ export const projects: Project[] = [
       }
     ],
     "cover": "/portfolio/previews/study-hub.png",
-    "embedUrl": "https://study-hub.vercel.app",
-    "demoLabel": "study-hub.vercel.app",
+    "embedUrl": "https://study-hub-three-orpin.vercel.app",
+    "demoLabel": "study-hub-three-orpin.vercel.app",
     "previewKind": "web",
     "subProjects": [
       {
