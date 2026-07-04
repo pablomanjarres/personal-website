@@ -8,11 +8,14 @@ import ForgeEmbers from "./forge/ForgeEmbers";
 import ForgeButton from "./forge/ForgeButton";
 import ForgeConsole from "./forge/ForgeConsole";
 
-/* FORGE — "The Smithy".
-   A dark iron-black forge for the menu-bar app that casts image/video/voice,
-   runs coding agents, and renders Remotion. Rising ember canvas + molten floor
-   glow + brushed-metal type struck into hot metal. Signature CTA: molten-heat
-   gradient that ignites on hover and throws a spark burst on strike. */
+/* FORGE — "The Smithy" (HYBRID).
+   The cinematic pixel-art molten-blacksmith scene (/oss/forge.png) is the
+   full-bleed atmospheric background; a warm-dark legibility scrim carries the
+   type down the left column while the forge's molten focal point (the anvil,
+   spark-burst and glowing film-strip) stays near-clear. The bespoke smithy UI
+   composites on top — brushed-metal type struck into hot metal, live ember
+   sparks riding subtly over the photo, and the signature molten-heat CTA that
+   ignites on hover and throws a spark burst on strike. */
 
 const delay = (d: string) => ({ ["--d"]: d } as CSSProperties);
 
@@ -37,42 +40,18 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
   return (
     <main className={styles.root}>
-      {/* -------- atmosphere: rising embers, molten pool, anvil, grain ------ */}
-      <ForgeEmbers className={styles.embers} />
-      <div className={styles.pool} aria-hidden="true" />
-      <div className={styles.poolShine} aria-hidden="true" />
-      <div className={styles.anvil} aria-hidden="true">
-        <svg viewBox="0 0 640 150" preserveAspectRatio="xMidYMax meet">
-          <defs>
-            <linearGradient id="forgeMetal" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#5a5048" />
-              <stop offset="0.5" stopColor="#2c241d" />
-              <stop offset="1" stopColor="#14100c" />
-            </linearGradient>
-            <linearGradient id="forgeFront" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#211a15" />
-              <stop offset="1" stopColor="#0d0a07" />
-            </linearGradient>
-            <radialGradient id="forgeHot" cx="0.5" cy="0.5" r="0.6">
-              <stop offset="0" stopColor="#ffe6b0" />
-              <stop offset="0.4" stopColor="#ff7a1a" />
-              <stop offset="1" stopColor="#7a0000" />
-            </radialGradient>
-          </defs>
-          {/* billet body: lit top face + shadowed front face */}
-          <polygon points="176,58 470,58 502,92 138,92" fill="url(#forgeMetal)" />
-          <polygon points="138,92 502,92 486,122 154,122" fill="url(#forgeFront)" />
-          {/* freshly-cut molten end */}
-          <polygon points="176,58 138,92 154,122 176,120" fill="url(#forgeHot)" opacity="0.95" />
-          {/* top rim light + a couple of brushed hairlines */}
-          <line x1="176" y1="59" x2="470" y2="59" stroke="#c9b79a" strokeWidth="1.4" opacity="0.5" />
-          <line x1="170" y1="103" x2="470" y2="103" stroke="#3a2f26" strokeWidth="1" opacity="0.7" />
-          <line x1="170" y1="112" x2="452" y2="112" stroke="#3a2f26" strokeWidth="1" opacity="0.5" />
-        </svg>
+      {/* -------- atmosphere: cinematic pixel-art forge photo + scrim ------- */}
+      <div className={styles.atmosphere} aria-hidden="true">
+        <div
+          className={styles.art}
+          style={{ ["--bg"]: `url('/oss/${slug}.png')` } as CSSProperties}
+        />
+        <div className={styles.scrim} />
+        {/* live molten sparks, riding subtly OVER the photo (additive/screen) */}
+        <ForgeEmbers className={styles.embers} />
+        <div className={styles.grain} />
+        <div className={styles.vignette} />
       </div>
-      <div className={styles.floor} aria-hidden="true" />
-      <div className={styles.grain} aria-hidden="true" />
-      <div className={styles.vignette} aria-hidden="true" />
 
       {/* -------- nav (restyled, same three parts) -------------------------- */}
       <nav className={styles.nav}>

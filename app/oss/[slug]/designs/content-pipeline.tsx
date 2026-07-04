@@ -205,6 +205,8 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
   return (
     <main className={styles.stage}>
+      <div className={styles.art} aria-hidden="true" />
+      <div className={styles.scrim} aria-hidden="true" />
       <div className={styles.grid} aria-hidden="true" />
       <div className={styles.glow} aria-hidden="true" />
       <div className={styles.scan} aria-hidden="true" />

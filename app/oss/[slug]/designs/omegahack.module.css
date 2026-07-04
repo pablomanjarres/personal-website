@@ -1,8 +1,15 @@
 /* ============================================================================
-   CAROL · omegahack — "The Deadline Dossier"
-   A warm civic-archive landing: aged-paper cream, warm ink, wax-seal red, and
-   an ochre legal-deadline clock. All styles scoped to this CSS Module.
-   Signature: the official rubber-seal stamp on the primary CTAs.
+   CAROL · omegahack — "The Night Archive" (HYBRID)
+   The cinematic pixel-art scene (/oss/omegahack.png) — a lamplit civic archive
+   of case boxes, an open ledger on the desk and a legal-deadline clock — is the
+   full-bleed ATMOSPHERIC background, the product's own visual metaphor. A warm
+   dark scrim (heavy over the left type column + the bottom, near-clear over the
+   art's focal lamp + window) buys legibility, and the bespoke "Deadline Dossier"
+   typography, palette and the signature rubber-seal STAMP on the CTAs composite
+   ON TOP. The cream case file reads as a lit document laid on the archive desk.
+   All styles scoped to this CSS Module; class + keyframe names are route-hashed
+   by Next so nothing here collides. Motion gates behind prefers-reduced-motion
+   with a finished, text-visible fallback.
    ========================================================================== */
 
 /* Registered globally, but namespaced to the slug so it can never collide. */
@@ -24,9 +31,20 @@
   --seal: #b0342a;
   --seal-dark: #8e2a20;
   --seal-lite: #c2463a;
+  --seal-bright: #e0685a; /* brightened seal for type on the dark ground */
   --amber: #c8891e;
   --amber-lite: #e0a63b;
   --rule: #d9cdb2;
+
+  /* ---- light foreground (cream type over the night art) ---- */
+  --fg: #f6efe0;
+  --fg-soft: rgba(244, 237, 221, 0.86);
+  --fg-faint: rgba(244, 237, 221, 0.62);
+  --fg-mute: rgba(244, 237, 221, 0.5);
+  --hair: rgba(244, 237, 221, 0.13);
+  /* dark warm-teal used for every scrim stop (matches the art's shadows) */
+  --oh-scrim: 9, 14, 13;
+  --type-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 2px 16px rgba(0, 0, 0, 0.42);
 
   /* ---- type ---- */
   --f-display: var(--font-omegahack-display), "Libre Caslon Display", Georgia, serif;
@@ -37,18 +55,22 @@
   --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  /* paper & stamp textures (grayscale fractal noise, multiply-blended) */
+  /* paper & stamp textures (grayscale fractal noise, used by the dossier) */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   --ink-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='60'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.6'/%3E%3C/svg%3E");
 
   position: relative;
   isolation: isolate;
+  min-height: 100vh;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   overflow-x: clip;
-  background: var(--paper);
-  color: var(--ink);
+  /* on-palette dark base behind the art if the PNG is slow or absent */
+  background:
+    radial-gradient(58% 55% at 60% 44%, rgba(224, 166, 59, 0.06), transparent 62%),
+    #0c1413;
+  color: var(--fg);
   font-family: var(--f-body);
   -webkit-font-smoothing: antialiased;
 }
@@ -61,56 +83,96 @@
   pointer-events: none;
   overflow: hidden;
 }
+
+/* Base layer: the cinematic pixel-art archive, full-bleed cover. */
+.art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/oss/omegahack.png") center / cover no-repeat;
+  background-color: #0c1413;
+}
+
+/* Warm lamp bloom over the art's focal point (the desk lamp, center). An accent
+   glow that only reads in the clear zone — it sits UNDER the scrim. */
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    34% 40% at 60% 51%,
+    rgba(230, 178, 76, 0.18),
+    rgba(224, 166, 59, 0.05) 46%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+/* Legibility scrim: heavy on the left type column + the bottom, near-clear
+   through the center-right so the lamp, ledger and window read. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(var(--oh-scrim), 0.94) 0%,
+      rgba(var(--oh-scrim), 0.86) 24%,
+      rgba(var(--oh-scrim), 0.55) 47%,
+      rgba(var(--oh-scrim), 0.18) 70%,
+      rgba(var(--oh-scrim), 0.02) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(var(--oh-scrim), 0.8) 0%,
+      rgba(var(--oh-scrim), 0.34) 14%,
+      rgba(var(--oh-scrim), 0.03) 38%,
+      rgba(var(--oh-scrim), 0) 58%,
+      rgba(var(--oh-scrim), 0.42) 100%
+    );
+}
+
+/* deep-but-light vignette so the frame reads without crushing the art */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    130% 120% at 60% 48%,
+    transparent 54%,
+    rgba(5, 9, 8, 0.55) 100%
+  );
+}
+
+/* fine film grain over the whole frame */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  opacity: 0.06;
+}
+
+/* seal-ink brand hairline pinned to the very top */
 .topRule {
   position: absolute;
   inset: 0 0 auto 0;
+  z-index: 5;
   height: 3px;
   background: var(--seal);
   box-shadow: 0 2px 0 rgba(200, 137, 30, 0.35);
 }
-.grain {
-  position: absolute;
-  inset: 0;
-  background-image: var(--grain);
-  background-size: 200px 200px;
-  mix-blend-mode: multiply;
-  opacity: 0.05;
-}
-.ledger {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    var(--rule) 0 1px,
-    transparent 1px 34px
-  );
-  opacity: 0.28;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 82%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 82%, transparent);
-}
-.vignette {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(120% 90% at 50% 12%, transparent 45%, rgba(33, 28, 21, 0.07) 100%),
-    radial-gradient(80% 60% at 82% 78%, rgba(200, 137, 30, 0.05), transparent 60%);
-}
-.watermark {
-  position: absolute;
-  right: -3vw;
-  bottom: -14vw;
-  font-family: var(--f-display);
-  font-size: 46vw;
-  line-height: 0.7;
-  color: var(--ink);
-  opacity: 0.028;
-  transform: rotate(-9deg);
-  user-select: none;
-}
 
 /* ------------------------------------------------------------------- shared */
 .root :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--amber-lite);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -135,7 +197,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: clamp(18px, 3vw, 30px) clamp(20px, 5vw, 62px);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--hair);
 }
 .brand {
   display: inline-flex;
@@ -144,11 +206,12 @@
   font-family: var(--f-display);
   font-size: clamp(19px, 2vw, 24px);
   letter-spacing: 0.01em;
-  color: var(--ink);
+  color: var(--fg);
   text-decoration: none;
+  text-shadow: var(--type-shadow);
 }
 .brandMark {
-  color: var(--seal);
+  color: var(--seal-bright);
   font-family: var(--f-body);
   font-size: 0.82em;
   transform: translateY(-1px);
@@ -164,9 +227,10 @@
   font-size: clamp(11px, 1.2vw, 12.5px);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--fg-faint);
   text-decoration: none;
   padding-bottom: 3px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
   transition: color 0.18s ease;
 }
 .navLink::after {
@@ -176,11 +240,11 @@
   right: 100%;
   bottom: 0;
   height: 1.5px;
-  background: var(--seal);
+  background: var(--amber-lite);
   transition: right 0.24s var(--ease-out);
 }
 .navLink:hover {
-  color: var(--seal);
+  color: var(--amber-lite);
 }
 .navLink:hover::after {
   right: 0;
@@ -217,14 +281,16 @@
   font-size: clamp(10.5px, 1vw, 12.5px);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--seal);
+  color: var(--seal-bright);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
 }
 .kickerDot {
   width: 8px;
   height: 8px;
-  background: var(--seal);
+  background: var(--seal-bright);
   transform: rotate(45deg);
-  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px rgba(176, 52, 42, 0.4);
+  box-shadow: 0 0 0 2px rgba(11, 14, 13, 0.55), 0 0 0 3px rgba(224, 104, 90, 0.4),
+    0 0 10px rgba(224, 104, 90, 0.55);
 }
 
 .title {
@@ -234,7 +300,8 @@
   line-height: 0.98;
   letter-spacing: -0.015em;
   font-size: clamp(2.7rem, 7vw, 5.1rem);
-  color: var(--ink);
+  color: var(--fg);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 6px 34px rgba(0, 0, 0, 0.42);
 }
 .titleMask {
   display: block;
@@ -252,8 +319,15 @@
   max-width: 100%;
 }
 .titleAccent {
-  color: var(--seal);
   font-style: italic;
+  color: var(--amber-lite); /* fallback for no-clip */
+  background: linear-gradient(178deg, #f6db97 0%, #e6b24c 52%, #c8891e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 16px rgba(224, 166, 59, 0.35));
 }
 .titleRule {
   display: block;
@@ -261,6 +335,7 @@
   width: min(230px, 62%);
   margin-top: 0.16em;
   background: linear-gradient(90deg, var(--amber), var(--amber-lite));
+  box-shadow: 0 0 14px rgba(224, 166, 59, 0.42);
   transform-origin: left center;
 }
 
@@ -269,24 +344,28 @@
   max-width: 52ch;
   font-size: clamp(15px, 1.45vw, 18px);
   line-height: 1.62;
-  color: var(--ink-soft);
+  color: var(--fg-soft);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
 }
 .note {
   margin: 16px 0 0;
   max-width: 52ch;
   font-size: clamp(12.5px, 1.2vw, 14px);
   line-height: 1.6;
-  color: var(--ink-faint);
+  color: var(--fg-faint);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
 .kbd {
   font-family: var(--f-mono);
   font-size: 0.86em;
-  color: var(--ink);
-  background: var(--paper-3);
-  border: 1px solid var(--rule);
+  color: var(--fg);
+  background: rgba(20, 24, 22, 0.5);
+  border: 1px solid rgba(244, 237, 221, 0.18);
   border-radius: 5px;
   padding: 0.06em 0.42em;
   white-space: nowrap;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 /* -------- CTA row -------- */
@@ -316,8 +395,8 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.24),
     inset 0 -3px 7px rgba(0, 0, 0, 0.34),
-    0 10px 22px rgba(142, 42, 32, 0.34),
-    0 2px 4px rgba(33, 28, 21, 0.24);
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    0 6px 16px rgba(142, 42, 32, 0.4);
   transition: transform 0.28s var(--ease-back), filter 0.2s ease,
     box-shadow 0.24s ease;
 }
@@ -379,8 +458,8 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.26),
     inset 0 -3px 7px rgba(0, 0, 0, 0.34),
-    0 14px 30px rgba(142, 42, 32, 0.4),
-    0 2px 4px rgba(33, 28, 21, 0.24);
+    0 16px 36px rgba(0, 0, 0, 0.5),
+    0 6px 18px rgba(142, 42, 32, 0.46);
 }
 /* the press — a rubber stamp thunking down */
 .seal:active {
@@ -389,37 +468,56 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -2px 5px rgba(0, 0, 0, 0.4),
-    0 5px 12px rgba(142, 42, 32, 0.3);
+    0 6px 14px rgba(0, 0, 0, 0.4);
 }
 
-/* ghost / outline stamp (secondary — "Live demo") */
+/* ghost / outline stamp (secondary — "Live demo"): frosted glass over the art */
 .sealGhost {
-  color: var(--seal);
-  background: var(--paper-2);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 15px 26px;
+  border-radius: 13px;
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--fg);
+  background: rgba(244, 237, 221, 0.1);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 6px 16px rgba(33, 28, 21, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.36);
+  transition: transform 0.28s var(--ease-back), filter 0.2s ease,
+    box-shadow 0.24s ease;
 }
 .sealGhost .sealInk {
-  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(244, 237, 221, 0.14) 0%,
+    rgba(244, 237, 221, 0.03) 100%
+  );
 }
 .sealGhost .sealGrain {
-  opacity: 0.28;
+  opacity: 0.18;
 }
 .sealGhost .sealFrame {
-  border-color: rgba(176, 52, 42, 0.55);
+  border-color: rgba(224, 166, 59, 0.55);
 }
 .sealGhost .sealFrame::before {
-  border-color: rgba(176, 52, 42, 0.3);
+  border-color: rgba(224, 166, 59, 0.3);
 }
 .sealGhost .sealStar {
-  color: var(--seal);
+  color: var(--amber-lite);
 }
 .sealGhost:hover {
   transform: translateY(-2px);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 12px 24px rgba(33, 28, 21, 0.16);
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 14px 30px rgba(0, 0, 0, 0.42);
 }
 .sealGhost:active {
   transform: scale(0.94) rotate(-1.2deg);
@@ -432,17 +530,18 @@
   font-size: 12.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--fg-faint);
   text-decoration: none;
   padding-bottom: 2px;
-  background-image: linear-gradient(var(--seal), var(--seal));
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(var(--amber-lite), var(--amber-lite));
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 0% 1.5px;
   transition: color 0.18s ease, background-size 0.28s var(--ease-out);
 }
 .ledgerLink:hover {
-  color: var(--seal);
+  color: var(--amber-lite);
   background-size: 100% 1.5px;
 }
 .ledgerArrow {
@@ -451,6 +550,9 @@
 }
 
 /* ===================== DOSSIER (right) — the case file ===================== */
+/* Kept as an opaque, lamplit cream case file laid on the archive desk — its
+   own warm ink reads on the paper, and the warm glow behind seats it in the
+   scene. (Consumed by CaseDossier.tsx; class names are the contract.) */
 .dossier {
   position: relative;
   justify-self: center;
@@ -459,10 +561,12 @@
 }
 .deskShadow {
   position: absolute;
-  inset: 8% -6% -10% -6%;
+  inset: 4% -8% -13% -8%;
   z-index: -1;
-  background: radial-gradient(60% 50% at 50% 60%, rgba(33, 28, 21, 0.16), transparent 72%);
-  filter: blur(6px);
+  background:
+    radial-gradient(56% 46% at 52% 40%, rgba(230, 178, 76, 0.22), transparent 68%),
+    radial-gradient(62% 52% at 50% 66%, rgba(0, 0, 0, 0.5), transparent 72%);
+  filter: blur(8px);
 }
 
 /* peeking back cards (documents underneath) */
@@ -474,7 +578,7 @@
   border-radius: 12px;
   background: var(--paper-2);
   border: 1px solid var(--rule);
-  box-shadow: 0 8px 20px rgba(33, 28, 21, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 .cardBack {
   top: -14px;
@@ -512,8 +616,8 @@
   border: 1px solid var(--rule);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 18px 42px rgba(33, 28, 21, 0.2),
-    0 3px 10px rgba(33, 28, 21, 0.12);
+    0 30px 70px rgba(0, 0, 0, 0.55),
+    0 8px 22px rgba(0, 0, 0, 0.38);
 }
 .caseCard::after {
   /* faint paper grain on the card */
@@ -574,7 +678,7 @@
   box-shadow:
     inset 0 0 0 3.5px var(--seal),
     inset 0 0 0 4.5px rgba(244, 237, 221, 0.6),
-    0 8px 16px rgba(142, 42, 32, 0.36);
+    0 10px 20px rgba(0, 0, 0, 0.4);
   transform: rotate(-11deg);
   overflow: hidden;
 }
@@ -758,24 +862,25 @@
   justify-content: space-between;
   gap: 12px;
   padding: clamp(16px, 2.5vw, 24px) clamp(20px, 5vw, 62px);
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--hair);
   font-family: var(--f-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--fg-mute);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
 }
 .footTag {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--seal);
+  color: var(--seal-bright);
 }
 .footTag::before {
   content: "";
   width: 7px;
   height: 7px;
-  background: var(--seal);
+  background: var(--seal-bright);
   transform: rotate(45deg);
 }
 
@@ -818,6 +923,9 @@
   }
   .ring {
     animation: oh-wind 1.25s var(--ease-out) 0.8s both;
+  }
+  .glow {
+    animation: oh-breathe 9s ease-in-out infinite;
   }
 }
 
@@ -897,6 +1005,15 @@
     --omegahack-arc: var(--arc, 0deg);
   }
 }
+@keyframes oh-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 
 /* ----------------------------------------------------------- responsive */
 @media (max-width: 1000px) {
@@ -911,6 +1028,24 @@
   .dossier {
     justify-self: center;
     margin-top: 8px;
+  }
+  /* single-column: even the full-width type needs a legible ground */
+  .scrim {
+    background:
+      linear-gradient(
+        0deg,
+        rgba(var(--oh-scrim), 0.86) 0%,
+        rgba(var(--oh-scrim), 0.5) 30%,
+        rgba(var(--oh-scrim), 0.34) 54%,
+        rgba(var(--oh-scrim), 0.52) 82%,
+        rgba(var(--oh-scrim), 0.74) 100%
+      ),
+      linear-gradient(
+        100deg,
+        rgba(var(--oh-scrim), 0.5) 0%,
+        rgba(var(--oh-scrim), 0.22) 58%,
+        rgba(var(--oh-scrim), 0.28) 100%
+      );
   }
 }
 @media (max-width: 560px) {

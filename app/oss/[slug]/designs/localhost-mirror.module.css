@@ -1,22 +1,26 @@
 /* ============================================================================
-   Localhost Mirror — "Through the Mirror"
-   A cool near-black private void, mirror-silver instrument chrome, and exactly
-   ONE tailnet-green signal (#4ADE80) that behaves as literal light: it flows
-   through a receding tunnel and glints across every mirrored surface. The mirror
-   primitive (-webkit-box-reflect + a traveling light-sweep) is shared by the
-   hero screen and the buttons so the whole page reads as one reflective
-   instrument. All styles scoped to this module. Green never touches large fills.
+   Localhost Mirror — "Through the Mirror" (HYBRID)
+   The cinematic pixel-art scene (/oss/localhost-mirror.png) — a glowing localhost
+   mirrored from the iMac to the laptop across a private tailnet of light — is the
+   full-bleed ATMOSPHERIC background. A cool near-black scrim (heavy over the left
+   type column + the bottom, near-clear over the art's warm focal glow) buys
+   legibility, and the bespoke instrument typography + the signature mirror-sweep
+   CTAs composite ON TOP. Exactly ONE tailnet-green signal (#4ADE80) threads the
+   type, dot, readout and buttons. All styles scoped to this module; class +
+   keyframe names are route-hashed by Next so nothing here collides. All motion
+   gates behind prefers-reduced-motion with a finished, text-visible fallback.
    ========================================================================== */
 
 .root {
   --lm-bg: #0b0d10;
   --lm-fg: #e7ecf2;
   --lm-accent: #4ade80;
-  --lm-chrome: #b8c2ce;
+  --lm-chrome: #c3ccd7;
   --lm-steel: #9aa4b2;
-  --lm-hair: rgba(184, 194, 206, 0.14);
+  --lm-hair: rgba(184, 194, 206, 0.16);
   --lm-hair-soft: rgba(184, 194, 206, 0.08);
-  --lm-panel: rgba(184, 194, 206, 0.045);
+  /* cool near-black used for every scrim stop */
+  --lm-scrim: 8, 10, 13;
 
   --lm-display: var(--font-localhost-mirror-display), "Segoe UI", sans-serif;
   --lm-body: var(--font-localhost-mirror-body), system-ui, sans-serif;
@@ -24,13 +28,23 @@
 
   position: relative;
   isolation: isolate;
+  min-height: 100vh;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  background: var(--lm-bg);
+  /* clip horizontally so the scaled/drifting art + button reflections never
+     spawn a horizontal scrollbar; keep the vertical axis scrollable so a short
+     viewport can still reach the copy (the atmosphere clips its own overflow). */
+  overflow-x: hidden;
   color: var(--lm-fg);
   font-family: var(--lm-body);
+  /* on-palette base behind the art if the PNG is slow or absent */
+  background: radial-gradient(
+      60% 60% at 72% 40%,
+      rgba(74, 222, 128, 0.06),
+      transparent 60%
+    ),
+    var(--lm-bg);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -40,85 +54,88 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  /* the drifting, scaled .photo overflows this box by design (so its edges stay
+     covered) — clip it here instead of on .root so tall copy can still scroll. */
+  overflow: hidden;
 }
-/* faint network grid — the "tailnet" lattice */
-.grid {
+
+/* Base layer: the pixel-art mirror scene, full-bleed cover. A slow cinematic
+   drift makes the painted room feel alive; reduced motion holds it still. */
+.photo {
   position: absolute;
-  inset: -2px;
-  background-image: linear-gradient(var(--lm-hair-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--lm-hair-soft) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(
-    130% 120% at 68% 42%,
-    #000 12%,
-    transparent 74%
-  );
-  mask-image: radial-gradient(130% 120% at 68% 42%, #000 12%, transparent 74%);
-  opacity: 0.6;
+  inset: 0;
+  z-index: 0;
+  background: url("/oss/localhost-mirror.png") center / cover no-repeat;
+  background-color: var(--lm-bg);
+  transform: scale(1.045);
+  pointer-events: none;
 }
-/* green light bled from the tunnel core, washing the void */
+
+/* Faint tailnet-green signal bled over the art's cool window mesh (upper right).
+   An accent shimmer, never a fill — sits under the scrim so it only reads in the
+   clear zone. */
 .glow {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: radial-gradient(
-    46% 52% at 70% 44%,
-    rgba(74, 222, 128, 0.16),
-    rgba(74, 222, 128, 0.05) 38%,
-    transparent 66%
+    38% 42% at 70% 30%,
+    rgba(74, 222, 128, 0.11),
+    rgba(74, 222, 128, 0.03) 46%,
+    transparent 72%
   );
+  mix-blend-mode: screen;
   animation: lmBreathe 9s ease-in-out infinite;
 }
-/* one silver mirror-line horizon with a green glint at the tunnel axis */
-.horizon {
+
+/* Legibility scrim: heavy on the left type column + the bottom footer, near
+   clear through the center-right so the warm laptop + tailnet wires read. */
+.scrim {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 20%;
-  height: 1px;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
   background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(184, 194, 206, 0.16) 26%,
-    rgba(184, 194, 206, 0.34) 50%,
-    rgba(184, 194, 206, 0.16) 74%,
-    transparent
-  );
-  transform: scaleX(0);
-  transform-origin: 50% 50%;
-  animation: lmHorizon 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s both;
+      100deg,
+      rgba(var(--lm-scrim), 0.95) 0%,
+      rgba(var(--lm-scrim), 0.88) 24%,
+      rgba(var(--lm-scrim), 0.58) 46%,
+      rgba(var(--lm-scrim), 0.22) 68%,
+      rgba(var(--lm-scrim), 0.03) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(var(--lm-scrim), 0.74) 0%,
+      rgba(var(--lm-scrim), 0.34) 15%,
+      rgba(var(--lm-scrim), 0.04) 38%,
+      rgba(var(--lm-scrim), 0) 60%,
+      rgba(var(--lm-scrim), 0.4) 100%
+    );
 }
-.horizon::after {
-  content: "";
-  position: absolute;
-  left: 70%;
-  top: 50%;
-  width: 40%;
-  height: 3px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    closest-side,
-    rgba(74, 222, 128, 0.5),
-    transparent
-  );
-  filter: blur(2px);
-}
-/* deep vignette so the black reads as privacy/luxury */
+
+/* deep-but-light vignette so the frame reads without crushing the art */
 .vignette {
   position: absolute;
   inset: 0;
+  z-index: 3;
+  pointer-events: none;
   background: radial-gradient(
-    120% 120% at 50% 46%,
-    transparent 52%,
-    rgba(5, 6, 8, 0.62) 100%
+    132% 122% at 58% 50%,
+    transparent 55%,
+    rgba(4, 5, 7, 0.5) 100%
   );
 }
+
 /* fine brushed-metal grain */
 .grain {
   position: absolute;
   inset: 0;
+  z-index: 4;
+  pointer-events: none;
   opacity: 0.05;
   mix-blend-mode: screen;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
 }
 
 /* ---------------------------------------------------------------------- nav */
@@ -144,6 +161,7 @@
   letter-spacing: 0.01em;
   color: var(--lm-fg);
   text-decoration: none;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
 .brandMark {
   color: var(--lm-accent);
@@ -162,9 +180,10 @@
   font-size: clamp(11px, 1.15vw, 13px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--lm-steel);
+  color: var(--lm-chrome);
   text-decoration: none;
   padding: 4px 0;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
   transition: color 0.18s ease;
 }
 .navLink:hover {
@@ -190,18 +209,17 @@
   position: relative;
   z-index: 2;
   flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: center;
-  gap: clamp(28px, 4.5vw, 68px);
-  padding: clamp(20px, 4vh, 52px) clamp(20px, 5vw, 72px)
-    clamp(28px, 4vh, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(24px, 5vh, 60px) clamp(20px, 5vw, 72px) clamp(28px, 4vh, 48px);
 }
 
 /* -------------------------------------------------------------------- content */
 .content {
   min-width: 0;
-  max-width: 620px;
+  max-width: 600px;
 }
 .kicker {
   display: inline-flex;
@@ -211,8 +229,9 @@
   font-size: clamp(10px, 1vw, 12px);
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--lm-steel);
+  color: var(--lm-chrome);
   margin: 0 0 clamp(18px, 2.4vw, 26px);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
   opacity: 0;
   animation: lmRise 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both;
 }
@@ -231,6 +250,7 @@
   line-height: 0.98;
   letter-spacing: -0.03em;
   font-size: clamp(2.6rem, 6.2vw, 5.3rem);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 .titleLead,
 .titleMain {
@@ -240,14 +260,14 @@
 }
 .titleLead {
   font-weight: 600;
-  color: var(--lm-steel);
+  color: var(--lm-chrome);
 }
 .titleMain {
   font-weight: 800;
   color: var(--lm-fg);
   /* the title stands on the mirror — a soft reflected ghost of the words */
   -webkit-box-reflect: below 6px
-    linear-gradient(transparent 44%, rgba(184, 194, 206, 0.15));
+    linear-gradient(transparent 46%, rgba(184, 194, 206, 0.12));
 }
 
 .subtitle {
@@ -255,7 +275,8 @@
   max-width: 46ch;
   font-size: clamp(15px, 1.35vw, 18px);
   line-height: 1.62;
-  color: rgba(231, 236, 242, 0.82);
+  color: rgba(231, 236, 242, 0.9);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.72), 0 1px 2px rgba(0, 0, 0, 0.5);
   opacity: 0;
   animation: lmRise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both;
 }
@@ -264,20 +285,24 @@
   max-width: 50ch;
   font-size: clamp(12.5px, 1.15vw, 14px);
   line-height: 1.7;
-  color: var(--lm-steel);
+  color: var(--lm-chrome);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
   opacity: 0;
   animation: lmRise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both;
 }
+/* frosted mono command chip so `$ lm expose 3000` stays crisp over the art */
 .chip {
   font-family: var(--lm-mono);
   font-size: 0.9em;
   color: var(--lm-fg);
-  background: var(--lm-panel);
+  background: rgba(13, 16, 20, 0.55);
   border: 1px solid var(--lm-hair);
   border-radius: 6px;
   padding: 2px 7px;
   white-space: nowrap;
-  box-shadow: inset 0 0 0 1px rgba(11, 13, 16, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(11, 13, 16, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 .chip::before {
   content: "$ ";
@@ -296,7 +321,8 @@
 }
 
 /* the SIGNATURE mirror-sweep button: a mirrored ghost beneath the face + a
-   traveling skewed light-sweep that glides across the face AND its reflection. */
+   traveling skewed light-sweep that glides across the face AND its reflection.
+   A frosted backdrop keeps the glass button crisp over the pixel-art. */
 .btn {
   position: relative;
   overflow: hidden;
@@ -311,6 +337,8 @@
   letter-spacing: 0.01em;
   text-decoration: none;
   cursor: pointer;
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
   transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1),
     box-shadow 0.24s ease, border-color 0.24s ease, background-color 0.24s ease;
   -webkit-box-reflect: below 0
@@ -365,14 +393,14 @@
 .btnPrimary {
   background: var(--lm-accent);
   color: #06130b;
-  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.3),
-    0 10px 30px rgba(74, 222, 128, 0.14);
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.35),
+    0 10px 30px rgba(0, 0, 0, 0.4), 0 8px 30px rgba(74, 222, 128, 0.28);
 }
 .btnPrimary:hover {
   transform: translateY(-2px);
   /* lit mirror wake */
-  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.6),
-    0 14px 40px rgba(74, 222, 128, 0.34);
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.7),
+    0 16px 44px rgba(74, 222, 128, 0.42), 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 .btnStar {
   font-size: 1.05em;
@@ -380,14 +408,18 @@
 }
 
 .btnGhost {
-  background: var(--lm-panel);
+  background: rgba(13, 16, 20, 0.42);
   color: var(--lm-fg);
-  border: 1px solid var(--lm-hair);
+  border: 1px solid rgba(184, 194, 206, 0.26);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(231, 236, 242, 0.06);
 }
 .btnGhost:hover {
   transform: translateY(-2px);
-  border-color: rgba(184, 194, 206, 0.5);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+  border-color: rgba(184, 194, 206, 0.55);
+  background: rgba(20, 24, 30, 0.5);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(231, 236, 242, 0.1);
 }
 .btnArrow {
   color: var(--lm-steel);
@@ -398,117 +430,30 @@
   color: var(--lm-fg);
 }
 
-/* ------------------------------------------------------------- screen (right) */
-.screenWrap {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  opacity: 0;
-  animation: lmRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both;
-}
-/* the instrument viewport, mirrored on a silver floor (shared mirror primitive) */
-.screen {
-  position: relative;
-  aspect-ratio: 5 / 4;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(184, 194, 206, 0.2);
-  background: radial-gradient(
-      120% 90% at 50% 50%,
-      rgba(74, 222, 128, 0.12),
-      rgba(11, 13, 16, 1) 62%
-    ),
-    var(--lm-bg);
-  box-shadow: inset 0 1px 0 rgba(231, 236, 242, 0.08),
-    inset 0 0 0 1px rgba(11, 13, 16, 0.9), 0 30px 70px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(74, 222, 128, 0.06);
-  -webkit-box-reflect: below 10px
-    linear-gradient(transparent 52%, rgba(184, 194, 206, 0.26));
-}
-.canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-/* screen chrome header */
-.screenHead {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 15px;
-  font-family: var(--lm-mono);
-  font-size: clamp(9.5px, 1vw, 11px);
-  letter-spacing: 0.1em;
-  color: var(--lm-chrome);
-  background: linear-gradient(
-    180deg,
-    rgba(11, 13, 16, 0.72),
-    transparent
-  );
-}
-.screenTag {
-  color: var(--lm-steel);
-}
-.screenStatus {
+/* -------------------------------------------------- instrument readout strip */
+/* the bespoke "mirror" HUD, kept as a thin frosted strip that floats over the
+   art instead of an opaque viewport that would hide it. */
+.readout {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  color: var(--lm-fg);
-  text-transform: uppercase;
-}
-.screenDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--lm-accent);
-  box-shadow: 0 0 10px 1px rgba(74, 222, 128, 0.8);
-  animation: lmPulse 2.2s ease-in-out infinite;
-}
-/* subtle inner rim so the screen reads as glass */
-.screenRim {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: 16px;
-  pointer-events: none;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 1px rgba(184, 194, 206, 0.05);
-}
-/* power-on flash */
-.screenFlash {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(74, 222, 128, 0.55),
-    transparent 58%
-  );
-  opacity: 0;
-  animation: lmFlash 1.3s ease-out var(--d, 1.5s) 1 both;
-}
-
-/* mono readout strip under the screen */
-.readout {
-  display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 16px;
+  gap: 8px 14px;
+  margin-top: clamp(22px, 3vw, 30px);
+  max-width: 460px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: rgba(13, 16, 20, 0.42);
+  border: 1px solid var(--lm-hair);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
   font-family: var(--lm-mono);
   font-size: clamp(10px, 1vw, 12px);
   letter-spacing: 0.04em;
   color: var(--lm-steel);
-  padding: 0 2px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  animation: lmFade 0.7s ease var(--d, 0s) both;
 }
 .readout b {
   color: var(--lm-fg);
@@ -517,9 +462,17 @@
 .readAccent {
   color: var(--lm-accent);
 }
+.readDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lm-accent);
+  box-shadow: 0 0 10px 1px rgba(74, 222, 128, 0.8);
+  animation: lmPulse 2.2s ease-in-out infinite;
+}
 .readWire {
   flex: 1;
-  min-width: 24px;
+  min-width: 20px;
   height: 1px;
   background: linear-gradient(90deg, var(--lm-hair), transparent);
 }
@@ -539,6 +492,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--lm-steel);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
   opacity: 0;
   animation: lmFade 0.8s ease 1.15s both;
 }
@@ -584,17 +538,6 @@
     left: 135%;
   }
 }
-@keyframes lmFlash {
-  0% {
-    opacity: 0;
-  }
-  22% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @keyframes lmPulse {
   0%,
   100% {
@@ -609,43 +552,49 @@
 @keyframes lmBreathe {
   0%,
   100% {
-    opacity: 0.85;
+    opacity: 0.8;
   }
   50% {
-    opacity: 1.1;
+    opacity: 1.15;
   }
 }
-@keyframes lmHorizon {
+@keyframes lmDrift {
   from {
-    transform: scaleX(0);
-    opacity: 0;
+    transform: scale(1.045) translate3d(0, 0, 0);
   }
   to {
-    transform: scaleX(1);
-    opacity: 1;
+    transform: scale(1.075) translate3d(-1.2%, -0.9%, 0);
+  }
+}
+
+/* slow cinematic drift on the painted scene — motion-safe only */
+@media (prefers-reduced-motion: no-preference) {
+  .photo {
+    animation: lmDrift 46s ease-in-out infinite alternate;
+    will-change: transform;
   }
 }
 
 /* ------------------------------------------------------------- responsive */
 @media (max-width: 920px) {
-  .stage {
-    grid-template-columns: 1fr;
-    gap: clamp(26px, 6vw, 40px);
-    align-items: start;
-    padding-top: clamp(24px, 6vw, 40px);
-  }
   .content {
     max-width: 640px;
   }
-  .screen {
-    aspect-ratio: 16 / 10;
-    max-width: 560px;
-  }
-  .horizon {
-    display: none;
-  }
   .titleMain {
     -webkit-box-reflect: none;
+  }
+}
+@media (max-width: 720px) {
+  /* on narrow screens the type spans most of the width — swap to a mostly
+     vertical scrim so the whole column stays legible while the art shows. */
+  .scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(var(--lm-scrim), 0.62) 0%,
+      rgba(var(--lm-scrim), 0.48) 30%,
+      rgba(var(--lm-scrim), 0.56) 56%,
+      rgba(var(--lm-scrim), 0.84) 100%
+    );
   }
 }
 @media (max-width: 560px) {
@@ -660,6 +609,9 @@
   .btn {
     flex: 1 1 auto;
     justify-content: center;
+  }
+  .readout {
+    max-width: 100%;
   }
 }
 
@@ -678,16 +630,13 @@
   .subtitle,
   .note,
   .ctaRow,
-  .screenWrap,
+  .readout,
   .foot {
     opacity: 1 !important;
     transform: none !important;
   }
-  .horizon {
-    transform: scaleX(1) !important;
-    opacity: 1 !important;
-  }
-  .screenFlash {
-    display: none;
+  /* keep the painted scene covering the frame, just static */
+  .photo {
+    transform: scale(1.045) !important;
   }
 }

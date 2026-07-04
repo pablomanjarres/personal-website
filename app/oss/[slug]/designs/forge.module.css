@@ -7,11 +7,6 @@
    ========================================================================== */
 
 /* document-global registered props — MUST be slug-prefixed (see CONTRACT §2) */
-@property --forge-pool {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
 @property --forge-ignite {
   syntax: "<number>";
   initial-value: 0;
@@ -44,114 +39,85 @@
   display: flex;
   flex-direction: column;
   overflow: clip;
-  /* own full-viewport ground so the shared dark shell never shows through,
-     with a baked warm floor-glow that doubles as the reduced-motion fallback */
-  background:
-    radial-gradient(150% 92% at 50% 118%, #351606 0%, #1b0d06 30%, #0b0907 66%),
-    var(--f-bg);
+  /* iron-black ground: a plain dark base so the shared dark shell never shows
+     through if the pixel-art fails to load. The forge scene (.art) is the hero. */
+  background: var(--f-bg);
   color: var(--f-fg);
   font-family: var(--font-forge-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---- atmosphere ---------------------------------------------------------- */
-.embers {
+/* ---- atmosphere: cinematic pixel-art forge photo ------------------------- */
+.atmosphere {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Full-bleed molten-blacksmith pixel-art scene — the atmospheric hero. --bg is
+   set inline per-slug in forge.tsx; the /oss/forge.png fallback keeps this layer
+   meaningful on its own. */
+.art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--f-bg) var(--bg, url("/oss/forge.png")) center / cover no-repeat;
+  filter: saturate(1.06) contrast(1.03);
+  transform-origin: 52% 46%;
+}
+
+/* Legibility scrim over the art. Gradient A darkens the left text column and
+   fades to near-clear across the forge's molten focal point (the centre gap
+   where the anvil, spark-burst and film-strip glow). Gradient B grounds the
+   footer and lightly seats the nav, leaving the focal glow untouched. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(8, 5, 3, 0.9) 0%,
+      rgba(8, 5, 3, 0.78) 20%,
+      rgba(8, 5, 3, 0.52) 38%,
+      rgba(8, 5, 3, 0.22) 54%,
+      rgba(8, 5, 3, 0) 70%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(6, 4, 2, 0.92) 0%,
+      rgba(6, 4, 2, 0.34) 16%,
+      rgba(6, 4, 2, 0) 38%,
+      rgba(6, 4, 2, 0) 74%,
+      rgba(6, 4, 2, 0.44) 100%
+    );
+}
+
+/* live rising-ember / spark canvas — kept, but now riding subtly OVER the photo
+   as additive light (screen) at low opacity, so it enlivens the scene's own
+   spark-burst without ever hiding the pixel-art. */
+.embers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   pointer-events: none;
   display: block;
-}
-
-/* CSS ember pool — stacked radials rising from the bottom (KODE forge recipe) */
-.pool {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      120% 62% at 50% 120%,
-      rgba(255, 76, 0, 0.55) 0%,
-      rgba(255, 76, 0, 0.16) 34%,
-      transparent 62%
-    ),
-    radial-gradient(
-      60% 40% at 22% 128%,
-      rgba(255, 194, 74, 0.4) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      52% 38% at 82% 126%,
-      rgba(255, 76, 0, 0.34) 0%,
-      transparent 58%
-    );
-  mix-blend-mode: screen;
-}
-/* slow rotating heat shimmer over the pool (progressive @property enhancement) */
-.poolShine {
-  position: absolute;
-  inset: -30% -10% -10%;
-  z-index: 0;
-  pointer-events: none;
-  background: conic-gradient(
-    from var(--forge-pool) at 50% 118%,
-    transparent 0deg,
-    rgba(255, 120, 0, 0.14) 60deg,
-    transparent 140deg,
-    rgba(255, 194, 74, 0.1) 220deg,
-    transparent 320deg
-  );
+  opacity: 0.55;
   mix-blend-mode: screen;
 }
 
-/* the molten seam being worked — a hot line hugging the floor */
-.floor {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  z-index: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #ff4c00 18%,
-    #ffc24a 50%,
-    #ff4c00 82%,
-    transparent
-  );
-  filter: blur(0.4px) drop-shadow(0 0 14px rgba(255, 76, 0, 0.75));
-  opacity: 0.9;
-}
-
-/* brushed-metal anvil silhouette bleeding off the bottom, catching underlight */
-.anvil {
-  position: absolute;
-  left: 50%;
-  bottom: -2px;
-  width: min(720px, 92vw);
-  transform: translateX(-50%);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.82;
-}
-.anvil svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* fine soot grain + edge vignette for depth */
+/* fine soot grain + cinematic edge vignette for filmic depth — kept faint so the
+   art reads full-strength; both sit below the readable content. */
 .grain {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.06;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
@@ -159,12 +125,12 @@
 .vignette {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
   background: radial-gradient(
-    118% 92% at 50% 34%,
-    transparent 52%,
-    rgba(5, 3, 2, 0.66) 100%
+    120% 100% at 52% 44%,
+    transparent 48%,
+    rgba(4, 2, 1, 0.68) 100%
   );
 }
 
@@ -196,6 +162,7 @@
   text-transform: uppercase;
   color: var(--f-fg);
   text-decoration: none;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.82);
 }
 .brandMark {
   color: var(--f-accent);
@@ -216,6 +183,7 @@
   letter-spacing: 0.16em;
   color: var(--f-faint);
   text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 .portDot {
   width: 6px;
@@ -242,6 +210,7 @@
   color: var(--f-muted);
   text-decoration: none;
   padding-bottom: 3px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.85);
   transition: color 0.16s ease;
 }
 .navLink::after {
@@ -296,6 +265,7 @@
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--f-accent2);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9), 0 0 22px rgba(255, 76, 0, 0.25);
 }
 .kickerDot {
   width: 7px;
@@ -327,7 +297,10 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.55));
+  /* stronger stacked dark drop-shadows so the struck-metal type stays crisp and
+     separated over the bright pixel-art scene */
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 6px 24px rgba(0, 0, 0, 0.5));
 }
 .titleLead {
   font-size: 0.62em;
@@ -345,7 +318,10 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 16px rgba(255, 76, 0, 0.5));
+  /* dark separation first (the word is molten-orange and may land over the
+     scene's own orange fire), then the molten glow */
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 18px rgba(255, 76, 0, 0.55));
 }
 
 /* molten seam under the headline */
@@ -364,8 +340,9 @@
   max-width: 54ch;
   font-size: clamp(15px, 1.55vw, 18px);
   line-height: 1.62;
-  color: rgba(237, 228, 216, 0.82);
+  color: rgba(237, 228, 216, 0.9);
   text-wrap: pretty;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.66), 0 2px 16px rgba(0, 0, 0, 0.55);
 }
 
 /* run/install note as a terminal line */
@@ -377,7 +354,8 @@
   font-family: var(--font-forge-mono), monospace;
   font-size: clamp(12px, 1.25vw, 13.5px);
   line-height: 1.6;
-  color: rgba(237, 228, 216, 0.64);
+  color: rgba(237, 228, 216, 0.72);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
 }
 .notePrompt {
   color: var(--f-accent);
@@ -726,6 +704,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--f-faint);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
 }
 .footTag {
   display: inline-flex;
@@ -747,22 +726,15 @@
    so reduced-motion users get everything, statically, with zero animation.
    ========================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  /* atmosphere ignites */
-  .embers,
-  .pool,
-  .poolShine {
+  /* atmosphere ignites: the scene fades up, embers drift in, the art breathes */
+  .atmosphere {
     animation: forgeFade 1.4s ease both;
   }
-  .poolShine {
-    animation: forgeFade 1.4s ease both,
-      forgePoolSpin 26s linear infinite 0.4s;
+  .embers {
+    animation: forgeFade 2s ease both 0.3s;
   }
-  .floor {
-    transform-origin: center;
-    animation: forgeFloor 1.2s ease-out both, forgeFloorFlicker 5s ease-in-out infinite 1.4s;
-  }
-  .anvil {
-    animation: forgeAnvil 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  .art {
+    animation: forgeDrift 42s ease-in-out infinite alternate 0.6s;
   }
 
   /* staggered reveals, driven by inline --d */
@@ -863,9 +835,13 @@
     background-position: 92% 50%;
   }
 }
-@keyframes forgePoolSpin {
+/* subtle ken-burns breath on the pixel-art (edges always covered) */
+@keyframes forgeDrift {
+  from {
+    transform: scale(1.01);
+  }
   to {
-    --forge-pool: 360deg;
+    transform: scale(1.06);
   }
 }
 @keyframes forgePulse {
@@ -879,39 +855,6 @@
     box-shadow: 0 0 4px rgba(255, 76, 0, 0.5);
   }
 }
-@keyframes forgeFloor {
-  from {
-    transform: scaleX(0.2);
-    opacity: 0;
-  }
-  to {
-    transform: scaleX(1);
-    opacity: 0.9;
-  }
-}
-@keyframes forgeFloorFlicker {
-  0%,
-  100% {
-    opacity: 0.9;
-  }
-  45% {
-    opacity: 0.66;
-  }
-  70% {
-    opacity: 1;
-  }
-}
-@keyframes forgeAnvil {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(26px);
-  }
-  to {
-    opacity: 0.9;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
 /* ---- responsive ---------------------------------------------------------- */
 @media (max-width: 940px) {
   .console {

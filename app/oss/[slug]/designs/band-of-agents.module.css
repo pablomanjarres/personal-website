@@ -66,24 +66,24 @@
 .art {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  /* The product's cinematic pixel-art tribunal IS the atmospheric background —
+     full-bleed, in colour, its warm lantern light intact. The scrim below does
+     the legibility work so the art itself never has to be dimmed away. */
   background: var(--bg) center / cover no-repeat;
-  opacity: 0.14;
-  filter: grayscale(1) contrast(1.05) brightness(0.66);
-  mix-blend-mode: luminosity;
-  -webkit-mask-image: radial-gradient(78% 78% at 72% 42%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(78% 78% at 72% 42%, #000 0%, transparent 72%);
+  filter: contrast(1.05) saturate(1.04) brightness(0.9);
 }
 .grid {
   position: absolute;
   inset: 0;
   background-image: repeating-linear-gradient(
       90deg,
-      rgba(234, 228, 213, 0.04) 0 1px,
+      rgba(234, 228, 213, 0.03) 0 1px,
       transparent 1px 74px
     ),
     repeating-linear-gradient(
       0deg,
-      rgba(234, 228, 213, 0.04) 0 1px,
+      rgba(234, 228, 213, 0.03) 0 1px,
       transparent 1px 74px
     );
   -webkit-mask-image: radial-gradient(120% 100% at 50% 28%, #000 32%, transparent 92%);
@@ -92,8 +92,35 @@
 .glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(46% 52% at 72% 44%, rgba(63, 185, 80, 0.1), transparent 68%),
-    radial-gradient(58% 60% at 10% 90%, rgba(240, 80, 60, 0.05), transparent 70%);
+  /* Whisper of the two verdict signals, held OFF the warm focal point so the
+     pixel-art's lantern light stays pure — an accent over the art, never a wash.
+     Green pools low-right by the verdict console; red traces the low-left. */
+  background: radial-gradient(52% 56% at 84% 72%, rgba(63, 185, 80, 0.1), transparent 70%),
+    radial-gradient(58% 60% at 8% 92%, rgba(240, 80, 60, 0.055), transparent 72%);
+}
+
+/* Legibility scrim over the art: heaviest on the left text column and along the
+   bottom (footer), fading to near-clear across the lit focal point — the
+   spot-lit throne, upper-centre-right. This is what keeps type crisp while the
+   pixel-art reads full-strength everywhere it isn't carrying text. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      95deg,
+      rgba(7, 8, 12, 0.94) 0%,
+      rgba(7, 8, 12, 0.8) 24%,
+      rgba(7, 8, 12, 0.46) 44%,
+      rgba(7, 8, 12, 0.14) 60%,
+      rgba(7, 8, 12, 0) 74%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(7, 8, 12, 0.55) 0%,
+      rgba(7, 8, 12, 0) 18%,
+      rgba(7, 8, 12, 0) 60%,
+      rgba(7, 8, 12, 0.8) 100%
+    );
 }
 .grain {
   position: absolute;
@@ -143,6 +170,7 @@
   text-transform: uppercase;
   color: var(--paper);
   text-decoration: none;
+  text-shadow: 0 1px 8px rgba(4, 5, 8, 0.6);
 }
 .brandMark {
   color: var(--green);
@@ -164,6 +192,7 @@
   color: var(--paper-faint);
   text-decoration: none;
   transition: color 0.18s ease;
+  text-shadow: 0 1px 6px rgba(4, 5, 8, 0.6);
 }
 .navLink:hover,
 .navLink:focus-visible {
@@ -213,6 +242,7 @@
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--green);
+  text-shadow: 0 0 14px rgba(63, 185, 80, 0.3), 0 1px 6px rgba(4, 5, 8, 0.62);
   animation: baReveal 0.7s var(--ease-out) both;
   animation-delay: var(--d);
 }
@@ -234,6 +264,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--paper-dim);
+  text-shadow: 0 1px 5px rgba(4, 5, 8, 0.7);
   animation: baReveal 0.7s var(--ease-out) both;
   animation-delay: var(--d);
 }
@@ -261,6 +292,7 @@
   letter-spacing: -0.015em;
   font-size: clamp(2.7rem, 6.3vw, 5.1rem);
   color: var(--paper);
+  text-shadow: 0 1px 2px rgba(4, 5, 8, 0.55), 0 4px 30px rgba(4, 5, 8, 0.5);
 }
 .titleMask {
   display: block;
@@ -307,6 +339,7 @@
   font-size: clamp(15px, 1.45vw, 18px);
   line-height: 1.62;
   color: var(--paper-soft);
+  text-shadow: 0 1px 10px rgba(4, 5, 8, 0.55);
   animation: baReveal 0.72s var(--ease-out) both;
   animation-delay: var(--d);
 }
@@ -317,6 +350,7 @@
   font-size: clamp(12.5px, 1.25vw, 14.5px);
   line-height: 1.6;
   color: var(--paper-faint);
+  text-shadow: 0 1px 8px rgba(4, 5, 8, 0.55);
   animation: baReveal 0.72s var(--ease-out) both;
   animation-delay: var(--d);
 }
@@ -325,11 +359,13 @@
   font-size: 0.82em;
   letter-spacing: 0.01em;
   color: var(--paper);
-  background: var(--ink-3);
+  background: rgba(17, 18, 26, 0.66);
   border: 1px solid var(--rule);
   border-radius: 5px;
   padding: 0.08em 0.44em;
   white-space: nowrap;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 /* ------------------------------------------------------------------ CTA row */
@@ -350,6 +386,8 @@
   border-radius: 13px;
   text-decoration: none;
   isolation: isolate;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: var(--paper);
   --edge: rgba(234, 228, 213, 0.22);
   --glow: transparent;
@@ -437,6 +475,7 @@
   font-family: var(--f-mono);
   font-weight: 600;
   letter-spacing: 0.02em;
+  text-shadow: 0 1px 6px rgba(4, 5, 8, 0.5);
 }
 .stampVerdict {
   font-family: var(--f-mono);
@@ -512,6 +551,7 @@
   text-transform: uppercase;
   text-decoration: none;
   color: var(--paper-faint);
+  text-shadow: 0 1px 6px rgba(4, 5, 8, 0.7);
   transition: color 0.18s ease;
   animation: baReveal 0.72s var(--ease-out) both;
   animation-delay: var(--d);
@@ -539,9 +579,9 @@
   padding: clamp(14px, 2vw, 22px);
   border: 1px solid var(--rule);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(21, 22, 31, 0.72), rgba(11, 12, 16, 0.5));
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: linear-gradient(168deg, rgba(20, 21, 30, 0.6), rgba(9, 10, 14, 0.4));
+  backdrop-filter: blur(7px) saturate(1.06);
+  -webkit-backdrop-filter: blur(7px) saturate(1.06);
   box-shadow: 0 34px 90px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(234, 228, 213, 0.05);
   animation: baPanelIn 0.85s var(--ease-out) both;
   animation-delay: var(--d);
@@ -578,6 +618,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--paper-dim);
+  text-shadow: 0 1px 4px rgba(4, 5, 8, 0.6);
 }
 .consoleLive {
   display: inline-flex;
@@ -606,6 +647,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--paper-faint);
+  text-shadow: 0 1px 4px rgba(4, 5, 8, 0.6);
 }
 .legendItem {
   display: inline-flex;
@@ -728,11 +770,17 @@
   animation: baSpinRev 120s linear infinite;
 }
 .nodeLabel {
-  fill: rgba(234, 228, 213, 0.66);
+  fill: rgba(234, 228, 213, 0.72);
   font-family: var(--f-mono);
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.03em;
+  /* dark glyph halo so mandate labels stay crisp over the bright throne-light
+     that now shows through the more-transparent glass console. */
+  paint-order: stroke;
+  stroke: rgba(7, 8, 12, 0.72);
+  stroke-width: 2.2px;
+  stroke-linejoin: round;
 }
 
 .core {
@@ -799,6 +847,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--paper-dim);
+  text-shadow: 0 1px 5px rgba(4, 5, 8, 0.7);
   animation: baReveal 0.7s var(--ease-out) both;
   animation-delay: 1.1s;
 }

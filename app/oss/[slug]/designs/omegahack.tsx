@@ -6,11 +6,14 @@ import type { Hero } from "../../heroes";
 import styles from "./omegahack.module.css";
 import CaseDossier from "./omegahack/CaseDossier";
 
-/* CAROL — "The Deadline Dossier".
-   A warm civic-archive landing for an open-source PQRSD stack: aged-paper cream,
-   warm ink, wax-seal red, and a ticking legal-deadline clock. Signature effect:
-   the official rubber-seal STAMP on the primary CTAs (radial dome + worn-ink
-   grunge + double-ruled frame; presses on :active, stamps down on load). */
+/* CAROL — "The Night Archive" (HYBRID).
+   The cinematic pixel-art scene (/oss/omegahack.png) — a lamplit civic archive
+   of case boxes, an open ledger and a deadline clock — is the full-bleed
+   ATMOSPHERIC background (the product's visual metaphor). Over a warm dark scrim
+   the bespoke "Deadline Dossier" typography, warm palette and signature effect
+   composite ON TOP: the official rubber-seal STAMP on the primary CTAs (radial
+   dome + worn-ink grunge + double-ruled frame; presses on :active, stamps down
+   on load), and the cream case file laid on the lamplit desk. */
 
 const delay = (d: string) => ({ ["--d"]: d } as CSSProperties);
 
@@ -69,13 +72,16 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
   return (
     <main className={styles.root}>
-      {/* atmosphere: seal-ink top rule, paper grain, ledger hairlines, vignette */}
+      {/* atmosphere: the pixel-art archive as full-bleed background, a warm lamp
+          bloom over its focal point, a legibility scrim, vignette, grain + the
+          seal-ink brand rule — the bespoke design composites above this. */}
       <div className={styles.atmosphere} aria-hidden="true">
-        <div className={styles.topRule} />
-        <div className={styles.ledger} />
-        <div className={styles.grain} />
+        <div className={styles.art} />
+        <div className={styles.glow} />
+        <div className={styles.scrim} />
         <div className={styles.vignette} />
-        <span className={styles.watermark}>§</span>
+        <div className={styles.grain} />
+        <div className={styles.topRule} />
       </div>
 
       {/* nav — same three parts, restyled as a filing header */}

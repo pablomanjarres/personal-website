@@ -1079,6 +1079,206 @@ export const projects: Project[] = [
         "oneLiner": "A Vercel serverless handler at api/index.py that wraps the FastAPI app with Mangum for ASGI compatibility, ready as the entry point once the backend goes live."
       }
     ]
+  },
+  {
+    "slug": "grit-x-awa",
+    "num": "11",
+    "title": "GRIT-X-AWA",
+    "tagline": "A web observatory that classifies exoplanet candidates from NASA's Kepler and TESS data with a gradient-boosting ensemble, keyless demo included.",
+    "oneLiner": "Exoplanet classification over NASA Kepler and TESS data",
+    "year": "2026",
+    "status": "prototype",
+    "role": "NASA Space Apps team · full-stack + ML",
+    "tags": [
+      "exoplanet classification",
+      "ensemble ML",
+      "NASA open data",
+      "three.js",
+      "FastAPI",
+      "data visualization"
+    ],
+    "stack": [
+      "Astro 5",
+      "React 18",
+      "TypeScript 5",
+      "three.js r167",
+      "react-three-fiber",
+      "@react-three/drei",
+      "Tailwind CSS v3",
+      "Supabase",
+      "Python",
+      "FastAPI",
+      "XGBoost",
+      "LightGBM",
+      "CatBoost",
+      "scikit-learn",
+      "pandas",
+      "Google Cloud Run",
+      "Vercel"
+    ],
+    "summary": "GRIT-X-AWA is a web app for classifying exoplanet candidates from two NASA missions, Kepler and TESS. The front end is Astro 5 with React 18 islands and a three.js starfield: a landing page drops into a Mission Control dashboard where you pick a mission, upload a CSV or type a candidate in by hand, read model-metric cards, then open a full-page results modal with per-class confidence and CSV or JSON export. A paginated browser reads Supabase-hosted mission datasets, react-three-fiber renders 3D orbital views, and an in-app chatbot answers questions about the science.\n\nThe prediction engine is a Python FastAPI service on Google Cloud Run. Each mission has its own ensemble of three gradient-boosting models, CatBoost, XGBoost, and LightGBM, blended by a fixed weighted soft vote (0.40 / 0.35 / 0.25) into a labeled disposition. It now ships as a keyless public demo: demo mode is on by default, so uploads and manual entries return canned but realistic predictions, the data browser falls back to bundled sample rows, and the chatbot returns a graceful scripted reply, which means the whole site runs with no backend and no API keys. Set PUBLIC_DEMO=false with a live backend to hit the real ensemble.",
+    "problem": "Vetting a transit signal as a real planet, an eclipsing binary, or noise is slow expert work, and the raw Kepler and TESS tables are wide and unfriendly. GRIT-X-AWA puts a trained ensemble behind a single upload box so a candidate list becomes labeled dispositions with confidence in seconds, and makes the pipeline explorable in the browser instead of a notebook.",
+    "highlights": [
+      "Two per-mission ensembles of three gradient-boosting models each (CatBoost, XGBoost, LightGBM) combine by a fixed weighted soft vote, argmax(0.40*Cat + 0.35*XGB + 0.25*LGBM), with the weights and class order pinned in each model's meta.json.",
+      "Kepler reads 21 KOI features into 3 classes (CANDIDATE, CONFIRMED, FALSE POSITIVE); TESS reads 17 base features engineered into about 66 model inputs across 6 classes (APC, CP, FA, FP, KP, PC), and the backend auto-detects which mission a CSV belongs to.",
+      "A keyless demo mode is on by default: CSV upload, manual entry, the Supabase data browser, and the chatbot all fall back to deterministic canned fixtures and bundled sample rows, so the deployed site never shows a blank screen or asks for a key; PUBLIC_DEMO=false restores the real backend paths.",
+      "The front end runs Astro 5 in SSR mode on the Vercel adapter with React 18 islands: a three.js starfield landing (SpaceScene), a Mission Control dashboard, a react-three-fiber 3D orbital viewer (ExoplanetVisualization3D), and a full-page prediction-results modal that exports to CSV and JSON via html2canvas.",
+      "The AI chatbot is an Astro server endpoint (/api/chat) with per-IP rate limiting (20 messages per day) that degrades to a scripted reply when no model key is present, so the assistant stays graceful in the public demo.",
+      "The FastAPI service loads and caches the pickled models on startup and exposes CSV upload, single predict, stats, and recent-prediction endpoints; Supabase (Postgres plus Storage) persists uploads and prediction history when configured, and the service still runs in a local mode when the database is absent."
+    ],
+    "metrics": [
+      "6 gradient-boosting models: a CatBoost, XGBoost, LightGBM ensemble per mission, blended 0.40 / 0.35 / 0.25",
+      "2 NASA missions, 9 disposition classes: Kepler's 3 and TESS's 6",
+      "0 keys or backend needed: demo mode is on by default with canned predictions and bundled sample data",
+      "21 Kepler features and 17 TESS features (engineered into about 66) feed the models"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/pablomanjarres/NASA-Space-Apps-Challenge",
+        "kind": "repo"
+      },
+      {
+        "label": "Live demo",
+        "url": "https://grit-x-awa.vercel.app",
+        "kind": "live"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablomanjarres.com/oss/grit-x-awa",
+        "kind": "demo"
+      }
+    ],
+    "cover": "/portfolio/previews/grit-x-awa.png",
+    "embedUrl": "https://grit-x-awa.vercel.app",
+    "demoLabel": "grit-x-awa.vercel.app",
+    "previewKind": "web",
+    "subProjects": [
+      {
+        "name": "frontend",
+        "kind": "app",
+        "oneLiner": "Astro 5 and React 18 client with a three.js starfield: the Mission Control dashboard (mission pick, CSV upload or manual entry, metric cards, results modal with CSV and JSON export), a paginated Supabase data browser, react-three-fiber orbital views, and the chatbot."
+      },
+      {
+        "name": "backend",
+        "kind": "service",
+        "oneLiner": "FastAPI app on Google Cloud Run that auto-detects the mission, preprocesses the CSV, runs the weighted ensemble, and returns per-row predictions with per-class confidence over a REST API."
+      },
+      {
+        "name": "kepler + tess models",
+        "kind": "model",
+        "oneLiner": "Two per-mission ensembles (CatBoost, XGBoost, LightGBM) plus their imputer, encoders, and meta.json, pickled and loaded on backend startup for the 3-class Kepler and 6-class TESS vote."
+      },
+      {
+        "name": "demoFixtures",
+        "kind": "library",
+        "oneLiner": "The keyless demo layer: deterministic canned prediction fixtures, bundled sample rows for the data browser, and a scripted chatbot reply, gated by the PUBLIC_DEMO flag so the site runs with no backend or keys."
+      },
+      {
+        "name": "chat endpoint",
+        "kind": "service",
+        "oneLiner": "An Astro SSR /api/chat route with per-IP daily rate limiting that powers the in-app assistant and degrades to a graceful scripted reply in demo mode."
+      }
+    ]
+  },
+  {
+    "slug": "study-hub",
+    "num": "12",
+    "title": "Study Hub",
+    "tagline": "A study platform for three university CS courses, where the automata, parsers, and data structures aren't diagrams you read but machines you step through.",
+    "oneLiner": "Interactive study platform for three university CS courses.",
+    "year": "2026",
+    "status": "wip",
+    "role": "Solo · design + engineering",
+    "tags": [
+      "study platform",
+      "automata theory",
+      "interactive viz",
+      "MCP",
+      "MDX content",
+      "offline-first"
+    ],
+    "stack": [
+      "TypeScript",
+      "Astro 6",
+      "React 19",
+      "Tailwind CSS v4",
+      "MDX",
+      "KaTeX",
+      "ReactFlow",
+      "ELK.js",
+      "Framer Motion",
+      "Zustand",
+      "Model Context Protocol",
+      "Zod",
+      "Node 22",
+      "pnpm",
+      "Vercel"
+    ],
+    "summary": "Study Hub is a study platform for three of my university computer-science courses: Lenguajes Formales, Estructuras de Datos y Algoritmos, and Sistemas de Gestión de Datos. Each subject has its own dashboard of practice problems with simple, formal, and full solution tabs, topic explanations, handwritten-style study notes, and exam quizzes, all pre-authored as MDX with KaTeX math. One typed subject config and one shared design system drive all three, so a subject owns a single accent and every surface resolves to it automatically.\n\nThe part that matters is that the hard theory is interactive, not static. Automata render as live state graphs: DFA, NFA, PDA, and Turing machines laid out by ELK and drawn with ReactFlow, that you step through one symbol at a time while the active transition lights up, the stack grows, and the tape moves. The parsing unit adds FIRST and FOLLOW sets, LL(1) and SLR tables, and shift-reduce traces, alongside grammar transforms and newer sorting and database-schema visualizers. A key-free MCP server exposes the whole content store to Claude over stdio as typed read and authoring tools, and the app runs fully offline with seeded content, self-hosted fonts, and no API keys.",
+    "problem": "CS courses lean on ideas that are genuinely dynamic: a machine consuming a string, a stack rising and falling, a parser reducing a handle. They are usually taught with static blackboard snapshots and PDFs. I wanted one place that holds a whole semester of three courses and makes those moving parts actually move, with solutions I can read at three depths and content an agent can extend without touching a database.",
+    "highlights": [
+      "Automata as first-class visualizations: DFA, NFA, PDA, and Turing-machine state graphs are auto-laid-out with ELK and rendered in ReactFlow, then a shared step runner walks an input string one symbol at a time, highlighting the active transition, growing and shrinking the PDA stack, and moving the Turing tape under the head.",
+      "The whole compilers unit made interactive: FIRST and FOLLOW set computation, LL(1) and SLR parse tables, animated shift-reduce traces, and CFG grammar transforms, plus newer sorting and relational-algebra visualizers, all built on one useStepAnimation primitive that renders each frame from a real, instrumented trace.",
+      "Content is pre-authored MDX, not a CMS: 39 problems and 66 solutions with simple / formal / full tabs, topic explanations, Caveat-handwritten study notes, and exam quizzes, every one with KaTeX math, where a single solved boolean in problem frontmatter is the source of truth for dashboard status.",
+      "One design system across three subjects: a refined editorial-dark theme (Instrument Serif display, Instrument Sans body, Caveat notes) with a per-subject accent bridge set via [data-subject], sapphire for Lenguajes Formales, jade for EDA, amethyst for SGD, resolved once so no surface re-declares a color map.",
+      "A key-free, offline MCP server: 16 typed tools (10 read, 6 write) over stdio, pure file I/O, that let Claude list and read problems, solutions, and visualizations and author new ones, with every write validated by zod schemas that mirror content.config.ts, so the server rejects exactly what an Astro build would.",
+      "Genuinely runnable with zero secrets: seeded content, four self-hosted woff2 fonts, and a mocked upload endpoint mean both the live demo and a fresh clone boot with no API keys and no network fonts."
+    ],
+    "metrics": [
+      "16 typed MCP tools, 10 read and 6 write, key-free over stdio",
+      "39 problems and 66 tabbed solutions, all pre-authored MDX",
+      "16 React visualizers, from DFA graphs to database schemas",
+      "3 subjects, 19 units, 0 API keys to run"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/pablomanjarres/study-hub",
+        "kind": "repo"
+      },
+      {
+        "label": "Live demo",
+        "url": "https://study-hub.vercel.app",
+        "kind": "live"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablomanjarres.com/oss/study-hub",
+        "kind": "demo"
+      }
+    ],
+    "cover": "/portfolio/previews/study-hub.png",
+    "embedUrl": "https://study-hub.vercel.app",
+    "demoLabel": "study-hub.vercel.app",
+    "previewKind": "web",
+    "subProjects": [
+      {
+        "name": "web",
+        "kind": "app",
+        "oneLiner": "The Astro 6 dashboard: per-subject problem lists, simple/formal/full solution tabs, explanations, notes, and exam pages, with a React island mounted for every interactive visualization."
+      },
+      {
+        "name": "viz",
+        "kind": "library",
+        "oneLiner": "The React visualization library: ReactFlow + ELK automata, PDA, and Turing-machine graphs, LL(1)/SLR parse tables, shift-reduce and relational-algebra traces, sorting steppers, and one shared step-animation runner."
+      },
+      {
+        "name": "content",
+        "kind": "content",
+        "oneLiner": "The MDX content store: problems, three-depth solutions, explanations, handwritten notes, and tests per subject, plus the JSON datasets that feed each visualization."
+      },
+      {
+        "name": "mcp",
+        "kind": "server",
+        "oneLiner": "The key-free stdio MCP server: 16 tools (10 read, 6 write) over pure file I/O that read and author the content store, with zod validation mirroring the Astro content config."
+      },
+      {
+        "name": "config",
+        "kind": "config",
+        "oneLiner": "The subject registry: one typed SubjectConfig per course (units, topics, exams, viz enums) that drives routing, dashboards, and the per-subject accent triad."
+      }
+    ]
   }
 ];
 

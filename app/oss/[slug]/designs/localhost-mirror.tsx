@@ -4,15 +4,15 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import styles from "./localhost-mirror.module.css";
-import TunnelCanvas from "./localhost-mirror/TunnelCanvas";
 
-/* Localhost Mirror — "Through the Mirror".
-   A cool near-black private void holds mirror-silver instrument chrome and one
-   tailnet-green signal (#4ADE80) that behaves as literal light — flowing through
-   a receding canvas2d tunnel and glinting across every mirrored surface. The
-   mirror primitive (-webkit-box-reflect + a traveling light-sweep) is shared by
-   the hero screen and the CTAs, so hero and buttons run on ONE mechanic.
-   Signature CTA effect: the mirror sweep. */
+/* Localhost Mirror — "Through the Mirror" (HYBRID).
+   The cinematic pixel-art scene (/oss/localhost-mirror.png) — a glowing localhost
+   mirrored from the iMac to the laptop across a private tailnet of light — is the
+   full-bleed ATMOSPHERIC background. A cool near-black scrim (heavy over the left
+   type column + bottom, near-clear over the art's warm focal glow) keeps type
+   crisp, and the bespoke instrument typography + the signature mirror-sweep CTAs
+   composite ON TOP. One tailnet-green signal (#4ADE80) threads the whole page.
+   Signature CTA effect: the mirror sweep (traveling light + reflected ghost). */
 
 const rise = (d: string): CSSProperties => ({ ["--d"]: d } as CSSProperties);
 const gleam = (d: string, g: string): CSSProperties =>
@@ -37,16 +37,17 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
   return (
     <main className={styles.root}>
-      {/* atmosphere: tailnet lattice, tunnel wash, mirror horizon, vignette, grain */}
+      {/* atmosphere: pixel-art hero, green tailnet signal, legibility scrim,
+          vignette, grain — all decorative */}
       <div className={styles.atmosphere} aria-hidden="true">
-        <div className={styles.grid} />
+        <div className={styles.photo} />
         <div className={styles.glow} />
-        <div className={styles.horizon} />
+        <div className={styles.scrim} />
         <div className={styles.vignette} />
         <div className={styles.grain} />
       </div>
 
-      {/* nav — same three parts, restyled as an instrument header */}
+      {/* nav — same three parts, styled as an instrument header */}
       <nav className={styles.nav}>
         <Link className={styles.brand} href="/">
           <span className={styles.brandMark}>✦</span> Pablo
@@ -69,8 +70,8 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
         </div>
       </nav>
 
+      {/* single copy column composited over the painted scene */}
       <section className={styles.stage}>
-        {/* -------- copy column -------- */}
         <div className={styles.content}>
           <p className={styles.kicker} style={rise("0.12s")}>
             <span className={styles.kickerDot} aria-hidden="true" />
@@ -135,36 +136,17 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
               </span>
             </a>
           </div>
-        </div>
 
-        {/* -------- instrument viewport: the tunnel of light, mirrored -------- */}
-        <div className={styles.screenWrap} style={rise("0.5s")}>
-          <div className={styles.screen}>
-            <TunnelCanvas className={styles.canvas} />
-            <div className={styles.screenHead} aria-hidden="true">
-              <span className={styles.screenTag}>lm://:3000</span>
-              <span className={styles.screenStatus}>
-                <span className={styles.screenDot} />
-                tailnet-only
-              </span>
-            </div>
-            <div className={styles.screenRim} aria-hidden="true" />
-            <div
-              className={styles.screenFlash}
-              style={rise("1.4s")}
-              aria-hidden="true"
-            />
-          </div>
-
-          <div className={styles.readout} aria-hidden="true">
+          {/* the bespoke mirror readout, kept as a thin floating strip so it
+              never hides the art it sits over */}
+          <div className={styles.readout} style={rise("0.9s")} aria-hidden="true">
+            <span className={styles.readDot} />
             <span>
               <b>:3000</b> <span className={styles.readAccent}>→</span>{" "}
               <b>100.71.0.14</b>
             </span>
             <span className={styles.readWire} />
-            <span>
-              <span className={styles.readAccent}>●</span> mirror ready
-            </span>
+            <span>mirror ready · tailnet-only</span>
           </div>
         </div>
       </section>
