@@ -1,8 +1,10 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "../projects";
 import { profile } from "../socials";
 import { ProjectCard } from "./components";
+import { Magnetic } from "./effects";
 
 export const metadata: Metadata = {
   title: "Work — Pablo Manjarres",
@@ -31,11 +33,24 @@ export default function PortfolioIndex() {
       </header>
 
       <section className="folio-hero">
-        <div className="folio-kicker">¶ 03 · Work</div>
+        <div className="folio-kicker">
+          <span className="kicker-mark" aria-hidden />¶ 03 · Work
+        </div>
         <h1 className="folio-title">
-          Selected
+          <span className="reveal-mask">
+            <span className="reveal-word" style={{ "--i": 0 } as CSSProperties}>
+              Selected
+            </span>
+          </span>
           <br />
-          <span className="accent">work.</span>
+          <span className="reveal-mask">
+            <span
+              className="reveal-word accent"
+              style={{ "--i": 1 } as CSSProperties}
+            >
+              work.
+            </span>
+          </span>
         </h1>
         <p className="folio-lede">
           Things I&apos;ve designed and built, mostly solo: AI agents that run like a
@@ -43,19 +58,29 @@ export default function PortfolioIndex() {
           to the full story.
         </p>
         <div className="folio-count">
-          ✶ pull a plate — every project has a page, source, and where it lives
+          <span className="folio-count-star" aria-hidden>
+            ✶
+          </span>{" "}
+          pull a plate — every project has a page, source, and where it lives
         </div>
-        <a className="folio-cta" href={profile.booking} target="_blank" rel="noreferrer">
-          <span aria-hidden>✦</span> Book a call
-          <span className="folio-cta-arr" aria-hidden>
-            ↗
-          </span>
-        </a>
+        <Magnetic className="folio-cta-wrap">
+          <a
+            className="folio-cta"
+            href={profile.booking}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span aria-hidden>✦</span> Book a call
+            <span className="folio-cta-arr" aria-hidden>
+              ↗
+            </span>
+          </a>
+        </Magnetic>
       </section>
 
       <section className="folio-grid">
-        {projects.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
+        {projects.map((p, i) => (
+          <ProjectCard key={p.slug} project={p} index={i} />
         ))}
       </section>
 

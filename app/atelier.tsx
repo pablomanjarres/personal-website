@@ -6,6 +6,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  type CSSProperties,
 } from "react";
 import Link from "next/link";
 import { profile, type Social } from "./socials";
@@ -97,6 +98,82 @@ function Clock() {
   );
 }
 
+// ---- per-letter split primitive -------------------------------------------
+// Renders text as position-indexed inline-block glyphs so CSS calc() can
+// stagger them. The wrapper is aria-hidden; the accessible label is supplied
+// by the parent (aria-label on the nav link, or a visually-hidden sibling).
+function charStyle(i: number, scatter: boolean): CSSProperties {
+  if (!scatter) return { ["--i" as string]: String(i) };
+  // deterministic pseudo-random scatter (same on server + client -> no
+  // hydration mismatch) for the hero "explode" reassembly.
+  return {
+    ["--i" as string]: String(i),
+    ["--tx" as string]: `${(Math.sin(i * 12.9898) * 40).toFixed(1)}px`,
+    ["--ty" as string]: `${(-16 - Math.abs(Math.cos(i * 3.7)) * 34).toFixed(1)}px`,
+    ["--rot" as string]: `${(Math.sin(i * 5.3) * 36).toFixed(1)}deg`,
+  };
+}
+
+function SplitChars({ text, scatter = false }: { text: string; scatter?: boolean }) {
+  return (
+    <span className="at-split" aria-hidden>
+      {[...text].map((ch, i) => (
+        <span key={i} className="at-char" style={charStyle(i, scatter)}>
+          {ch}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// ---- brand mark: PABLO decrypts on hover, the ✦ spins (reform / scramble) --
+// Hand-rolled requestAnimationFrame char-cycling (soulwire technique) — zero
+// deps. Honors prefers-reduced-motion and fires on focus for keyboard users.
+const SCRAMBLE = "!<>-_\\/[]{}=+*#?◇✶✦·";
+function BrandMark() {
+  const word = useRef<HTMLSpanElement>(null);
+  const raf = useRef(0);
+  const run = useCallback(() => {
+    const el = word.current;
+    if (!el) return;
+    const text = "PABLO";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = text;
+      return;
+    }
+    const t0 = performance.now();
+    const dur = 620;
+    const step = (now: number) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const lock = Math.floor(p * text.length);
+      el.textContent = [...text]
+        .map((c, i) => (i < lock ? c : SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0]))
+        .join("");
+      if (p < 1) raf.current = requestAnimationFrame(step);
+      else el.textContent = text;
+    };
+    cancelAnimationFrame(raf.current);
+    raf.current = requestAnimationFrame(step);
+  }, []);
+  useEffect(() => () => cancelAnimationFrame(raf.current), []);
+  return (
+    <Link
+      href="/"
+      className="topnav-brand"
+      aria-label="Pablo, home"
+      onMouseEnter={run}
+      onFocus={run}
+    >
+      <span aria-hidden className="brand-star">
+        ✦
+      </span>{" "}
+      <span aria-hidden className="brand-word" ref={word}>
+        PABLO
+      </span>
+    </Link>
+  );
+}
+
 // ---- one circular die-cut badge (performant: refs + direct DOM) ------------
 type BadgeState = {
   x: number;
@@ -105,6 +182,13 @@ type BadgeState = {
   spin: number;
   dragging: boolean;
   moved: boolean;
+  // magnetic hover (pointer-follow lean + lift, eased in the idle loop)
+  mx: number;
+  my: number;
+  tmx: number;
+  tmy: number;
+  sc: number;
+  eng: boolean;
 };
 type DragRef = {
   sx: number;
@@ -136,14 +220,23 @@ function Badge({
   spaceH: number;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
-  const st = useRef<BadgeState>({ x: 0, y: 0, r: 0, spin: 0, dragging: false, moved: false });
+  const st = useRef<BadgeState>({
+    x: 0, y: 0, r: 0, spin: 0, dragging: false, moved: false,
+    mx: 0, my: 0, tmx: 0, tmy: 0, sc: 1, eng: false,
+  });
   const drag = useRef<DragRef>(null);
+  const reduce = useRef(false);
+
+  useEffect(() => {
+    reduce.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
 
   const apply = useCallback(() => {
     const el = ref.current;
     if (!el) return;
     const s = st.current;
-    el.style.transform = `translate3d(${s.x}px, ${s.y}px, 0) rotate(${s.r}deg)`;
+    el.style.transform =
+      `translate3d(${s.x + s.mx}px, ${s.y + s.my}px, 0) rotate(${s.r}deg) scale(${s.sc})`;
   }, []);
 
   // place on mount + reposition on viewport change (unless user moved it)
@@ -166,6 +259,10 @@ function Badge({
         s.r += (0.08 + index * 0.02) + s.spin;
         s.spin *= 0.94;
         if (Math.abs(s.spin) < 0.02) s.spin = 0;
+        // ease the magnetic lean + lift toward their targets
+        s.mx += (s.tmx - s.mx) * 0.16;
+        s.my += (s.tmy - s.my) * 0.16;
+        s.sc += ((s.eng ? 1.06 : 1) - s.sc) * 0.16;
         apply();
       }
       raf = requestAnimationFrame(loop);
@@ -213,6 +310,13 @@ function Badge({
       s.dragging = true;
       s.moved = true;
       s.spin = 0;
+      // drop any magnetic offset so the grab starts from the true position
+      s.mx = 0;
+      s.my = 0;
+      s.tmx = 0;
+      s.tmy = 0;
+      s.eng = false;
+      s.sc = 1;
       drag.current = {
         sx: e.clientX,
         sy: e.clientY,
@@ -230,6 +334,28 @@ function Badge({
     },
     [onMove, onUp],
   );
+
+  // magnetic lean: while hovering (not dragging), pull the pin toward the
+  // cursor and lift it slightly — the idle loop eases + snaps it back.
+  const onHover = useCallback((e: React.PointerEvent) => {
+    const s = st.current;
+    if (s.dragging || reduce.current) return;
+    const el = ref.current;
+    if (!el) return;
+    const b = el.getBoundingClientRect();
+    const cx = b.left + b.width / 2;
+    const cy = b.top + b.height / 2;
+    s.tmx = clamp((e.clientX - cx) * 0.3, -22, 22);
+    s.tmy = clamp((e.clientY - cy) * 0.3, -22, 22);
+    s.eng = true;
+  }, []);
+
+  const onHoverLeave = useCallback(() => {
+    const s = st.current;
+    s.tmx = 0;
+    s.tmy = 0;
+    s.eng = false;
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -251,6 +377,8 @@ function Badge({
       aria-label={`${social.label}, ${social.handle}`}
       draggable={false}
       onPointerDown={onDown}
+      onPointerMove={onHover}
+      onPointerLeave={onHoverLeave}
       onClick={(e) => {
         if (drag.current?.far) e.preventDefault();
       }}
@@ -386,18 +514,20 @@ export default function Atelier() {
 
       <div className="wrap">
         <nav className="topnav">
-          <Link href="/" className="topnav-brand">
-            <span aria-hidden>✦</span> PABLO
-          </Link>
+          <BrandMark />
           <div className="topnav-links">
-            <Link href="/portfolio" className="topnav-link">
-              portfolio
+            <Link
+              href="/portfolio"
+              className="topnav-link topnav-link--portfolio"
+              aria-label="portfolio"
+            >
+              <SplitChars text="portfolio" />
             </Link>
-            <Link href="/oss" className="topnav-link">
+            <Link href="/oss" className="topnav-link topnav-link--oss">
               open source
             </Link>
             <a
-              className="topnav-link"
+              className="topnav-link topnav-link--call"
               href={profile.booking}
               target="_blank"
               rel="noreferrer"
@@ -425,7 +555,10 @@ export default function Atelier() {
               <br />
               solo
               <br />
-              <span className="accent">founder</span>
+              <span className="accent at-explode">
+                <span className="at-sr">founder</span>
+                <SplitChars text="founder" scatter />
+              </span>
               <br />
               &amp; content
               <br />
@@ -464,6 +597,7 @@ export default function Atelier() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     vectorEffect="non-scaling-stroke"
+                    pathLength={1}
                   />
                 </svg>
                 <span

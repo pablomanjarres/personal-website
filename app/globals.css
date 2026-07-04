@@ -125,7 +125,7 @@ a:focus-visible {
   color: var(--fg);
   text-decoration: none;
 }
-.topnav-brand span {
+.topnav-brand .brand-star {
   color: var(--accent);
 }
 .topnav-links {
@@ -142,22 +142,9 @@ a:focus-visible {
   text-decoration: none;
   transition: color 0.15s ease;
 }
-.topnav-link:hover {
-  color: var(--accent);
-}
-.topnav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 100%;
-  bottom: -4px;
-  height: 2px;
-  background: var(--accent);
-  transition: right 0.2s ease;
-}
-.topnav-link:hover::after {
-  right: 0;
-}
+/* Each nav link now carries its OWN hover signature (words-move /
+   changing-colors / ink-bleed). Those live in the LANDING-PAGE
+   MICRO-INTERACTIONS block at the end of this file. */
 
 .meta {
   display: flex;
@@ -531,5 +518,234 @@ a:focus-visible {
     position: static;
     text-align: right;
     padding: 4px clamp(18px, 5vw, 30px) 16px;
+  }
+}
+
+/* ===========================================================================
+   LANDING-PAGE MICRO-INTERACTIONS
+   One signature effect per interactive element so no two feel the same. Every
+   effect is a real CSS-first technique, scoped to atelier-only classes,
+   keyboard-triggerable (:focus-visible), and gated behind prefers-reduced-
+   motion. Keyframes are `at-` prefixed to avoid collisions.
+     1 brand ✦ PABLO ... reform / scramble   (JS decrypt + CSS star spin)
+     2 nav "portfolio" .. words-move          (per-letter kinetic wave)
+     3 nav "open source" changing-colors      (flowing warm gradient text)
+     4 nav "book a call" ink-bleed            (terracotta ink blooms behind)
+     5 Noelle CTA ....... mirror              (light-sweep + soft reflection)
+     6 email pill ....... draw-on             (hand-drawn circle self-draws)
+     7 pins ............. magnetic            (pointer-follow lean, in JS)
+     8 hero "founder" ... explode             (letters scatter & reassemble)
+   =========================================================================== */
+
+/* shared per-letter split primitive (portfolio nav + hero "founder") */
+.at-split {
+  display: inline-block;
+}
+.at-char {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform;
+}
+/* screen-reader-only real text sitting behind the split/animated glyphs */
+.at-sr {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 1 - BRAND ✦ PABLO - reform / scramble ------------------------------------ */
+.brand-word {
+  display: inline-block;
+  color: var(--fg);
+}
+.brand-star {
+  display: inline-block;
+  color: var(--accent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .brand-star {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .topnav-brand:hover .brand-star,
+  .topnav-brand:focus-visible .brand-star {
+    transform: rotate(200deg) scale(1.18);
+  }
+}
+
+/* 2 - NAV "portfolio" - words-move (per-letter kinetic wave) ---------------- */
+.topnav-link--portfolio:hover,
+.topnav-link--portfolio:focus-visible {
+  color: var(--accent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .topnav-link--portfolio:hover .at-char,
+  .topnav-link--portfolio:focus-visible .at-char {
+    animation: at-wave 0.5s cubic-bezier(0.2, 0.65, 0.3, 1)
+      calc(var(--i) * 42ms) both;
+  }
+}
+@keyframes at-wave {
+  30% {
+    transform: translateY(-45%);
+  }
+  62% {
+    transform: translateY(13%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* 3 - NAV "open source" - changing-colors (flowing warm gradient text) ------ */
+.topnav-link--oss {
+  background-image: linear-gradient(
+    92deg,
+    var(--accent),
+    #e0913f,
+    var(--accent),
+    #a83c1c,
+    var(--accent)
+  );
+  background-size: 300% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.topnav-link--oss:hover,
+.topnav-link--oss:focus-visible {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .topnav-link--oss:hover,
+  .topnav-link--oss:focus-visible {
+    animation: at-flow 2.6s linear infinite;
+  }
+}
+@keyframes at-flow {
+  to {
+    background-position: 300% 50%;
+  }
+}
+
+/* 4 - NAV "book a call" - ink-bleed (terracotta ink blooms behind text) ----- */
+.topnav-link--call {
+  position: relative;
+  isolation: isolate;
+}
+.topnav-link--call::before {
+  content: "";
+  position: absolute;
+  inset: -4px -9px;
+  z-index: -1;
+  border-radius: 9px 12px 8px 13px;
+  background: radial-gradient(
+    125% 150% at 26% 62%,
+    var(--accent) 42%,
+    rgba(200, 84, 42, 0.5) 68%,
+    transparent 80%
+  );
+  transform: scale(0.12);
+  transform-origin: 22% 72%;
+  opacity: 0;
+  transition: transform 0.44s cubic-bezier(0.32, 0.72, 0.28, 1),
+    opacity 0.32s ease;
+}
+.topnav-link--call:hover,
+.topnav-link--call:focus-visible {
+  color: var(--bg);
+}
+.topnav-link--call:hover::before,
+.topnav-link--call:focus-visible::before {
+  transform: scale(1);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .topnav-link--call::before {
+    transition: none;
+  }
+}
+
+/* 5 - NOELLE CTA - mirror (traveling light-sweep + soft reflection) --------- */
+.noelle-cta {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-reflect: below 1px
+    linear-gradient(transparent 70%, rgba(255, 255, 255, 0.14));
+}
+.noelle-cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -75%;
+  width: 55%;
+  background: linear-gradient(
+    100deg,
+    transparent 18%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 82%
+  );
+  transform: skewX(-22deg);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .noelle-cta::before {
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .noelle-cta:hover::before,
+  .noelle-cta:focus-visible::before {
+    left: 130%;
+  }
+}
+
+/* 6 - EMAIL PILL - draw-on (the hand-drawn circle draws itself) ------------- */
+.email-circle path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.72s cubic-bezier(0.6, 0.05, 0.2, 1);
+}
+.email-pill:hover .email-circle path,
+.email-pill:focus-visible .email-circle path {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .email-circle path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 7 - PINS - magnetic lean is handled in JS (see Badge in atelier.tsx);
+   the resting drop-shadow already lives on .badge above. */
+
+/* 8 - HERO "founder" - explode (letters scatter, then reassemble) ----------- */
+.at-explode {
+  cursor: default;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .at-explode:hover .at-char {
+    animation: at-explode 0.72s cubic-bezier(0.34, 1.2, 0.5, 1)
+      calc(var(--i) * 24ms) both;
+  }
+}
+@keyframes at-explode {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+  38% {
+    transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rot, 0));
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
   }
 }
