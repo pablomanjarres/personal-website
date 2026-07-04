@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valest · Tu lote propio en el Caribe, financiado sin banco</title>
+<meta name="description" content="Valest — Lotes con financiación directa en San Bernardo del Viento, Córdoba. Tu lote propio en el Caribe, financiado sin banco.">
+<meta name="theme-color" content="#26332a">
+<link rel="canonical" href="https://pablomanjarres.com/projects/valest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Valest · Tu lote propio en el Caribe, financiado sin banco">
+<meta property="og:description" content="Lotes con financiación directa en San Bernardo del Viento, Córdoba. Sin banco, en cuotas hechas a la medida de la gente real.">
+<meta property="og:url" content="https://pablomanjarres.com/projects/valest">
+<meta property="og:image" content="https://pablomanjarres.com/projects/valest/images/home-hero-a-01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2326332a'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' font-weight='600' fill='%23f4efe3' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#f6f1e7;-webkit-font-smoothing:antialiased;overflow-x:hidden;color:#3c3a33;font-family:'Hanken Grotesk',system-ui,sans-serif;}
+  ::selection{background:rgba(181,98,63,.22);}
+  input,textarea,button{font-family:inherit;}
+  a{color:inherit;}
+  img{max-width:100%;}
+  @keyframes kenburns{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+  @keyframes rise{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+  @keyframes riseSm{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @keyframes clipUp{from{opacity:0;transform:translateY(70px) scale(.94)}to{opacity:1;transform:none}}
+  @keyframes heroLine{from{transform:translateY(112%)}to{transform:translateY(0)}}
+  @keyframes softIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes panelUp{to{transform:translateY(-101%)}}
+  @keyframes panelDown{to{transform:translateY(101%)}}
+  @keyframes introWord{from{transform:translateY(105%)}to{transform:translateY(0)}}
+  @keyframes introFadeOut{to{opacity:0}}
+  @keyframes lineGrow{to{width:120px}}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+  @keyframes cueSlide{0%{transform:translateY(-100%)}100%{transform:translateY(220%)}}
+
+  .slot{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* pages */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* hero A/B on home */
+  #page-home[data-dir="A"] .hero-b{display:none;}
+  #page-home[data-dir="B"] .hero-a{display:none;}
+
+  /* nav */
+  .nav-desktop{display:flex;align-items:center;gap:2px;}
+  .nav-mobile-btn{display:none;}
+  @media(max-width:859px){.nav-desktop{display:none!important;}.nav-mobile-btn{display:flex!important;}}
+  .nav-underline{display:none;position:absolute;left:15px;right:15px;bottom:1px;height:2px;background:var(--acento);border-radius:2px;}
+  .nav-btn.active .nav-underline{display:block;}
+  #mobile-menu{display:none;}
+  #mobile-menu.open{display:block;}
+
+  /* dir toggle */
+  .dir-tab{border:none;cursor:pointer;padding:8px 18px;border-radius:999px;font:600 13px/1 'Hanken Grotesk',sans-serif;transition:all .15s;background:transparent;color:#8a8474;}
+  .dir-tab.active{background:#fff;color:#26332a;box-shadow:0 2px 8px -4px rgba(0,0,0,.3);}
+
+  /* faq */
+  .faq-a{display:none;}
+  .faq.open .faq-a{display:block;}
+
+  /* sim month buttons */
+  .sim-month{flex:1;min-width:64px;border:1px solid #e0d7c6;cursor:pointer;padding:12px 6px;border-radius:12px;font:600 14px/1 'Hanken Grotesk',sans-serif;transition:all .15s;background:#faf7f1;color:#5a564b;}
+  .sim-month.active{background:var(--acento);color:#fff;border-color:var(--acento);}
+
+  /* reveal fallback for browsers without scroll-driven animations (Safari/Firefox) */
+  @supports not (animation-timeline: view()){
+    [style*="animation-timeline"]{animation:none!important;opacity:1!important;transform:none!important;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    #intro{display:none!important;}
+    *{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;}
+  }
+</style>
+</head>
+<body>
+<div id="root" style="font-family:'Hanken Grotesk',system-ui,sans-serif;color:#3c3a33;background:#f6f1e7;min-height:100vh;--acento:#b5623f;">
+
+<div id="intro" style="position:fixed;inset:0;z-index:200;pointer-events:none;">
+  <div style="position:absolute;left:0;right:0;top:0;height:50.2%;background:#1b241a;animation:panelUp 1.05s cubic-bezier(.76,0,.24,1) 1.75s forwards;"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:50.2%;background:#1b241a;animation:panelDown 1.05s cubic-bezier(.76,0,.24,1) 1.75s forwards;"></div>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;animation:introFadeOut .55s ease 1.55s forwards;">
+    <div style="overflow:hidden;padding:0 .1em;"><div style="font:600 clamp(42px,9vw,104px)/1 'Spectral',serif;letter-spacing:.22em;color:#f4efe3;transform:translateY(105%);animation:introWord 1.15s cubic-bezier(.2,.75,.2,1) .15s both;">VALEST</div></div>
+    <div style="width:0;height:1px;background:#e6b48f;animation:lineGrow .9s ease .55s forwards;"></div>
+    <div style="font:500 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.36em;text-transform:uppercase;color:#c8cdbf;opacity:0;animation:softIn .8s ease .85s forwards;">Caribe colombiano</div>
+  </div>
+</div>
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(246,241,231,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #e7decb;">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,48px);height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+    <button data-nav="home" style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:none;border:none;cursor:pointer;padding:0;">
+      <span style="font:600 25px/1 'Spectral',serif;letter-spacing:.16em;color:#26332a;">VALEST</span>
+      <span style="font:600 9px/1 'Hanken Grotesk',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--acento);">Lotes financiados · Caribe</span>
+    </button>
+    <nav class="nav-desktop">
+      <button class="nav-btn active" data-nav="home" style="position:relative;background:none;border:none;cursor:pointer;padding:9px 15px;font:500 15px/1 'Hanken Grotesk',sans-serif;color:#3c3a33;">Inicio<span class="nav-underline"></span></button>
+      <button class="nav-btn" data-nav="nosotros" style="position:relative;background:none;border:none;cursor:pointer;padding:9px 15px;font:500 15px/1 'Hanken Grotesk',sans-serif;color:#3c3a33;">Nosotros<span class="nav-underline"></span></button>
+      <button class="nav-btn" data-nav="financiacion" style="position:relative;background:none;border:none;cursor:pointer;padding:9px 15px;font:500 15px/1 'Hanken Grotesk',sans-serif;color:#3c3a33;">Financiación<span class="nav-underline"></span></button>
+      <button class="nav-btn" data-nav="proyectos" style="position:relative;background:none;border:none;cursor:pointer;padding:9px 15px;font:500 15px/1 'Hanken Grotesk',sans-serif;color:#3c3a33;">Proyectos<span class="nav-underline"></span></button>
+      <button class="nav-btn" data-nav="contacto" style="position:relative;background:none;border:none;cursor:pointer;padding:9px 15px;font:500 15px/1 'Hanken Grotesk',sans-serif;color:#3c3a33;">Contacto<span class="nav-underline"></span></button>
+      <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--acento);color:#fff;text-decoration:none;padding:11px 20px;border-radius:999px;font:600 14px/1 'Hanken Grotesk',sans-serif;margin-left:12px;box-shadow:0 8px 22px -12px rgba(150,70,40,.7);">Escríbenos</a>
+    </nav>
+    <button class="nav-mobile-btn" data-action="toggle-menu" aria-label="Menú" style="background:none;border:1px solid #d8ceba;border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;">
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><rect width="20" height="2" rx="1" fill="#26332a"/><rect y="6" width="20" height="2" rx="1" fill="#26332a"/><rect y="12" width="20" height="2" rx="1" fill="#26332a"/></svg>
+    </button>
+  </div>
+  <div id="mobile-menu">
+    <div style="border-top:1px solid #e7decb;background:#f6f1e7;padding:6px clamp(20px,5vw,48px) 18px;">
+      <button data-nav="home" style="display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #ece3d2;padding:15px 2px;font:500 17px/1 'Hanken Grotesk',sans-serif;color:#26332a;cursor:pointer;">Inicio</button>
+      <button data-nav="nosotros" style="display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #ece3d2;padding:15px 2px;font:500 17px/1 'Hanken Grotesk',sans-serif;color:#26332a;cursor:pointer;">Nosotros</button>
+      <button data-nav="financiacion" style="display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #ece3d2;padding:15px 2px;font:500 17px/1 'Hanken Grotesk',sans-serif;color:#26332a;cursor:pointer;">Financiación</button>
+      <button data-nav="proyectos" style="display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #ece3d2;padding:15px 2px;font:500 17px/1 'Hanken Grotesk',sans-serif;color:#26332a;cursor:pointer;">Proyectos</button>
+      <button data-nav="contacto" style="display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid #ece3d2;padding:15px 2px;font:500 17px/1 'Hanken Grotesk',sans-serif;color:#26332a;cursor:pointer;">Contacto</button>
+      <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--acento);color:#fff;text-decoration:none;padding:13px 22px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;margin-top:16px;">Escríbenos por WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HOME ===================== -->
+<div class="page active" id="page-home" data-dir="A">
+
+  <div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,5vw,48px) 0;display:flex;justify-content:flex-end;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="font:600 11px/1 'Hanken Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8a8474;">Dirección del hero</span>
+    <div style="display:flex;background:#ece3d2;border-radius:999px;padding:4px;gap:2px;">
+      <button class="dir-tab active" data-dir="A">Cinemática</button>
+      <button class="dir-tab" data-dir="B">Editorial</button>
+    </div>
+  </div>
+
+  <section class="hero-a" style="position:relative;min-height:clamp(600px,94vh,1000px);overflow:hidden;background:#1b241a;display:flex;align-items:flex-end;perspective:1200px;">
+    <div style="position:absolute;inset:-9%;z-index:0;transform:translate3d(calc(var(--mx,0) * -20px), calc(var(--my,0) * -20px), 0);will-change:transform;">
+      <video autoplay muted loop playsinline preload="metadata" poster="/projects/valest/images/home-hero-a-01.jpg" src="/projects/valest/videos/vid-hero-aereo.mp4" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(15,20,13,.92) 0%,rgba(15,20,13,.5) 40%,rgba(15,20,13,.12) 72%,rgba(15,20,13,.28) 100%);"></div>
+    <div style="position:relative;z-index:2;max-width:1240px;margin:0 auto;width:100%;padding:130px clamp(20px,5vw,48px) clamp(58px,7vw,104px);transform:translate3d(calc(var(--mx,0) * 9px), calc(var(--my,0) * 9px), 0);">
+      <div style="max-width:820px;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#e6b48f;margin-bottom:24px;opacity:0;animation:softIn .9s ease 2.2s both;">San Bernardo del Viento · Córdoba</div>
+        <h1 style="margin:0;font:500 clamp(42px,7vw,88px)/1.0 'Spectral',serif;letter-spacing:-.02em;color:#fff;">
+          <span style="display:block;overflow:hidden;padding-bottom:.02em;"><span style="display:block;transform:translateY(112%);animation:heroLine 1.05s cubic-bezier(.2,.75,.2,1) 1.9s forwards;">Tu lote en el Caribe,</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.02em;"><span style="display:block;transform:translateY(112%);animation:heroLine 1.05s cubic-bezier(.2,.75,.2,1) 2.02s forwards;">financiado sin banco.</span></span>
+        </h1>
+        <p style="margin:26px 0 0;max-width:560px;font:400 clamp(17px,1.8vw,20px)/1.55 'Hanken Grotesk',sans-serif;color:#e7e3d6;opacity:0;animation:softIn .9s ease 2.35s both;">Compra tu tierra con financiación directa, en cuotas hechas a la medida de la gente real. Con el respaldo de una operación con trayectoria comprobada.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;opacity:0;animation:softIn .9s ease 2.5s both;">
+          <button data-nav="contacto" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;border:none;padding:16px 30px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;cursor:pointer;box-shadow:0 14px 34px -12px rgba(150,70,40,.85);">Quiero información</button>
+          <button data-nav="financiacion" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.5);padding:15px 28px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;cursor:pointer;backdrop-filter:blur(4px);">Simular mi cuota</button>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:softIn .9s ease 2.8s both;">
+      <span style="font:600 10px/1 'Hanken Grotesk',sans-serif;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.72);">Desliza</span>
+      <span style="position:relative;width:1px;height:44px;background:rgba(255,255,255,.25);overflow:hidden;"><span style="position:absolute;left:0;top:0;width:1px;height:60%;background:#e6b48f;animation:cueSlide 1.9s cubic-bezier(.7,0,.3,1) infinite;"></span></span>
+    </div>
+  </section>
+
+  <section class="hero-b" style="background:#faf7f1;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(20px,5vw,48px) clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:clamp(28px,4vw,60px);align-items:center;">
+      <div>
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);margin-bottom:20px;">Lotes con financiación directa</div>
+        <h1 style="margin:0;font:500 clamp(38px,5.2vw,66px)/1.04 'Spectral',serif;letter-spacing:-.015em;color:#26332a;">
+          <span style="display:block;overflow:hidden;"><span style="display:block;transform:translateY(112%);animation:heroLine 1s cubic-bezier(.2,.75,.2,1) .2s forwards;">La tierra que soñabas,</span></span>
+          <span style="display:block;overflow:hidden;"><span style="display:block;transform:translateY(112%);animation:heroLine 1s cubic-bezier(.2,.75,.2,1) .32s forwards;">en cuotas que sí puedes pagar.</span></span>
+        </h1>
+        <p style="margin:22px 0 0;max-width:520px;font:400 clamp(16px,1.6vw,19px)/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">En Valest financiamos tu lote directamente, sin banco de por medio. Tú eliges, nosotros te acompañamos hasta que la tierra sea tuya.</p>
+        <div style="display:flex;align-items:center;gap:18px;margin-top:26px;flex-wrap:wrap;font:600 14px/1 'Hanken Grotesk',sans-serif;color:#26332a;">
+          <span>64 lotes entregados</span><span style="color:#cbbfa6;">·</span><span>$2.000M movilizados</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;">
+          <button data-nav="contacto" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;border:none;padding:16px 30px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;cursor:pointer;box-shadow:0 12px 30px -12px rgba(150,70,40,.8);">Quiero mi lote</button>
+          <button data-nav="financiacion" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#26332a;border:1px solid #cdbfa6;padding:15px 28px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;cursor:pointer;">Simular mi cuota</button>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 40px 80px -50px rgba(38,51,42,.7);">
+          <div style="position:absolute;inset:0;animation:kenburns 24s ease-in-out infinite alternate;">
+            <img class="slot" src="/projects/valest/images/home-hero-b-01.jpg" alt="Lote despejado listo para construir con vista al mar Caribe" style="position:absolute;inset:0;width:100%;height:100%;display:block;">
+          </div>
+        </div>
+        <div style="position:absolute;left:-14px;bottom:28px;background:#fff;border-radius:16px;padding:18px 22px;box-shadow:0 24px 44px -22px rgba(38,51,42,.55);border:1px solid #eee4d2;">
+          <div style="font:500 30px/1 'Spectral',serif;color:#26332a;">18.731 m²</div>
+          <div style="margin-top:5px;font:500 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.04em;color:#8a8474;">Proyecto insignia desarrollado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:#26332a;color:#f4efe3;overflow:hidden;padding:20px 0;border-top:1px solid rgba(255,255,255,.06);">
+    <div style="display:flex;width:max-content;white-space:nowrap;animation:marquee 34s linear infinite;">
+      <div style="display:flex;align-items:center;font:500 italic clamp(24px,3.4vw,42px)/1 'Spectral',serif;">
+        <span style="padding:0 .55em;">Financiación directa</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">Sin banco</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">Tu tierra propia</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">Caribe colombiano</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">64 lotes entregados</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span>
+      </div>
+      <div aria-hidden="true" style="display:flex;align-items:center;font:500 italic clamp(24px,3.4vw,42px)/1 'Spectral',serif;">
+        <span style="padding:0 .55em;">Financiación directa</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">Sin banco</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">Tu tierra propia</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">Caribe colombiano</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span><span style="padding:0 .55em;">64 lotes entregados</span><span style="color:#e6b48f;font-style:normal;font-size:.5em;">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <section style="background:#26332a;color:#f2ede1;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(24px,3vw,40px);animation:rise both;animation-timeline:view();animation-range:entry 2% cover 32%;">
+      <div style="text-align:center;"><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">64</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;letter-spacing:.02em;color:#b9c0af;">Lotes comercializados</div></div>
+      <div style="text-align:center;"><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">$2.000M</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;letter-spacing:.02em;color:#b9c0af;">En ventas movilizadas (COP)</div></div>
+      <div style="text-align:center;"><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">18.731 m²</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;letter-spacing:.02em;color:#b9c0af;">Desarrollados en el proyecto insignia</div></div>
+      <div style="text-align:center;"><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">100%</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;letter-spacing:.02em;color:#b9c0af;">Financiación directa, sin banco</div></div>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,5vw,48px);">
+      <div style="max-width:640px;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">El lugar</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(30px,4.2vw,50px)/1.08 'Spectral',serif;letter-spacing:-.01em;color:#26332a;text-wrap:balance;">Un pedazo del Caribe, tuyo.</h2>
+        <p style="margin:16px 0 0;font:400 clamp(16px,1.6vw,18px)/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Tierra a pocos minutos del mar y del pueblo, en una zona con fuerte potencial de valorización.</p>
+      </div>
+      <div style="margin-top:44px;display:flex;gap:16px;flex-wrap:wrap;align-items:stretch;">
+        <div style="flex:1.7 1 320px;aspect-ratio:3/4;min-width:280px;overflow:hidden;clip-path:inset(0 round 46% 46% 22px 22px);animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 38%;">
+          <video autoplay muted loop playsinline preload="metadata" poster="/projects/valest/images/mos-1-01.jpg" src="/projects/valest/videos/vid-clip-parcela.mp4" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+        <div style="flex:1 1 240px;min-width:220px;display:flex;flex-direction:column;gap:16px;">
+          <div style="width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 42%;">
+            <video autoplay muted loop playsinline preload="metadata" poster="/projects/valest/images/mos-2-01.jpg" src="/projects/valest/videos/vid-clip-playa.mp4" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+          </div>
+          <div style="width:100%;flex:1;min-height:170px;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;">
+            <img class="slot" src="/projects/valest/images/mos-3-01.jpg" alt="El entorno tropical alrededor del proyecto" style="border-radius:18px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#efe7d6;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,9vw,112px) clamp(20px,5vw,48px);">
+      <div style="max-width:660px;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Cómo funciona</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(30px,4.2vw,50px)/1.08 'Spectral',serif;letter-spacing:-.01em;color:#26332a;">Tu lote en tres pasos, sin banco.</h2>
+        <p style="margin:18px 0 0;font:400 clamp(16px,1.6vw,18px)/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Un proceso claro y acompañado, pensado para la gente real. Sin filas, sin puntajes de crédito imposibles.</p>
+      </div>
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:22px;animation:rise both;animation-timeline:view();animation-range:entry 0% cover 36%;">
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:20px;padding:30px;"><div style="font:500 42px/1 'Spectral',serif;color:var(--acento);">01</div><h3 style="margin:16px 0 8px;font:500 23px/1.15 'Spectral',serif;color:#26332a;">Elige tu lote</h3><p style="margin:0;font:400 16px/1.55 'Hanken Grotesk',sans-serif;color:#5a564b;">Escoge el lote que se ajusta a tu sueño y a tu bolsillo. Te asesoramos sin compromiso.</p></div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:20px;padding:30px;"><div style="font:500 42px/1 'Spectral',serif;color:var(--acento);">02</div><h3 style="margin:16px 0 8px;font:500 23px/1.15 'Spectral',serif;color:#26332a;">Financiamos en cuotas</h3><p style="margin:0;font:400 16px/1.55 'Hanken Grotesk',sans-serif;color:#5a564b;">Definimos una cuota inicial y un plan a tu medida. Sin banco, sin trámites eternos.</p></div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:20px;padding:30px;"><div style="font:500 42px/1 'Spectral',serif;color:var(--acento);">03</div><h3 style="margin:16px 0 8px;font:500 23px/1.15 'Spectral',serif;color:#26332a;">Recibe tu tierra</h3><p style="margin:0;font:400 16px/1.55 'Hanken Grotesk',sans-serif;color:#5a564b;">Firmamos, formalizamos y te acompañamos hasta que el lote quede a tu nombre.</p></div>
+      </div>
+      <div style="margin-top:30px;">
+        <button data-nav="financiacion" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#26332a;border:1px solid #cdbfa6;padding:13px 24px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;cursor:pointer;">Ver cómo funciona la financiación →</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,5vw,64px);align-items:center;">
+      <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -55px rgba(38,51,42,.6);animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+        <img class="slot" src="/projects/valest/images/home-proy-02.jpg" alt="Foto aérea del proyecto insignia de lotes junto a la costa">
+      </div>
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Proyecto insignia</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(28px,3.8vw,46px)/1.1 'Spectral',serif;letter-spacing:-.01em;color:#26332a;">18.731 m² a un paso del mar.</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Lotes listos para construir tu casa, tu proyecto de descanso o tu inversión, a pocos minutos del mar y del casco urbano de San Bernardo del Viento.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;"><span style="flex:none;width:7px;height:7px;border-radius:50%;background:var(--acento);margin-top:8px;"></span><div><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">A minutos del mar</div><div style="font:400 13px/1.4 'Hanken Grotesk',sans-serif;color:#7d7767;">Cerca de la playa y del casco urbano.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><span style="flex:none;width:7px;height:7px;border-radius:50%;background:var(--acento);margin-top:8px;"></span><div><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Vías de acceso</div><div style="font:400 13px/1.4 'Hanken Grotesk',sans-serif;color:#7d7767;">Llegada cómoda al terreno.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><span style="flex:none;width:7px;height:7px;border-radius:50%;background:var(--acento);margin-top:8px;"></span><div><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Servicios</div><div style="font:400 13px/1.4 'Hanken Grotesk',sans-serif;color:#7d7767;">Zona con servicios disponibles.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><span style="flex:none;width:7px;height:7px;border-radius:50%;background:var(--acento);margin-top:8px;"></span><div><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Escrituración</div><div style="font:400 13px/1.4 'Hanken Grotesk',sans-serif;color:#7d7767;">Proceso legal acompañado.</div></div></div>
+        </div>
+        <div style="margin-top:30px;"><button data-nav="proyectos" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;border:none;padding:14px 26px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;cursor:pointer;">Ver proyecto</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#26332a;color:#eee7d8;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,9vw,112px) clamp(20px,5vw,48px);">
+      <div style="max-width:640px;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#e6b48f;">Por qué Valest</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(30px,4.2vw,50px)/1.08 'Spectral',serif;letter-spacing:-.01em;color:#fff;">Una decisión grande merece un respaldo real.</h2>
+      </div>
+      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;animation:rise both;animation-timeline:view();animation-range:entry 0% cover 36%;">
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:28px;"><div style="font:500 30px/1 'Spectral',serif;color:#e6b48f;">01</div><h3 style="margin:14px 0 8px;font:500 20px/1.2 'Spectral',serif;color:#fff;">Financiación 100% directa</h3><p style="margin:0;font:400 15px/1.55 'Hanken Grotesk',sans-serif;color:#bcc2b3;">Nosotros somos el banco. Aprobamos según tu realidad, no según un puntaje de crédito.</p></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:28px;"><div style="font:500 30px/1 'Spectral',serif;color:#e6b48f;">02</div><h3 style="margin:14px 0 8px;font:500 20px/1.2 'Spectral',serif;color:#fff;">Respaldo y trayectoria</h3><p style="margin:0;font:400 15px/1.55 'Hanken Grotesk',sans-serif;color:#bcc2b3;">64 lotes vendidos y cerca de $2.000 millones movilizados. Hechos, no promesas.</p></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:28px;"><div style="font:500 30px/1 'Spectral',serif;color:#e6b48f;">03</div><h3 style="margin:14px 0 8px;font:500 20px/1.2 'Spectral',serif;color:#fff;">Tierra que se valoriza</h3><p style="margin:0;font:400 15px/1.55 'Hanken Grotesk',sans-serif;color:#bcc2b3;">San Bernardo del Viento, una zona costera del Caribe colombiano en crecimiento.</p></div>
+        <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:28px;"><div style="font:500 30px/1 'Spectral',serif;color:#e6b48f;">04</div><h3 style="margin:14px 0 8px;font:500 20px/1.2 'Spectral',serif;color:#fff;">Acompañamiento real</h3><p style="margin:0;font:400 15px/1.55 'Hanken Grotesk',sans-serif;color:#bcc2b3;">Un equipo cercano que te guía de principio a fin, y también después de la compra.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(64px,9vw,112px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,5vw,64px);align-items:center;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 38%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Simulador de cuota</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(30px,4.2vw,50px)/1.08 'Spectral',serif;letter-spacing:-.01em;color:#26332a;">¿Cuánto pagarías al mes?</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Mueve los valores y mira un estimado de tu cuota. Muchos descubren aquí que <strong style="color:#26332a;">sí pueden</strong> tener su lote.</p>
+      </div>
+      <div class="sim" style="background:#fff;border:1px solid #eee4d2;border-radius:24px;padding:clamp(24px,4vw,36px);box-shadow:0 30px 60px -40px rgba(38,51,42,.4);animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 42%;">
+        <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;margin-bottom:10px;">Valor del lote</label>
+        <input class="sim-val" inputmode="numeric" value="$60.000.000" style="width:100%;font:500 26px/1 'Spectral',serif;color:#26332a;border:1px solid #e0d7c6;border-radius:12px;padding:14px 16px;background:#faf7f1;outline:none;" />
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+          <button class="sim-chip" data-val="40000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$40M</button>
+          <button class="sim-chip" data-val="60000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$60M</button>
+          <button class="sim-chip" data-val="80000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$80M</button>
+          <button class="sim-chip" data-val="120000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$120M</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin:24px 0 8px;">
+          <label style="font:600 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;">Cuota inicial</label>
+          <span class="sim-down-str" style="font:600 15px/1 'Hanken Grotesk',sans-serif;color:#26332a;">20% · $12.000.000</span>
+        </div>
+        <input class="sim-down" type="range" min="10" max="50" step="5" value="20" style="width:100%;accent-color:#b5623f;" />
+        <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;margin:24px 0 10px;">Plazo</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="sim-month" data-months="24">24 meses</button>
+          <button class="sim-month" data-months="36">36 meses</button>
+          <button class="sim-month active" data-months="48">48 meses</button>
+          <button class="sim-month" data-months="60">60 meses</button>
+        </div>
+        <div style="margin-top:26px;padding-top:24px;border-top:1px solid #eee4d2;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;">
+          <div>
+            <div style="font:500 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;">Cuota mensual estimada</div>
+            <div class="sim-cuota" style="margin-top:8px;font:500 clamp(34px,5vw,46px)/1 'Spectral',serif;color:var(--acento);">$1.350.520</div>
+            <div style="margin-top:8px;font:400 13px/1.4 'Hanken Grotesk',sans-serif;color:#7d7767;">Monto financiado <span class="sim-fin">$48.000.000</span></div>
+          </div>
+          <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;text-decoration:none;padding:14px 22px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;">Quiero esta financiación</a>
+        </div>
+        <p style="margin:16px 0 0;font:400 12px/1.5 'Hanken Grotesk',sans-serif;color:#9a9384;">*Cálculo estimado con una tasa de referencia. Sujeto a estudio y aprobación. No constituye una oferta vinculante.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#efe7d6;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,100px) clamp(20px,5vw,48px);">
+      <div style="max-width:640px;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Confianza</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(28px,3.8vw,46px)/1.1 'Spectral',serif;letter-spacing:-.01em;color:#26332a;">Historias de gente que ya tiene su tierra.</h2>
+        <p style="margin:16px 0 0;font:400 16px/1.6 'Hanken Grotesk',sans-serif;color:#7d7767;">Familias y personas que ya dieron el paso de tener su tierra propia con Valest.</p>
+      </div>
+      <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;animation:rise both;animation-timeline:view();animation-range:entry 0% cover 36%;">
+        <div style="background:#faf7f1;border:1px solid #e9dfc9;border-radius:20px;padding:28px;"><div style="display:flex;align-items:center;gap:14px;"><div style="width:56px;height:56px;flex:none;"><img class="slot" src="/projects/valest/images/testi-1-01.jpg" alt="Carlos M." style="border-radius:50%;"></div><div><div style="font:600 15px/1.2 'Hanken Grotesk',sans-serif;color:#26332a;">Carlos M.</div><div style="font:400 13px/1.2 'Hanken Grotesk',sans-serif;color:#9a9384;">Montería, Córdoba</div></div></div><p style="margin:18px 0 0;font:400 15px/1.6 'Hanken Grotesk',sans-serif;color:#5a564b;font-style:italic;">"Llevaba años queriendo un lote y el banco siempre me decía que no. Con Valest por fin es mío."</p></div>
+        <div style="background:#faf7f1;border:1px solid #e9dfc9;border-radius:20px;padding:28px;"><div style="display:flex;align-items:center;gap:14px;"><div style="width:56px;height:56px;flex:none;"><img class="slot" src="/projects/valest/images/testi-2-01.jpg" alt="Laura P." style="border-radius:50%;"></div><div><div style="font:600 15px/1.2 'Hanken Grotesk',sans-serif;color:#26332a;">Laura P.</div><div style="font:400 13px/1.2 'Hanken Grotesk',sans-serif;color:#9a9384;">Medellín</div></div></div><p style="margin:18px 0 0;font:400 15px/1.6 'Hanken Grotesk',sans-serif;color:#5a564b;font-style:italic;">"Compré desde otra ciudad, con cuotas que sí podía pagar. El acompañamiento fue lo mejor."</p></div>
+        <div style="background:#faf7f1;border:1px solid #e9dfc9;border-radius:20px;padding:28px;"><div style="display:flex;align-items:center;gap:14px;"><div style="width:56px;height:56px;flex:none;"><img class="slot" src="/projects/valest/images/testi-3-01.jpg" alt="Familia Restrepo" style="border-radius:50%;"></div><div><div style="font:600 15px/1.2 'Hanken Grotesk',sans-serif;color:#26332a;">Familia Restrepo</div><div style="font:400 13px/1.2 'Hanken Grotesk',sans-serif;color:#9a9384;">San Bernardo del Viento</div></div></div><p style="margin:18px 0 0;font:400 15px/1.6 'Hanken Grotesk',sans-serif;color:#5a564b;font-style:italic;">"Nuestro pedazo de tierra frente al Caribe, sin trámites imposibles. Cumplimos el sueño."</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#26332a;color:#f2ede1;">
+    <div style="max-width:780px;margin:0 auto;padding:clamp(64px,9vw,124px) clamp(20px,5vw,48px);text-align:center;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+      <h2 style="margin:0;font:500 clamp(32px,4.6vw,56px)/1.08 'Spectral',serif;letter-spacing:-.01em;color:#fff;text-wrap:balance;">¿Listo para tener tu lote propio?</h2>
+      <p style="margin:20px auto 0;max-width:520px;font:400 clamp(16px,1.6vw,19px)/1.6 'Hanken Grotesk',sans-serif;color:#c8cdbf;">Cuéntanos qué buscas y te asesoramos sin compromiso. Sin banco, sin trámites eternos.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:32px;">
+        <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;text-decoration:none;padding:16px 30px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;box-shadow:0 12px 30px -12px rgba(150,70,40,.8);">Escríbenos por WhatsApp</a>
+        <button data-nav="contacto" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.5);padding:15px 28px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;cursor:pointer;">Déjanos tus datos</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== NOSOTROS ===================== -->
+<div class="page" id="page-nosotros">
+  <section style="position:relative;min-height:clamp(360px,54vh,520px);overflow:hidden;background:#1b241a;display:flex;align-items:flex-end;">
+    <div style="position:absolute;inset:-6%;z-index:0;animation:kenburns 24s ease-in-out infinite alternate;">
+      <img class="slot" src="/projects/valest/images/nos-hero-01.jpg" alt="Amplio paisaje costero del Caribe colombiano al atardecer" style="position:absolute;inset:0;width:100%;height:100%;display:block;">
+    </div>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(15,20,13,.9),rgba(15,20,13,.35));"></div>
+    <div style="position:relative;z-index:2;max-width:1000px;margin:0 auto;width:100%;padding:0 clamp(20px,5vw,48px) clamp(40px,6vw,64px);">
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#e6b48f;margin-bottom:18px;">Nosotros</div>
+      <h1 style="margin:0;max-width:760px;font:500 clamp(32px,5vw,58px)/1.06 'Spectral',serif;letter-spacing:-.015em;color:#fff;text-wrap:balance;">Una operación validada, no un proyecto en papel.</h1>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,5vw,64px);align-items:center;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Historia y propósito</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(28px,3.8vw,44px)/1.1 'Spectral',serif;color:#26332a;">Tierra al alcance de la gente real.</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.65 'Hanken Grotesk',sans-serif;color:#57534a;">Valest nació para resolver un problema real: mucha gente quiere su pedazo de tierra en el Caribe, pero el banco les cierra la puerta. Nosotros la abrimos con financiación directa.</p>
+        <p style="margin:16px 0 0;font:400 17px/1.65 'Hanken Grotesk',sans-serif;color:#57534a;">Administramos nuestra propia cartera: los pagos, los plazos, los acuerdos y la relación con cada cliente. Eso nos permite decidir con criterio humano y acompañar a las familias.</p>
+      </div>
+      <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -55px rgba(38,51,42,.6);animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 42%;">
+        <img class="slot" src="/projects/valest/images/nos-tierra-01.jpg" alt="Terreno natural con vegetación tropical y horizonte marino">
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#26332a;color:#f2ede1;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,6vw,72px) clamp(20px,5vw,48px);">
+      <h2 style="margin:0 0 36px;font:500 clamp(24px,3vw,34px)/1.1 'Spectral',serif;color:#fff;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">Nuestra trayectoria en cifras</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(24px,3vw,40px);animation:rise both;animation-timeline:view();animation-range:entry 0% cover 36%;">
+        <div><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">64</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;color:#b9c0af;">Lotes comercializados</div></div>
+        <div><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">$2.000M</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;color:#b9c0af;">En ventas movilizadas (COP)</div></div>
+        <div><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">18.731 m²</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;color:#b9c0af;">Desarrollados en el proyecto insignia</div></div>
+        <div><div style="font:500 clamp(30px,4.4vw,48px)/1 'Spectral',serif;color:#fff;">100%</div><div style="margin-top:9px;font:500 13px/1.35 'Hanken Grotesk',sans-serif;color:#b9c0af;">Financiación directa, sin banco</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,5vw,56px);align-items:center;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Dónde operamos</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(28px,3.8vw,44px)/1.1 'Spectral',serif;color:#26332a;">San Bernardo del Viento, Córdoba.</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.65 'Hanken Grotesk',sans-serif;color:#57534a;">Una zona costera del Caribe colombiano en crecimiento, cerca del mar y con un enorme potencial de valorización. Aquí desarrollamos nuestro proyecto insignia de 18.731 m².</p>
+      </div>
+      <div style="border-radius:22px;overflow:hidden;border:1px solid #e4dccb;aspect-ratio:16/11;box-shadow:0 30px 60px -45px rgba(38,51,42,.5);">
+        <iframe title="Ubicación Valest" src="https://www.google.com/maps?q=San+Bernardo+del+Viento,+C%C3%B3rdoba,+Colombia&z=12&output=embed" style="width:100%;height:100%;border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#efe7d6;overflow:hidden;">
+    <div style="max-width:900px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);">
+      <div style="background:#faf7f1;border:1px solid #e4dccb;border-radius:24px;padding:clamp(28px,4vw,44px);display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,36px);align-items:center;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 44%;">
+        <div style="width:clamp(96px,14vw,140px);height:clamp(96px,14vw,140px);flex:none;"><img class="slot" src="/projects/valest/images/nos-owner-01.jpg" alt="Rodrigo Castillo, fundador de Valest" style="border-radius:50%;"></div>
+        <div style="min-width:200px;">
+          <p style="margin:0;font:500 italic clamp(18px,2.2vw,24px)/1.5 'Spectral',serif;color:#26332a;">"No vendemos un papel. Acompañamos a cada familia hasta que la tierra es suya."</p>
+          <div style="margin-top:18px;font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Rodrigo Castillo</div>
+          <div style="font:400 14px/1.3 'Hanken Grotesk',sans-serif;color:#8a8474;">Fundador · Valest</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== FINANCIACIÓN ===================== -->
+<div class="page" id="page-financiacion">
+  <section style="background:#efe7d6;border-bottom:1px solid #e4dccb;">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px) clamp(40px,6vw,64px);">
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Financiación directa</div>
+      <h1 style="margin:16px 0 0;font:500 clamp(34px,5vw,62px)/1.05 'Spectral',serif;letter-spacing:-.015em;color:#26332a;text-wrap:balance;">Nosotros somos tu banco.</h1>
+      <p style="margin:20px 0 0;max-width:640px;font:400 clamp(16px,1.6vw,19px)/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">La financiación directa es nuestro gran diferenciador. Compras tu lote y nos pagas en cuotas, sin intermediarios y sin las barreras del crédito bancario.</p>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;animation:rise both;animation-timeline:view();animation-range:entry 0% cover 34%;">
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:20px;padding:30px;">
+          <h3 style="margin:0 0 10px;font:500 22px/1.2 'Spectral',serif;color:#26332a;">Cómo funciona el modelo</h3>
+          <p style="margin:0;font:400 16px/1.6 'Hanken Grotesk',sans-serif;color:#5a564b;">Acordamos una cuota inicial y un plan de cuotas mensuales a la medida de tu capacidad de pago. Valest administra directamente la cartera, así que el trato es cercano y flexible.</p>
+        </div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:20px;padding:30px;">
+          <h3 style="margin:0 0 10px;font:500 22px/1.2 'Spectral',serif;color:#26332a;">Más accesible que el banco</h3>
+          <p style="margin:0;font:400 16px/1.6 'Hanken Grotesk',sans-serif;color:#5a564b;">No dependes de un puntaje de crédito ni de trámites eternos. Evaluamos tu caso de forma humana: lo importante es tu compromiso y tu capacidad real de pago.</p>
+        </div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:20px;padding:30px;">
+          <h3 style="margin:0 0 10px;font:500 22px/1.2 'Spectral',serif;color:#26332a;">Requisitos básicos</h3>
+          <div style="font:400 16px/1.9 'Hanken Grotesk',sans-serif;color:#5a564b;">
+            <div>· Documento de identidad</div>
+            <div>· Capacidad de pago demostrable</div>
+            <div>· Cuota inicial acordada</div>
+            <div>· Ganas de tener tu tierra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#efe7d6;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,88px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,5vw,64px);align-items:center;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Simulador de cuota</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(28px,3.8vw,46px)/1.1 'Spectral',serif;color:#26332a;">Calcula tu cuota en segundos.</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Ajusta el valor del lote, la cuota inicial y el plazo. El estimado es orientativo y siempre lo afinamos contigo.</p>
+      </div>
+      <div class="sim" style="background:#fff;border:1px solid #eee4d2;border-radius:24px;padding:clamp(24px,4vw,36px);box-shadow:0 30px 60px -40px rgba(38,51,42,.4);animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 44%;">
+        <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;margin-bottom:10px;">Valor del lote</label>
+        <input class="sim-val" inputmode="numeric" value="$60.000.000" style="width:100%;font:500 26px/1 'Spectral',serif;color:#26332a;border:1px solid #e0d7c6;border-radius:12px;padding:14px 16px;background:#faf7f1;outline:none;" />
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+          <button class="sim-chip" data-val="40000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$40M</button>
+          <button class="sim-chip" data-val="60000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$60M</button>
+          <button class="sim-chip" data-val="80000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$80M</button>
+          <button class="sim-chip" data-val="120000000" style="background:#f0e9db;border:1px solid #e4dcc9;border-radius:999px;padding:8px 14px;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#5a564b;cursor:pointer;">$120M</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin:24px 0 8px;">
+          <label style="font:600 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;">Cuota inicial</label>
+          <span class="sim-down-str" style="font:600 15px/1 'Hanken Grotesk',sans-serif;color:#26332a;">20% · $12.000.000</span>
+        </div>
+        <input class="sim-down" type="range" min="10" max="50" step="5" value="20" style="width:100%;accent-color:#b5623f;" />
+        <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;margin:24px 0 10px;">Plazo</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="sim-month" data-months="24">24 meses</button>
+          <button class="sim-month" data-months="36">36 meses</button>
+          <button class="sim-month active" data-months="48">48 meses</button>
+          <button class="sim-month" data-months="60">60 meses</button>
+        </div>
+        <div style="margin-top:26px;padding-top:24px;border-top:1px solid #eee4d2;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;">
+          <div>
+            <div style="font:500 13px/1 'Hanken Grotesk',sans-serif;letter-spacing:.03em;color:#8a8474;text-transform:uppercase;">Cuota mensual estimada</div>
+            <div class="sim-cuota" style="margin-top:8px;font:500 clamp(34px,5vw,46px)/1 'Spectral',serif;color:var(--acento);">$1.350.520</div>
+            <div style="margin-top:8px;font:400 13px/1.4 'Hanken Grotesk',sans-serif;color:#7d7767;">Monto financiado <span class="sim-fin">$48.000.000</span></div>
+          </div>
+          <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;text-decoration:none;padding:14px 22px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;">Solicitar asesoría</a>
+        </div>
+        <p style="margin:16px 0 0;font:400 12px/1.5 'Hanken Grotesk',sans-serif;color:#9a9384;">*Cálculo estimado con una tasa de referencia. Sujeto a estudio y aprobación. No constituye una oferta vinculante.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:820px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px);">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Preguntas frecuentes</div>
+        <h2 style="margin:14px 0 32px;font:500 clamp(28px,3.8vw,46px)/1.1 'Spectral',serif;color:#26332a;">Lo que más nos preguntan.</h2>
+      </div>
+      <div id="faq-list" style="border-top:1px solid #e4dccb;">
+        <div class="faq open" style="border-bottom:1px solid #e4dccb;"><button class="faq-q" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:22px 2px;text-align:left;"><span style="font:500 clamp(17px,2vw,20px)/1.35 'Spectral',serif;color:#26332a;">¿Cuánto es la cuota inicial?</span><span class="faq-sign" style="flex:none;font:400 24px/1 'Hanken Grotesk',sans-serif;color:var(--acento);">−</span></button><p class="faq-a" style="margin:0;padding:0 2px 24px;max-width:640px;font:400 16px/1.65 'Hanken Grotesk',sans-serif;color:#5a564b;">Normalmente parte del 20% al 30% del valor del lote, y es negociable según tu caso. La definimos juntos para que se ajuste a tu bolsillo.</p></div>
+        <div class="faq" style="border-bottom:1px solid #e4dccb;"><button class="faq-q" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:22px 2px;text-align:left;"><span style="font:500 clamp(17px,2vw,20px)/1.35 'Spectral',serif;color:#26332a;">¿En cuántas cuotas puedo pagar?</span><span class="faq-sign" style="flex:none;font:400 24px/1 'Hanken Grotesk',sans-serif;color:var(--acento);">+</span></button><p class="faq-a" style="margin:0;padding:0 2px 24px;max-width:640px;font:400 16px/1.65 'Hanken Grotesk',sans-serif;color:#5a564b;">Manejamos planes flexibles, comúnmente entre 24 y 60 meses. Diseñamos el plazo a la medida de tu capacidad de pago.</p></div>
+        <div class="faq" style="border-bottom:1px solid #e4dccb;"><button class="faq-q" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:22px 2px;text-align:left;"><span style="font:500 clamp(17px,2vw,20px)/1.35 'Spectral',serif;color:#26332a;">¿Qué pasa si me atraso en una cuota?</span><span class="faq-sign" style="flex:none;font:400 24px/1 'Hanken Grotesk',sans-serif;color:var(--acento);">+</span></button><p class="faq-a" style="margin:0;padding:0 2px 24px;max-width:640px;font:400 16px/1.65 'Hanken Grotesk',sans-serif;color:#5a564b;">Administramos cartera propia, así que nos sentamos contigo a buscar una solución. Priorizamos los acuerdos antes que cualquier otra medida.</p></div>
+        <div class="faq" style="border-bottom:1px solid #e4dccb;"><button class="faq-q" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:22px 2px;text-align:left;"><span style="font:500 clamp(17px,2vw,20px)/1.35 'Spectral',serif;color:#26332a;">¿El lote queda a mi nombre?</span><span class="faq-sign" style="flex:none;font:400 24px/1 'Hanken Grotesk',sans-serif;color:var(--acento);">+</span></button><p class="faq-a" style="margin:0;padding:0 2px 24px;max-width:640px;font:400 16px/1.65 'Hanken Grotesk',sans-serif;color:#5a564b;">Sí. La compra se formaliza mediante los documentos legales correspondientes y te acompañamos durante todo el proceso de escrituración.</p></div>
+        <div class="faq" style="border-bottom:1px solid #e4dccb;"><button class="faq-q" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:22px 2px;text-align:left;"><span style="font:500 clamp(17px,2vw,20px)/1.35 'Spectral',serif;color:#26332a;">¿Necesito aprobación de un banco?</span><span class="faq-sign" style="flex:none;font:400 24px/1 'Hanken Grotesk',sans-serif;color:var(--acento);">+</span></button><p class="faq-a" style="margin:0;padding:0 2px 24px;max-width:640px;font:400 16px/1.65 'Hanken Grotesk',sans-serif;color:#5a564b;">No. La financiación es directa con Valest: nosotros somos el banco y aprobamos según tu realidad, no según un puntaje de crédito.</p></div>
+        <div class="faq" style="border-bottom:1px solid #e4dccb;"><button class="faq-q" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;cursor:pointer;padding:22px 2px;text-align:left;"><span style="font:500 clamp(17px,2vw,20px)/1.35 'Spectral',serif;color:#26332a;">¿Puedo abonar a capital o pagar anticipado?</span><span class="faq-sign" style="flex:none;font:400 24px/1 'Hanken Grotesk',sans-serif;color:var(--acento);">+</span></button><p class="faq-a" style="margin:0;padding:0 2px 24px;max-width:640px;font:400 16px/1.65 'Hanken Grotesk',sans-serif;color:#5a564b;">Sí. Puedes hacer abonos extraordinarios para reducir tu plazo o el valor de la cuota, sin penalidades.</p></div>
+      </div>
+      <div style="margin-top:36px;text-align:center;">
+        <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;text-decoration:none;padding:15px 28px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;box-shadow:0 12px 30px -12px rgba(150,70,40,.7);">Solicitar una asesoría</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PROYECTOS ===================== -->
+<div class="page" id="page-proyectos">
+  <section style="background:#efe7d6;border-bottom:1px solid #e4dccb;">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px) clamp(40px,6vw,64px);">
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Proyectos</div>
+      <h1 style="margin:16px 0 0;font:500 clamp(34px,5vw,62px)/1.05 'Spectral',serif;letter-spacing:-.015em;color:#26332a;text-wrap:balance;">Proyecto insignia · 18.731 m²</h1>
+      <p style="margin:20px 0 0;max-width:640px;font:400 clamp(16px,1.6vw,19px)/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Nuestro desarrollo en San Bernardo del Viento: lotes a pocos minutos del mar, listos para construir tu casa, tu proyecto de descanso o tu inversión.</p>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,48px) clamp(24px,4vw,40px);">
+      <div style="aspect-ratio:16/8;border-radius:24px;overflow:hidden;box-shadow:0 50px 90px -60px rgba(38,51,42,.65);animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 30%;">
+        <video autoplay muted loop playsinline preload="metadata" poster="/projects/valest/images/proy-hero-01.jpg" src="/projects/valest/videos/vid-proy-recorrido.mp4" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      </div>
+    </div>
+    <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,48px) clamp(56px,8vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,56px);align-items:start;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 44%;">
+        <h2 style="margin:0;font:500 clamp(26px,3.4vw,40px)/1.12 'Spectral',serif;color:#26332a;">Tierra con vista al Caribe.</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.65 'Hanken Grotesk',sans-serif;color:#57534a;">18.731 m² desarrollados a pocos minutos del mar y del casco urbano de San Bernardo del Viento. Un entorno costero tranquilo, con acceso cómodo y servicios disponibles, en una zona con fuerte potencial de valorización.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;animation:rise both;animation-timeline:view();animation-range:entry 0% cover 44%;">
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:16px;padding:20px;"><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">A minutos del mar</div><div style="margin-top:4px;font:400 13px/1.45 'Hanken Grotesk',sans-serif;color:#7d7767;">Cerca de la playa y del casco urbano.</div></div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:16px;padding:20px;"><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Vías de acceso</div><div style="margin-top:4px;font:400 13px/1.45 'Hanken Grotesk',sans-serif;color:#7d7767;">Llegada cómoda al terreno.</div></div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:16px;padding:20px;"><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Servicios</div><div style="margin-top:4px;font:400 13px/1.45 'Hanken Grotesk',sans-serif;color:#7d7767;">Zona con servicios disponibles.</div></div>
+        <div style="background:#faf7f1;border:1px solid #ece3d2;border-radius:16px;padding:20px;"><div style="font:600 15px/1.3 'Hanken Grotesk',sans-serif;color:#26332a;">Escrituración</div><div style="margin-top:4px;font:400 13px/1.45 'Hanken Grotesk',sans-serif;color:#7d7767;">Proceso legal acompañado.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#efe7d6;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);">
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);margin-bottom:28px;animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 30%;">Galería</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+        <div style="aspect-ratio:4/3;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;"><img class="slot" src="/projects/valest/images/gal-1-01.jpg" alt="Foto aérea del lote" style="border-radius:14px;"></div>
+        <div style="aspect-ratio:4/3;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;"><img class="slot" src="/projects/valest/images/gal-2-01.jpg" alt="Vista del terreno" style="border-radius:14px;"></div>
+        <div style="aspect-ratio:4/3;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;"><img class="slot" src="/projects/valest/images/gal-3-01.jpg" alt="Cercanía al mar" style="border-radius:14px;"></div>
+        <div style="aspect-ratio:4/3;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;"><img class="slot" src="/projects/valest/images/gal-4-01.jpg" alt="Vías de acceso" style="border-radius:14px;"></div>
+        <div style="aspect-ratio:4/3;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;"><img class="slot" src="/projects/valest/images/gal-5-01.jpg" alt="Entorno / paisaje" style="border-radius:14px;"></div>
+        <div style="aspect-ratio:4/3;animation:clipUp both;animation-timeline:view();animation-range:entry 0% cover 46%;"><img class="slot" src="/projects/valest/images/gal-6-01.jpg" alt="Detalle del proyecto" style="border-radius:14px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,56px);align-items:center;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 40%;">
+        <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Ubicación</div>
+        <h2 style="margin:14px 0 0;font:500 clamp(26px,3.4vw,40px)/1.12 'Spectral',serif;color:#26332a;">Llegar es fácil.</h2>
+        <p style="margin:18px 0 0;font:400 17px/1.65 'Hanken Grotesk',sans-serif;color:#57534a;">Ubicado en San Bernardo del Viento, Córdoba. Escríbenos y coordinamos una visita al terreno.</p>
+        <div style="margin-top:26px;"><a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:var(--acento);color:#fff;text-decoration:none;padding:14px 26px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;">Pedir disponibilidad</a></div>
+      </div>
+      <div style="border-radius:22px;overflow:hidden;border:1px solid #e4dccb;aspect-ratio:16/11;box-shadow:0 30px 60px -45px rgba(38,51,42,.5);">
+        <iframe title="Ubicación del proyecto" src="https://www.google.com/maps?q=San+Bernardo+del+Viento,+C%C3%B3rdoba,+Colombia&z=13&output=embed" style="width:100%;height:100%;border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== CONTACTO ===================== -->
+<div class="page" id="page-contacto">
+  <section style="background:#efe7d6;border-bottom:1px solid #e4dccb;">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(56px,8vw,104px) clamp(20px,5vw,48px) clamp(40px,6vw,64px);">
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--acento);">Contacto</div>
+      <h1 style="margin:16px 0 0;font:500 clamp(34px,5vw,62px)/1.05 'Spectral',serif;letter-spacing:-.015em;color:#26332a;text-wrap:balance;">Hablemos de tu lote.</h1>
+      <p style="margin:20px 0 0;max-width:600px;font:400 clamp(16px,1.6vw,19px)/1.6 'Hanken Grotesk',sans-serif;color:#57534a;">Déjanos tus datos o escríbenos por WhatsApp. Te asesoramos sin compromiso y respondemos rápido.</p>
+    </div>
+  </section>
+
+  <section style="background:#f6f1e7;overflow:hidden;">
+    <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,7vw,88px) clamp(20px,5vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,56px);align-items:start;">
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 44%;">
+        <form id="contact-form" style="background:#fff;border:1px solid #eee4d2;border-radius:24px;padding:clamp(24px,4vw,36px);box-shadow:0 30px 60px -45px rgba(38,51,42,.4);">
+          <div style="margin-bottom:18px;">
+            <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#6f6a5c;margin-bottom:8px;">Nombre*</label>
+            <input name="nombre" required placeholder="Tu nombre" style="width:100%;font:400 16px/1.4 'Hanken Grotesk',sans-serif;color:#26332a;border:1px solid #e0d7c6;border-radius:12px;padding:13px 15px;background:#faf7f1;outline:none;" />
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px;">
+            <div>
+              <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#6f6a5c;margin-bottom:8px;">Teléfono / WhatsApp*</label>
+              <input name="tel" required inputmode="tel" placeholder="300 000 0000" style="width:100%;font:400 16px/1.4 'Hanken Grotesk',sans-serif;color:#26332a;border:1px solid #e0d7c6;border-radius:12px;padding:13px 15px;background:#faf7f1;outline:none;" />
+            </div>
+            <div>
+              <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#6f6a5c;margin-bottom:8px;">Correo</label>
+              <input name="correo" inputmode="email" placeholder="tu@correo.com" style="width:100%;font:400 16px/1.4 'Hanken Grotesk',sans-serif;color:#26332a;border:1px solid #e0d7c6;border-radius:12px;padding:13px 15px;background:#faf7f1;outline:none;" />
+            </div>
+          </div>
+          <div style="margin-bottom:18px;">
+            <label style="display:block;font:600 13px/1 'Hanken Grotesk',sans-serif;color:#6f6a5c;margin-bottom:8px;">¿Qué buscas?</label>
+            <textarea name="msg" rows="4" placeholder="Cuéntanos qué tipo de lote te interesa, tu presupuesto, etc." style="width:100%;font:400 16px/1.5 'Hanken Grotesk',sans-serif;color:#26332a;border:1px solid #e0d7c6;border-radius:12px;padding:13px 15px;background:#faf7f1;outline:none;resize:vertical;"></textarea>
+          </div>
+          <label style="display:flex;gap:10px;align-items:flex-start;margin-bottom:22px;cursor:pointer;">
+            <input type="checkbox" name="consent" required style="margin-top:3px;accent-color:#b5623f;width:18px;height:18px;flex:none;" />
+            <span style="font:400 13px/1.55 'Hanken Grotesk',sans-serif;color:#7d7767;">Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012 (Habeas Data) y a la política de tratamiento de datos de Valest.</span>
+          </label>
+          <button type="submit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--acento);color:#fff;border:none;padding:16px 24px;border-radius:999px;font:600 16px/1 'Hanken Grotesk',sans-serif;cursor:pointer;box-shadow:0 14px 30px -14px rgba(150,70,40,.8);">Enviar mis datos</button>
+        </form>
+        <div id="contact-sent" style="display:none;background:#fff;border:1px solid #d7e2d2;border-radius:24px;padding:clamp(32px,5vw,48px);text-align:center;box-shadow:0 30px 60px -45px rgba(38,51,42,.4);">
+          <div style="width:56px;height:56px;border-radius:50%;background:#e7f0e3;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font:500 26px/1 'Spectral',serif;color:#3f6b4a;">✓</div>
+          <h3 style="margin:0;font:500 24px/1.2 'Spectral',serif;color:#26332a;">¡Gracias! Recibimos tus datos.</h3>
+          <p style="margin:12px 0 0;font:400 16px/1.6 'Hanken Grotesk',sans-serif;color:#5a564b;">Te contactaremos muy pronto. Si prefieres, escríbenos ahora mismo por WhatsApp.</p>
+          <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#128c4b;color:#fff;text-decoration:none;padding:13px 24px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;margin-top:22px;">Abrir WhatsApp</a>
+        </div>
+      </div>
+
+      <div style="animation:riseSm both;animation-timeline:view();animation-range:entry 0% cover 44%;">
+        <a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;background:#26332a;color:#fff;text-decoration:none;border-radius:20px;padding:22px 24px;margin-bottom:16px;">
+          <span style="flex:none;width:44px;height:44px;border-radius:50%;background:#128c4b;display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.9 3 3 6.6 3 11c0 1.72.62 3.32 1.7 4.68L3.3 21l5.5-1.44A9.9 9.9 0 0 0 12 20c5.1 0 9-3.6 9-8.5S17.1 3 12 3zm4.7 12.1c-.2.55-1.17 1.05-1.6 1.1-.42.05-.83.23-2.78-.58-2.35-.97-3.83-3.4-3.95-3.56-.11-.16-.94-1.25-.94-2.38 0-1.13.6-1.68.8-1.9.22-.24.47-.3.63-.3l.45.01c.15 0 .34-.05.53.4l.72 1.75c.06.13.1.28.01.44l-.27.42c-.12.14-.25.31-.11.55.14.24.6.99 1.29 1.6.89.79 1.63 1.03 1.86 1.15.23.12.37.1.5-.06l.72-.84c.16-.2.3-.15.5-.08l1.7.8c.2.1.34.15.4.23.05.09.05.5-.15 1.05z"/></svg>
+          </span>
+          <span><span style="display:block;font:600 16px/1.2 'Hanken Grotesk',sans-serif;">Escríbenos por WhatsApp</span><span style="display:block;font:400 13px/1.3 'Hanken Grotesk',sans-serif;color:#b9c0af;margin-top:2px;">El canal más rápido</span></span>
+        </a>
+        <div style="background:#faf7f1;border:1px solid #e4dccb;border-radius:20px;padding:26px;margin-bottom:16px;">
+          <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8a8474;margin-bottom:14px;">Datos de contacto</div>
+          <div style="font:400 16px/2 'Hanken Grotesk',sans-serif;color:#3c3a33;">
+            <div>+57 300 000 0000</div>
+            <div>hola@valest.com.co</div>
+            <div>San Bernardo del Viento, Córdoba</div>
+            <div style="color:#7d7767;">Lun–Sáb · 8:00 a.m. – 6:00 p.m.</div>
+          </div>
+        </div>
+        <div style="border-radius:20px;overflow:hidden;border:1px solid #e4dccb;aspect-ratio:16/9;">
+          <iframe title="Ubicación Valest" src="https://www.google.com/maps?q=San+Bernardo+del+Viento,+C%C3%B3rdoba,+Colombia&z=13&output=embed" style="width:100%;height:100%;border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer style="background:#1e2820;color:#aeb5a4;">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,6vw,72px) clamp(20px,5vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;">
+    <div style="max-width:280px;">
+      <div style="font:600 22px/1 'Spectral',serif;letter-spacing:.16em;color:#fff;">VALEST</div>
+      <p style="margin:16px 0 0;font:400 14px/1.6 'Hanken Grotesk',sans-serif;color:#9aa290;">Venta de lotes con financiación directa en San Bernardo del Viento, Córdoba. Tu tierra en el Caribe, sin banco.</p>
+    </div>
+    <div>
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6f7666;margin-bottom:16px;">Navegación</div>
+      <button data-nav="home" style="display:block;background:none;border:none;padding:6px 0;font:400 15px/1 'Hanken Grotesk',sans-serif;color:#c2c9b8;cursor:pointer;text-align:left;">Inicio</button>
+      <button data-nav="nosotros" style="display:block;background:none;border:none;padding:6px 0;font:400 15px/1 'Hanken Grotesk',sans-serif;color:#c2c9b8;cursor:pointer;text-align:left;">Nosotros</button>
+      <button data-nav="financiacion" style="display:block;background:none;border:none;padding:6px 0;font:400 15px/1 'Hanken Grotesk',sans-serif;color:#c2c9b8;cursor:pointer;text-align:left;">Financiación</button>
+      <button data-nav="proyectos" style="display:block;background:none;border:none;padding:6px 0;font:400 15px/1 'Hanken Grotesk',sans-serif;color:#c2c9b8;cursor:pointer;text-align:left;">Proyectos</button>
+      <button data-nav="contacto" style="display:block;background:none;border:none;padding:6px 0;font:400 15px/1 'Hanken Grotesk',sans-serif;color:#c2c9b8;cursor:pointer;text-align:left;">Contacto</button>
+    </div>
+    <div>
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6f7666;margin-bottom:16px;">Contacto</div>
+      <div style="font:400 15px/1.9 'Hanken Grotesk',sans-serif;color:#c2c9b8;">
+        <div>+57 300 000 0000</div>
+        <div>hola@valest.com.co</div>
+        <div>San Bernardo del Viento, Córdoba</div>
+        <div>Lun–Sáb · 8:00 a.m. – 6:00 p.m.</div>
+      </div>
+    </div>
+    <div>
+      <div style="font:600 12px/1 'Hanken Grotesk',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6f7666;margin-bottom:16px;">Legal</div>
+      <div style="font:400 14px/1.8 'Hanken Grotesk',sans-serif;color:#9aa290;">
+        <div>Valest S.A.S.</div>
+        <div>NIT 000.000.000-0</div>
+        <div style="margin-top:8px;">Política de tratamiento de datos personales (Ley 1581 de 2012).</div>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(32px,5vw,48px) clamp(20px,5vw,48px);">
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:24px;font:400 13px/1.5 'Hanken Grotesk',sans-serif;color:#71786a;">© 2026 Valest. Todos los derechos reservados. · Sitio informativo — la información de financiación es de referencia y está sujeta a estudio.</div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/573001234567?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20lotes%20financiados%20de%20Valest." target="_blank" rel="noopener" style="position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:60;display:inline-flex;align-items:center;gap:10px;background:#128c4b;color:#fff;text-decoration:none;padding:14px 20px;border-radius:999px;font:600 15px/1 'Hanken Grotesk',sans-serif;box-shadow:0 16px 34px -14px rgba(18,140,75,.9);">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.9 3 3 6.6 3 11c0 1.72.62 3.32 1.7 4.68L3.3 21l5.5-1.44A9.9 9.9 0 0 0 12 20c5.1 0 9-3.6 9-8.5S17.1 3 12 3zm4.7 12.1c-.2.55-1.17 1.05-1.6 1.1-.42.05-.83.23-2.78-.58-2.35-.97-3.83-3.4-3.95-3.56-.11-.16-.94-1.25-.94-2.38 0-1.13.6-1.68.8-1.9.22-.24.47-.3.63-.3l.45.01c.15 0 .34-.05.53.4l.72 1.75c.06.13.1.28.01.44l-.27.42c-.12.14-.25.31-.11.55.14.24.6.99 1.29 1.6.89.79 1.63 1.03 1.86 1.15.23.12.37.1.5-.06l.72-.84c.16-.2.3-.15.5-.08l1.7.8c.2.1.34.15.4.23.05.09.05.5-.15 1.05z"/></svg>
+  WhatsApp
+</a>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var PAGES = ["home","nosotros","financiacion","proyectos","contacto"];
+
+  /* ---------- routing ---------- */
+  function showPage(key){
+    if(PAGES.indexOf(key) < 0) key = "home";
+    PAGES.forEach(function(p){
+      var el = document.getElementById("page-"+p);
+      if(el) el.classList.toggle("active", p === key);
+    });
+    document.querySelectorAll(".nav-btn").forEach(function(b){
+      b.classList.toggle("active", b.getAttribute("data-nav") === key);
+    });
+    closeMenu();
+  }
+  function go(key, push){
+    var target = "#" + key;
+    if(push && location.hash !== target){
+      location.hash = key === "home" ? "" : key;   // triggers hashchange -> showPage
+    } else {
+      showPage(key);
+    }
+    try { window.scrollTo({ top: 0, behavior: "auto" }); } catch(e){ window.scrollTo(0,0); }
+  }
+  function currentFromHash(){
+    var h = (location.hash || "").replace(/^#/, "");
+    return PAGES.indexOf(h) >= 0 ? h : "home";
+  }
+  window.addEventListener("hashchange", function(){
+    showPage(currentFromHash());
+    try { window.scrollTo({ top: 0, behavior: "auto" }); } catch(e){ window.scrollTo(0,0); }
+  });
+
+  /* ---------- mobile menu ---------- */
+  var menu = document.getElementById("mobile-menu");
+  function closeMenu(){ if(menu) menu.classList.remove("open"); }
+  function toggleMenu(){ if(menu) menu.classList.toggle("open"); }
+
+  /* ---------- delegated clicks (nav + menu + dir tabs) ---------- */
+  document.addEventListener("click", function(e){
+    var nav = e.target.closest("[data-nav]");
+    if(nav){ e.preventDefault(); go(nav.getAttribute("data-nav"), true); return; }
+    var act = e.target.closest("[data-action]");
+    if(act && act.getAttribute("data-action") === "toggle-menu"){ toggleMenu(); return; }
+    var dir = e.target.closest(".dir-tab");
+    if(dir){ setDir(dir.getAttribute("data-dir")); return; }
+  });
+
+  /* ---------- hero A/B ---------- */
+  function setDir(d){
+    var home = document.getElementById("page-home");
+    if(home) home.setAttribute("data-dir", d === "B" ? "B" : "A");
+    document.querySelectorAll(".dir-tab").forEach(function(t){
+      t.classList.toggle("active", t.getAttribute("data-dir") === d);
+    });
+  }
+
+  /* ---------- FAQ accordion (single-open) ---------- */
+  var faqList = document.getElementById("faq-list");
+  if(faqList){
+    faqList.addEventListener("click", function(e){
+      var q = e.target.closest(".faq-q");
+      if(!q) return;
+      var item = q.closest(".faq");
+      var wasOpen = item.classList.contains("open");
+      faqList.querySelectorAll(".faq").forEach(function(f){
+        f.classList.remove("open");
+        var s = f.querySelector(".faq-sign"); if(s) s.textContent = "+";
+      });
+      if(!wasOpen){
+        item.classList.add("open");
+        var s = item.querySelector(".faq-sign"); if(s) s.textContent = "−";
+      }
+    });
+  }
+
+  /* ---------- simulator (shared state across both widgets) ---------- */
+  var sim = { val: 60000000, down: 20, months: 48 };
+  var RATE = 0.013;
+  function fmtCOP(n){
+    if(!isFinite(n)) return "—";
+    return "$" + Math.round(n).toLocaleString("es-CO");
+  }
+  function renderSim(){
+    var valor = Number(sim.val) || 0;
+    var inicial = valor * (Number(sim.down)||0) / 100;
+    var fin = Math.max(0, valor - inicial);
+    var meses = Number(sim.months) || 1;
+    var cuota = meses > 0 ? (RATE > 0 ? fin * RATE / (1 - Math.pow(1+RATE, -meses)) : fin/meses) : 0;
+    document.querySelectorAll(".sim").forEach(function(w){
+      var vi = w.querySelector(".sim-val");
+      if(vi && document.activeElement !== vi) vi.value = fmtCOP(valor);
+      var ds = w.querySelector(".sim-down-str"); if(ds) ds.textContent = sim.down + "% · " + fmtCOP(inicial);
+      var dr = w.querySelector(".sim-down"); if(dr) dr.value = sim.down;
+      var cu = w.querySelector(".sim-cuota"); if(cu) cu.textContent = fmtCOP(cuota);
+      var fi = w.querySelector(".sim-fin"); if(fi) fi.textContent = fmtCOP(fin);
+      w.querySelectorAll(".sim-month").forEach(function(m){
+        m.classList.toggle("active", Number(m.getAttribute("data-months")) === sim.months);
+      });
+    });
+  }
+  document.querySelectorAll(".sim").forEach(function(w){
+    var vi = w.querySelector(".sim-val");
+    if(vi){
+      vi.addEventListener("input", function(){
+        var d = String(vi.value).replace(/[^\d]/g, "");
+        sim.val = d ? parseInt(d, 10) : 0;
+        renderSim();
+      });
+      vi.addEventListener("blur", renderSim);
+    }
+    var dr = w.querySelector(".sim-down");
+    if(dr) dr.addEventListener("input", function(){ sim.down = Number(dr.value); renderSim(); });
+    w.querySelectorAll(".sim-chip").forEach(function(c){
+      c.addEventListener("click", function(){ sim.val = Number(c.getAttribute("data-val")); renderSim(); });
+    });
+    w.querySelectorAll(".sim-month").forEach(function(m){
+      m.addEventListener("click", function(){ sim.months = Number(m.getAttribute("data-months")); renderSim(); });
+    });
+  });
+  renderSim();
+
+  /* ---------- contact form ---------- */
+  var form = document.getElementById("contact-form");
+  if(form){
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      if(!form.checkValidity()){ form.reportValidity(); return; }
+      form.style.display = "none";
+      var sent = document.getElementById("contact-sent");
+      if(sent) sent.style.display = "block";
+    });
+  }
+
+  /* ---------- intro splash ---------- */
+  var intro = document.getElementById("intro");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(intro){
+    if(reduce){ intro.parentNode && intro.parentNode.removeChild(intro); }
+    else { setTimeout(function(){ if(intro.parentNode) intro.parentNode.removeChild(intro); }, 3000); }
+  }
+
+  /* ---------- parallax hero (desktop only) ---------- */
+  var root = document.getElementById("root");
+  var raf = 0;
+  if(!reduce){
+    window.addEventListener("mousemove", function(e){
+      if(window.innerWidth < 860) return;
+      if(raf) return;
+      raf = requestAnimationFrame(function(){
+        raf = 0;
+        if(!root) return;
+        var mx = (e.clientX / window.innerWidth - 0.5) * 2;
+        var my = (e.clientY / window.innerHeight - 0.5) * 2;
+        root.style.setProperty("--mx", mx.toFixed(3));
+        root.style.setProperty("--my", my.toFixed(3));
+      });
+    }, { passive: true });
+  }
+
+  /* ---------- init route ---------- */
+  showPage(currentFromHash());
+})();
+</script>
+</body>
+</html>
