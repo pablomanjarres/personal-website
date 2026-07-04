@@ -48,6 +48,8 @@
   z-index: 0;
   pointer-events: none;
   background: url("/oss/content-pipeline.png") center / cover no-repeat;
+  /* on-palette base behind the art if the PNG is slow or absent */
+  background-color: var(--bg);
   /* bias toward the warm lamp focal point on very wide crops */
   background-position: 50% 46%;
 }
@@ -170,10 +172,12 @@
   text-transform: uppercase;
   text-decoration: none;
   color: var(--fg);
+  text-shadow: 0 1px 12px rgba(5, 7, 10, 0.7);
 }
 .brand b {
   color: var(--amber);
   font-weight: 600;
+  text-shadow: 0 0 14px rgba(255, 178, 36, 0.55);
 }
 .brand:focus-visible {
   outline: 2px solid rgba(255, 178, 36, 0.6);
@@ -194,6 +198,7 @@
   color: var(--muted);
   text-decoration: none;
   padding: 4px 0;
+  text-shadow: 0 1px 10px rgba(5, 7, 10, 0.6);
   transition: color 0.18s ease;
 }
 .navlinks a:hover,
@@ -253,6 +258,7 @@
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: clamp(16px, 2.4vw, 26px);
+  text-shadow: 0 1px 10px rgba(5, 7, 10, 0.65);
   opacity: 0;
   animation: cp-fade-up 0.7s ease 0.15s both;
 }
@@ -277,6 +283,9 @@
   text-transform: uppercase;
   line-height: 1;
   margin-bottom: clamp(6px, 0.9vw, 12px);
+  text-shadow:
+    0 0 18px rgba(255, 178, 36, 0.3),
+    0 1px 10px rgba(5, 7, 10, 0.6);
 }
 .titleMain {
   display: block;
@@ -286,6 +295,9 @@
   letter-spacing: 0.006em;
   text-transform: uppercase;
   line-height: 1;
+  text-shadow:
+    0 2px 26px rgba(5, 7, 10, 0.66),
+    0 1px 3px rgba(5, 7, 10, 0.5);
 }
 .mask {
   display: inline-flex;
@@ -307,6 +319,7 @@
   font-size: clamp(15px, 1.35vw, 18px);
   line-height: 1.55;
   color: rgba(230, 234, 240, 0.82);
+  text-shadow: 0 1px 16px rgba(5, 7, 10, 0.6);
   opacity: 0;
   animation: cp-fade-up 0.7s ease 0.72s both;
 }
@@ -318,16 +331,19 @@
   line-height: 1.7;
   letter-spacing: 0.02em;
   color: rgba(138, 147, 163, 0.92);
+  text-shadow: 0 1px 12px rgba(5, 7, 10, 0.55);
   opacity: 0;
   animation: cp-fade-up 0.7s ease 0.84s both;
 }
 .code {
   font-family: var(--fmono);
   color: var(--amber);
-  background: rgba(255, 178, 36, 0.08);
+  background: rgba(255, 178, 36, 0.1);
   border: 1px solid rgba(255, 178, 36, 0.22);
   border-radius: 4px;
   padding: 1px 6px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 /* --------------------------- CTAs --------------------------- */
@@ -383,9 +399,11 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .cbtnGhost {
-  background: rgba(22, 27, 34, 0.55);
+  background: rgba(22, 27, 34, 0.62);
   color: var(--fg);
   border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(8px) saturate(1.05);
+  backdrop-filter: blur(8px) saturate(1.05);
 }
 .cbtnGhost:hover {
   border-color: rgba(255, 178, 36, 0.6);
@@ -618,6 +636,8 @@
   border-radius: 999px;
   border: 1px solid var(--line);
   background: rgba(14, 17, 22, 0.6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   font-family: var(--fmono);
   font-size: 10px;
   letter-spacing: 0.08em;

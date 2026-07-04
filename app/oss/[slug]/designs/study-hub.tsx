@@ -1,14 +1,17 @@
 "use client";
 
-// Study Hub — "the marked-up textbook, brought to life."
-// A refined academic / editorial-dark hero: a deep near-black page laid over a
-// faint ruled-notebook grain, an editorial serif headline whose second line sits
-// in true italic and carries a single accent that drifts through the three
-// subject colors (sapphire · jade · amethyst), Caveat-style marginalia scribbled
-// into the gutter, and a signature highlighter-marker sweep on every CTA. Behind
-// it, a dependency-free canvas draws a faint finite-automaton whose token steps
-// from state to state — the same step-through gesture the real product is built
-// on. All looping motion is gated behind prefers-reduced-motion.
+// Study Hub — "the marked-up textbook, brought to life." HYBRID build.
+// The cinematic pixel-art scene (/oss/study-hub.png) is the full-bleed atmospheric
+// background — the product's visual metaphor — and the bespoke editorial layer is
+// composited ON TOP: a serif headline whose second line sits in true italic and
+// carries a single accent that drifts through the three subject colors (sapphire ·
+// jade · amethyst), Caveat-style marginalia scribbled into the gutter, and a
+// signature highlighter-marker sweep on every CTA. A directional dark scrim (heavy
+// on the text column + bottom, near-clear over the lamp/book focal point) plus
+// text-shadows and frosted chips/CTAs keep type crisp over the art. The
+// dependency-free finite-automaton canvas — the product's step-through gesture — is
+// dialed back to a faint screen-blended accent that floats over the art, never
+// hiding it. All looping motion is gated behind prefers-reduced-motion.
 // See ./CONTRACT.md — the signature/props/nav shape are locked.
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef } from "react";
