@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { heroes } from "./heroes";
+import { SiteNav } from "../SiteNav";
 
 export const metadata: Metadata = {
   title: "Open source — Pablo Manjarres",
@@ -10,18 +11,7 @@ export const metadata: Metadata = {
 export default function OssIndex() {
   return (
     <main className="osh-index">
-      <nav className="osh-bar" style={{ padding: 0, marginBottom: 8 }}>
-        <Link className="osh-brand" href="/">
-          <b>✦</b> Pablo
-        </Link>
-        <div className="osh-nav">
-          <Link href="/">Home</Link>
-          <Link href="/portfolio">Portfolio</Link>
-          <a href="https://github.com/pablomanjarres" target="_blank" rel="noreferrer">
-            GitHub ↗
-          </a>
-        </div>
-      </nav>
+      <SiteNav active="oss" tone="dark" />
       <h1 className="osh-ix-title">
         <span className="lead">Open</span> source.
       </h1>

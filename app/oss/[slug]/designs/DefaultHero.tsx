@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { Hero } from "../../heroes";
+import { SiteNav } from "../../../SiteNav";
 
 // The original shared /oss/<slug> template, extracted verbatim so every slug
 // without a bespoke design (and every bespoke stub, for now) renders exactly as
@@ -19,18 +19,7 @@ export default function DefaultHero({
       <div className="osh-bg" />
       <div className="osh-scrim" />
 
-      <nav className="osh-bar">
-        <Link className="osh-brand" href="/">
-          <b>✦</b> Pablo
-        </Link>
-        <div className="osh-nav">
-          <Link href="/oss">Open source</Link>
-          <Link href="/portfolio">Portfolio</Link>
-          <a href={h.repo} target="_blank" rel="noreferrer">
-            GitHub ↗
-          </a>
-        </div>
-      </nav>
+      <SiteNav active="oss" tone="dark" bleed />
 
       <section className="osh-inner">
         <div className="osh-kicker">{h.kicker}</div>
