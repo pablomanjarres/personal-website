@@ -47,62 +47,10 @@
       rgba(8, 8, 11, 0.55) 100%
     );
 }
-.osh-bar,
 .osh-inner,
 .osh-foot {
   position: relative;
   z-index: 2;
-}
-.osh-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: clamp(18px, 3vw, 34px) clamp(22px, 5vw, 64px);
-}
-.osh-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-pixel), var(--font-mono), monospace;
-  font-weight: 600;
-  font-size: clamp(17px, 2vw, 22px);
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  color: var(--cream);
-}
-.osh-brand b {
-  color: var(--amber);
-  font-weight: 600;
-}
-.osh-nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(16px, 2.4vw, 28px);
-}
-.osh-nav a {
-  position: relative;
-  font-family: var(--font-pixel), var(--font-mono), monospace;
-  font-weight: 500;
-  font-size: clamp(14px, 1.5vw, 17px);
-  color: rgba(239, 231, 216, 0.72);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-.osh-nav a:hover {
-  color: var(--amber);
-}
-.osh-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 100%;
-  bottom: -5px;
-  height: 2px;
-  background: var(--amber);
-  transition: right 0.2s ease;
-}
-.osh-nav a:hover::after {
-  right: 0;
 }
 .osh-inner {
   flex: 1;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects, type ProjectLink } from "../../../projects";
 import { Chip, DemoFrame, PreviewPlate, Status } from "../../components";
+import { SiteNav } from "../../../SiteNav";
 
 // Only the known projects exist; unknown slugs 404 at build/runtime.
 export const dynamicParams = false;
@@ -89,6 +90,7 @@ export default async function ProjectPage({
 
   return (
     <div className="folio-inner proj-page">
+      <SiteNav active="portfolio" />
       <Link href="/portfolio" className="folio-back">
         <span className="b-arr" aria-hidden>
           ←

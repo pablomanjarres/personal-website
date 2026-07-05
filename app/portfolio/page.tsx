@@ -5,6 +5,7 @@ import { projects } from "../projects";
 import { profile } from "../socials";
 import { ProjectCard } from "./components";
 import { Magnetic } from "./effects";
+import { SiteNav } from "../SiteNav";
 
 export const metadata: Metadata = {
   title: "Work — Pablo Manjarres",
@@ -23,10 +24,9 @@ export default function PortfolioIndex() {
   const count = projects.length;
   return (
     <div className="folio-inner">
+      <SiteNav active="portfolio" />
       <header className="folio-head">
-        <Link href="/" className="home-link">
-          <span aria-hidden>←</span> Notebook № 8 · pablomanjarres
-        </Link>
+        <span className="who">Notebook № 8 · Work · pablomanjarres</span>
         <span>
           index · {count} {count === 1 ? "work" : "works"}
         </span>

@@ -107,13 +107,32 @@ a:focus-visible {
 }
 
 /* ---- top nav (pixel font) ------------------------------------------------ */
+/* Rendered by the shared <SiteNav> on every chrome page. `data-tone="dark"`
+   scopes cream/amber token overrides so all the rules below auto-adapt on the
+   /oss pages; `data-bleed` pads a full-bleed layout; the active link (the
+   current section) is held in the accent color. */
 .topnav {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: clamp(12px, 2vh, 20px);
   font-family: var(--ff-pixel);
+}
+.topnav[data-tone="dark"] {
+  --fg: #efe7d8;
+  --muted: rgba(239, 231, 216, 0.72);
+  --accent: #e2a64c;
+  --ff-pixel: var(--font-pixel), "Pixelify Sans", ui-monospace, monospace;
+}
+.topnav[data-bleed="true"] {
+  margin-bottom: 0;
+  padding: clamp(18px, 3vw, 34px) clamp(22px, 5vw, 64px);
+}
+.topnav-link[aria-current="page"] {
+  color: var(--accent);
 }
 .topnav-brand {
   display: inline-flex;
