@@ -1140,7 +1140,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Live demo",
-        "url": "https://grit-x-awa-kappa.vercel.app",
+        "url": "/portfolio/grit-x-awa/demo",
         "kind": "live"
       },
       {
@@ -1239,7 +1239,7 @@ export const projects: Project[] = [
       },
       {
         "label": "Live demo",
-        "url": "https://study-hub-three-orpin.vercel.app",
+        "url": "/portfolio/study-hub/demo",
         "kind": "live"
       },
       {
