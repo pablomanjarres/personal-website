@@ -106,56 +106,77 @@ a:focus-visible {
     clamp(150px, 21vw, 320px);
 }
 
-/* ---- top nav (pixel font) ------------------------------------------------ */
-.topnav {
+/* ---- shared site nav (pixel font, used on every page) -------------------- */
+/* Self-contained: resolves its own --nav-* vars with concrete fallbacks so it
+   works on pages that don't set the cream/terracotta tokens (e.g. the dark
+   /oss landings). `data-tone="dark"` remaps the palette; `data-bleed` adds
+   horizontal padding for full-bleed layouts. */
+.site-nav {
+  --nav-fg: var(--fg, #1c1812);
+  --nav-muted: var(--muted, #7a5a3a);
+  --nav-accent: var(--accent, #c8542a);
+  --nav-font: var(--ff-pixel, var(--font-pixel), "Pixelify Sans", ui-monospace, monospace);
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: clamp(12px, 2vh, 20px);
-  font-family: var(--ff-pixel);
+  font-family: var(--nav-font);
 }
-.topnav-brand {
+.site-nav[data-tone="dark"] {
+  --nav-fg: #efe7d8;
+  --nav-muted: rgba(239, 231, 216, 0.72);
+  --nav-accent: #e2a64c;
+}
+.site-nav[data-bleed="true"] {
+  margin-bottom: 0;
+  padding: clamp(18px, 3vw, 34px) clamp(22px, 5vw, 64px);
+}
+.site-nav-brand {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-family: var(--ff-pixel);
+  font-family: var(--nav-font);
   font-weight: 600;
   font-size: clamp(16px, 2vw, 22px);
-  color: var(--fg);
+  color: var(--nav-fg);
   text-decoration: none;
 }
-.topnav-brand span {
-  color: var(--accent);
+.site-nav-brand span {
+  color: var(--nav-accent);
 }
-.topnav-links {
+.site-nav-links {
   display: flex;
   align-items: center;
   gap: clamp(16px, 2.5vw, 30px);
 }
-.topnav-link {
+.site-nav-link {
   position: relative;
-  font-family: var(--ff-pixel);
+  font-family: var(--nav-font);
   font-weight: 500;
   font-size: clamp(14px, 1.5vw, 18px);
-  color: var(--muted);
+  color: var(--nav-muted);
   text-decoration: none;
   transition: color 0.15s ease;
 }
-.topnav-link:hover {
-  color: var(--accent);
+.site-nav-link:hover,
+.site-nav-link[aria-current="page"] {
+  color: var(--nav-accent);
 }
-.topnav-link::after {
+.site-nav-link::after {
   content: "";
   position: absolute;
   left: 0;
   right: 100%;
   bottom: -4px;
   height: 2px;
-  background: var(--accent);
+  background: var(--nav-accent);
   transition: right 0.2s ease;
 }
-.topnav-link:hover::after {
+.site-nav-link:hover::after,
+.site-nav-link[aria-current="page"]::after {
   right: 0;
 }
 

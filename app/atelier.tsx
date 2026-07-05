@@ -7,9 +7,9 @@ import {
   useRef,
   useState,
 } from "react";
-import Link from "next/link";
 import { profile, type Social } from "./socials";
 import { BG, FG, ACCENT, MUTED, tokens } from "./theme";
+import { SiteNav } from "./SiteNav";
 
 // palette + font tokens now live in ./theme (shared with the portfolio pages)
 
@@ -385,27 +385,7 @@ export default function Atelier() {
       <div className="peel">※ pg. D · peel a pin, drop it anywhere</div>
 
       <div className="wrap">
-        <nav className="topnav">
-          <Link href="/" className="topnav-brand">
-            <span aria-hidden>✦</span> PABLO
-          </Link>
-          <div className="topnav-links">
-            <Link href="/portfolio" className="topnav-link">
-              portfolio
-            </Link>
-            <Link href="/oss" className="topnav-link">
-              open source
-            </Link>
-            <a
-              className="topnav-link"
-              href={profile.booking}
-              target="_blank"
-              rel="noreferrer"
-            >
-              book a call
-            </a>
-          </div>
-        </nav>
+        <SiteNav active="home" />
 
         <header className="meta">
           <span className="who">Notebook № 8 · Atelier · pablomanjarres</span>
