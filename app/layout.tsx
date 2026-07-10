@@ -303,10 +303,10 @@ const fontVariables = [
 export const metadata: Metadata = {
   metadataBase: new URL("https://pablomanjarres.com"),
   title: "Pablo Manjarres",
-  description: "17 y/o solo founder & content creator. Building Noelle.",
+  description: "17 y/o solo founder. Building Noelle.",
   openGraph: {
     title: "Pablo Manjarres",
-    description: "17 y/o solo founder & content creator. Building Noelle.",
+    description: "17 y/o solo founder. Building Noelle.",
     url: "https://pablomanjarres.com",
     siteName: "Pablo Manjarres",
     type: "website",
@@ -315,7 +315,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Pablo Manjarres",
-    description: "17 y/o solo founder & content creator. Building Noelle.",
+    description: "17 y/o solo founder. Building Noelle.",
     images: ["/og/home.png"],
   },
 };
