@@ -11,6 +11,7 @@ import LocalhostMirror from "./localhost-mirror";
 import LumenFrontier from "./lumen-frontier";
 import GritXAwa from "./grit-x-awa";
 import StudyHub from "./study-hub";
+import Valhalla from "./valhalla";
 
 // The contract every design (bespoke or default) satisfies.
 export type DesignComponent = ComponentType<{ hero: Hero; slug: string }>;
@@ -29,6 +30,7 @@ const registry: Record<string, DesignComponent> = {
   "lumen-frontier": LumenFrontier,
   "grit-x-awa": GritXAwa,
   "study-hub": StudyHub,
+  valhalla: Valhalla,
 };
 
 export function getDesign(slug: string): DesignComponent {
