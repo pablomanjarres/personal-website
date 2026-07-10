@@ -147,6 +147,18 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/study-hub",
     "live": "https://study-hub-three-orpin.vercel.app",
     "oss": true
+  },
+  {
+    "slug": "valhalla",
+    "title": "Valhalla",
+    "kicker": "VALHALLA · OPEN SOURCE",
+    "titleLead": "Your whole machine,",
+    "titleMain": "one command.",
+    "subtitle": "Valhalla is a live terminal command center over a whole personal-AI stack: Claude accounts, a Lima VM of agents, about two dozen launchd daemons, MCP servers, and skills, all on one board. Each of the eight surfaces shells out to the tool that already owns the truth, so nothing is reimplemented and no secret is stored. Bare valhalla opens an Ink dashboard, a verb runs an action, and status --json hands the fleet to another script.",
+    "note": "Clone it, then `pnpm install && pnpm build`, and run `valhalla` for the live dashboard or `valhalla status --json` to script it.",
+    "repo": "https://github.com/pablomanjarres/valhalla",
+    "live": null,
+    "oss": true
   }
 ];
 
