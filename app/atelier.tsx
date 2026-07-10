@@ -454,10 +454,7 @@ export default function Atelier() {
                 <span className="at-sr">founder</span>
                 <SplitChars text="founder" scatter />
               </span>
-              <br />
-              &amp; content
-              <br />
-              creator.
+              .
             </h1>
 
             <p className="lede">
