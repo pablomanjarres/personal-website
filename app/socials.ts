@@ -10,7 +10,7 @@ export type Social = {
 export const profile = {
   name: "Pablo Manjarres",
   age: 17,
-  tagline: "Solo founder & content creator",
+  tagline: "Solo founder",
   building: "Noelle",
   location: "Earth",
   email: "pablo@pablomanjarres.com",
