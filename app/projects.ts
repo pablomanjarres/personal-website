@@ -1412,6 +1412,131 @@ export const projects: Project[] = [
       {"name": "apps/web", "kind": "app", "oneLiner": "The plots-first Next.js workbench on Vercel: one panel per check, every finding drawn on the figure it belongs to, and the corrected code one click away."},
       {"name": "@redline/contracts", "kind": "library", "oneLiner": "13 Zod modules binding every surface (inputs, findings, corrections, benchmark) into one typed contract shared by the web app, the engine, the reasoning layer, and the Python service."}
     ]
+  },
+  {
+    "slug": "lumen",
+    "num": "15",
+    "title": "Lumen Tutor",
+    "tagline": "An AI tutor that draws its explanations onto a live whiteboard.",
+    "oneLiner": "An AI tutor that teaches calculus by drawing.",
+    "year": "2025",
+    "status": "prototype",
+    "role": "Solo · design + engineering",
+    "tags": [
+      "AI tutor",
+      "EdTech",
+      "Full-stack",
+      "LLM orchestration",
+      "Semantic cache",
+      "Data viz / canvas"
+    ],
+    "stack": [
+      "TypeScript",
+      "Astro",
+      "React",
+      "Excalidraw",
+      "Plotly",
+      "Mathbox",
+      "FastAPI",
+      "OpenAI GPT-4o",
+      "Supabase",
+      "Redis",
+      "GCP Cloud Run",
+      "Vercel"
+    ],
+    "summary": "Lumen is an AI tutor that teaches by drawing. I wanted an explanation you could watch appear instead of read, so I had the model narrate calculus onto a live whiteboard: you ask a question, GPT-4o synthesizes structured **canvas commands**, and my renderer strokes them onto an Excalidraw board axis by axis, curve by curve. A separate calculus toolkit draws the moves a human tutor reaches for: tangents, secants, the area under a curve, critical and inflection points, Taylor series, and limits.\n\nThis is the earlier, full-stack chapter of the Lumen project, the one **Lumen Frontier** deliberately punted on. Here the backend is real: a FastAPI service with a semantic cache that reuses an answer when a new question embeds within 0.95 cosine of an old one, a visualization service that repairs malformed model JSON with a cheaper model, exemplar prompting, externalized prompt packs, and fine-tuning scripts. The frontend pairs Excalidraw with Plotly and Mathbox, a chat module with flashcards and history, and Supabase for persistence. I built it in an intense eleven-day sprint in October 2025; it is a prototype, dormant since, but the demo is still live.",
+    "problem": "Most AI tutors answer in walls of text, and math is exactly where that fails: a paragraph about a tangent line teaches far less than watching the line touch the curve. Lumen makes the model teach the way a person at a whiteboard would, by drawing, which means turning free-form model output into reliable, structured drawing commands, fast enough and cheap enough to feel live.",
+    "highlights": [
+      "**I made the model teach by drawing, not typing.** My visualization service has GPT-4o synthesize structured canvas commands and auto-repairs malformed JSON with a cheaper gpt-4o-mini pass, in visualization_service.py (605 lines).",
+      "**I cached answers by meaning to keep it fast and cheap.** cache_service.py (528 lines) reuses a cached response when a new question embeds within 0.95 cosine similarity of a past one, with TTL expiry and per-call cost tracking.",
+      "**I built the whiteboard as a real rendering engine.** excalidrawRenderer.ts (618 lines) compiles canvas commands into Excalidraw elements, and GraphPlotHandler.tsx (958 lines) marries Excalidraw to Plotly so plotted graphs share the board.",
+      "**I gave it the moves a calculus tutor actually uses.** mathTeachingTools.ts (681 lines) draws tangents, secants, area under a curve, critical points, inflection points, Taylor series, and limits as first-class primitives.",
+      "**I engineered the prompting instead of hard-coding it.** Exemplar prompting plus externalized prompt packs steer command synthesis, with fine-tuning scripts ready to push accuracy as examples accumulate.",
+      "**I shipped it as a genuine full-stack build.** Roughly 17,600 lines (12,675 TypeScript and TSX, 4,946 Python) across 89 commits in eleven days, wired with CI, a Dockerfile, cloudbuild, GCP Cloud Run, and Vercel."
+    ],
+    "metrics": [
+      "17.6k LOC over 11 days",
+      "89 commits · Oct 2025",
+      "0.95 cosine cache threshold",
+      "7 calculus teaching tools"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/pablomanjarres/lumen",
+        "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablomanjarres.com/oss/lumen",
+        "kind": "demo"
+      }
+    ],
+    "cover": "/portfolio/previews/lumen.png",
+    "previewKind": "web",
+    "subProjects": [
+      {
+        "name": "backend",
+        "kind": "service",
+        "oneLiner": "A FastAPI service that turns questions into drawing commands: visualization_service.py (605 lines) has GPT-4o synthesize canvas commands with gpt-4o-mini JSON auto-repair, and cache_service.py (528 lines) reuses answers within 0.95 cosine similarity, all steered by exemplar prompting and externalized prompt packs."
+      },
+      {
+        "name": "whiteboard",
+        "kind": "app",
+        "oneLiner": "The Astro and React drawing surface: excalidrawRenderer.ts (618 lines) strokes canvas commands onto an Excalidraw board and GraphPlotHandler.tsx (958 lines) fuses it with Plotly so plotted graphs live beside hand-drawn work."
+      },
+      {
+        "name": "calculus-tools",
+        "kind": "library",
+        "oneLiner": "mathTeachingTools.ts (681 lines), a toolkit that draws tangents, secants, the area under a curve, critical and inflection points, Taylor series, and limits as reusable teaching primitives."
+      },
+      {
+        "name": "chat",
+        "kind": "app",
+        "oneLiner": "The conversation module with flashcards and full history, backed by Supabase persistence, where each answer can spawn a drawn explanation on the shared whiteboard."
+      }
+    ]
+  },
+  {
+    "slug": "portpeek",
+    "num": "16",
+    "title": "PortPeek",
+    "tagline": "A native macOS menu-bar app that shows everything listening on your localhost ports and lets you evict it, built in one 97-minute session of Swift and C.",
+    "oneLiner": "See what's squatting on your localhost ports, and evict it",
+    "year": "2026",
+    "status": "prototype",
+    "role": "Solo · design + engineering",
+    "tags": ["macOS", "Swift", "menu-bar app", "developer tools", "localhost", "native app"],
+    "stack": ["Swift", "C", "SwiftUI", "AppKit", "Swift Package Manager", "lsof", "macOS menu bar", "ad-hoc codesigning"],
+    "summary": "PortPeek is a native macOS menu-bar app that shows everything listening on your localhost ports and lets you evict it without opening a terminal. It lives in the menu bar as an LSUIElement with no Dock icon, and a SwiftUI MenuBarExtra popover lists every LISTEN socket on the machine: a colored dot per process, the port in mono, a human label, and the process name with its PID. Hover a row and you can open it in the browser, copy its address, or kill it behind a two-step confirm.\n\nUnder the hood it is a three-second scan loop. A repeating timer shells lsof -iTCP -sTCP:LISTEN, parses the listener table, diffs it against the last pass, and for anything that looks like HTTP it fetches the port and pulls the page title so every server gets a real name, with a Server-header fallback and a hand-picked non-HTTP exclusion set so it never hangs on a database socket. I shell out through a small C popen wrapper because Swift's Process API proved unreliable for this. It is an honest one-session utility: 690 lines of Swift and C across 8 commits in a single 97-minute sitting, a native-macOS breadth piece next to the web and agent work.",
+    "problem": "Every dev machine collects a graveyard of forgotten servers holding ports. Port 3000 is already in use, some Postgres you forgot is still running, a stray Vite from last week, and finding and killing them means memorizing lsof flags and running kill by hand. PortPeek turns that into a glance at the menu bar and one click.",
+    "highlights": [
+      "The whole app is a three-second heartbeat. A repeating Timer in PortScanner.swift shells lsof -iTCP -sTCP:LISTEN -P -n, parses the listener table, and diffs it against the last pass so rows appear and disappear on their own, across roughly 180 lines.",
+      "Swift's Process API proved unreliable, so it drops to C. Every shell call goes through a 34-line popen wrapper in Sources/CShell/shell.c that grows its own buffer and returns a C string, exposed to Swift as a CShell module, after a commit literally titled use C popen for reliable execution.",
+      "Every port gets a human name, not just a number. For anything that looks like HTTP, fetchTitle in PortScanner.swift requests http://localhost on the port, extracts the page title, falls back to the Server header, and skips a 27-port non-HTTP exclusion set so it never blocks on Postgres or Redis.",
+      "A lookup table of over a hundred ports colors and labels every row. CommonPorts.swift maps ~110 known ports (3000 to React and Next.js, 5432 to PostgreSQL, 6379 to Redis) and around 30 process-name patterns to a label and a SwiftUI color, in 211 lines.",
+      "Killing a process is one hover and a two-step confirm. The PortRow in PortListView.swift reveals open-in-browser, copy-address, and kill actions on hover, asks Kill? before it acts, then calls kill(pid) and immediately rescans, across 228 lines.",
+      "It is a true menu-bar-only citizen. A SwiftUI MenuBarExtra in window style with LSUIElement set in Info.plist means no Dock icon and no window chrome, and scripts/build.sh ad-hoc codesigns the .app so macOS lets it shell out at all."
+    ],
+    "metrics": [
+      "690 LOC of Swift and C",
+      "3-second live port scan",
+      "One 97-minute session, 8 commits",
+      "~110 known ports auto-labeled"
+    ],
+    "links": [
+      {"label": "GitHub", "url": "https://github.com/pablomanjarres/PortPeek", "kind": "repo"},
+      {"label": "Landing page", "url": "https://pablomanjarres.com/oss/portpeek", "kind": "demo"}
+    ],
+    "cover": "/portfolio/previews/portpeek.png",
+    "previewKind": "app",
+    "accent": "#3d7dff",
+    "subProjects": [
+      {"name": "PortScanner", "kind": "service", "oneLiner": "The three-second scan loop: it runs lsof for every LISTEN socket, diffs against the last pass, HTTP-title-probes each new port for a readable label, and kills a PID on demand."},
+      {"name": "PortListView", "kind": "app", "oneLiner": "The SwiftUI menu-bar popover: a searchable, colored-dot port list with per-row hover actions to open, copy, or two-step-kill, plus empty and no-match states."},
+      {"name": "CommonPorts", "kind": "library", "oneLiner": "The port-intelligence table: ~110 known ports and ~30 process-name patterns mapped to a readable label and a SwiftUI color for each row's dot."},
+      {"name": "CShell", "kind": "library", "oneLiner": "A small C popen wrapper used instead of Swift's Process API, which proved unreliable for shelling out to lsof and kill from the menu-bar app."}
+    ]
   }
 ];
 

@@ -22,6 +22,8 @@ import {
   Sora,
   Space_Mono,
   Space_Grotesk,
+  Newsreader,
+  Caveat,
 } from "next/font/google";
 import "./globals.css";
 
@@ -201,6 +203,21 @@ const spaceGrotesk = Space_Grotesk({
   preload: false,
 });
 
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 // ---- exact per-slug contract vars (aliased to the canonical family vars) ----
 // Consumed by app/oss/[slug]/designs/<slug>.tsx. Documented in
 // app/oss/[slug]/designs/CONTRACT.md. Computed-key form (matches app/theme.ts)
@@ -246,6 +263,15 @@ const ossFontVars: CSSProperties = {
   ["--font-redline-display" as string]: "var(--font-spacegrotesk)",
   ["--font-redline-body" as string]: "var(--font-hanken)",
   ["--font-redline-mono" as string]: "var(--font-jetbrains)",
+  // lumen — Newsreader / Hanken Grotesk / Space Mono (+ Caveat handwriting accent)
+  ["--font-lumen-display" as string]: "var(--font-newsreader)",
+  ["--font-lumen-body" as string]: "var(--font-hanken)",
+  ["--font-lumen-mono" as string]: "var(--font-spacemono)",
+  ["--font-lumen-accent" as string]: "var(--font-caveat)",
+  // portpeek — Space Grotesk / Hanken Grotesk / JetBrains Mono
+  ["--font-portpeek-display" as string]: "var(--font-spacegrotesk)",
+  ["--font-portpeek-body" as string]: "var(--font-hanken)",
+  ["--font-portpeek-mono" as string]: "var(--font-jetbrains)",
 };
 
 const fontVariables = [
@@ -270,6 +296,8 @@ const fontVariables = [
   sora.variable,
   spaceMono.variable,
   spaceGrotesk.variable,
+  newsreader.variable,
+  caveat.variable,
 ].join(" ");
 
 export const metadata: Metadata = {

@@ -171,6 +171,30 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/redline",
     "live": "https://redline-sooty-zeta.vercel.app",
     "oss": true
+  },
+  {
+    "slug": "lumen",
+    "title": "Lumen Tutor",
+    "kicker": "LUMEN TUTOR · OPEN SOURCE",
+    "titleLead": "Explanations that",
+    "titleMain": "draw themselves.",
+    "subtitle": "Lumen is an AI tutor that teaches by drawing. Ask it a calculus question and it synthesizes structured canvas commands, then strokes the answer onto a live Excalidraw whiteboard: axes, the curve, a sweeping tangent, the shaded area beneath it. This is the earlier, full-stack chapter of Lumen, the FastAPI teaching engine that Lumen Frontier later stubbed out.",
+    "note": "Run the FastAPI backend with `uvicorn app.main:app --reload`, then the Astro whiteboard with `npm run dev`; it calls GPT-4o through an embedding-similarity cache.",
+    "repo": "https://github.com/pablomanjarres/lumen",
+    "live": null,
+    "oss": true
+  },
+  {
+    "slug": "portpeek",
+    "title": "PortPeek",
+    "kicker": "PORTPEEK · OPEN SOURCE",
+    "titleLead": "See what's squatting",
+    "titleMain": "on your localhost ports.",
+    "subtitle": "PortPeek is a native macOS menu-bar app that shows every TCP port listening on your machine. It rescans with lsof every three seconds, labels each port by probing its HTTP title, colors it by process, and lets you open, copy, or kill whatever is squatting there, all without leaving the menu bar.",
+    "note": "Build it yourself with `./scripts/build.sh && ./scripts/install.sh`; PortPeek runs on macOS 13 and up and installs as a menu-bar-only app with no Dock icon.",
+    "repo": "https://github.com/pablomanjarres/PortPeek",
+    "live": null,
+    "oss": true
   }
 ];
 
