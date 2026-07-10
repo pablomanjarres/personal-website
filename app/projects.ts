@@ -1367,6 +1367,51 @@ export const projects: Project[] = [
         "oneLiner": "Vitest unit tests over each surface's pure parser, using real fixture output so they stay green where cswap, lima, and launchctl do not exist."
       }
     ]
+  },
+  {
+    "slug": "redline",
+    "num": "14",
+    "title": "Redline",
+    "tagline": "A statistical-rigor auditor for single-cell RNA-seq: it re-runs the load-bearing stats on your own data and marks the false discoveries on your own figures, before Reviewer 2 does.",
+    "oneLiner": "Break your own scRNA-seq analysis before Reviewer 2 does",
+    "year": "2026",
+    "status": "shipped",
+    "role": "Solo · design + engineering",
+    "tags": ["scRNA-seq", "statistical rigor", "reproducible research", "AI agents", "MCP", "monorepo"],
+    "stack": ["TypeScript", "Node 22", "pnpm + turbo", "Zod", "React 19", "Next.js", "Python (scanpy · decoupler · PyDESeq2 · numpy)", "Claude API + AWS Bedrock", "Model Context Protocol", "GCP Cloud Run", "Vercel"],
+    "summary": "Redline is a statistical-rigor auditor for single-cell RNA-seq, and I built it to break my own analysis before a reviewer does. You point it at your own AnnData .h5ad, it re-runs the load-bearing statistics the conclusions actually rest on, and it marks the false discoveries directly on your own figures, before any of it becomes a paper. It catches eight classes of error that no QC tool or generic agent flags: four founding pillars (pseudoreplication, double-dipping, clustering fragility, and confounding) and four rigor checks (multiple testing, unmodeled covariates, resolution choice, and test assumptions).\n\nIt runs on three unbreakable rules. Every correction is reproducible and cited, and the corrected code downloads and runs. When a design is unsalvageable, a full confound or n = 1, it says so and shows no fabricated fix. And a clean analysis is Verified in green with the same confidence as a flag, so it never cries wolf. I proved all of it on a 46-case benchmark of planted errors and clean controls: Redline catches 100% of the planted errors at a 0% false-positive rate, where a single Claude call given the same write-up catches everything too but at a 74% false-positive rate. The whole thing is a pnpm and turbo monorepo: a plots-first Next.js workbench on Vercel over a real Python engine (scanpy, decoupler, PyDESeq2) behind a typed dispatch seam, a reasoning layer on the Claude API and AWS Bedrock, and the same engine shipped as an MCP server and a Claude Skill.",
+    "problem": "Single-cell RNA-seq analyses ship with load-bearing statistical errors that survive peer review: cells from one mouse treated as independent replicates, the same cells used to both define and test a cluster, p-values with no multiple-testing correction. Generic QC tools do not catch these, and a generic agent asked to check flags almost everything. Redline re-runs the specific statistics that matter and marks only the real false discoveries.",
+    "highlights": [
+      "It catches eight classes of error that no QC tool or generic agent flags. Four founding pillars, pseudoreplication, double-dipping, clustering fragility, and confounding, plus four rigor checks (multiple testing, unmodeled covariates, resolution choice, and test assumptions), each with its own panel in apps/web.",
+      "Pseudoreplication is the headline crime, and I fix it by the book. Cells from the same animal are not independent replicates, so Redline collapses them to pseudobulk and re-runs differential expression through PyDESeq2 in services/rigor before it trusts a single p-value.",
+      "Double-dipping, clustering fragility, and confounding each get a real method, not a lecture. Poisson count-splitting for markers tested on the same cells that defined them, an adjusted-Rand resolution sweep for cluster stability, and a design-matrix rank check for full confounds.",
+      "Three unbreakable rules keep it honest. Every fix is reproducible, cited, and runnable, an unsalvageable design (a full confound, n = 1) returns no fabricated result, and a clean analysis renders as Verified in green with the same confidence as a flag.",
+      "I proved it on a 46-case benchmark of planted errors and clean controls. Redline catches 100% of the planted errors at a 0% false-positive rate, where a single Claude call given the same write-up catches everything at a 74% false-positive rate, in services/rigor/bench.",
+      "It ships as a pnpm and turbo monorepo with a real Python engine behind a typed seam. 13 Zod contract modules bind every surface, a ComputeTarget dispatch routes each check to scanpy, decoupler, and PyDESeq2, and the same engine runs as an MCP server, a GCP Cloud Run job, and a Claude Skill across roughly 150 TypeScript and 75 Python files."
+    ],
+    "metrics": [
+      "46 planted-error cases, 100% caught at 0% false positive",
+      "0% false-positive rate vs 74% for a single Claude call",
+      "8 classes of error caught, 4 pillars plus 4 rigor checks",
+      "13 Zod contract modules binding every surface",
+      "~150 TypeScript and 75 Python files across the monorepo"
+    ],
+    "links": [
+      {"label": "GitHub", "url": "https://github.com/pablomanjarres/redline", "kind": "repo"},
+      {"label": "Live demo", "url": "https://redline-sooty-zeta.vercel.app", "kind": "live"},
+      {"label": "Landing page", "url": "https://pablomanjarres.com/oss/redline", "kind": "demo"}
+    ],
+    "cover": "/portfolio/previews/redline.png",
+    "previewKind": "web",
+    "accent": "#ce2a1e",
+    "subProjects": [
+      {"name": "@redline/engine", "kind": "library", "oneLiner": "The ComputeTarget dispatch seam, critic-gate, and correction bundler: it routes each check to the real Python engine, holds every result behind a critic until it verifies, and packages the corrected, runnable code."},
+      {"name": "@redline/reasoning", "kind": "library", "oneLiner": "The Claude layer over a first-party API and AWS Bedrock with a deterministic fallback, so a finding's narrative is model-written while the statistics underneath never are."},
+      {"name": "services/rigor", "kind": "service", "oneLiner": "The real statistical engine (scanpy, decoupler, PyDESeq2, numpy) as an MCP server and a GCP Cloud Run job, plus bench, the 46-case planted-error benchmark it is proven on."},
+      {"name": "redline-skill", "kind": "skill", "oneLiner": "The same rigor engine packaged as a Claude Skill for Claude: Life Sciences, so an agent can re-run the load-bearing statistics on an .h5ad from inside a conversation."},
+      {"name": "apps/web", "kind": "app", "oneLiner": "The plots-first Next.js workbench on Vercel: one panel per check, every finding drawn on the figure it belongs to, and the corrected code one click away."},
+      {"name": "@redline/contracts", "kind": "library", "oneLiner": "13 Zod modules binding every surface (inputs, findings, corrections, benchmark) into one typed contract shared by the web app, the engine, the reasoning layer, and the Python service."}
+    ]
   }
 ];
 

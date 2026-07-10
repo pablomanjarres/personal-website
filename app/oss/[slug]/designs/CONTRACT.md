@@ -110,9 +110,13 @@ Notes:
 - **Static fonts** (fixed weights only): Anton `400`; Libre Caslon Display `400`;
   Spectral `200/400/600` (+italic); Chakra Petch `400/500/600/700`; Space Mono
   `400/700` (+italic). Don't request a weight outside these.
-- The exact hexes / palette / button effect / hero motion / OG treatment for your
-  slug live in the **design brief** (`design-briefs-final.json`, your slug's
-  entry). This contract only covers the shared seam.
+- The original 8 slugs got their exact hexes / palette / button effect / hero
+  motion / OG treatment from a per-slug **design brief** in `design-briefs-final.json`.
+  That file no longer exists, and new slugs never had an entry, so you **write your
+  own ~10-line brief** (concept, palette, type trio, signature set-piece, motion
+  plan) at the top of your `<slug>.module.css` before coding, and hold yourself to
+  the peer bar. The `ship-project` skill (`references/portfolio-wiring.md` step 5)
+  spells this out. This contract only covers the shared seam.
 
 ---
 
@@ -186,3 +190,8 @@ Your entire change surface = `designs/<your-slug>.tsx` + `designs/<your-slug>.mo
 - Your page renders your bespoke hero; every other `/oss/*` page is unchanged.
 - Reduced-motion path works; no horizontal body scroll; CTAs point at the real
   `hero.repo` / `hero.live` / write-up URLs.
+- The design matches the depth of the peer set (the structural floor and the
+  design depth gate live in the `ship-project` skill: `references/portfolio-wiring.md`
+  step 5 and `SKILL.md` Phase 4). A page that is only structurally valid is not
+  done. valhalla shipped at 70 tsx / 299 css lines, half the thinnest peer, and it
+  read as thin; the peer envelope is 134-504 tsx / 637-1073 css.

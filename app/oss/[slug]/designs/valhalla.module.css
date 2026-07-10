@@ -1,299 +1,1090 @@
+/* ============================================================================
+   VALHALLA — "The High Seat"
+   A single-viewport cinematic hall for the pixel-art terminal command center.
+   The /oss/valhalla.png aurora + molten rune-portal scene is the full-bleed
+   atmosphere; a green-black legibility scrim carries the Pixelify display type
+   down the left column while the portal's molten glow stays near-clear on the
+   right. A live faux-TUI fleet board composites on top, aurora ribbons drift and
+   square ember motes rise from the lava base, CRT scanlines + an 8-bit rune
+   frame seal the pixel language. Signature CTA: a stepped molten rune button
+   that flows on hover and throws a square pixel-spark burst on strike.
+   All classes/@keyframes are CSS-Module-scoped. Motion is opt-in via
+   prefers-reduced-motion:no-preference, so the reduced/static state is the
+   finished, fully-legible page.
+   ========================================================================== */
+
 .root {
-  --v-bg: #0a0a0d;
-  --v-panel: #101015;
-  --v-card: #131319;
-  --v-border: #24242e;
-  --v-text: #eaeaef;
-  --v-dim: #8a8a97;
-  --v-accent: #c8542a;
-  --v-accent2: #e0a642;
+  /* palette — painted in the same hues as the art */
+  --v-bg: #071009;
+  --v-panel: rgba(8, 20, 14, 0.74);
+  --v-hair: rgba(63, 185, 80, 0.22);
+  --v-text: #e9f6e9;
+  --v-dim: #8fa397;
+  --v-aurora: #3fb950;
+  --v-aurora-bright: #7ee787;
+  --v-ember: #ff7a2f;
+  --v-molten: #c8542a;
+  --v-gold: #e0a642;
   --v-ok: #3fb950;
+  --v-warn: #e0a642;
   --v-off: #6e7681;
-  --v-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  --v-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --v-molten-grad: linear-gradient(96deg, var(--v-gold) 0%, var(--v-ember) 52%, var(--v-molten) 100%);
+
+  /* fonts — post-contract slug: alias with fallback to already-loaded site
+     faces (--font-pixel = Pixelify Sans; --font-sans/-mono = IBM Plex).
+     grit-x-awa + study-hub set this precedent. layout.tsx is NOT touched. */
+  --v-display: var(--font-valhalla-display, var(--font-pixel)), "Pixelify Sans", ui-sans-serif, sans-serif;
+  --v-body: var(--font-valhalla-body, var(--font-sans)), "IBM Plex Sans", system-ui, sans-serif;
+  --v-mono: var(--font-valhalla-mono, var(--font-mono)), "IBM Plex Mono", ui-monospace, monospace;
+
+  /* reusable 8-bit stepped-corner clip (2 steps) — the whole page's pixel edge */
+  --v-clip: polygon(
+    0 6px, 3px 6px, 3px 3px, 6px 3px, 6px 0,
+    calc(100% - 6px) 0, calc(100% - 6px) 3px, calc(100% - 3px) 3px, calc(100% - 3px) 6px, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 3px) calc(100% - 6px), calc(100% - 3px) calc(100% - 3px), calc(100% - 6px) calc(100% - 3px), calc(100% - 6px) 100%,
+    6px 100%, 6px calc(100% - 3px), 3px calc(100% - 3px), 3px calc(100% - 6px), 0 calc(100% - 6px)
+  );
+  --v-clip-sm: polygon(
+    0 4px, 2px 4px, 2px 2px, 4px 2px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 2px, calc(100% - 2px) 2px, calc(100% - 2px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 2px) calc(100% - 4px), calc(100% - 2px) calc(100% - 2px), calc(100% - 4px) calc(100% - 2px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 2px), 2px calc(100% - 2px), 2px calc(100% - 4px), 0 calc(100% - 4px)
+  );
 
   position: relative;
+  isolation: isolate;
   min-height: 100svh;
-  overflow: hidden;
-  background:
-    radial-gradient(1100px 520px at 8% -12%, rgba(200, 84, 42, 0.22), transparent 58%),
-    radial-gradient(900px 620px at 104% 116%, rgba(224, 166, 66, 0.10), transparent 55%),
-    var(--v-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  /* green-black ground so the shared dark shell never shows through if the
+     pixel-art fails to load. The aurora scene (.art) is the hero. */
+  background: var(--v-bg);
   color: var(--v-text);
-  font-family: var(--v-sans);
+  font-family: var(--v-body);
+  -webkit-font-smoothing: antialiased;
 }
 
-.glow {
+/* ---- atmosphere: aurora + molten rune-portal pixel scene ----------------- */
+.atmosphere {
   position: absolute;
   inset: 0;
-  background: radial-gradient(600px 300px at 70% 30%, rgba(200, 84, 42, 0.06), transparent 70%);
+  z-index: 0;
   pointer-events: none;
-}
-
-.rune {
-  position: absolute;
-  right: -120px;
-  top: 46%;
-  transform: translateY(-50%);
-  font-size: 620px;
-  line-height: 1;
-  font-family: Georgia, "Times New Roman", serif;
-  color: rgba(200, 84, 42, 0.05);
-  pointer-events: none;
-  user-select: none;
-}
-
-.wrap {
-  position: relative;
-  z-index: 2;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 40px 24px 0;
-  box-sizing: border-box;
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 52px;
-  align-items: center;
-  min-height: calc(100svh - 220px);
-  padding: 40px 0 64px;
-}
-
-.left {
-  min-width: 0;
-}
-
-.kicker {
-  color: var(--v-accent2);
-  font-family: var(--v-mono);
-  font-size: 13px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  margin-bottom: 22px;
-}
-
-.title {
-  margin: 0;
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  font-size: clamp(44px, 6vw, 76px);
-}
-.lead {
-  display: block;
-  color: var(--v-text);
-}
-.main {
-  display: block;
-  color: var(--v-accent);
-}
-
-.sub {
-  margin: 26px 0 0;
-  max-width: 540px;
-  color: var(--v-dim);
-  font-size: clamp(15px, 1.4vw, 17px);
-  line-height: 1.62;
-}
-
-.note {
-  margin: 22px 0 0;
-  max-width: 560px;
-  font-family: var(--v-mono);
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--v-text);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--v-border);
-  border-radius: 10px;
-  padding: 13px 15px;
-}
-
-.cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 30px;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--v-mono);
-  font-size: 13.5px;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 11px 18px;
-  border-radius: 10px;
-  border: 1px solid var(--v-border);
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-}
-.primary {
-  background: var(--v-accent);
-  color: #14100e;
-  border-color: var(--v-accent);
-}
-.primary:hover {
-  transform: translateY(-2px);
-  background: #d5602f;
-}
-.ghost {
-  background: transparent;
-  color: var(--v-text);
-}
-.ghost:hover {
-  transform: translateY(-2px);
-  border-color: var(--v-accent);
-}
-
-/* ---- terminal centerpiece ---- */
-.right {
-  min-width: 0;
-}
-.term {
-  width: 100%;
-  background: var(--v-panel);
-  border: 1px solid var(--v-border);
-  border-radius: 13px;
   overflow: hidden;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  margin: 0;
 }
+
+/* Full-bleed cinematic scene. --bg is set inline per-slug; the /oss/valhalla.png
+   fallback keeps the layer meaningful on its own. Portal kept right-of-centre. */
 .art {
-  display: block;
-  width: 100%;
-  height: auto;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--v-bg) var(--bg, url("/oss/valhalla.png")) 68% 38% / cover no-repeat;
   image-rendering: pixelated;
+  transform-origin: 66% 42%;
 }
-.bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--v-border);
-  background: #0e0e13;
+
+/* Legibility scrim. Gradient A darkens the left type column and fades to
+   near-clear over the molten portal (right). Gradient B grounds the footer and
+   seats the nav, leaving the portal glow untouched. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(4, 10, 6, 0.95) 0%,
+      rgba(4, 10, 6, 0.86) 22%,
+      rgba(4, 10, 6, 0.56) 42%,
+      rgba(4, 10, 6, 0.2) 60%,
+      rgba(4, 10, 6, 0) 72%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(3, 9, 5, 0.92) 0%,
+      rgba(3, 9, 5, 0.34) 16%,
+      rgba(3, 9, 5, 0) 38%,
+      rgba(3, 9, 5, 0) 74%,
+      rgba(3, 9, 5, 0.5) 100%
+    );
 }
-.tdot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  display: inline-block;
+
+/* Two wide blurred aurora ribbons across the top third — additive green light
+   that ties the art's sky to the whole viewport. */
+.aurora {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
-.r { background: #ff5f57; }
-.y { background: #febc2e; }
-.g { background: #28c840; }
-.tt {
-  margin-left: 10px;
-  font-family: var(--v-mono);
-  font-size: 12.5px;
-  color: var(--v-dim);
+.ribbon {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  filter: blur(46px);
+  mix-blend-mode: screen;
+  will-change: transform;
 }
-.termbody {
-  padding: 18px 20px 20px;
+.ribbonA {
+  top: -6%;
+  height: 42%;
+  opacity: 0.16;
+  background: radial-gradient(60% 100% at 32% 42%, rgba(63, 185, 80, 0.55), transparent 70%);
 }
-.fleet {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-family: var(--v-mono);
-  font-size: 13.5px;
-  color: var(--v-text);
-  margin-bottom: 15px;
+.ribbonB {
+  top: 2%;
+  height: 36%;
+  opacity: 0.13;
+  background: radial-gradient(55% 100% at 64% 50%, rgba(126, 231, 135, 0.45), transparent 72%);
 }
-.fleet b { font-weight: 700; }
-.fleetmeta { color: var(--v-dim); }
-.livedot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--v-ok);
-  box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.55);
-  animation: pulse 2.4s ease-out infinite;
+
+/* live rising square ember motes (canvas), additive over the portal base */
+.embers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: block;
+  opacity: 0.72;
+  mix-blend-mode: screen;
 }
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.5); }
-  70% { box-shadow: 0 0 0 8px rgba(63, 185, 80, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+
+/* cinematic edge-darkening vignette (multiply keeps the art's own hues) */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background: radial-gradient(120% 110% at 62% 42%, transparent 52%, rgba(3, 8, 5, 0.6) 100%);
 }
-.grid {
+
+/* CRT scanlines instead of film grain — the product is a TUI */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.35;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px);
+}
+/* faint turbulence noise on top keeps flat regions alive */
+.noise {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* inset 8-bit hairline frame + stepped rune corners */
+.frame {
+  position: absolute;
+  inset: clamp(10px, 1.6vw, 20px);
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px var(--v-hair);
+}
+.corner {
+  position: absolute;
+  z-index: 6;
+  width: 16px;
+  height: 16px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  place-items: center;
+  pointer-events: none;
+  font-family: var(--v-mono);
+  font-size: 9px;
+  line-height: 1;
+  color: rgba(126, 231, 135, 0.42);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
 }
-.card {
-  background: var(--v-card);
-  border: 1px solid var(--v-border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  transition: border-color 0.18s ease, transform 0.18s ease;
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  border: 0 solid rgba(63, 185, 80, 0.5);
 }
-.card:hover {
-  border-color: rgba(200, 84, 42, 0.5);
-  transform: translateY(-2px);
+.corner::before { width: 14px; height: 14px; }
+.corner::after { width: 6px; height: 6px; }
+.cTL { top: clamp(15px, 2vw, 25px); left: clamp(15px, 2vw, 25px); }
+.cTR { top: clamp(15px, 2vw, 25px); right: clamp(15px, 2vw, 25px); }
+.cBL { bottom: clamp(15px, 2vw, 25px); left: clamp(15px, 2vw, 25px); }
+.cBR { bottom: clamp(15px, 2vw, 25px); right: clamp(15px, 2vw, 25px); }
+.cTL::before, .cTL::after { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+.cTL::after { top: 3px; left: 3px; }
+.cTR::before, .cTR::after { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+.cTR::after { top: 3px; right: 3px; }
+.cBL::before, .cBL::after { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.cBL::after { bottom: 3px; left: 3px; }
+.cBR::before, .cBR::after { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+.cBR::after { bottom: 3px; right: 3px; }
+
+/* everything readable rides above the atmosphere */
+.nav,
+.stage,
+.stamp,
+.foot {
+  position: relative;
+  z-index: 10;
 }
-.chead {
+
+/* ---- nav (hand-rolled, contract shape) ----------------------------------- */
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 7px;
+  gap: 16px;
+  padding: clamp(16px, 2.6vw, 28px) clamp(20px, 5vw, 60px) clamp(12px, 1.6vw, 18px);
 }
-.ctitle {
-  font-family: var(--v-mono);
-  font-weight: 700;
-  font-size: 13.5px;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--v-display);
+  font-weight: 600;
+  font-size: clamp(20px, 2.1vw, 27px);
+  letter-spacing: 0.02em;
   color: var(--v-text);
+  text-decoration: none;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85);
 }
-.ic {
-  color: var(--v-dim);
-  margin-right: 7px;
+.brandMark {
+  color: var(--v-aurora);
+  font-size: 0.86em;
+  filter: drop-shadow(0 0 8px rgba(63, 185, 80, 0.7));
+  transition: filter 0.2s ease;
 }
-.gok { color: var(--v-ok); font-size: 13px; }
-.goff { color: var(--v-off); font-size: 13px; }
-.cline {
+.brand:hover,
+.brand:focus-visible {
+  color: var(--v-aurora-bright);
+  outline: none;
+}
+.brand:hover .brandMark,
+.brand:focus-visible .brandMark {
+  filter: drop-shadow(0 0 13px rgba(63, 185, 80, 0.95));
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 28px);
+}
+.navLink {
+  position: relative;
+  font-family: var(--v-mono);
+  font-size: clamp(10.5px, 1.05vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(233, 246, 233, 0.72);
+  text-shadow: 0 1px 8px rgba(2, 8, 4, 0.85);
+  transition: color 0.18s ease;
+}
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -6px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--v-aurora), var(--v-aurora-bright));
+  box-shadow: 0 0 8px rgba(63, 185, 80, 0.6);
+  transition: right 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--v-aurora-bright);
+  outline: none;
+}
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  right: 0;
+}
+.navExt {
+  color: var(--v-gold);
+}
+.navExt::after {
+  background: linear-gradient(90deg, var(--v-gold), var(--v-ember));
+  box-shadow: 0 0 8px rgba(224, 166, 66, 0.6);
+}
+
+/* ---- stage: masthead + fleet board --------------------------------------- */
+.stage {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 68px);
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(14px, 2.4vw, 30px) clamp(20px, 5vw, 60px) clamp(20px, 3vw, 40px);
+}
+.masthead {
+  min-width: 0;
+  max-width: 640px;
+}
+
+/* kicker — rune tick + gradient dash */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 clamp(16px, 2vw, 22px);
+  font-family: var(--v-mono);
+  font-size: clamp(9.5px, 1vw, 11.5px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--v-aurora-bright);
+  text-shadow: 0 1px 10px rgba(2, 8, 4, 0.9);
+}
+.kRune {
+  font-size: 1.25em;
+  color: var(--v-aurora);
+  filter: drop-shadow(0 0 6px rgba(63, 185, 80, 0.6));
+}
+.kDash {
+  width: 22px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--v-gold), var(--v-aurora));
+  box-shadow: 0 0 8px rgba(63, 185, 80, 0.5);
+}
+
+/* headline — Pixelify, per-word conveyor rise, molten second line */
+.title {
+  margin: 0;
+  font-family: var(--v-display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  font-size: clamp(2.6rem, 6.5vw, 5rem);
+  text-shadow: 0 2px 3px rgba(2, 8, 4, 0.5), 0 6px 30px rgba(2, 8, 4, 0.7);
+}
+.lineLead,
+.lineMain {
+  display: block;
+}
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  margin-right: 0.28em;
+}
+.word {
+  display: inline-block;
+  will-change: transform;
+}
+.lineLead .word {
+  color: rgba(233, 246, 233, 0.92);
+  font-weight: 500;
+}
+/* molten inner span — gradient clip lives here (NOT on the transformed .word
+   wrapper), so the conveyor rise can't blank the clipped text in older WebKit.
+   color:ember is the fallback if background-clip:text is unsupported. */
+.molten {
+  font-weight: 700;
+  color: var(--v-ember);
+  background: var(--v-molten-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 22px rgba(255, 122, 47, 0.35);
+}
+.lineMain .word {
+  font-weight: 700;
+}
+
+/* title footer strip + rune divider */
+.titleFoot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(14px, 1.8vw, 20px);
+  font-family: var(--v-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(233, 246, 233, 0.55);
+  text-shadow: 0 1px 8px rgba(2, 8, 4, 0.85);
+}
+.tfBar {
+  flex: 1;
+  height: 1px;
+  max-width: 180px;
+  background: linear-gradient(90deg, var(--v-hair), transparent);
+}
+.runes {
+  margin-top: clamp(9px, 1.3vw, 14px);
   font-family: var(--v-mono);
   font-size: 12px;
+  letter-spacing: 0.24em;
+  background: linear-gradient(
+    90deg,
+    rgba(126, 231, 135, 0.28) 0%,
+    rgba(126, 231, 135, 0.28) 42%,
+    rgba(196, 255, 205, 0.95) 50%,
+    rgba(126, 231, 135, 0.28) 58%,
+    rgba(126, 231, 135, 0.28) 100%
+  );
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* body copy */
+.sub {
+  margin: clamp(20px, 2.6vw, 30px) 0 0;
+  max-width: 46ch;
+  font-size: clamp(14.5px, 1.35vw, 17px);
+  line-height: 1.62;
+  color: rgba(233, 246, 233, 0.86);
+  text-wrap: pretty;
+  text-shadow: 0 1px 14px rgba(2, 8, 4, 0.82);
+}
+.note {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin: clamp(16px, 2vw, 22px) 0 0;
+  max-width: 50ch;
+  padding: 11px 14px 11px 13px;
+  border-left: 2px solid var(--v-aurora);
+  background: linear-gradient(90deg, rgba(8, 22, 14, 0.62), rgba(8, 22, 14, 0.4));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(63, 185, 80, 0.1), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  font-family: var(--v-mono);
+  font-size: clamp(11px, 1.1vw, 12.5px);
+  line-height: 1.6;
+  color: rgba(233, 246, 233, 0.82);
+}
+.notePrompt {
+  color: var(--v-aurora);
+  font-weight: 700;
+  flex: none;
+  user-select: none;
+}
+.kbd {
+  font-family: var(--v-mono);
+  font-size: 0.92em;
+  color: var(--v-aurora-bright);
+  background: rgba(63, 185, 80, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(63, 185, 80, 0.24);
+  padding: 0.08em 0.42em;
+  white-space: nowrap;
+}
+
+/* ---- CTA row ------------------------------------------------------------- */
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 16px);
+  margin-top: clamp(24px, 3vw, 34px);
+}
+
+/* signature rune button — stepped 8-bit shape, molten flow + spark burst */
+.btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 168px;
+  padding: 14px 22px;
+  clip-path: var(--v-clip);
+  font-family: var(--v-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 0;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.16s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.2s ease, color 0.18s ease;
+}
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--v-aurora);
+  outline-offset: 3px;
+}
+.btnLabel {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.btnStar {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
+/* primary — molten fill */
+.btnMolten {
+  color: #170b04;
+  background: linear-gradient(100deg, var(--v-molten) 0%, var(--v-ember) 46%, var(--v-gold) 100%);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+}
+.btnMolten .btnStar {
+  color: #2a0f04;
+}
+.btnMolten:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 18px rgba(255, 122, 47, 0.6)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
+}
+
+/* ghost — stepped outline, rune flickers in on hover */
+.btnGhost {
+  color: var(--v-text);
+  background: linear-gradient(180deg, rgba(20, 40, 28, 0.42), rgba(8, 20, 14, 0.5));
+  box-shadow: inset 0 0 0 1px var(--v-hair);
+}
+.btnGhost .btnStar {
+  color: var(--v-aurora);
+}
+.btnGhost:hover,
+.btnGhost:focus-visible {
+  transform: translateY(-2px);
+  color: var(--v-aurora-bright);
+  box-shadow: inset 0 0 0 1px var(--v-aurora);
+}
+.btnRune {
+  color: var(--v-aurora);
+  opacity: 0;
+  transition: opacity 0.18s steps(3);
+}
+.btnGhost:hover .btnRune,
+.btnGhost:focus-visible .btnRune {
+  opacity: 1;
+}
+
+/* square pixel spark burst — imperatively populated on strike */
+.sparkLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+.spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  background: var(--sk, var(--v-ember));
+  box-shadow: 0 0 5px var(--sk, var(--v-ember));
+  will-change: transform, opacity;
+  animation: v-spark var(--dur, 0.7s) steps(4) forwards;
+}
+
+/* ---- fleet board (live product-echo widget) ------------------------------ */
+.board {
+  position: relative;
+  align-self: end;
+  justify-self: end;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.85), 0 0 60px -22px rgba(200, 84, 42, 0.28);
+}
+.boardInner {
+  position: relative;
+  clip-path: var(--v-clip);
+  background: var(--v-panel);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 0 1px var(--v-hair);
+  font-family: var(--v-mono);
+  color: var(--v-text);
+}
+.boardBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  box-shadow: inset 0 -1px 0 var(--v-hair);
+  background: linear-gradient(180deg, rgba(63, 185, 80, 0.07), transparent);
+}
+.studs {
+  display: inline-flex;
+  gap: 6px;
+}
+.stud {
+  width: 9px;
+  height: 9px;
+  background: rgba(110, 118, 129, 0.5);
+}
+.studHot {
+  background: var(--v-ember);
+  box-shadow: 0 0 8px rgba(255, 122, 47, 0.85);
+}
+.boardName {
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
   color: var(--v-dim);
+}
+.boardName b {
+  color: var(--v-text);
+  font-weight: 600;
+}
+.boardBadge {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v-aurora);
+}
+.boardBody {
+  padding: 12px 12px 13px;
+}
+.promptRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--v-text);
+}
+.promptRow .prompt {
+  color: var(--v-aurora);
+  font-weight: 700;
+}
+.cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  background: var(--v-aurora-bright);
+  transform: translateY(2px);
+  margin-left: 1px;
+}
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--v-dim);
+}
+.summary b {
+  color: var(--v-text);
+  font-weight: 600;
+}
+.livedot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: var(--v-ok);
+  box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.5);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.card {
+  position: relative;
+  padding: 9px 10px;
+  clip-path: var(--v-clip-sm);
+  background: rgba(11, 26, 18, 0.5);
+  box-shadow: inset 0 0 0 1px var(--v-hair);
+  transition: box-shadow 0.22s ease;
+}
+.cardWarn {
+  box-shadow: inset 0 0 0 1px rgba(224, 166, 66, 0.42);
+  background: rgba(30, 22, 8, 0.5);
+}
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+.cardIcon {
+  font-family: var(--v-display);
+  font-size: 14px;
+  color: var(--v-aurora);
+  filter: drop-shadow(0 0 5px rgba(63, 185, 80, 0.4));
+}
+.cardWarn .cardIcon {
+  color: var(--v-warn);
+  filter: drop-shadow(0 0 5px rgba(224, 166, 66, 0.4));
+}
+.cardName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--v-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-/* ---- footer ---- */
-.foot {
-  position: relative;
-  z-index: 2;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 22px 24px 30px;
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--v-mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
+.cardDot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  margin-left: auto;
+}
+.dotOk {
+  background: var(--v-ok);
+  box-shadow: 0 0 6px rgba(63, 185, 80, 0.7);
+}
+.dotWarn {
+  background: var(--v-warn);
+  box-shadow: 0 0 6px rgba(224, 166, 66, 0.7);
+}
+.dotOff {
+  background: var(--v-off);
+}
+.cardStatus {
+  font-size: 10.5px;
   color: var(--v-dim);
-  border-top: 1px solid var(--v-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+.cardWarn .cardStatus {
+  color: var(--v-warn);
+}
+.cmdLine {
+  margin-top: 11px;
+  padding-top: 10px;
+  box-shadow: inset 0 1px 0 var(--v-hair);
+  font-size: 11.5px;
+}
+.cmdRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--v-text);
+}
+.cmdRow .prompt {
+  color: var(--v-aurora);
+  font-weight: 700;
+}
+.cmdRes {
+  margin-top: 4px;
+  color: var(--v-dim);
+  min-height: 1.05em;
 }
 
-@media (max-width: 940px) {
-  .hero {
+/* ---- runestone stamp (architect's-stamp mirror) -------------------------- */
+.stamp {
+  position: absolute;
+  right: clamp(20px, 3vw, 44px);
+  bottom: clamp(56px, 7vw, 78px);
+  z-index: 10;
+  width: 232px;
+  clip-path: var(--v-clip);
+  background: linear-gradient(180deg, rgba(10, 26, 18, 0.82), rgba(5, 14, 9, 0.82));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px var(--v-hair), 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  font-family: var(--v-mono);
+  color: rgba(233, 246, 233, 0.82);
+}
+.stampHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 11px;
+  box-shadow: inset 0 -1px 0 var(--v-hair);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--v-aurora-bright);
+}
+.stampDot {
+  width: 6px;
+  height: 6px;
+  background: var(--v-gold);
+  box-shadow: 0 0 6px rgba(224, 166, 66, 0.9);
+}
+.stampGrid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.stampGrid span {
+  padding: 6px 11px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  box-shadow: inset 0 -1px 0 rgba(63, 185, 80, 0.09);
+}
+.stampGrid span:nth-child(odd) {
+  color: rgba(233, 246, 233, 0.46);
+  box-shadow: inset -1px -1px 0 rgba(63, 185, 80, 0.09);
+}
+.stampGrid span:nth-child(even) {
+  color: var(--v-text);
+  text-align: right;
+}
+
+/* ---- footer -------------------------------------------------------------- */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 clamp(20px, 5vw, 60px);
+  padding: clamp(14px, 2vw, 20px) 0;
+  box-shadow: inset 0 1px 0 var(--v-hair);
+  font-family: var(--v-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(233, 246, 233, 0.56);
+  text-shadow: 0 1px 8px rgba(2, 8, 4, 0.85);
+}
+.footLic {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--v-aurora-bright);
+}
+.footLic::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--v-aurora);
+  box-shadow: 0 0 6px rgba(63, 185, 80, 0.8);
+}
+
+/* ============================================================================
+   MOTION — one orchestrated boot. The base state above is the FINAL (visible)
+   look, so reduced-motion users get everything, statically, with zero animation.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* atmosphere settles in */
+  .art {
+    animation: v-art-in 1.4s cubic-bezier(0.22, 0.68, 0.16, 1) both;
+  }
+  .scrim,
+  .vignette,
+  .scanlines,
+  .aurora {
+    opacity: 0;
+    animation: v-fade 1.2s ease 0.1s both;
+  }
+  .noise {
+    opacity: 0;
+    animation: v-fade-noise 1.4s ease 0.2s both;
+  }
+  .frame {
+    opacity: 0;
+    animation: v-fade 0.6s ease 0.35s both;
+  }
+  .corner {
+    opacity: 0;
+    animation: v-fade 0.6s ease 0.5s both;
+  }
+
+  /* aurora ribbons drift */
+  .ribbonA {
+    animation: v-fade 1.2s ease 0.1s both, v-drift-a 40s ease-in-out infinite alternate;
+  }
+  .ribbonB {
+    animation: v-fade 1.2s ease 0.1s both, v-drift-b 55s ease-in-out infinite alternate;
+  }
+
+  /* nav */
+  .brand {
+    opacity: 0;
+    animation: v-up 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+  }
+  .navLink {
+    opacity: 0;
+    animation: v-up 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .navLink:nth-child(1) { animation-delay: 0.18s; }
+  .navLink:nth-child(2) { animation-delay: 0.26s; }
+  .navLink:nth-child(3) { animation-delay: 0.34s; }
+
+  /* headline — per-word conveyor rise with 8-bit steps() (all words, via the
+     .word wrapper; the molten inner span only breathes, never transforms) */
+  .word {
+    transform: translateY(112%);
+    animation: v-word-rise 0.68s steps(6) var(--d, 0ms) both;
+  }
+  /* molten line breathes after it lands */
+  .molten {
+    animation: v-molten-pulse 4.5s ease-in-out 1.4s infinite;
+  }
+
+  /* staggered text + widgets */
+  .kicker,
+  .titleFoot,
+  .runes,
+  .sub,
+  .note,
+  .cta,
+  .board,
+  .stamp {
+    opacity: 0;
+    animation: v-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  /* rune divider glint sweep */
+  .runes {
+    animation: v-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both,
+      v-glint 9s ease-in-out 1.8s infinite;
+  }
+
+  /* molten CTA idle flow, faster on hover */
+  .btnMolten {
+    animation: v-molten-flow 6s linear infinite;
+  }
+  .btnMolten:hover,
+  .btnMolten:focus-visible {
+    animation-duration: 1.6s;
+  }
+
+  /* live pulses */
+  .livedot,
+  .stampDot {
+    animation: v-pulse 2.4s ease-out infinite;
+  }
+  .cursor {
+    animation: v-blink 1s steps(1) infinite;
+  }
+}
+
+@keyframes v-art-in {
+  from { opacity: 0; transform: scale(1.05); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes v-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes v-fade-noise {
+  from { opacity: 0; }
+  to { opacity: 0.04; }
+}
+@keyframes v-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes v-word-rise {
+  from { transform: translateY(112%); }
+  to { transform: translateY(0); }
+}
+@keyframes v-molten-pulse {
+  0%, 100% { text-shadow: 0 0 18px rgba(255, 122, 47, 0.28); }
+  50% { text-shadow: 0 0 26px rgba(255, 122, 47, 0.55); }
+}
+@keyframes v-molten-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes v-drift-a {
+  from { transform: translateX(-6%); }
+  to { transform: translateX(6%); }
+}
+@keyframes v-drift-b {
+  from { transform: translateX(5%); }
+  to { transform: translateX(-5%); }
+}
+@keyframes v-glint {
+  0%, 100% { background-position: 130% 0; }
+  50% { background-position: -30% 0; }
+}
+@keyframes v-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.5); }
+  70% { box-shadow: 0 0 0 7px rgba(63, 185, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+}
+@keyframes v-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@keyframes v-spark {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(var(--tx, 0), var(--ty, -30px)); opacity: 0; }
+}
+
+/* ---- responsive ---------------------------------------------------------- */
+@media (max-width: 980px) {
+  .stage {
     grid-template-columns: 1fr;
-    gap: 40px;
-    min-height: 0;
-    padding-top: 24px;
+    align-items: start;
+    gap: clamp(28px, 6vw, 44px);
+    padding-bottom: clamp(28px, 6vw, 48px);
   }
-  .rune { font-size: 380px; right: -80px; opacity: 0.7; }
+  .masthead {
+    max-width: 640px;
+  }
+  .board {
+    align-self: start;
+    justify-self: start;
+    max-width: 520px;
+  }
+  .stamp {
+    display: none;
+  }
+  .sub,
+  .note {
+    max-width: 58ch;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .btn,
-  .card,
-  .primary:hover,
-  .ghost:hover,
-  .card:hover {
-    transition: none;
-    transform: none;
+@media (max-width: 720px) {
+  /* full-width text: swap diagonal scrim for a vertical wash so type stays
+     crisp while the pixel-art still reads clearly behind it. */
+  .scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 10, 6, 0.66) 0%,
+      rgba(4, 10, 6, 0.52) 38%,
+      rgba(4, 10, 6, 0.84) 100%
+    );
   }
-  .livedot { animation: none; }
+  .art {
+    background-position: 72% center;
+  }
+}
+
+@media (max-width: 560px) {
+  .navLinks {
+    gap: 14px;
+  }
+  .navLink {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .btn {
+    flex: 1 1 100%;
+    padding: 13px 18px;
+  }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .title {
+    font-size: clamp(2.4rem, 12vw, 3.4rem);
+  }
 }
