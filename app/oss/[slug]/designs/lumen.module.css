@@ -1,0 +1,1208 @@
+/* ============================================================================
+   LUMEN TUTOR — "The Live Whiteboard"
+   A warm graph-paper teaching surface for an AI tutor that draws its calculus
+   explanations. Palette: warm cream paper (#f4eee2), graphite ink (#232a34),
+   and a four-marker set (navy #1b2a4a, blue #2a63d8, teal #12866a, red #c0432a)
+   plus an amber highlighter (#e6a53a). Fonts: Newsreader display, Hanken
+   Grotesk body, Space Mono mono, and Caveat for hand-lettered annotations.
+   Signature set-piece: LumenBoard, a faux whiteboard that strokes an "area
+   under a curve" lesson on by itself and hand-letters the annotations.
+   Signature CTA: MarkerButton, whose hand-drawn border inks on like a felt pen.
+   Motion is one choreographed lesson, all opt-in via prefers-reduced-motion:
+   no-preference, so the reduced/static state is the finished, fully-drawn page.
+   All classes + @keyframes are CSS-Module-scoped; @property is lumen-namespaced.
+   ========================================================================== */
+
+/* document-global registered prop — MUST be slug-prefixed (CONTRACT §2) */
+@property --lumen-ink {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.root {
+  --paper: #f4eee2;
+  --paper-2: #ece3d2;
+  --board: #fbf8f0;
+  --ink: #232a34;
+  --ink-soft: rgba(35, 42, 52, 0.66);
+  --ink-faint: rgba(35, 42, 52, 0.42);
+  --ink-ghost: rgba(35, 42, 52, 0.16);
+  --line: rgba(35, 42, 52, 0.14);
+  --navy: #1b2a4a;
+  --blue: #2a63d8;
+  --teal: #12866a;
+  --red: #c0432a;
+  --amber: #e6a53a;
+  --grid-minor: rgba(38, 64, 120, 0.075);
+  --grid-major: rgba(38, 64, 120, 0.14);
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-lumen-body, system-ui, "Helvetica Neue", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- atmosphere: paper + graph grid + lamp + grain + vignette + margin ----- */
+.paper,
+.grid,
+.lamp,
+.grain,
+.vignette,
+.margin {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* warm paper wash — a subtly uneven cream, warmer at the top where the lamp is */
+.paper {
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(255, 249, 235, 0.9) 0%, rgba(255, 249, 235, 0) 55%),
+    linear-gradient(180deg, #f6f0e5 0%, #f2ebde 46%, #ece3d2 100%);
+}
+
+/* faint blueprint quadrille — the signature background for a math whiteboard */
+.grid {
+  background-image:
+    repeating-linear-gradient(0deg, var(--grid-minor) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, var(--grid-minor) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(0deg, var(--grid-major) 0 1px, transparent 1px 120px),
+    repeating-linear-gradient(90deg, var(--grid-major) 0 1px, transparent 1px 120px);
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(130% 110% at 50% 42%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(130% 110% at 50% 42%, #000 60%, transparent 100%);
+  opacity: 0.85;
+}
+
+/* warm desk-lamp glow washing the teaching area */
+.lamp {
+  background: radial-gradient(
+    62% 52% at 50% 8%,
+    rgba(255, 236, 190, 0.55) 0%,
+    rgba(255, 236, 190, 0.16) 38%,
+    rgba(255, 236, 190, 0) 72%
+  );
+  mix-blend-mode: soft-light;
+}
+
+/* fine paper fiber grain */
+.grain {
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* warm edge vignette so the sheet feels lit from above */
+.vignette {
+  mix-blend-mode: multiply;
+  background: radial-gradient(
+    128% 118% at 50% 34%,
+    rgba(120, 96, 58, 0) 54%,
+    rgba(92, 71, 40, 0.16) 100%
+  );
+}
+
+/* a ruled teaching-pad left margin + pinned corner tacks + a hand-written tab */
+.margin {
+  z-index: 1;
+}
+.margin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(56px, 8vw, 118px);
+  width: 1.5px;
+  background: linear-gradient(180deg, transparent, rgba(192, 67, 42, 0.28) 12%, rgba(192, 67, 42, 0.28) 88%, transparent);
+}
+.tack {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #f7dca0, #cf9b3f 62%, #9c6f20);
+  box-shadow: 0 2px 5px rgba(70, 48, 16, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+.tackTL {
+  top: clamp(14px, 2vw, 24px);
+  left: clamp(14px, 2vw, 26px);
+}
+.tackTR {
+  top: clamp(14px, 2vw, 24px);
+  right: clamp(14px, 2vw, 26px);
+}
+.marginLabel {
+  position: absolute;
+  top: clamp(78px, 12vw, 118px);
+  left: clamp(20px, 4vw, 52px);
+  transform: rotate(-4deg);
+  font-family: var(--font-lumen-accent, "Segoe Script", "Bradley Hand", cursive);
+  font-size: clamp(15px, 1.8vw, 20px);
+  color: rgba(35, 42, 52, 0.3);
+}
+
+/* everything readable rides above the atmosphere */
+.nav,
+.stage,
+.foot {
+  position: relative;
+  z-index: 3;
+}
+
+/* ---- nav ------------------------------------------------------------------ */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(16px, 2.6vw, 28px) clamp(20px, 5vw, 60px);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-lumen-display, Georgia, serif);
+  font-weight: 600;
+  font-size: clamp(19px, 2vw, 25px);
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brandMark {
+  color: var(--red);
+  font-size: 0.82em;
+  transform: translateY(-1px);
+}
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+}
+.chalkTray {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+  border-radius: 7px;
+  background: rgba(35, 42, 52, 0.04);
+  border: 1px solid var(--line);
+}
+@media (max-width: 640px) {
+  .chalkTray {
+    display: none;
+  }
+}
+.nib {
+  width: 11px;
+  height: 12px;
+  border-radius: 2px 2px 3px 3px;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 1px 1.5px rgba(35, 42, 52, 0.22);
+}
+.nibNavy {
+  background: linear-gradient(180deg, #33456e, var(--navy));
+}
+.nibBlue {
+  background: linear-gradient(180deg, #4d7fe8, var(--blue));
+}
+.nibTeal {
+  background: linear-gradient(180deg, #29a184, var(--teal));
+}
+.nibRed {
+  background: linear-gradient(180deg, #d5613f, var(--red));
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(15px, 2.4vw, 28px);
+}
+.navLink {
+  position: relative;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: clamp(11.5px, 1.2vw, 13px);
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 3px;
+  transition: color 0.18s ease;
+}
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--amber);
+  transition: right 0.26s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  right: 0;
+}
+.navExt {
+  color: var(--blue);
+}
+.navExt::after {
+  background: var(--blue);
+}
+
+/* ---- stage ---------------------------------------------------------------- */
+.stage {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(30px, 5.5vw, 66px) clamp(20px, 5vw, 60px) clamp(70px, 9vw, 110px);
+}
+.col {
+  min-width: 0;
+}
+
+/* kicker */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.kickerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(18, 134, 106, 0.16);
+}
+
+/* headline — Newsreader, conveyor word reveal, highlighter swipe on line two */
+.title {
+  display: block;
+  margin: clamp(16px, 2.2vw, 24px) 0 0;
+  font-family: var(--font-lumen-display, Georgia, serif);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.014em;
+  font-size: clamp(2.6rem, 6.6vw, 5rem);
+  color: var(--ink);
+}
+.lineLead {
+  display: block;
+  font-weight: 420;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.lineMain {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+}
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  margin-right: 0.28em;
+}
+.word {
+  display: inline-block;
+  will-change: transform;
+}
+.wordInk {
+  color: var(--ink);
+}
+.underline {
+  position: absolute;
+  left: -0.05em;
+  right: -0.08em;
+  bottom: 0.1em;
+  height: 0.34em;
+  z-index: -1;
+  border-radius: 0.18em 0.22em 0.2em 0.16em;
+  background: linear-gradient(100deg, rgba(230, 165, 58, 0.75), rgba(230, 165, 58, 0.5));
+  transform: rotate(-0.7deg);
+  transform-origin: left center;
+  mix-blend-mode: multiply;
+}
+
+/* body copy */
+.sub {
+  margin: clamp(22px, 3vw, 30px) 0 0;
+  max-width: 50ch;
+  font-size: clamp(15px, 1.5vw, 17.5px);
+  line-height: 1.62;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* run note — a felt-pen bullet + mono command chips */
+.note {
+  display: flex;
+  gap: 11px;
+  margin: clamp(16px, 2vw, 22px) 0 0;
+  max-width: 56ch;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: clamp(11.5px, 1.2vw, 13px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.notePen {
+  flex: none;
+  margin-top: 0.5em;
+  width: 20px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--red), rgba(192, 67, 42, 0));
+}
+.chip {
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 0.92em;
+  color: var(--navy);
+  background: rgba(42, 99, 216, 0.08);
+  border: 1px solid rgba(42, 99, 216, 0.24);
+  border-radius: 5px;
+  padding: 0.08em 0.44em;
+  white-space: nowrap;
+}
+
+/* ---- CTA row -------------------------------------------------------------- */
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 16px);
+  margin-top: clamp(26px, 3.4vw, 38px);
+}
+.star {
+  color: var(--amber);
+}
+.arrow {
+  display: inline-block;
+  transition: transform 0.24s ease;
+}
+.writeup {
+  position: relative;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: clamp(11.5px, 1.2vw, 13px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-soft);
+  padding: 6px 2px;
+  transition: color 0.18s ease;
+}
+.writeup::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: right 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.writeup:hover,
+.writeup:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+.writeup:hover::after,
+.writeup:focus-visible::after {
+  right: 0;
+}
+
+/* ---- MarkerButton (signature CTA) ----------------------------------------- */
+.mbtn {
+  --mk: var(--navy);
+  --lumen-ink: 0;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 172px;
+  padding: 14px 24px;
+  border-radius: 13px;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s cubic-bezier(0.34, 1.5, 0.64, 1), box-shadow 0.24s ease,
+    background 0.2s ease, color 0.2s ease, border-color 0.2s ease, --lumen-ink 0.45s ease;
+}
+.mbtn[data-color="navy"] {
+  --mk: var(--navy);
+}
+.mbtn[data-color="blue"] {
+  --mk: var(--blue);
+}
+.mbtn[data-color="teal"] {
+  --mk: var(--teal);
+}
+.mbtn[data-color="red"] {
+  --mk: var(--red);
+}
+.mbtn:active {
+  transform: translateY(1.5px) scale(0.99) rotate(-0.15deg);
+}
+.mbtn:focus-visible {
+  outline: 2px solid var(--mk);
+  outline-offset: 3px;
+}
+
+/* solid — a filled marker slab, cream ink */
+.mbtnSolid {
+  color: #f7f2e6;
+  background: var(--mk);
+  box-shadow: 0 10px 24px -14px rgba(27, 42, 74, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.mbtnSolid:hover {
+  --lumen-ink: 1;
+  transform: translateY(-2px) rotate(-0.2deg);
+  box-shadow: 0 16px 30px -14px rgba(27, 42, 74, 0.75),
+    0 0 calc(var(--lumen-ink) * 16px) rgba(230, 165, 58, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* ghost — bare paper with a faint keepline that the marker inks over */
+.mbtnGhost {
+  color: var(--ink);
+  background: rgba(255, 253, 247, 0.5);
+  border: 1.5px solid var(--ink-ghost);
+}
+.mbtnGhost:hover {
+  --lumen-ink: 1;
+  transform: translateY(-2px) rotate(-0.2deg);
+  border-color: transparent;
+  color: var(--mk);
+}
+
+.mbtnLabel {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* highlighter swipe that wipes in behind the label on hover (ghost only reads it) */
+.mbtnSwipe {
+  position: absolute;
+  z-index: 1;
+  left: 12px;
+  right: 12px;
+  top: 50%;
+  height: 1.05em;
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  border-radius: 4px;
+  background: rgba(230, 165, 58, 0.34);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.mbtnSolid .mbtnSwipe {
+  background: rgba(255, 255, 255, 0.14);
+  mix-blend-mode: screen;
+}
+
+/* the hand-drawn marker outline (stretched to the button box) */
+.mbtnInk {
+  position: absolute;
+  inset: -3px;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+.mbtnStroke {
+  fill: none;
+  stroke: var(--mk);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0; /* reduced-motion / no-JS fallback: fully inked */
+  filter: drop-shadow(0 1px 0 rgba(35, 42, 52, 0.08));
+}
+.mbtnSolid .mbtnStroke {
+  stroke: rgba(255, 245, 224, 0.8);
+}
+
+/* marker-cap nibs that light at the corners on hover */
+.mbtnCap {
+  position: absolute;
+  z-index: 2;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 7px rgba(230, 165, 58, 0.9);
+  opacity: 0;
+  transition: opacity 0.2s ease 0.28s;
+}
+.capA {
+  top: -3px;
+  left: 14px;
+}
+.capB {
+  bottom: -3px;
+  right: 16px;
+}
+.mbtn:hover .mbtnCap,
+.mbtn:focus-visible .mbtnCap {
+  opacity: 1;
+}
+
+/* ---- LumenBoard (signature set-piece) ------------------------------------- */
+.board {
+  min-width: 0;
+  align-self: center;
+  justify-self: stretch;
+  max-width: 540px;
+  width: 100%;
+  border-radius: 16px;
+  background: var(--board);
+  border: 1px solid rgba(35, 42, 52, 0.1);
+  box-shadow: 0 34px 60px -34px rgba(52, 40, 22, 0.5), 0 3px 10px -6px rgba(52, 40, 22, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+}
+.boardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+}
+.boardName {
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.boardName b {
+  color: var(--ink);
+  font-weight: 700;
+}
+.boardStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px rgba(18, 134, 106, 0.8);
+}
+.boardSteps {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px 4px;
+  flex-wrap: wrap;
+}
+.stepChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+  transition: color 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+}
+.stepChip b {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(35, 42, 52, 0.07);
+  color: var(--ink-soft);
+  font-size: 9px;
+  font-weight: 700;
+}
+.stepOn {
+  color: var(--ink);
+  border-color: rgba(42, 99, 216, 0.4);
+  background: rgba(42, 99, 216, 0.08);
+}
+.stepOn b {
+  background: var(--blue);
+  color: #f7f2e6;
+}
+.tray {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.boardBody {
+  position: relative;
+  margin: 8px 12px 4px;
+  border-radius: 11px;
+  overflow: hidden;
+  background: var(--board);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(38, 64, 120, 0.06) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(90deg, rgba(38, 64, 120, 0.06) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(0deg, rgba(38, 64, 120, 0.11) 0 1px, transparent 1px 100px),
+    repeating-linear-gradient(90deg, rgba(38, 64, 120, 0.11) 0 1px, transparent 1px 100px);
+  box-shadow: inset 0 0 0 1px rgba(35, 42, 52, 0.05);
+}
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* SVG ink — static state is the FULLY DRAWN lesson (reduced-motion fallback) */
+.axis {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.85;
+}
+.axisArrow {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+.axisLabel {
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 15px;
+  fill: var(--ink-faint);
+}
+
+.areaWash {
+  fill: rgba(18, 134, 106, 0.15);
+}
+.areaHatch {
+  fill: url(#lumenHatch);
+}
+.hatchLine {
+  stroke: var(--teal);
+  stroke-width: 1.4;
+  opacity: 0.5;
+}
+.areaGroup {
+  clip-path: inset(0 0 0 0);
+}
+.bound {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.85;
+}
+.aLabel {
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--teal);
+}
+
+.curve {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 2px 2px rgba(27, 42, 74, 0.14));
+}
+
+.tangent {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transform-box: view-box;
+  transform-origin: 300px 96px;
+}
+.dot {
+  fill: var(--red);
+  stroke: #fbf8f0;
+  stroke-width: 2;
+}
+.dotRing {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.6;
+  opacity: 0.5;
+}
+.nibDot {
+  fill: var(--blue);
+  stroke: #fbf8f0;
+  stroke-width: 1.4;
+  opacity: 0;
+  offset-path: path("M 118 250 C 196 250, 232 100, 300 96 C 368 100, 404 250, 486 248");
+  offset-rotate: 0deg;
+  offset-distance: 0%;
+  filter: drop-shadow(0 0 6px rgba(42, 99, 216, 0.6));
+}
+
+.anno {
+  font-family: var(--font-lumen-accent, "Segoe Script", "Bradley Hand", cursive);
+  fill: var(--ink);
+}
+.a1 {
+  font-size: 23px;
+  fill: var(--red);
+}
+.a2 {
+  font-size: 22px;
+  fill: var(--teal);
+}
+.a3 {
+  font-size: 23px;
+  fill: var(--blue);
+}
+.a4 {
+  font-size: 20px;
+  fill: rgba(35, 42, 52, 0.6);
+}
+
+.boardFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 16px 13px;
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.footTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-soft);
+}
+.footTag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--amber);
+}
+.footOps {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--ink-faint);
+}
+
+/* ---- footer --------------------------------------------------------------- */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(16px, 2.4vw, 22px) clamp(20px, 5vw, 60px);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-lumen-mono, ui-monospace, Menlo, monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.footLic {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-soft);
+}
+.footLic::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(18, 134, 106, 0.16);
+}
+.footNote {
+  color: var(--ink-faint);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 620px) {
+  .footNote {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   MOTION — one choreographed lesson. Base state above is the FINAL drawn page;
+   everything here is opt-in, so reduced-motion users get it all, statically.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* atmosphere settles in */
+  .paper,
+  .grid,
+  .lamp,
+  .grain,
+  .vignette {
+    animation: lumenFade 1.2s ease both;
+  }
+  .grid {
+    animation: lumenGridIn 1.3s ease 0.1s both;
+  }
+  .lamp {
+    animation: lumenLamp 9s ease-in-out infinite;
+  }
+
+  /* nav */
+  .brand {
+    opacity: 0;
+    animation: lumenRise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+  }
+  .chalkTray {
+    opacity: 0;
+    animation: lumenRise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.24s both;
+  }
+  .navLink {
+    opacity: 0;
+    animation: lumenRise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .navLink:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  .navLink:nth-child(2) {
+    animation-delay: 0.28s;
+  }
+  .navLink:nth-child(3) {
+    animation-delay: 0.36s;
+  }
+
+  /* headline conveyor + highlighter */
+  .word {
+    transform: translateY(115%);
+    animation: lumenWord 0.72s cubic-bezier(0.22, 0.68, 0.16, 1) var(--d, 0ms) both;
+  }
+  .underline {
+    transform: rotate(-0.7deg) scaleX(0);
+    animation: lumenSwipe 0.62s cubic-bezier(0.5, 0.1, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  /* staggered body + board */
+  .kicker,
+  .sub,
+  .note,
+  .cta {
+    opacity: 0;
+    animation: lumenRise 0.78s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+  }
+  .board {
+    opacity: 0;
+    animation: lumenRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  /* the board draws itself — axes, then curve, boundaries, area, tangent, notes */
+  .axisX {
+    stroke-dashoffset: 1;
+    animation: lumenDraw 0.6s ease 0.85s both;
+  }
+  .axisY {
+    stroke-dashoffset: 1;
+    animation: lumenDraw 0.6s ease 1s both;
+  }
+  .axisArrow {
+    opacity: 0;
+    animation: lumenFade 0.4s ease 1.4s both;
+  }
+  .curve {
+    stroke-dashoffset: 1;
+    animation: lumenDraw 1.5s cubic-bezier(0.5, 0, 0.3, 1) 1.2s both;
+  }
+  .boundA {
+    stroke-dashoffset: 1;
+    animation: lumenDraw 0.45s ease 2.5s both;
+  }
+  .boundB {
+    stroke-dashoffset: 1;
+    animation: lumenDraw 0.45s ease 2.66s both;
+  }
+  .areaGroup {
+    clip-path: inset(0 100% 0 0);
+    animation: lumenWipe 1.1s cubic-bezier(0.4, 0, 0.2, 1) 2.8s both;
+  }
+  .tangent {
+    stroke-dashoffset: 1;
+    animation: lumenDraw 0.66s ease 3.7s both,
+      lumenSweep 7s ease-in-out 4.6s infinite;
+  }
+  .dot,
+  .dotRing {
+    opacity: 0;
+    animation: lumenPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 4s both;
+  }
+  .dotRing {
+    animation-delay: 4.1s;
+  }
+  .aLabel {
+    opacity: 0;
+    animation: lumenFade 0.5s ease 2.9s both;
+  }
+  .a1 {
+    opacity: 0;
+    animation: lumenFade 0.6s ease 4.2s both;
+  }
+  .a2 {
+    opacity: 0;
+    animation: lumenFade 0.6s ease 3.6s both;
+  }
+  .a3 {
+    opacity: 0;
+    animation: lumenFade 0.6s ease 4.6s both;
+  }
+  .a4 {
+    opacity: 0;
+    animation: lumenFade 0.6s ease 5s both;
+  }
+
+  /* living layers: the marker nib re-inks the curve, the live dot breathes */
+  .nibDot {
+    animation: lumenNib 5.4s cubic-bezier(0.45, 0, 0.35, 1) 1.2s infinite;
+  }
+  .liveDot {
+    animation: lumenBlink 1.7s ease-in-out infinite;
+  }
+
+  /* MarkerButton: retract the ink, then re-draw it on hover/focus */
+  .mbtnStroke {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.52s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .mbtn:hover .mbtnStroke,
+  .mbtn:focus-visible .mbtnStroke {
+    stroke-dashoffset: 0;
+  }
+  .mbtnSwipe {
+    transition: transform 0.4s cubic-bezier(0.5, 0.1, 0.2, 1) 0.06s;
+  }
+  .mbtn:hover .mbtnSwipe,
+  .mbtn:focus-visible .mbtnSwipe {
+    transform: translateY(-50%) scaleX(1);
+  }
+  .mbtn:hover .arrow,
+  .mbtn:focus-visible .arrow {
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes lumenFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes lumenGridIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+@keyframes lumenLamp {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes lumenRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes lumenWord {
+  from {
+    transform: translateY(115%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes lumenSwipe {
+  from {
+    transform: rotate(-0.7deg) scaleX(0);
+  }
+  to {
+    transform: rotate(-0.7deg) scaleX(1);
+  }
+}
+@keyframes lumenDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes lumenWipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes lumenPop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes lumenSweep {
+  0%,
+  100% {
+    transform: rotate(-2.6deg);
+  }
+  50% {
+    transform: rotate(2.6deg);
+  }
+}
+@keyframes lumenBlink {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(18, 134, 106, 0.8);
+  }
+  50% {
+    opacity: 0.35;
+    box-shadow: 0 0 3px rgba(18, 134, 106, 0.4);
+  }
+}
+@keyframes lumenNib {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+/* ---- responsive ----------------------------------------------------------- */
+@media (max-width: 960px) {
+  .stage {
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 6vw, 44px);
+    align-items: start;
+    padding-bottom: clamp(56px, 9vw, 90px);
+  }
+  .board {
+    max-width: 560px;
+    margin-inline: auto;
+    order: 2;
+  }
+  .col {
+    order: 1;
+  }
+  .sub,
+  .note {
+    max-width: 60ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .navLinks {
+    gap: 15px;
+  }
+  .mbtn {
+    flex: 1 1 100%;
+  }
+  .title {
+    font-size: clamp(2.5rem, 12vw, 3.6rem);
+  }
+  .marginLabel {
+    display: none;
+  }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .boardSteps {
+    gap: 6px;
+  }
+}
