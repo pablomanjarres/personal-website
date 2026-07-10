@@ -159,6 +159,18 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/valhalla",
     "live": null,
     "oss": true
+  },
+  {
+    "slug": "redline",
+    "title": "Redline",
+    "kicker": "REDLINE · OPEN SOURCE",
+    "titleLead": "Break your own analysis",
+    "titleMain": "before Reviewer 2 does.",
+    "subtitle": "Redline is a statistical-rigor auditor for single-cell RNA-seq. It re-runs the load-bearing statistics on your own AnnData .h5ad, marks the false discoveries on your own figures, and hands back corrected code that downloads and runs, all before the analysis becomes a paper.",
+    "note": "Point it at your own `.h5ad`: `pnpm i && pnpm dev` opens the plots-first workbench, or add the rigor engine to Claude as a skill and let it re-run the stats.",
+    "repo": "https://github.com/pablomanjarres/redline",
+    "live": "https://redline-sooty-zeta.vercel.app",
+    "oss": true
   }
 ];
 

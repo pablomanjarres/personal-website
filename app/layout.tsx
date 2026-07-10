@@ -21,6 +21,7 @@ import {
   Public_Sans,
   Sora,
   Space_Mono,
+  Space_Grotesk,
 } from "next/font/google";
 import "./globals.css";
 
@@ -193,6 +194,13 @@ const spaceMono = Space_Mono({
   preload: false,
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-spacegrotesk",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 // ---- exact per-slug contract vars (aliased to the canonical family vars) ----
 // Consumed by app/oss/[slug]/designs/<slug>.tsx. Documented in
 // app/oss/[slug]/designs/CONTRACT.md. Computed-key form (matches app/theme.ts)
@@ -230,6 +238,14 @@ const ossFontVars: CSSProperties = {
   ["--font-lumen-frontier-display" as string]: "var(--font-fraunces)",
   ["--font-lumen-frontier-body" as string]: "var(--font-hanken)",
   ["--font-lumen-frontier-mono" as string]: "var(--font-spacemono)",
+  // valhalla — Pixelify Sans / IBM Plex Sans / IBM Plex Mono
+  ["--font-valhalla-display" as string]: "var(--font-pixel)",
+  ["--font-valhalla-body" as string]: "var(--font-sans)",
+  ["--font-valhalla-mono" as string]: "var(--font-mono)",
+  // redline — Space Grotesk / Hanken Grotesk / JetBrains Mono
+  ["--font-redline-display" as string]: "var(--font-spacegrotesk)",
+  ["--font-redline-body" as string]: "var(--font-hanken)",
+  ["--font-redline-mono" as string]: "var(--font-jetbrains)",
 };
 
 const fontVariables = [
@@ -253,6 +269,7 @@ const fontVariables = [
   publicSans.variable,
   sora.variable,
   spaceMono.variable,
+  spaceGrotesk.variable,
 ].join(" ");
 
 export const metadata: Metadata = {
