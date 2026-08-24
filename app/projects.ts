@@ -1537,6 +1537,110 @@ export const projects: Project[] = [
       {"name": "CommonPorts", "kind": "library", "oneLiner": "The port-intelligence table: ~110 known ports and ~30 process-name patterns mapped to a readable label and a SwiftUI color for each row's dot."},
       {"name": "CShell", "kind": "library", "oneLiner": "A small C popen wrapper used instead of Swift's Process API, which proved unreliable for shelling out to lsof and kill from the menu-bar app."}
     ]
+  },
+  {
+    "slug": "construcredit",
+    "num": "17",
+    "title": "ConstruCredit",
+    "tagline": "The platform a Colombian lender runs on, from the public site where a family applies to the panel where an advisor approves.",
+    "oneLiner": "The software a Colombian microcredit lender runs on",
+    "year": "2026",
+    "status": "live",
+    "role": "Sole developer · client work",
+    "tags": [
+      "fintech",
+      "microcredit",
+      "client work",
+      "monorepo",
+      "PostgreSQL",
+      "role-based access"
+    ],
+    "stack": [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "Node",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Zod",
+      "Turborepo",
+      "pnpm",
+      "Vitest",
+      "Tailwind CSS",
+      "Vercel",
+      "Google Cloud Run",
+      "WhatsApp notifications"
+    ],
+    "summary": "ConstruCredit lends to families building their own homes in Colombia, one wall at a time. I build the software the whole business runs on.\n\nThere are two faces to it. The public site is where a family picks a credit line and applies. Behind it sits the panel the staff live in: clients, credits, payments, notifications, reports, administration and audit, each screen filtered to what that person's role may see.\n\nUnder both sits the part that has to be right. The amortization engine works over outstanding balance and the Colombian business calendar, so a payment landing on a holiday behaves the way the business says it should. CI refuses to merge anything that drops that engine below 100% line and function coverage, and the integration tests run against a real Postgres instead of a mock.\n\nThe schema is 32 tables across 109 versioned migrations, each one shipped with the file that rolls it back, under row-level security. Site and panel deploy on Vercel, the API runs on Cloud Run, and a worker handles WhatsApp notifications and scheduled jobs.\n\nClosed source, so this page links the live site instead of a repo.",
+    "problem": "A lender running on spreadsheets and WhatsApp can survive a hundred clients. It cannot survive a thousand. The arithmetic drifts, nobody can say who approved what, and every question about a balance costs an afternoon.",
+    "highlights": [
+      "**The calculation engine cannot regress.** CI enforces 100% line and function coverage on `packages/dominio`, which computes amortization, late interest and balances. It has already blocked a merge that let coverage slip to 98.44%.",
+      "**Pesos are exact.** `packages/dinero` models money as its own type, so rounding is a decision the code makes on purpose.",
+      "**Dates answer to the Colombian calendar.** `packages/calendario` carries the country's holidays, so due dates and late interest land where the business says they land.",
+      "**109 migrations, each with its reverse.** Every schema change ships beside the file that undoes it, and the row-level security policies are versioned the same way.",
+      "**The panel is gated per role.** Two-factor login, forced rotation of the provisional password, and navigation filtered to the signed-in role across all seven modules.",
+      "**Four Vitest projects, integration tests on a real Postgres.** The database suite refuses to run unless it is pointed at the test database."
+    ],
+    "metrics": [
+      "32 tables",
+      "109 versioned migrations",
+      "100% coverage on the calc engine",
+      "121 PRs merged in three weeks",
+      "4 apps · 8 shared packages"
+    ],
+    "links": [
+      {
+        "label": "construcredit.com.co",
+        "url": "https://construcredit.com.co",
+        "kind": "live"
+      }
+    ],
+    "cover": "/portfolio/previews/construcredit.png",
+    "demoLabel": "construcredit.com.co",
+    "previewKind": "web",
+    "accent": "#0f5f5c",
+    "subProjects": [
+      {
+        "name": "web",
+        "kind": "app",
+        "oneLiner": "The public site where a family reads the three credit lines and applies."
+      },
+      {
+        "name": "panel",
+        "kind": "app",
+        "oneLiner": "The internal system the staff works in: clients, credits, payments, notifications, reports, administration and audit, filtered per role."
+      },
+      {
+        "name": "api",
+        "kind": "service",
+        "oneLiner": "The HTTP layer over clients, credits, payments, parameters, users and authentication, running on Cloud Run."
+      },
+      {
+        "name": "worker",
+        "kind": "worker",
+        "oneLiner": "Scheduled jobs and the WhatsApp notification lane."
+      },
+      {
+        "name": "dominio",
+        "kind": "library",
+        "oneLiner": "The calculation engine: amortization over outstanding balance, late interest, balances. No IO, and CI holds it at 100% coverage."
+      },
+      {
+        "name": "dinero",
+        "kind": "library",
+        "oneLiner": "Exact peso arithmetic as its own type, so rounding never happens by accident."
+      },
+      {
+        "name": "calendario",
+        "kind": "library",
+        "oneLiner": "The Colombian business calendar the due dates and late interest are computed against."
+      },
+      {
+        "name": "db",
+        "kind": "library",
+        "oneLiner": "Schema, versioned migrations with their reverse files, and the row-level security policies."
+      }
+    ]
   }
 ];
 
