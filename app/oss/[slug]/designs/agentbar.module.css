@@ -442,6 +442,12 @@
 
 .prompt {
   color: var(--ab-ok);
+  flex: none;
+}
+
+.noteBody {
+  flex: 1;
+  min-width: 0;
 }
 
 .kbd {
@@ -526,6 +532,30 @@
 
 .gaugeGhost .gaugeCell {
   background: var(--ab-fg);
+}
+
+/* Hover and focus are STATE, not motion, so they live out here. Inside the
+   no-preference block they would leave a reduced-motion visitor with two inert
+   CTAs and no pointer feedback at all. Only the easing and the lift are motion. */
+.gaugeBtn:hover,
+.gaugeBtn:focus-visible {
+  border-color: rgba(52, 211, 153, 0.7);
+}
+
+.gaugeGhost:hover,
+.gaugeGhost:focus-visible {
+  border-color: rgba(232, 236, 242, 0.5);
+  color: var(--ab-fg);
+}
+
+.gaugeBtn:hover .gaugeSweep,
+.gaugeBtn:focus-visible .gaugeSweep {
+  transform: scaleX(1);
+}
+
+.gaugeBtn:hover .gaugeCell,
+.gaugeBtn:focus-visible .gaugeCell {
+  opacity: 1;
 }
 
 /* ---- the panel ----------------------------------------------------------- */
@@ -673,18 +703,50 @@
   color: var(--ab-faint);
 }
 
-.panelCaption {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin: 14px 2px 0;
-  font-family: var(--ab-mono);
-  font-size: 11px;
-  color: var(--ab-faint);
+/* The pet is the feature, so all four states are on the page rather than one
+   frame described in a caption. It also gives the column its second beat. */
+.moodRail {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 16px;
 }
 
-.captionSprout {
-  flex: none;
+.mood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--ab-line);
+  background: rgba(255, 255, 255, 0.025);
+  text-align: center;
+  transition:
+    border-color 0.24s ease,
+    background 0.24s ease,
+    transform 0.24s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.mood:hover {
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.moodName {
+  font-family: var(--ab-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ab-fg);
+}
+
+.moodWhen {
+  font-family: var(--ab-mono);
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--ab-faint);
 }
 
 /* ---- the sprout ---------------------------------------------------------- */
@@ -868,17 +930,6 @@
   .gaugeBtn:hover,
   .gaugeBtn:focus-visible {
     transform: translateY(-2px);
-    border-color: rgba(52, 211, 153, 0.7);
-  }
-
-  .gaugeBtn:hover .gaugeSweep,
-  .gaugeBtn:focus-visible .gaugeSweep {
-    transform: scaleX(1);
-  }
-
-  .gaugeBtn:hover .gaugeCell,
-  .gaugeBtn:focus-visible .gaugeCell {
-    opacity: 1;
   }
 
   .gaugeBtn:active {
@@ -898,10 +949,14 @@
     animation-delay: calc(1500ms + var(--r, 0) * 90ms + var(--c, 0) * 40ms);
   }
 
-  .row:last-child .hot {
+  /* Any row in the rose band breathes once its cells have filled. The delay is
+     restated because this shorthand would otherwise reset .cell's staggered
+     animation-delay to 0s and snap all 24 cells in at once. */
+  .hot {
     animation:
       ab-fill 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both,
       ab-breathe 4s ease-in-out 3s infinite;
+    animation-delay: calc(1500ms + var(--r, 0) * 90ms + var(--c, 0) * 40ms), 3s;
   }
 
   .sprout {

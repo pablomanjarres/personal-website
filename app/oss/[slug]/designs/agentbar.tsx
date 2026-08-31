@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Hero } from "../../heroes";
 import MenuStrip from "./agentbar/MenuStrip";
@@ -31,6 +32,15 @@ const ROWS: Row[] = [
   { agent: "cx", label: "Codex", window: "5h", pct: 18, resets: "21:14" },
   { agent: "cx", label: "Codex", window: "7d", pct: 74, resets: "Sun" },
 ];
+
+/** The pet's four states and what puts him in each. This is the feature, so the
+ *  page shows all of it rather than describing one frame in a caption. */
+const MOODS = [
+  { mood: "calm", name: "calm", when: "room to work" },
+  { mood: "working", name: "working", when: "a block is burning" },
+  { mood: "strained", name: "strained", when: "past 80%" },
+  { mood: "spent", name: "spent", when: "window gone" },
+] as const;
 
 /** Backticks in hero.note become keycap chips, the way forge does it. */
 function renderNote(note: string) {
@@ -70,12 +80,13 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
       {/* ---- nav --------------------------------------------------------- */}
       <nav className={styles.nav}>
-        <a className={styles.brand} href="/">
+        <Link className={styles.brand} href="/">
           <span className={styles.brandMark}>✦</span> Pablo
-        </a>
+        </Link>
         <div className={styles.navLinks}>
-          <a href="/oss">OSS</a>
-          <a href={`/portfolio/projects/${slug}`}>Write-up</a>
+          <Link href="/oss">OSS</Link>
+          <Link href="/portfolio">Portfolio</Link>
+          <Link href={`/portfolio/projects/${slug}`}>Write-up</Link>
           <a href={hero.repo} target="_blank" rel="noreferrer noopener">
             GitHub
           </a>
@@ -130,11 +141,13 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
             <span className={styles.prompt} aria-hidden="true">
               ~ ❯
             </span>
-            {renderNote(hero.note)}
+            {/* one span, so the flex gap falls between prompt and text rather
+                than at every backtick in the install line */}
+            <span className={styles.noteBody}>{renderNote(hero.note)}</span>
           </p>
 
           <div className={styles.cta}>
-            <GaugeButton href={hero.repo} delay={d(1440)}>
+            <GaugeButton href={hero.repo} external delay={d(1440)}>
               Read the source
             </GaugeButton>
             <GaugeButton href={`/portfolio/projects/${slug}`} tone="ghost" delay={d(1540)}>
@@ -151,10 +164,19 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
             status="on the clock"
             style={d(1500)}
           />
-          <p className={styles.panelCaption} style={d(1900)}>
-            <Sprout mood="strained" scale={2} className={styles.captionSprout} />
-            he gets visibly worried as a window burns down
-          </p>
+          <div className={styles.moodRail} style={d(1900)}>
+            {MOODS.map((m, i) => (
+              <div
+                className={styles.mood}
+                key={m.mood}
+                style={{ ["--m" as string]: String(i) } as CSSProperties}
+              >
+                <Sprout mood={m.mood} scale={3} />
+                <span className={styles.moodName}>{m.name}</span>
+                <span className={styles.moodWhen}>{m.when}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
 
