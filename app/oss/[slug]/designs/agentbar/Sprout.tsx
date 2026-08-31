@@ -15,18 +15,13 @@ import styles from "../agentbar.module.css";
  * Legend: l leaf · s stem · o outline · h face · e eye · w mouth · b body
  *         c chest dot · . transparent
  */
-const BODY = [
-  ".oooooooooo.",
-  "ohhhhhhhhhho",
-  "ohhhhhhhhhho",
-  "ohhhhhhhhhho",
-  "ohhhhhhhhhho",
-  ".oooooooooo.",
-  "...bbbbbb...",
-  "..bbbbbbbb..",
-  "..bb.cc.bb..",
-  "..bb....bb..",
-];
+/* Named rather than indexed: an earlier version pulled these out of one array
+   by position, which left a row unreachable and would have made a later edit
+   to the face silently do nothing. */
+const HEAD_TOP = ".oooooooooo.";
+const HEAD_BLANK = "ohhhhhhhhhho";
+const HEAD_BOTTOM = ".oooooooooo.";
+const TORSO = ["...bbbbbb...", "..bbbbbbbb..", "..bb.cc.bb..", "..bb....bb.."];
 
 type Mood = "calm" | "working" | "strained" | "spent";
 
@@ -67,15 +62,17 @@ export default function Sprout({
   className?: string;
 }) {
   const face = FACES[mood];
+  // 3 canopy + 7 head + 4 torso = the 14 rows the CSS grid is sized for
   const rows = [
     ...CANOPY[mood],
-    BODY[0],
-    BODY[1],
+    HEAD_TOP,
+    HEAD_BLANK,
     face.eyes,
-    BODY[3],
+    HEAD_BLANK,
     face.mouth,
-    BODY[4],
-    ...BODY.slice(5),
+    HEAD_BLANK,
+    HEAD_BOTTOM,
+    ...TORSO,
   ];
 
   return (

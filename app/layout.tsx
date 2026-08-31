@@ -222,7 +222,7 @@ const caveat = Caveat({
 });
 
 // A dot-matrix face: the headline is literally built out of pixels, which is
-// what a menu bar readout is. Its ROND axis rounds the dots off on hover.
+// what a menu bar readout is.
 const doto = Doto({
   variable: "--font-doto",
   subsets: ["latin"],
