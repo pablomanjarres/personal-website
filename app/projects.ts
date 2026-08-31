@@ -1695,6 +1695,7 @@ export const projects: Project[] = [
         "kind": "demo"
       }
     ],
+    "cover": "/portfolio/previews/agentbar.png",
     "previewKind": "app",
     "subProjects": [
       {
