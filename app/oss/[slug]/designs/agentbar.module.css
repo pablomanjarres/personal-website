@@ -368,12 +368,15 @@
   box-shadow: 0 0 10px rgba(52, 211, 153, 0.75);
 }
 
+/* Doto is a dot-matrix face and runs wide, so it needs a smaller cap than a
+ * normal display font at the same visual weight. Sized so the headline holds
+ * two lines and the CTAs stay above the fold at 1440x900. */
 .title {
   margin: 0;
   font-family: var(--ab-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 6.4vw, 5.2rem);
-  line-height: 0.98;
+  font-size: clamp(2.2rem, 5vw, 4.1rem);
+  line-height: 1.02;
   letter-spacing: -0.01em;
 }
 
