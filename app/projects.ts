@@ -1641,6 +1641,83 @@ export const projects: Project[] = [
         "oneLiner": "Schema, versioned migrations with their reverse files, and the row-level security policies."
       }
     ]
+  },
+  {
+    "slug": "agentbar",
+    "num": "18",
+    "title": "agentbar",
+    "tagline": "Both coding agents in one menu bar item: how much of each rate-limit window is gone, and what today cost.",
+    "oneLiner": "Claude Code and Codex usage, live in the macOS menu bar",
+    "year": "2026",
+    "status": "shipped",
+    "role": "Solo · engineering",
+    "tags": [
+      "macOS",
+      "menu bar",
+      "developer tools",
+      "observability",
+      "token accounting",
+      "SwiftBar"
+    ],
+    "stack": [
+      "Python 3 (stdlib)",
+      "SwiftBar",
+      "ccusage",
+      "claude-swap",
+      "macOS Keychain",
+      "Pillow (optional)"
+    ],
+    "summary": "I run Claude Code and OpenAI Codex side by side all day, and both of them keep the only two numbers I care about hidden: how close I am to a rate limit, and what the day has cost. Each tool already writes that to disk in its own shape, and neither shows it while you work. agentbar is one SwiftBar plugin that reads both and puts them in a single menu bar item.\n\nIt is one file of Python with no runtime dependencies. Live gauges come from each account's own usage endpoint, spend is reconstructed from the transcripts already sitting in your home directory, and the whole thing degrades to whichever half you actually have installed.",
+    "problem": "Two agents, two rate-limit systems, two token ledgers, and no shared view of either. Worse, both of the obvious ways to read that data are quietly wrong: Codex writes a running total per session that resets mid-file on compaction, and the Claude side goes through a cache whose countdown strings are frozen at fetch time, so a broken collector keeps reading like a live number.",
+    "highlights": [
+      "**The token walk is exact, and the naive version is not.** Codex writes `info.total_token_usage` as a running total per session, and a compaction resets it mid-file. `parse_rollout` differences consecutive readings and treats a decrease as a fresh baseline. Summing the sibling `last_token_usage` instead double-counts: 68,437,053 tokens against a true 66,512,469 on one real session. A test asserts the walk reproduces each session's final cumulative figure exactly.",
+      "**Live gauges come from an endpoint that is not documented anywhere.** Every published `/backend-api/codex/*` usage path returns 403. The one the CLI itself calls is `/backend-api/wham/usage`, and it only answers with an `originator` header set. It returns the plan, an account-level window pair, and per-model buckets that carry their own 5h window.",
+      "**A model with no price is a warning, not a silent zero.** `gpt-5.3-codex-spark` is a research preview with no API price at all, so agentbar ships no number for it and says so in the menu. The aggregators quoting a price for it are copying its parent model's row. The same guard had already caught a real gap on the Claude side, where a stale bundled price table valued every Opus 5 token at $0.",
+      "**Nothing is allowed to look healthier than it is.** Windows past their own reset draw grey with their age instead of a green bar, and are excluded from the title and from the colour that turns the bar red. The daemon row reads \"running but FAILING\" when its last logged event was an error, because a live process is not a working one.",
+      "**The pet is read from your machine, never shipped.** Codex bundles desktop pets, so the menu bar wears one. A 40-line stdlib parser walks the Electron archive inside your own Codex.app and pulls out the sprite sheet at its recorded offset, and the frame tracks your worst window: idle with headroom, at a laptop while you burn, shouting near the wall. The art belongs to OpenAI, so a test fails the build if any sprite is ever committed.",
+      "**Caches are versioned, because mtime does not move when the parser does.** Transcript scans are cached per file on `(mtime, size)`, which makes a refresh cost 0.00s against 0.20s cold over 41 sessions. Both that cache and the pet's carry a schema version, so a fix to the accounting actually reaches people who already have cached results."
+    ],
+    "metrics": [
+      "1 file, 0 runtime dependencies",
+      "20 checks across 3 suites",
+      "0.20s cold scan, 0.00s warm",
+      "2 agents, 6 rate-limit windows"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/pablomanjarres/agentbar",
+        "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablomanjarres.com/oss/agentbar",
+        "kind": "demo"
+      }
+    ],
+    "previewKind": "app",
+    "subProjects": [
+      {
+        "name": "usage lane",
+        "kind": "module",
+        "oneLiner": "Live rate-limit windows for both agents, normalised into one shape so a single renderer draws Claude's 5h/7d and Codex's per-model buckets."
+      },
+      {
+        "name": "spend lane",
+        "kind": "module",
+        "oneLiner": "API-equivalent cost from local transcripts, priced per model, with a high-water-mark ledger so totals never shrink when history is pruned."
+      },
+      {
+        "name": "pet lane",
+        "kind": "module",
+        "oneLiner": "Stdlib asar reader plus a cached crop that puts the Codex pet in the menu bar without redistributing the art."
+      },
+      {
+        "name": "tests",
+        "kind": "tests",
+        "oneLiner": "Delta-walk accuracy, price arithmetic, window dedupe, stale readings, and the menu rendered with each agent missing."
+      }
+    ]
   }
 ];
 
