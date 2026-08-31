@@ -15,6 +15,7 @@ import Valhalla from "./valhalla";
 import Redline from "./redline";
 import Lumen from "./lumen";
 import Portpeek from "./portpeek";
+import Agentbar from "./agentbar";
 
 // The contract every design (bespoke or default) satisfies.
 export type DesignComponent = ComponentType<{ hero: Hero; slug: string }>;
@@ -37,6 +38,7 @@ const registry: Record<string, DesignComponent> = {
   redline: Redline,
   lumen: Lumen,
   portpeek: Portpeek,
+  agentbar: Agentbar,
 };
 
 export function getDesign(slug: string): DesignComponent {

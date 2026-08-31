@@ -195,6 +195,18 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/PortPeek",
     "live": null,
     "oss": true
+  },
+  {
+    "slug": "agentbar",
+    "title": "agentbar",
+    "kicker": "AGENTBAR · OPEN SOURCE",
+    "titleLead": "Two agents.",
+    "titleMain": "One menu bar.",
+    "subtitle": "agentbar watches Claude Code and OpenAI Codex side by side and answers the two questions you actually have while working: how much of each rate-limit window is gone, and what today's tokens would have cost at API rates. Gauges come live from each account, spend is read off transcripts already on your disk, and a Codex pet gets visibly worried as you burn down a window.",
+    "note": "Symlink `agentbar.1m.py` into `~/.swiftbar` and the item appears within a minute. One file, Python stdlib, no runtime dependencies.",
+    "repo": "https://github.com/pablomanjarres/agentbar",
+    "live": null,
+    "oss": true
   }
 ];
 
