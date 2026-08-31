@@ -24,6 +24,9 @@ import {
   Space_Grotesk,
   Newsreader,
   Caveat,
+  Doto,
+  Geist,
+  Geist_Mono,
 } from "next/font/google";
 import "./globals.css";
 
@@ -218,6 +221,32 @@ const caveat = Caveat({
   preload: false,
 });
 
+// A dot-matrix face: the headline is literally built out of pixels, which is
+// what a menu bar readout is. Its ROND axis rounds the dots off on hover.
+const doto = Doto({
+  variable: "--font-doto",
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "900"],
+  display: "swap",
+  preload: false,
+});
+
+// The closest thing on Google Fonts to SF Pro, so the page reads as macOS
+// system UI and the pixel-ness lands as a deliberate accent, not a costume.
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geistmono",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 // ---- exact per-slug contract vars (aliased to the canonical family vars) ----
 // Consumed by app/oss/[slug]/designs/<slug>.tsx. Documented in
 // app/oss/[slug]/designs/CONTRACT.md. Computed-key form (matches app/theme.ts)
@@ -272,6 +301,10 @@ const ossFontVars: CSSProperties = {
   ["--font-portpeek-display" as string]: "var(--font-spacegrotesk)",
   ["--font-portpeek-body" as string]: "var(--font-hanken)",
   ["--font-portpeek-mono" as string]: "var(--font-jetbrains)",
+  // agentbar — Doto / Geist / Geist Mono
+  ["--font-agentbar-display" as string]: "var(--font-doto)",
+  ["--font-agentbar-body" as string]: "var(--font-geist)",
+  ["--font-agentbar-mono" as string]: "var(--font-geistmono)",
 };
 
 const fontVariables = [
@@ -298,6 +331,9 @@ const fontVariables = [
   spaceGrotesk.variable,
   newsreader.variable,
   caveat.variable,
+  doto.variable,
+  geist.variable,
+  geistMono.variable,
 ].join(" ");
 
 export const metadata: Metadata = {
