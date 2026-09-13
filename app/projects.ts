@@ -1719,6 +1719,93 @@ export const projects: Project[] = [
         "oneLiner": "Delta-walk accuracy, price arithmetic, window dedupe, stale readings, and the menu rendered with each agent missing."
       }
     ]
+  },
+  {
+    "slug": "alfred",
+    "num": "19",
+    "title": "Alfred",
+    "tagline": "A small Codex desktop butler that keeps voice orders, agent runs, and local history in one calm place.",
+    "oneLiner": "A Codex desktop butler for voice orders and bounded local agent runs",
+    "year": "2026",
+    "status": "prototype",
+    "role": "Solo · design + engineering",
+    "tags": [
+      "Codex",
+      "desktop companion",
+      "voice control",
+      "macOS",
+      "agent orchestration",
+      "local-first"
+    ],
+    "stack": [
+      "TypeScript",
+      "Node.js",
+      "OpenAI Codex CLI",
+      "macOS speech synthesis",
+      "macOS speech recognition",
+      "filesystem history",
+      "shell workers",
+      "Codex MCP configuration",
+      "GitHub"
+    ],
+    "summary": "Alfred is the small butler I wanted beside Codex desktop. I can give it a voice order, let the Alfred pet hold the instruction in view, and send bounded work through the Codex subscription and MCP setup I already use. It is meant to feel like a quiet desk assistant, not another dashboard to babysit.\n\nThe prototype keeps the surface simple: a Node TypeScript CLI for typed orders, Codex exec account routing, serialized runs so two jobs do not stomp each other, and a local history of what was asked and answered. A native macOS helper can listen while the machine is awake, dictate files, and speak replies. Clap activation is an awake-helper shortcut only, not a real asleep wake system.",
+    "problem": "Codex is already where I hand work to agents, but quick spoken orders still fall through the cracks. Alfred gives those orders a small trusted place to land, keeps the run bounded, and leaves the record on disk instead of turning the idea into a full app.",
+    "highlights": [
+      "Typed orders keep the CLI narrow: ask, run, say, dictate, and history stay as explicit commands instead of a vague natural-language daemon.",
+      "Codex exec routing uses the account and MCP configuration already present on the machine, so Alfred does not ship its own MCP server or duplicate secrets.",
+      "Serialized runs keep local agent work bounded. One order is active at a time, later orders wait in line, and each run records what was asked and what came back.",
+      "The Codex desktop surface stays primary. Alfred is designed around the pet and voice layer already in the user's working environment, with no separate interactive demo pretending to be the product.",
+      "The macOS voice worker is optional and native: it can listen while awake, take file dictation, and speak a reply with system speech.",
+      "Clap activation is honest about the hardware boundary. It can trigger the awake helper, but waking a sleeping Mac needs an always-on external sensor."
+    ],
+    "metrics": [
+      "5 typed order families",
+      "1 serialized local run queue",
+      "0 custom MCP servers",
+      "1 optional macOS voice worker"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/pablomanjarres/Alfred",
+        "kind": "repo"
+      },
+      {
+        "label": "Landing page",
+        "url": "https://pablomanjarres.com/oss/alfred",
+        "kind": "demo"
+      }
+    ],
+    "cover": "/portfolio/previews/alfred.png",
+    "previewKind": "app",
+    "accent": "#b99048",
+    "subProjects": [
+      {
+        "name": "Typed order CLI",
+        "kind": "cli",
+        "oneLiner": "Node TypeScript command surface for ask, run, say, dictate, and history orders without a second app UI."
+      },
+      {
+        "name": "Codex run router",
+        "kind": "worker",
+        "oneLiner": "Bounded `codex exec` runner that uses the existing subscription account and configured MCP tools."
+      },
+      {
+        "name": "Run ledger",
+        "kind": "library",
+        "oneLiner": "Local filesystem history for orders, outputs, and the active queue so spoken work leaves a readable trail."
+      },
+      {
+        "name": "macOS voice helper",
+        "kind": "extension",
+        "oneLiner": "Optional awake-only helper for speech recognition, file dictation, clap trigger, and spoken replies."
+      },
+      {
+        "name": "Codex desktop pet",
+        "kind": "surface",
+        "oneLiner": "Alfred Pennyworth-inspired pet treatment that makes the assistant visible inside the existing Codex desktop flow."
+      }
+    ]
   }
 ];
 

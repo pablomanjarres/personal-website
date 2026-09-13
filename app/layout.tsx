@@ -27,6 +27,7 @@ import {
   Doto,
   Geist,
   Geist_Mono,
+  Cormorant_Garamond,
 } from "next/font/google";
 import "./globals.css";
 
@@ -247,6 +248,13 @@ const geistMono = Geist_Mono({
   preload: false,
 });
 
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 // ---- exact per-slug contract vars (aliased to the canonical family vars) ----
 // Consumed by app/oss/[slug]/designs/<slug>.tsx. Documented in
 // app/oss/[slug]/designs/CONTRACT.md. Computed-key form (matches app/theme.ts)
@@ -305,6 +313,10 @@ const ossFontVars: CSSProperties = {
   ["--font-agentbar-display" as string]: "var(--font-doto)",
   ["--font-agentbar-body" as string]: "var(--font-geist)",
   ["--font-agentbar-mono" as string]: "var(--font-geistmono)",
+  // alfred — Cormorant Garamond / Geist / Geist Mono
+  ["--font-alfred-display" as string]: "var(--font-cormorant)",
+  ["--font-alfred-body" as string]: "var(--font-geist)",
+  ["--font-alfred-mono" as string]: "var(--font-geistmono)",
 };
 
 const fontVariables = [
@@ -334,6 +346,7 @@ const fontVariables = [
   doto.variable,
   geist.variable,
   geistMono.variable,
+  cormorantGaramond.variable,
 ].join(" ");
 
 export const metadata: Metadata = {

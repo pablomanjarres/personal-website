@@ -207,6 +207,18 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/agentbar",
     "live": null,
     "oss": true
+  },
+  {
+    "slug": "alfred",
+    "title": "Alfred",
+    "kicker": "ALFRED · OPEN SOURCE",
+    "titleLead": "A butler for",
+    "titleMain": "your Codex desk.",
+    "subtitle": "Alfred is a small personal butler for Codex desktop. You give voice orders, the Alfred pet keeps the order visible, and bounded Codex runs handle the work through the account and MCP setup you already have.",
+    "note": "Prototype: Node TypeScript CLI, Codex exec routing, serialized runs, local history, and an optional macOS voice worker. Clap activation works only while the helper is awake.",
+    "repo": "https://github.com/pablomanjarres/Alfred",
+    "live": null,
+    "oss": true
   }
 ];
 
