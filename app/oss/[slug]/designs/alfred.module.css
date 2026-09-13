@@ -904,3 +904,169 @@
   .pet[data-mood="listening"] {
     animation-name: alfredPetListen;
   }
+
+  .wave i {
+    animation: alfredWave 1.4s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 52ms);
+  }
+
+  .orderActive .orderLamp {
+    animation: alfredPulse 1.2s ease-in-out infinite;
+  }
+
+  .ledgerLine {
+    opacity: 0;
+    animation: alfredLedgerLine 0.48s ease both;
+    animation-delay: calc(1220ms + var(--r) * 90ms);
+  }
+}
+
+@keyframes alfredPortrait {
+  from {
+    transform: scale(1.01) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.05) translate3d(1.2%, -0.8%, 0);
+  }
+}
+
+@keyframes alfredLamp {
+  0%,
+  100% {
+    opacity: 0.78;
+    filter: saturate(1);
+  }
+  50% {
+    opacity: 1;
+    filter: saturate(1.2);
+  }
+}
+
+@keyframes alfredLedgerDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 72px;
+  }
+}
+
+@keyframes alfredNoise {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(2px, -2px, 0);
+  }
+}
+
+@keyframes alfredRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes alfredWord {
+  from {
+    transform: translateY(112%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes alfredBell {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  28% {
+    transform: rotate(-10deg);
+  }
+  58% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes alfredRing {
+  0% {
+    opacity: 0;
+    transform: translateY(1px) scaleX(0.4);
+  }
+  35% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scaleX(1.05);
+  }
+}
+
+@keyframes alfredPolish {
+  0%,
+  62%,
+  100% {
+    transform: translateX(-120%);
+  }
+  82% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes alfredPet {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes alfredPetListen {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-2px) rotate(-1deg);
+  }
+}
+
+@keyframes alfredWave {
+  0%,
+  100% {
+    transform: scaleY(0.62);
+    opacity: 0.42;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 0.92;
+  }
+}
+
+@keyframes alfredPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 9px rgba(111, 184, 154, 0.62);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(111, 184, 154, 0.92);
+  }
+}
+
+@keyframes alfredLedgerLine {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
