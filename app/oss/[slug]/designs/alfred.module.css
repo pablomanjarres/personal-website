@@ -517,3 +517,194 @@
   opacity: 0;
 }
 
+.bellRings i + i {
+  transform: translateY(5px) scaleX(0.74);
+}
+
+.deskWrap {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 31rem);
+}
+
+.desk {
+  position: relative;
+  border: 1px solid var(--a-line);
+  border-radius: 12px;
+  padding: 16px;
+  background:
+    linear-gradient(180deg, rgba(32, 35, 46, 0.8), rgba(9, 11, 18, 0.82)),
+    rgba(12, 15, 24, 0.74);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.deskTop {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 14px;
+}
+
+.petFrame,
+.voiceCard,
+.order,
+.ledger,
+.limitCard {
+  border: 1px solid var(--a-hair);
+  background: rgba(5, 7, 13, 0.42);
+}
+
+.petFrame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 11rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.petHalo {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(231, 201, 130, 0.18), transparent 68%);
+  filter: blur(1px);
+}
+
+.pet {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  grid-template-columns: repeat(12, 5px);
+  grid-template-rows: repeat(14, 5px);
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.35));
+}
+
+.pet i {
+  display: block;
+  width: 5px;
+  height: 5px;
+}
+
+.petHair {
+  background: #f1dfb7;
+}
+
+.petShadow {
+  background: #bda36e;
+}
+
+.petBrow {
+  background: #6d5130;
+}
+
+.petFace {
+  background: #ead3ad;
+}
+
+.petEye {
+  background: #2a1f18;
+}
+
+.petListen {
+  background: #6fb89a;
+  box-shadow: 0 0 5px rgba(111, 184, 154, 0.85);
+}
+
+.petMouth {
+  background: #5b2333;
+}
+
+.petListenMouth {
+  background: #6fb89a;
+}
+
+.petSmile {
+  background: #8f463e;
+}
+
+.petCoat {
+  background: #1d2430;
+}
+
+.petShirt {
+  background: #e8dbc2;
+}
+
+.petBrass {
+  background: var(--a-brass);
+}
+
+.petTag {
+  position: absolute;
+  left: 10px;
+  bottom: 9px;
+  color: var(--a-faint);
+  font-family: var(--a-mono);
+  font-size: 10px;
+}
+
+.voiceCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 11rem;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.voiceLabel,
+.limitTitle {
+  color: var(--a-brass-hot);
+  font-family: var(--a-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.voiceText {
+  max-width: 13rem;
+  color: var(--a-ivory);
+  font-family: var(--a-display);
+  font-size: 1.45rem;
+  line-height: 1.02;
+}
+
+.wave {
+  display: flex;
+  align-items: end;
+  gap: 3px;
+  height: 34px;
+}
+
+.wave i {
+  flex: 1;
+  min-width: 3px;
+  height: calc(7px + (var(--i) % 5) * 5px);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--a-green), rgba(111, 184, 154, 0.16));
+  opacity: 0.72;
+  transform-origin: bottom;
+}
+
+.orderList {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.order {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 11px 12px;
+  border-radius: 9px;
+  transition: border-color 0.22s ease, background 0.22s ease;
+}
