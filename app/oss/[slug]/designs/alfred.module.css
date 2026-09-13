@@ -1,0 +1,159 @@
+/* ============================================================================
+   Alfred design brief
+   Concept: Codex desktop as a midnight study, with a small butler pet waiting
+   beside a service ledger.
+   Palette: ink #05070d, manor navy #111827, lamp ivory #f4ead6,
+   old brass #b99048, oxblood #5b2333, glass green #6fb89a.
+   Type: Cormorant Garamond for the Alfred voice, Geist for the macOS surface,
+   Geist Mono for orders, clocks, and run states.
+   Layout: left-aligned hero copy, right-side command desk, fixed nav and footer.
+   Set-piece: AlfredDesk, an illustrative Codex desktop pet plus voice ledger.
+   Motion: one measured entrance, soft candle and brass movement, bell hover.
+   Interaction: CTAs are service bells with ring feedback and clear focus.
+   Honesty: voice is awake-helper only, no asleep clap wake, no fake demo.
+   ========================================================================== */
+
+.root {
+  --a-ink: #05070d;
+  --a-midnight: #111827;
+  --a-panel: rgba(15, 18, 27, 0.74);
+  --a-panel-solid: #151823;
+  --a-ivory: #f4ead6;
+  --a-paper: #ddd1ba;
+  --a-muted: rgba(244, 234, 214, 0.68);
+  --a-faint: rgba(244, 234, 214, 0.42);
+  --a-line: rgba(185, 144, 72, 0.24);
+  --a-hair: rgba(244, 234, 214, 0.13);
+  --a-brass: #b99048;
+  --a-brass-hot: #e7c982;
+  --a-oxblood: #5b2333;
+  --a-green: #6fb89a;
+  --a-shadow: rgba(0, 0, 0, 0.58);
+  --a-display: var(--font-alfred-display, Georgia, serif);
+  --a-body: var(--font-alfred-body, ui-sans-serif, system-ui, sans-serif);
+  --a-mono: var(--font-alfred-mono, ui-monospace, "SF Mono", Menlo, monospace);
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--a-ink);
+  color: var(--a-ivory);
+  font-family: var(--a-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.atmosphere,
+.portrait,
+.manorGlass,
+.wallpaper,
+.ledgerLines,
+.brassGlow,
+.candleNoise,
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.atmosphere {
+  z-index: 0;
+  overflow: hidden;
+}
+
+.portrait {
+  z-index: 0;
+  background:
+    var(--portrait) center / cover no-repeat,
+    radial-gradient(44rem 30rem at 78% 34%, rgba(185, 144, 72, 0.2), transparent 66%),
+    radial-gradient(36rem 28rem at 18% 18%, rgba(91, 35, 51, 0.24), transparent 68%),
+    linear-gradient(130deg, #05070d 0%, #111827 50%, #05070d 100%);
+  filter: saturate(0.94) contrast(1.04);
+  transform-origin: 62% 42%;
+}
+
+.manorGlass {
+  z-index: 1;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(5, 7, 13, 0.96) 0%,
+      rgba(5, 7, 13, 0.88) 24%,
+      rgba(5, 7, 13, 0.58) 44%,
+      rgba(5, 7, 13, 0.22) 64%,
+      rgba(5, 7, 13, 0.08) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(5, 7, 13, 0.94) 0%,
+      rgba(5, 7, 13, 0.36) 18%,
+      transparent 42%,
+      transparent 72%,
+      rgba(5, 7, 13, 0.48) 100%
+    );
+}
+
+.wallpaper {
+  z-index: 2;
+  opacity: 0.4;
+  background:
+    linear-gradient(90deg, rgba(244, 234, 214, 0.035) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(244, 234, 214, 0.024) 1px, transparent 1px),
+    radial-gradient(circle at 12px 12px, rgba(185, 144, 72, 0.16) 0 1px, transparent 2px);
+  background-size: 54px 54px, 54px 54px, 54px 54px;
+  mask-image: linear-gradient(90deg, #000 0 58%, transparent 88%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0 58%, transparent 88%);
+}
+
+.ledgerLines {
+  z-index: 2;
+  opacity: 0.26;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 35px,
+      rgba(185, 144, 72, 0.16) 35px 36px
+    );
+  transform: rotate(-2deg) scale(1.08);
+  transform-origin: center;
+}
+
+.brassGlow {
+  z-index: 3;
+  background:
+    radial-gradient(28rem 20rem at 72% 44%, rgba(231, 201, 130, 0.18), transparent 68%),
+    radial-gradient(18rem 16rem at 90% 82%, rgba(111, 184, 154, 0.12), transparent 70%);
+  mix-blend-mode: screen;
+}
+
+.candleNoise {
+  z-index: 4;
+  opacity: 0.052;
+  mix-blend-mode: overlay;
+  background-size: 150px 150px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/></filter><rect width='150' height='150' filter='url(%23n)' opacity='0.55'/></svg>");
+}
+
+.vignette {
+  z-index: 5;
+  background: radial-gradient(120% 112% at 56% 42%, transparent 46%, rgba(0, 0, 0, 0.74) 100%);
+  mix-blend-mode: multiply;
+}
+
+.nav,
+.stage,
+.footer {
+  position: relative;
+  z-index: 10;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 64px 0;
+}
+
