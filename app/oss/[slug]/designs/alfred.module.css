@@ -1070,3 +1070,106 @@
     transform: translateX(0);
   }
 }
+
+@media (max-width: 1040px) {
+  .stage {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding-top: 46px;
+  }
+
+  .deskWrap {
+    justify-self: start;
+    width: min(100%, 36rem);
+  }
+
+  .title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .root {
+    overflow: clip;
+  }
+
+  .nav {
+    align-items: flex-start;
+    padding: 22px 22px 0;
+  }
+
+  .navLinks {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px 16px;
+  }
+
+  .navLinks a {
+    font-size: 10px;
+  }
+
+  .stage {
+    gap: 34px;
+    padding: 42px 22px 72px;
+  }
+
+  .title {
+    font-size: 3.25rem;
+  }
+
+  .subtitle {
+    font-size: 0.98rem;
+  }
+
+  .deskTop {
+    grid-template-columns: 1fr;
+  }
+
+  .petFrame,
+  .voiceCard {
+    min-height: 9.5rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 22px 22px;
+  }
+}
+
+@media (max-width: 500px) {
+  .brand {
+    font-size: 11px;
+  }
+
+  .title {
+    font-size: 2.65rem;
+  }
+
+  .statusRow {
+    gap: 7px;
+  }
+
+  .seal {
+    min-height: 28px;
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  .bellButton {
+    width: 100%;
+  }
+
+  .order {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .orderState {
+    grid-column: 2;
+  }
+
+  .limitCard {
+    width: 100%;
+    margin-right: 0;
+  }
+}
