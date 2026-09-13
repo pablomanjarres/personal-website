@@ -9,7 +9,6 @@
    Layout: left-aligned hero copy, right-side command desk, fixed nav and footer.
    Set-piece: AlfredDesk, an illustrative Codex desktop pet plus voice ledger.
    Motion: one measured entrance, soft candle and brass movement, bell hover.
-   Interaction: CTAs are service bells with ring feedback and clear focus.
    Honesty: voice is awake-helper only, no asleep clap wake, no fake demo.
    ========================================================================== */
 .root {
@@ -59,6 +58,9 @@
     radial-gradient(44rem 30rem at 78% 34%, rgba(185, 144, 72, 0.2), transparent 66%),
     radial-gradient(36rem 28rem at 18% 18%, rgba(91, 35, 51, 0.24), transparent 68%),
     linear-gradient(130deg, #05070d 0%, #111827 50%, #05070d 100%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   filter: saturate(0.94) contrast(1.04);
   transform-origin: 62% 42%;
 }

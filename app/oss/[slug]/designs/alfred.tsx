@@ -76,6 +76,26 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
           className={styles.portrait}
           style={{ ["--portrait" as string]: `url('/oss/${slug}.png')` }}
         />
+        <video
+          className={styles.portrait}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={`/oss/${slug}.png`}
+        >
+          <source
+            src="/portfolio/banners/alfred.webm"
+            type="video/webm"
+            media="(prefers-reduced-motion: no-preference)"
+          />
+          <source
+            src="/portfolio/banners/alfred.mp4"
+            type="video/mp4"
+            media="(prefers-reduced-motion: no-preference)"
+          />
+        </video>
         <div className={styles.manorGlass} />
         <div className={styles.wallpaper} />
         <div className={styles.ledgerLines} />
