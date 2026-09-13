@@ -331,3 +331,189 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
+.sealMark {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--a-green);
+  box-shadow: 0 0 9px rgba(111, 184, 154, 0.7);
+}
+
+.subtitle {
+  max-width: 42rem;
+  margin: 25px 0 0;
+  color: rgba(244, 234, 214, 0.82);
+  font-size: 1.04rem;
+  line-height: 1.66;
+  text-wrap: pretty;
+}
+
+.note {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  max-width: 43rem;
+  margin: 18px 0 0;
+  color: var(--a-faint);
+  font-family: var(--a-mono);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.notePrompt {
+  flex: none;
+  color: var(--a-green);
+}
+
+.notePrompt::before {
+  content: "[";
+  color: var(--a-brass);
+}
+
+.notePrompt::after {
+  content: "]";
+  color: var(--a-brass);
+}
+
+.kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--a-line);
+  border-radius: 4px;
+  background: rgba(185, 144, 72, 0.1);
+  color: var(--a-ivory);
+  font-family: var(--a-mono);
+  font-size: 0.95em;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 34px;
+}
+
+.bellButton {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  min-width: 174px;
+  justify-content: center;
+  padding: 13px 22px;
+  border-radius: 7px;
+  border: 1px solid var(--a-line);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--a-ivory);
+  font-family: var(--a-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1),
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.bellPrimary {
+  background:
+    linear-gradient(180deg, rgba(231, 201, 130, 0.28), rgba(185, 144, 72, 0.82)),
+    #8c692f;
+  color: #170f09;
+  border-color: rgba(244, 234, 214, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 16px 34px rgba(0, 0, 0, 0.36);
+}
+
+.bellGhost {
+  background: rgba(12, 15, 24, 0.56);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.bellButton:hover,
+.bellButton:focus-visible {
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.bellButton:focus-visible {
+  box-shadow: 0 0 0 3px rgba(111, 184, 154, 0.3),
+    0 18px 36px rgba(0, 0, 0, 0.38);
+}
+
+.bellPrimary:hover,
+.bellPrimary:focus-visible {
+  background:
+    linear-gradient(180deg, #f4d995, #b99048),
+    #b99048;
+}
+
+.bellGhost:hover,
+.bellGhost:focus-visible {
+  border-color: rgba(231, 201, 130, 0.58);
+  color: var(--a-brass-hot);
+  background: rgba(22, 25, 34, 0.72);
+}
+
+.bellIcon {
+  position: relative;
+  width: 27px;
+  height: 22px;
+  flex: none;
+}
+
+.bellDome {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 1px;
+  height: 13px;
+  border-radius: 14px 14px 5px 5px;
+  background: linear-gradient(135deg, #fff3c5, var(--a-brass) 55%, #6f4f21);
+  box-shadow: inset 2px 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+.bellBase {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 14px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6f4f21, #f0d28a 48%, #6f4f21);
+}
+
+.bellClapper {
+  position: absolute;
+  left: 11px;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2b1a0c;
+}
+
+.bellLabel {
+  position: relative;
+  z-index: 2;
+}
+
+.bellRings {
+  position: absolute;
+  inset: 5px 12px auto auto;
+  width: 30px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.bellRings i {
+  position: absolute;
+  inset: 0;
+  border-top: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0;
+}
+
