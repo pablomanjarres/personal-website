@@ -14,20 +14,14 @@
    ========================================================================== */
 .root {
   --a-ink: #05070d;
-  --a-midnight: #111827;
-  --a-panel: rgba(15, 18, 27, 0.74);
-  --a-panel-solid: #151823;
   --a-ivory: #f4ead6;
-  --a-paper: #ddd1ba;
   --a-muted: rgba(244, 234, 214, 0.68);
   --a-faint: rgba(244, 234, 214, 0.42);
   --a-line: rgba(185, 144, 72, 0.24);
   --a-hair: rgba(244, 234, 214, 0.13);
   --a-brass: #b99048;
   --a-brass-hot: #e7c982;
-  --a-oxblood: #5b2333;
   --a-green: #6fb89a;
-  --a-shadow: rgba(0, 0, 0, 0.58);
   --a-display: var(--font-alfred-display, Georgia, serif);
   --a-body: var(--font-alfred-body, ui-sans-serif, system-ui, sans-serif);
   --a-mono: var(--font-alfred-mono, ui-monospace, "SF Mono", Menlo, monospace);
