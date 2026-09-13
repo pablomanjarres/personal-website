@@ -708,3 +708,199 @@
   border-radius: 9px;
   transition: border-color 0.22s ease, background 0.22s ease;
 }
+
+.order:hover {
+  border-color: rgba(231, 201, 130, 0.42);
+  background: rgba(244, 234, 214, 0.045);
+}
+
+.orderActive {
+  border-color: rgba(111, 184, 154, 0.46);
+  background: linear-gradient(90deg, rgba(111, 184, 154, 0.12), rgba(5, 7, 13, 0.38));
+}
+
+.orderLamp {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--a-brass);
+  box-shadow: 0 0 10px rgba(231, 201, 130, 0.62);
+}
+
+.orderActive .orderLamp {
+  background: var(--a-green);
+  box-shadow: 0 0 12px rgba(111, 184, 154, 0.8);
+}
+
+.orderMain {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.orderPhrase {
+  overflow: hidden;
+  color: var(--a-ivory);
+  font-family: var(--a-mono);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orderChannel {
+  color: var(--a-faint);
+  font-family: var(--a-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.orderState {
+  color: var(--a-brass-hot);
+  font-family: var(--a-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ledger {
+  margin-top: 14px;
+  border-radius: 10px;
+  padding: 13px 14px;
+  background:
+    linear-gradient(180deg, rgba(244, 234, 214, 0.04), transparent),
+    rgba(4, 6, 11, 0.46);
+}
+
+.ledgerHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--a-hair);
+  color: var(--a-brass-hot);
+  font-family: var(--a-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ledgerLine {
+  display: block;
+  padding-top: 8px;
+  color: rgba(244, 234, 214, 0.64);
+  font-family: var(--a-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.limitCard {
+  width: min(22rem, 88%);
+  margin: 14px 18px 0 auto;
+  border-radius: 10px;
+  padding: 13px 14px;
+  background: rgba(91, 35, 51, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.limitText {
+  display: block;
+  margin-top: 6px;
+  color: var(--a-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 64px 24px;
+  color: var(--a-faint);
+  font-family: var(--a-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer span:first-child {
+  color: var(--a-brass-hot);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .portrait {
+    animation: alfredPortrait 30s ease-in-out infinite alternate;
+  }
+
+  .brassGlow {
+    animation: alfredLamp 4.8s ease-in-out infinite;
+  }
+
+  .ledgerLines {
+    animation: alfredLedgerDrift 18s linear infinite;
+  }
+
+  .candleNoise {
+    animation: alfredNoise 1.4s steps(2, end) infinite;
+  }
+
+  .kicker,
+  .statusRow,
+  .subtitle,
+  .note,
+  .desk,
+  .limitCard {
+    opacity: 0;
+    animation: alfredRise 0.78s cubic-bezier(0.2, 0.74, 0.2, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .word {
+    transform: translateY(112%);
+    animation: alfredWord 0.74s cubic-bezier(0.2, 0.74, 0.2, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .bellButton {
+    opacity: 0;
+    animation: alfredRise 0.72s cubic-bezier(0.2, 0.74, 0.2, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .bellButton:hover .bellIcon,
+  .bellButton:focus-visible .bellIcon {
+    animation: alfredBell 0.48s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .bellButton:hover .bellRings i,
+  .bellButton:focus-visible .bellRings i {
+    animation: alfredRing 0.52s ease-out;
+  }
+
+  .bellButton:hover .bellRings i + i,
+  .bellButton:focus-visible .bellRings i + i {
+    animation-delay: 0.08s;
+  }
+
+  .desk::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, transparent, rgba(231, 201, 130, 0.12), transparent),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 28%);
+    transform: translateX(-120%);
+    animation: alfredPolish 7s ease-in-out infinite 1.4s;
+  }
+
+  .pet {
+    animation: alfredPet 2.2s ease-in-out infinite;
+  }
+
+  .pet[data-mood="listening"] {
+    animation-name: alfredPetListen;
+  }
