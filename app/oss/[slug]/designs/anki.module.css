@@ -339,3 +339,183 @@
   font-size: 10px;
   line-height: 1.4;
 }
+
+/* Interactive sample card, treated as a small product rather than decoration. */
+.studyLane {
+  min-width: 0;
+  max-width: 610px;
+  justify-self: end;
+  width: 100%;
+  border: 1px solid rgba(225, 217, 246, 0.2);
+  border-radius: 27px;
+  padding: clamp(17px, 2vw, 25px);
+  background: linear-gradient(155deg, rgba(30, 28, 39, 0.9), rgba(17, 16, 25, 0.9));
+  box-shadow: 0 32px 90px -30px rgba(0, 0, 0, 0.78), inset 0 1px rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(22px);
+}
+.laneTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 2px 20px;
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 600;
+}
+.liveDot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--sage);
+  box-shadow: 0 0 0 4px rgba(204, 229, 169, 0.1), 0 0 13px rgba(204, 229, 169, 0.45);
+}
+.sampleTag {
+  margin-left: auto;
+  color: var(--muted);
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.035em;
+}
+.cardStage {
+  position: relative;
+  padding: 19px 5px 0;
+  perspective: 800px;
+}
+.cardShadowTwo,
+.cardShadowOne {
+  position: absolute;
+  border-radius: 23px;
+  background: #4c425e;
+  border: 1px solid rgba(225, 217, 246, 0.16);
+  pointer-events: none;
+}
+.cardShadowTwo {
+  inset: 0 22px 19px;
+  transform: translateY(-12px) rotate(-2deg);
+  opacity: 0.43;
+}
+.cardShadowOne {
+  inset: 4px 12px 14px;
+  transform: translateY(-8px) rotate(1.3deg);
+  opacity: 0.69;
+}
+.studyCard {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 382px;
+  padding: clamp(21px, 2.4vw, 30px);
+  border-radius: 22px;
+  background: #d2c2f1;
+  color: #24212d;
+  box-shadow: 0 24px 48px -25px rgba(0, 0, 0, 0.58), inset 0 1px rgba(255, 255, 255, 0.45);
+  touch-action: pan-y;
+  user-select: none;
+}
+.cardMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 10px;
+  color: rgba(36, 33, 45, 0.73);
+}
+.cardKind {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.53);
+  color: #403451;
+}
+.cardKind::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #655285;
+}
+.cardIndex { font-variant-numeric: tabular-nums; }
+.cardMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px 0 16px;
+}
+.sourceLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #534762;
+}
+.sourceLine i {
+  display: block;
+  flex: none;
+  width: 13px;
+  height: 15px;
+  border: 1.5px solid #655285;
+  border-radius: 2px;
+  box-shadow: inset -3px 0 rgba(101, 82, 133, 0.14);
+}
+.cardMain h2 {
+  margin: 18px 0 0;
+  max-width: 13ch;
+  font-family: var(--font-anki-display), Georgia, serif;
+  font-size: clamp(2.4rem, 3.5vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.054em;
+}
+.cardContext {
+  margin: 14px 0 0;
+  color: #665972;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.reveal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid rgba(75, 61, 100, 0.3);
+  border-radius: 11px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.42);
+  color: #4b3d64;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 170ms ease, transform 170ms ease;
+}
+.reveal:hover { background: rgba(255, 255, 255, 0.72); transform: translateY(-2px); }
+.reveal:active { transform: translateY(0); }
+.reveal:focus-visible { outline: 2px solid #47315c; outline-offset: 3px; }
+.revealArrow { font-size: 19px; font-weight: 400; line-height: 0.8; }
+.answer {
+  margin-top: 8px;
+  border-top: 1px solid rgba(75, 61, 100, 0.28);
+  padding-top: 13px;
+}
+.answer span {
+  font-family: var(--font-anki-mono), monospace;
+  color: #5a4b6d;
+  font-size: 10px;
+}
+.answer p {
+  margin: 6px 0 0;
+  max-width: 43ch;
+  color: #28222e;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+}
