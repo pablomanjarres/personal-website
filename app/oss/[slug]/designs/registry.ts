@@ -17,6 +17,7 @@ import Lumen from "./lumen";
 import Portpeek from "./portpeek";
 import Agentbar from "./agentbar";
 import Alfred from "./alfred";
+import Anki from "./anki";
 
 // The contract every design (bespoke or default) satisfies.
 export type DesignComponent = ComponentType<{ hero: Hero; slug: string }>;
@@ -41,6 +42,7 @@ const registry: Record<string, DesignComponent> = {
   portpeek: Portpeek,
   agentbar: Agentbar,
   alfred: Alfred,
+  "anki": Anki,
 };
 
 export function getDesign(slug: string): DesignComponent {
