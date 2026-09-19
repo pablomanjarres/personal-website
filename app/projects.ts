@@ -1821,12 +1821,12 @@ export const projects: Project[] = [
     "summary": "I wanted a study deck that starts from what I have actually reached. Anki reads my course schedule and materials from Cortex, tracks my place in each book, and keeps every card tied to a source page or section. The daily review stays small enough to finish on a phone.\n\nThe app runs on my Mac with a private Tailscale address. ChatGPT can reach a separate MCP server through a private tunnel, and a scheduled task prepares a small set of cited cards each morning. The study database stays local in SQLite.",
     "problem": "Lecture files arrive early, while the class moves week by week. A book file can contain hundreds of unread pages. Turning all of that into cards at once makes a review deck noisy and easy to abandon. This app uses the class date and reading checkpoint to decide what is ready.",
     "highlights": [
-      "**Thirty distinct reviews a day.** `server/store/reviews.ts` puts due cards first, tracks the backlog, and leaves same-day relearning available after the cap.",
-      "**Five grades with a deliberate extra step.** `server/store/reviews.ts` maps Again, Hard, Mid, and Easy to FSRS; EZ extends the Easy interval.",
-      "**Sources travel with every card.** `server/cortex/index.ts` uses dated class material and reached book passages; `server/generation/submit.ts` checks the quoted evidence and answer before saving.",
-      "**Fourteen small MCP tools.** `server/mcp/` exposes 7 reads and 7 writes for context, cards, progress, grading, and daily run records.",
-      "**A pocket-sized review flow.** `src/LiveReview.tsx` supports swipe-up reveal, five visible grade buttons, undo, and reduced-motion preferences.",
-      "**A daily run you can inspect.** `server/store/cards.ts` records success, zero-card, and rejected results; `server/monitor/check.ts` alerts after 8:00 a.m. Bogota when a run is missing or failed."
+      "Thirty distinct reviews a day. server/store/reviews.ts puts due cards first, tracks the backlog, and leaves same-day relearning available after the cap.",
+      "Five grades with a deliberate extra step. server/store/reviews.ts maps Again, Hard, Mid, and Easy to FSRS; EZ extends the Easy interval.",
+      "Sources travel with every card. server/cortex/index.ts uses dated class material and reached book passages; server/generation/submit.ts checks the quoted evidence and answer before saving.",
+      "Fourteen small MCP tools. server/mcp/ exposes 7 reads and 7 writes for context, cards, progress, grading, and daily run records.",
+      "A pocket-sized review flow. src/LiveReview.tsx supports swipe-up reveal, five visible grade buttons, undo, and reduced-motion preferences.",
+      "A daily run you can inspect. server/store/cards.ts records success, zero-card, and rejected results; server/monitor/check.ts alerts after 8:00 a.m. Bogota when a run is missing or failed."
     ],
     "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "41 server tests"],
     "links": [
@@ -1834,7 +1834,7 @@ export const projects: Project[] = [
       { "label": "Landing page", "url": "https://pablomanjarres.com/oss/anki", "kind": "demo" }
     ],
     "cover": "/portfolio/previews/anki.png",
-    "previewKind": "app",
+    "previewKind": "web",
     "accent": "#bca9ee",
     "subProjects": [
       { "name": "Pocket PWA", "kind": "app", "oneLiner": "Phone-first review, books, decks, statistics, swipe reveal, and offline app shell." },
