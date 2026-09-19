@@ -519,3 +519,86 @@
   line-height: 1.5;
   font-weight: 600;
 }
+
+.gradeShelf { padding: 23px 2px 2px; }
+.gradeIntro {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 500;
+}
+.shelfCount {
+  color: var(--muted);
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.ratings {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  min-height: 60px;
+  border: 1px solid rgba(225, 217, 246, 0.18);
+  border-radius: 10px;
+  background: rgba(225, 217, 246, 0.08);
+  color: var(--paper);
+  font: 500 11px var(--font-anki-body), sans-serif;
+  cursor: pointer;
+  transition: transform 170ms ease, border-color 170ms ease, background 170ms ease;
+}
+.rating:not(:disabled):hover {
+  transform: translateY(-4px);
+  border-color: var(--lilac);
+  background: rgba(197, 181, 237, 0.2);
+}
+.rating:disabled { cursor: default; opacity: 0.45; }
+.rating:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+.ratingMark {
+  color: var(--lilac);
+  font: 400 11px var(--font-anki-mono), monospace;
+}
+.ratingEz .ratingMark { color: var(--sage); }
+.ratingEz:not(:disabled):hover { border-color: var(--sage); background: rgba(204, 229, 169, 0.14); }
+.ruler {
+  display: flex;
+  gap: 3px;
+  width: 100%;
+  margin-top: 20px;
+}
+.ruler span {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(225, 217, 246, 0.13);
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+.ruler .rulerDone { background: var(--sage); box-shadow: 0 0 7px rgba(204, 229, 169, 0.45); }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - clamp(54px, 10.4vw, 148px));
+  max-width: 1452px;
+  margin: 0 auto;
+  padding: 20px 0 26px;
+  border-top: 1px solid var(--hair);
+  color: var(--faint);
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.footerName { color: var(--lilac); }
