@@ -54,6 +54,12 @@ type Theme = {
 // here are the only ones loaded for that card (title/kicker/tagline dedup), and
 // every flavor flourish reuses one of those three families.
 const THEMES: Record<string, Theme> = {
+  anki: {
+    bg: "#101019", fg: "#F2EEF2", accent: "#C5B5ED", accent2: "#CCE5A9", scrim: "dark",
+    title: "sora800", kicker: "spaceMono700", tagline: "hanken500",
+    fallback: "radial-gradient(100% 110% at 78% 35%, rgba(197,181,237,0.28), #101019 68%)",
+    flavor: "default",
+  },
   cortex: {
     bg: "#000000", fg: "#E6FFF4", accent: "#22E6A4", accent2: "#E7B24C", scrim: "dark",
     title: "martian700", kicker: "martian500", tagline: "martian500",
