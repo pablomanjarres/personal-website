@@ -1,0 +1,172 @@
+/*
+  ANKI — "The memory desk"
+  Concept: a quiet, dark place where one study card comes forward at a time.
+  Palette: ink #101019, soft paper #f2eef2, lilac #c5b5ed, sage #cce5a9,
+  muted slate #878894, and card charcoal #25232d.
+  Type: Newsreader for the editorial promise, Sora for the useful words,
+  Space Mono for counts and source locators.
+  Layout: wide left-aligned introduction, live sample card to the right.
+  Signature: a touch-friendly review lane with a paper stack and 30-slot ruler.
+  Motion: the memory path lights up once as the title and card settle in;
+  card reveal and grading respond to the visitor's action.
+  On a phone, the card drops below the introduction at full thumb width.
+*/
+
+.root {
+  --ink: #101019;
+  --inkDeep: #0c0b13;
+  --paper: #f2eef2;
+  --lilac: #c5b5ed;
+  --lilacLight: #e1d9f6;
+  --sage: #cce5a9;
+  --muted: #a4a0ae;
+  --faint: #777482;
+  --hair: rgba(225, 217, 246, 0.16);
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  background: var(--inkDeep);
+  color: var(--paper);
+  font-family: var(--font-anki-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Six atmospheric planes keep the photographed desk separate from the UI. */
+.art,
+.scrim,
+.orbit,
+.grain,
+.vignette,
+.edgeFrame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.art {
+  z-index: 0;
+  background: var(--inkDeep) url("/oss/anki.png") center / cover no-repeat;
+  filter: saturate(0.94) contrast(1.03);
+}
+.ambientVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 32%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 32%, #000 100%);
+}
+.scrim {
+  z-index: 1;
+  background:
+    linear-gradient(95deg, rgba(12, 11, 19, 0.97) 0%, rgba(12, 11, 19, 0.91) 26%, rgba(12, 11, 19, 0.67) 48%, rgba(12, 11, 19, 0.18) 80%),
+    linear-gradient(0deg, rgba(12, 11, 19, 0.92), transparent 24%, transparent 77%, rgba(12, 11, 19, 0.52));
+}
+.orbit {
+  z-index: 1;
+  opacity: 0.53;
+  background:
+    radial-gradient(circle at 80% 35%, rgba(197, 181, 237, 0.35) 0 2px, transparent 3px),
+    radial-gradient(circle at 89% 52%, rgba(204, 229, 169, 0.6) 0 3px, transparent 4px),
+    radial-gradient(circle at 65% 66%, rgba(197, 181, 237, 0.3) 0 2px, transparent 3px),
+    radial-gradient(ellipse 61% 50% at 85% 52%, transparent 59%, rgba(197, 181, 237, 0.17) 60%, transparent 60.2%),
+    radial-gradient(ellipse 46% 35% at 84% 52%, transparent 59%, rgba(204, 229, 169, 0.12) 60%, transparent 60.3%);
+}
+.grain {
+  z-index: 2;
+  opacity: 0.065;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+}
+.vignette {
+  z-index: 2;
+  background: radial-gradient(ellipse 110% 105% at 55% 44%, transparent 35%, rgba(7, 6, 12, 0.63));
+}
+.edgeFrame {
+  z-index: 3;
+  inset: clamp(12px, 1.7vw, 23px);
+  border: 1px solid rgba(225, 217, 246, 0.085);
+}
+
+.nav,
+.hero,
+.footer {
+  position: relative;
+  z-index: 4;
+}
+
+/* The shared site navigation keeps its shape, with the app's quieter ink. */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: clamp(24px, 3vw, 34px) clamp(27px, 5.2vw, 74px);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--paper);
+  text-decoration: none;
+  font-family: var(--font-anki-display), Georgia, serif;
+  font-size: clamp(21px, 2vw, 25px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  transition: color 180ms ease;
+}
+.brand:hover,
+.brand:focus-visible { color: var(--lilacLight); }
+.brand:focus-visible,
+.navLinks a:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 5px;
+  border-radius: 2px;
+}
+.brandStar {
+  color: var(--sage);
+  font-family: var(--font-anki-body), sans-serif;
+  font-size: 17px;
+  line-height: 1;
+  transform: rotate(-18deg);
+  transition: transform 260ms ease;
+}
+.brand:hover .brandStar { transform: rotate(28deg); }
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 36px);
+}
+.navLinks a {
+  position: relative;
+  color: rgba(242, 238, 242, 0.75);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 180ms ease;
+}
+.navLinks a::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  left: 0;
+  right: 100%;
+  bottom: -7px;
+  background: var(--sage);
+  transition: right 220ms ease;
+}
+.navLinks a:hover,
+.navLinks a:focus-visible { color: var(--paper); }
+.navLinks a:hover::after,
+.navLinks a:focus-visible::after { right: 0; }
