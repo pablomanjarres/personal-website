@@ -317,6 +317,10 @@ const ossFontVars: CSSProperties = {
   ["--font-alfred-display" as string]: "var(--font-cormorant)",
   ["--font-alfred-body" as string]: "var(--font-geist)",
   ["--font-alfred-mono" as string]: "var(--font-geistmono)",
+  // anki — Newsreader / Sora / Space Mono
+  ["--font-anki-display" as string]: "var(--font-newsreader)",
+  ["--font-anki-body" as string]: "var(--font-sora)",
+  ["--font-anki-mono" as string]: "var(--font-spacemono)",
 };
 
 const fontVariables = [

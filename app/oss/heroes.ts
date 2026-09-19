@@ -219,6 +219,18 @@ export const heroes: Hero[] = [
     "repo": "https://github.com/pablomanjarres/Alfred",
     "live": null,
     "oss": true
+  },
+  {
+    "slug": "anki",
+    "title": "Anki",
+    "kicker": "ANKI · OPEN SOURCE",
+    "titleLead": "Study what's here.",
+    "titleMain": "Keep it longer.",
+    "subtitle": "A quiet deck for the material you've actually reached. Anki turns dated lectures and read pages into cited cards, then brings each one back when it's due.",
+    "note": "Run the phone-first PWA on your Mac, connect Cortex, then add the private `@Anki` MCP app to ChatGPT.",
+    "repo": "https://github.com/pablomanjarres/anki",
+    "live": null,
+    "oss": true
   }
 ];
 
