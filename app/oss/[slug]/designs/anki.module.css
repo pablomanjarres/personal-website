@@ -170,3 +170,172 @@
 .navLinks a:focus-visible { color: var(--paper); }
 .navLinks a:hover::after,
 .navLinks a:focus-visible::after { right: 0; }
+
+.hero {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+  padding: clamp(28px, 4.5vw, 66px) clamp(27px, 5.2vw, 74px) clamp(62px, 7vw, 92px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.9fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 105px);
+}
+.copy { min-width: 0; }
+.smallRule {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: clamp(24px, 3vw, 40px);
+  color: var(--sage);
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  line-height: 1.4;
+}
+.ruleMark {
+  width: 27px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--lilac), var(--sage));
+  box-shadow: 0 0 12px rgba(204, 229, 169, 0.35);
+}
+.headline {
+  margin: 0;
+  font-family: var(--font-anki-display), Georgia, serif;
+  font-size: clamp(4.5rem, 7.8vw, 8.4rem);
+  line-height: 0.92;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  text-wrap: balance;
+  text-shadow: 0 5px 36px rgba(0, 0, 0, 0.36);
+}
+.lineMask {
+  display: block;
+  overflow: hidden;
+  padding: 0.07em 0 0.11em;
+  margin: -0.07em 0 -0.11em;
+}
+.headlineLine {
+  display: block;
+  color: var(--paper);
+}
+.headlineSecond { color: var(--lilacLight); }
+.subtitle {
+  max-width: 46ch;
+  margin: clamp(25px, 3vw, 38px) 0 0;
+  font-size: clamp(15px, 1.27vw, 18px);
+  line-height: 1.72;
+  color: rgba(242, 238, 242, 0.85);
+  text-wrap: pretty;
+}
+
+/* Folded paper corners make the CTAs specific to this card-based product. */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(26px, 3.2vw, 42px);
+}
+.foldButton {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-width: 180px;
+  padding: 15px 17px 15px 20px;
+  overflow: hidden;
+  border-radius: 7px 16px 7px 7px;
+  background: var(--lilacLight);
+  color: #1a1723;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 14px 35px -18px rgba(0, 0, 0, 0.8), inset 0 1px rgba(255, 255, 255, 0.68);
+  transition: transform 210ms cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 210ms ease, background 210ms ease;
+}
+.foldButton:hover {
+  transform: translateY(-3px) rotate(-1deg);
+  background: #f0eafc;
+  box-shadow: 0 21px 42px -17px rgba(197, 181, 237, 0.42);
+}
+.foldButton:active { transform: translateY(0) scale(0.98); }
+.foldButton:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 4px;
+}
+.foldFace { position: relative; z-index: 2; }
+.foldArrow {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-anki-mono), monospace;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 210ms ease;
+}
+.foldButton:hover .foldArrow { transform: translate(2px, -2px); }
+.foldCorner {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 0;
+  width: 19px;
+  height: 19px;
+  background: linear-gradient(225deg, rgba(16, 16, 25, 0.3) 0 49%, #8474b8 51%);
+  box-shadow: -1px 1px 3px rgba(26, 23, 35, 0.22);
+  transition: width 230ms ease, height 230ms ease;
+}
+.foldButton:hover .foldCorner { width: 28px; height: 28px; }
+.foldQuiet {
+  background: rgba(37, 35, 45, 0.72);
+  color: var(--paper);
+  border: 1px solid rgba(225, 217, 246, 0.27);
+  box-shadow: 0 14px 35px -18px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+.foldQuiet:hover { background: rgba(61, 54, 74, 0.88); }
+.foldQuiet .foldCorner { background: linear-gradient(225deg, rgba(16, 16, 25, 0.4) 0 49%, #584b74 51%); }
+
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  max-width: 52ch;
+  margin: 30px 0 0;
+  color: rgba(242, 238, 242, 0.62);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.noteLine {
+  flex: none;
+  width: 3px;
+  align-self: stretch;
+  min-height: 22px;
+  border-radius: 3px;
+  background: var(--sage);
+}
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 600px;
+  gap: 17px;
+  margin-top: clamp(38px, 5vw, 72px);
+  border-top: 1px solid var(--hair);
+  padding-top: 17px;
+}
+.principles div { display: flex; flex-direction: column; gap: 5px; }
+.principles strong {
+  font-family: var(--font-anki-display), Georgia, serif;
+  color: var(--sage);
+  font-size: 37px;
+  font-weight: 400;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.principles span {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+}
