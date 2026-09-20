@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import s from "./anki.module.css";
 import SlotRuler from "./anki/SlotRuler";
@@ -120,31 +120,8 @@ function StudyLane() {
 }
 
 export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncPlayback = () => {
-      const video = videoRef.current;
-      if (!video) return;
-      if (preference.matches) {
-        video.pause();
-        video.currentTime = 0;
-      } else {
-        void video.play().catch(() => {});
-      }
-    };
-    preference.addEventListener("change", syncPlayback);
-    syncPlayback();
-    return () => preference.removeEventListener("change", syncPlayback);
-  }, []);
-
   return <main className={s.root}>
     <div className={s.art} aria-hidden="true" />
-    <video ref={videoRef} className={s.ambientVideo} loop muted playsInline preload="metadata"
-      poster="/oss/anki.png" aria-hidden="true">
-      <source src="/portfolio/banners/anki.webm" type="video/webm" />
-      <source src="/portfolio/banners/anki.mp4" type="video/mp4" />
-    </video>
     <div className={s.scrim} aria-hidden="true" />
     <div className={s.orbit} aria-hidden="true" />
     <div className={s.grain} aria-hidden="true" />
