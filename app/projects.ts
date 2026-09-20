@@ -1814,7 +1814,7 @@ export const projects: Project[] = [
     "tagline": "A private study deck that knows which lecture and page you've reached.",
     "oneLiner": "A phone-first review deck grounded in your courses and books",
     "year": "2026",
-    "status": "wip",
+    "status": "live",
     "role": "Solo · design + engineering",
     "tags": ["spaced repetition", "MCP", "local-first", "study", "PWA", "Cortex"],
     "stack": ["React 19", "TypeScript 7", "Vite 8", "Hono 4", "SQLite", "ts-fsrs 5", "MCP SDK 1.30", "Tailscale"],
@@ -1828,14 +1828,14 @@ export const projects: Project[] = [
       "A pocket-sized review flow. src/LiveReview.tsx supports swipe-up reveal, five visible grade buttons, undo, and reduced-motion preferences.",
       "A daily run you can inspect. server/store/cards.ts records success, zero-card, and rejected results; server/monitor/check.ts alerts after 8:00 a.m. Bogota when a run is missing or failed."
     ],
-    "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "41 server tests"],
+    "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "45 server tests"],
     "links": [
       { "label": "GitHub", "url": "https://github.com/pablomanjarres/anki", "kind": "repo" },
       { "label": "Landing page", "url": "https://pablomanjarres.com/oss/anki", "kind": "demo" }
     ],
     "cover": "/portfolio/previews/anki.png",
     "previewKind": "web",
-    "accent": "#bca9ee",
+    "accent": "#d7c7eb",
     "subProjects": [
       { "name": "Pocket PWA", "kind": "app", "oneLiner": "Phone-first review, books, decks, statistics, swipe reveal, and offline app shell." },
       { "name": "Study store", "kind": "library", "oneLiner": "SQLite cards, reading progress, FSRS schedules, history, and daily generation records." },

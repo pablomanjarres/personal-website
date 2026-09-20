@@ -55,9 +55,9 @@ type Theme = {
 // every flavor flourish reuses one of those three families.
 const THEMES: Record<string, Theme> = {
   anki: {
-    bg: "#101019", fg: "#F2EEF2", accent: "#C5B5ED", accent2: "#CCE5A9", scrim: "dark",
+    bg: "#FFFDF9", fg: "#3B2D43", accent: "#795C88", accent2: "#DCA57E", scrim: "light",
     title: "sora800", kicker: "spaceMono700", tagline: "hanken500",
-    fallback: "radial-gradient(100% 110% at 78% 35%, rgba(197,181,237,0.28), #101019 68%)",
+    fallback: "radial-gradient(100% 110% at 78% 35%, rgba(215,199,235,0.4), #FFFDF9 68%)",
     flavor: "default",
   },
   cortex: {
@@ -200,13 +200,12 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: theme.fallback, backgroundSize: "100% 100%" }} />
         )}
         {bg ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={bg}
             alt=""
             width={1200}
             height={630}
-            style={{ position: "absolute", top: 0, left: 0, width: 1200, height: 630, objectFit: "cover", opacity: isLight ? 0.2 : 1 }}
+            style={{ position: "absolute", top: 0, left: 0, width: 1200, height: 630, objectFit: "cover", opacity: slug === "anki" ? 0.62 : isLight ? 0.2 : 1 }}
           />
         ) : (
           !isLight && <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: theme.fallback, backgroundSize: "100% 100%" }} />
