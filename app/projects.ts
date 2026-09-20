@@ -1828,7 +1828,7 @@ export const projects: Project[] = [
       "A pocket-sized review flow. src/LiveReview.tsx supports swipe-up reveal, five visible grade buttons, undo, and reduced-motion preferences.",
       "A daily run you can inspect. server/store/cards.ts records success, zero-card, and rejected results; server/monitor/check.ts alerts after 8:00 a.m. Bogota when a run is missing or failed."
     ],
-    "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "44 server tests"],
+    "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "45 server tests"],
     "links": [
       { "label": "GitHub", "url": "https://github.com/pablomanjarres/anki", "kind": "repo" },
       { "label": "Landing page", "url": "https://pablomanjarres.com/oss/anki", "kind": "demo" }
