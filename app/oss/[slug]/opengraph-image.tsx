@@ -200,7 +200,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: theme.fallback, backgroundSize: "100% 100%" }} />
         )}
         {bg ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={bg}
             alt=""
