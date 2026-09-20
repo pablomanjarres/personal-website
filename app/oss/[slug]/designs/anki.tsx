@@ -64,6 +64,9 @@ function StudyLane() {
   };
 
   return <div className={s.studyLane} style={delay(620)}>
+    {/* The phone view carries the same mascot as the live app. */}
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img className={s.mobileMascot} src="/oss/anki-dragon.webp" alt="" aria-hidden="true" draggable={false} />
     <div className={s.laneTop}>
       <span className={s.liveDot} aria-hidden="true" />
       <span>Try a review</span>
