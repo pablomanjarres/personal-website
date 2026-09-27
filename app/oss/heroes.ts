@@ -35,7 +35,7 @@ export const heroes: Hero[] = [
     "titleLead": "Your whole life,",
     "titleMain": "one encrypted dashboard.",
     "subtitle": "A macOS desktop app that pulls your habits, sprints, reading, CRM, calendar, coursework, finances, and live founder metrics into one place. Data stays on your machine, encrypted at rest, and Claude can read and write all of it over MCP.",
-    "note": "Run npm run electron:dev to boot it, then claude mcp add cortex to wire the 51-tool MCP server into Claude.",
+    "note": "Run `npm run electron:dev` for the desktop app. Build `mcp-server` and connect its stdio server to your MCP client.",
     "repo": "https://github.com/pablomanjarres/cortex",
     "live": null,
     "oss": true

@@ -1,5 +1,4 @@
-const CACHE = 'cortex-v1'
-const API_CACHE = 'cortex-api-v1'
+const CACHE = 'cortex-demo-brand-v2'
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html'])))
@@ -9,7 +8,7 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE && k !== API_CACHE).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((k) => k !== CACHE && (k.startsWith('cortex-demo-') || k === 'cortex-v1' || k === 'cortex-api-v1')).map((k) => caches.delete(k)))
     )
   )
   self.clients.claim()
@@ -18,20 +17,13 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url)
 
-  // API: network-first, cache GET responses as fallback
+  // The sample app has no backend. Never forward API requests.
   if (url.pathname.startsWith('/api/')) {
-    if (e.request.method !== 'GET') return
-    e.respondWith(
-      fetch(e.request)
-        .then((res) => {
-          const clone = res.clone()
-          caches.open(API_CACHE).then((c) => c.put(e.request, clone))
-          return res
-        })
-        .catch(() => caches.match(e.request))
-    )
+    e.respondWith(new Response('null', { headers: { 'Content-Type': 'application/json' } }))
     return
   }
+
+  if (url.origin !== self.location.origin || !url.pathname.startsWith('/demos/cortex/')) return
 
   // Static assets: stale-while-revalidate
   e.respondWith(

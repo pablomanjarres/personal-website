@@ -11,7 +11,7 @@
 
 import { ImageResponse } from "next/og";
 import { heroes, getHero } from "../heroes";
-import { F, type FontKey, loadFonts, loadBackground, rgba } from "./og-assets";
+import { F, type FontKey, loadFonts, loadBackground, loadProjectIdentity, rgba } from "./og-assets";
 
 export const alt = "OSS project by Pablo Manjarres";
 export const size = { width: 1200, height: 630 };
@@ -55,9 +55,9 @@ type Theme = {
 // every flavor flourish reuses one of those three families.
 const THEMES: Record<string, Theme> = {
   anki: {
-    bg: "#101019", fg: "#F2EEF2", accent: "#C5B5ED", accent2: "#CCE5A9", scrim: "dark",
+    bg: "#FFFDF9", fg: "#3B2D43", accent: "#B7673F", accent2: "#D7C7EB", scrim: "light",
     title: "sora800", kicker: "spaceMono700", tagline: "hanken500",
-    fallback: "radial-gradient(100% 110% at 78% 35%, rgba(197,181,237,0.28), #101019 68%)",
+    fallback: "radial-gradient(100% 110% at 78% 35%, rgba(183,103,63,0.2), #FFFDF9 68%)",
     flavor: "default",
   },
   cortex: {
@@ -152,9 +152,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const kickerText = (hero?.kicker ?? "OPEN SOURCE").toUpperCase();
   const tagline = hero ? `${hero.titleLead} ${hero.titleMain}`.trim() : "";
 
-  const [bg, fonts] = await Promise.all([
-    loadBackground(slug),
+  const [bg, fonts, identity] = await Promise.all([
+    slug === "anki" ? Promise.resolve(null) : loadBackground(slug),
     loadFonts([theme.title, theme.kicker, theme.tagline]),
+    loadProjectIdentity(slug),
   ]);
 
   const titleFamily = F[theme.title].family;
@@ -200,7 +201,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: theme.fallback, backgroundSize: "100% 100%" }} />
         )}
         {bg ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={bg}
             alt=""
@@ -238,15 +238,21 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 6, display: "flex", backgroundColor: theme.accent }} />
         )}
 
+        {identity && (
+          <div style={{ position: "absolute", top: 54, left: 76, display: "flex", backgroundColor: "#FFFDF9", padding: "20px 26px", borderRadius: 20 }}>
+            <img src={identity} alt="" width={330} height={Math.round(330 * 320 / (slug === "cortex" ? 1590 : 1398))} />
+          </div>
+        )}
+
         {/* 3. the type block — bottom-left, painted last so it sits on top */}
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            ...(identity ? { top: 280, left: 76, right: 76 } : { inset: 0 }),
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            padding: "0 76px 72px 76px",
+            padding: identity ? "0" : "0 76px 72px 76px",
           }}
         >
           <div style={{ display: "flex", fontFamily: kickerFamily, fontWeight: kickerWeight, fontSize: 22, letterSpacing: 4, color: theme.accent, marginBottom: 20 }}>
