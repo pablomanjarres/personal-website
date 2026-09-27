@@ -103,6 +103,12 @@ export function loadBackground(slug: string): Promise<string | null> {
   return p;
 }
 
+export async function loadProjectIdentity(slug: string): Promise<string | null> {
+  if (slug !== "cortex" && slug !== "anki") return null;
+  const svg = await readFile(join(ROOT, "public", "brand", slug, `${slug}-logo.svg`));
+  return `data:image/svg+xml;base64,${svg.toString("base64")}`;
+}
+
 /** #RGB / #RRGGBB -> rgba() string for scrims and glows. */
 export function rgba(hex: string, alpha: number): string {
   const h = hex.replace("#", "");
