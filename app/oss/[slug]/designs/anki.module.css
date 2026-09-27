@@ -63,10 +63,17 @@
 .art {
   z-index: 0;
   background: radial-gradient(ellipse at 80% 38%, #eedace 0, #f7eee4 38%, #fffdf9 74%);
-  background-image: url("/brand/anki/anki-symbol.svg"), radial-gradient(ellipse at 80% 38%, #eedace 0, #f7eee4 38%, #fffdf9 74%);
-  background-size: min(560px, 42vw), cover;
-  background-position: 87% 40%, center;
-  background-repeat: no-repeat;
+}
+.art::after {
+  content: "";
+  position: absolute;
+  width: min(560px, 42vw);
+  aspect-ratio: 412 / 405;
+  top: 26%;
+  right: 5%;
+  background: #b7673f;
+  opacity: 0.2;
+  mask: url("/brand/anki/anki-symbol.svg") center / contain no-repeat;
 }
 .scrim {
   z-index: 1;
