@@ -12,6 +12,21 @@
   On a phone, the card drops below the introduction at full thumb width.
 */
 
+.identityPlate {
+  width: min(290px, 74vw);
+  margin-bottom: 30px;
+  padding: 17px 21px;
+  border: 1px solid rgba(183, 103, 63, 0.2);
+  border-radius: 20px;
+  background: #fffdf9;
+  box-shadow: 0 14px 36px rgba(31, 23, 19, 0.12);
+}
+.identityPlate img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .root {
   --ink: #101019;
   --inkDeep: #0c0b13;
@@ -611,7 +626,7 @@
   .navLinks a:nth-child(1) { animation-delay: 80ms; }
   .navLinks a:nth-child(2) { animation-delay: 150ms; }
   .navLinks a:nth-child(3) { animation-delay: 220ms; }
-  .smallRule, .subtitle, .actions, .note, .principles, .studyLane {
+  .identityPlate, .smallRule, .subtitle, .actions, .note, .principles, .studyLane {
     animation: acLift 760ms cubic-bezier(0.22, 0.7, 0.2, 1) var(--delay, 0ms) both;
   }
   .headlineLine { animation: acUnfold 900ms cubic-bezier(0.2, 0.75, 0.16, 1) var(--delay, 0ms) both; }

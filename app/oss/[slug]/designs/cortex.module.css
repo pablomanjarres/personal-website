@@ -4,6 +4,21 @@
    keychain-gold accent, terminal-luxe HUD. All motion is gated behind
    prefers-reduced-motion with a finished static fallback. */
 
+.identityPlate {
+  width: min(310px, 74vw);
+  margin-bottom: clamp(20px, 3vh, 32px);
+  padding: 18px 22px;
+  border: 1px solid rgba(98, 74, 181, 0.3);
+  border-radius: 18px;
+  background: #f7f3eb;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3);
+}
+.identityPlate img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .root {
   /* palette */
   --bg: #000000;
