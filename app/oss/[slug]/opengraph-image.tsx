@@ -250,11 +250,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            ...(identity ? { top: 280, left: 76, right: 76 } : { inset: 0 }),
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            padding: "0 76px 72px 76px",
+            padding: identity ? "0" : "0 76px 72px 76px",
           }}
         >
           <div style={{ display: "flex", fontFamily: kickerFamily, fontWeight: kickerWeight, fontSize: 22, letterSpacing: 4, color: theme.accent, marginBottom: 20 }}>
