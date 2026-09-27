@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ProjectLogo, { projectIdentities } from "../../../ProjectLogo";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import s from "./anki.module.css";
@@ -120,6 +121,7 @@ function StudyLane() {
 }
 
 export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
+  const identity = projectIdentities[slug];
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -162,6 +164,11 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
     <section className={s.hero}>
       <div className={s.copy}>
+        {identity && (
+          <div className={s.identityPlate} style={delay(60)}>
+            <ProjectLogo identity={identity} title={hero.title} />
+          </div>
+        )}
         <div className={s.smallRule} style={delay(100)}><span className={s.ruleMark} />{hero.kicker}</div>
         <h1 className={s.headline} aria-label={`${hero.titleLead} ${hero.titleMain}`}>
           <span className={s.lineMask}><span className={s.headlineLine} style={delay(210)} aria-hidden="true">{hero.titleLead}</span></span>

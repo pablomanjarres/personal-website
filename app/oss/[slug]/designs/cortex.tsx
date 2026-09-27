@@ -10,6 +10,7 @@
 // See ./CONTRACT.md — the signature/props/nav shape are locked.
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
+import ProjectLogo, { projectIdentities } from "../../../ProjectLogo";
 import type { Hero } from "../../heroes";
 import styles from "./cortex.module.css";
 import CipherRain from "./cortex/CipherRain";
@@ -66,6 +67,7 @@ function NoteBody({ text }: { text: string }): ReactNode {
 
 export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
   const h = hero;
+  const identity = projectIdentities[slug];
   const writeup = `https://pablomanjarres.com/portfolio/projects/${slug}`;
   const mainParts = splitAccent(h.titleMain, "encrypted");
 
@@ -109,6 +111,11 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       </nav>
 
       <section className={styles.hero}>
+        {identity && (
+          <div className={`${styles.identityPlate} ${styles.reveal}`} style={ms(T.kicker - 120)}>
+            <ProjectLogo identity={identity} title={h.title} />
+          </div>
+        )}
         <div className={`${styles.kickerRow} ${styles.reveal}`} style={ms(T.kicker)}>
           <span className={styles.kicker}>
             <span className={styles.kickerTick} aria-hidden="true" />
@@ -117,7 +124,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
           <span className={styles.telemetry} aria-hidden="true">
             <span className={styles.chip}>AES · ENCRYPTED AT REST</span>
             <span className={styles.chip}>LOCAL-FIRST</span>
-            <span className={styles.chip}>51-TOOL MCP</span>
+            <span className={styles.chip}>MCP ACCESS</span>
           </span>
         </div>
 
