@@ -17,10 +17,10 @@
       { id: 'sample-focus', task: 'Review software architecture', duration: 45, completedAt: `${date}T14:45:00Z` },
     ],
     'cortex-student-courses': [
-      { id: 'architecture', name: 'Software architecture', code: 'Sample course', color: '#624ab5', credits: 3 },
+      { id: 'architecture', name: 'Software architecture', difficulty: 'Medium', iconKey: 'Network', semester: 'Sample semester', status: 'Normal', credits: 3 },
     ],
     'cortex-student-assignments': [
-      { id: 'sample-diagram', courseId: 'architecture', title: 'Draw a context diagram', dueDate, done: false, type: 'homework' },
+      { id: 'sample-diagram', courseId: 'architecture', name: 'Draw a context diagram', deadline: dueDate, done: false, type: 'Project', weight: 10, priority: 'Medium' },
     ],
   };
   let records = seed;
@@ -50,7 +50,7 @@
       return respond(records[key] ?? null, 200, { 'X-Cortex-Rev': revisions[key] || 'sample' });
     }
     if (url.pathname === '/api/calendar/events') return respond([
-      { id: 'sample-walk', title: 'Afternoon walk', start: `${date}T17:00:00Z`, end: `${date}T17:30:00Z`, calendarName: 'Sample calendar', color: '#624ab5' },
+      { id: 'sample-walk', title: 'Afternoon walk', startDate: `${date}T17:00:00Z`, endDate: `${date}T17:30:00Z`, calendar: 'Sample calendar', isAllDay: false },
     ]);
     return respond({ error: 'Unavailable in the sample app.' }, 404);
   };
