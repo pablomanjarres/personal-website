@@ -267,7 +267,7 @@ export const projects: Project[] = [
     "title": "Cortex",
     "identity": projectIdentities.cortex,
     "tagline": "A private, encrypted desktop app for auditing your days as a founder, student, and human. Claude can read and write all of it.",
-    "oneLiner": "Local-first personal dashboard with a 51-tool MCP",
+    "oneLiner": "An encrypted personal dashboard with MCP access",
     "year": "2026",
     "status": "shipped",
     "role": "Solo · design + engineering",
@@ -293,21 +293,21 @@ export const projects: Project[] = [
       "launchd",
       "Supabase"
     ],
-    "summary": "Cortex is a macOS desktop app that pulls a founder's whole life into one private dashboard: habits, sprints, reading, CRM, calendar, coursework, finances, go-to-market state, and live founder metrics (GitHub commits, Lemon Squeezy MRR, Vercel deploys, Supabase signups). Everything is stored locally and encrypted at rest with AES-256-GCM, with the master key held in the macOS Keychain. A built-in web server on port 3456 makes the same dashboard reachable from a phone over Tailscale as a PWA.\n\nThe interesting part is the seam to AI. Cortex ships a Model Context Protocol server with 51 tools across 18 groups that proxies the app's local API, so Claude can read and write habits, journal entries, contacts, calendar events, and founder metrics directly. On top of that sits Opportunity Radar, a scheduled, prompt-injection-safe pipeline that scrapes social feeds on a VM, has a tool-less LLM classify and score them against an editable profile, then ingests the survivors into the dashboard with identity-level dedup. You steer it in plain language with hunt orders, and a sibling tracker watches fast-growing GitHub projects with stars and forks charts. It is a personal tool built to production standards, not a demo.",
+    "summary": "I built Cortex to keep my days, coursework, money, and contacts in one private place. The macOS app brings habits, focus sprints, reading, CRM, calendar, finances, and founder metrics into the same dashboard. Data is encrypted locally with AES-256-GCM; Electron safeStorage protects the master key through the macOS Keychain. The local server on port 3456 also serves the dashboard to my phone over Tailscale.\n\nThe MCP server gives agents access to the same local API. They can read study material, log a sprint, update a calendar event, or work with the dashboard's other records. Opportunity Radar collects and scores opportunities against an editable profile. Cloud Spend reads AWS and Google billing data into a local ledger, so I can check usage alongside the rest of my finances.",
     "problem": "Founders and students juggle habits, revenue, deploys, coursework, contacts, and a firehose of opportunities across a dozen disconnected tools, with no single private place to see and audit it all. Cortex is a local-first, encrypted desktop dashboard that unifies those signals and exposes them to an AI agent.",
     "highlights": [
       "Encrypts every data file at rest with AES-256-GCM in a custom binary container (4-byte magic, 2-byte version, per-write 12-byte IV, 16-byte GCM auth tag). The 32-byte master key is sealed with Electron safeStorage (Keychain-backed on macOS), and a one-time migration rewrites any plaintext JSON to ciphertext behind a sentinel guard.",
-      "Ships a 51-tool Model Context Protocol server (18 groups: habits, books, CRM, calendar, GTM, finance, Obsidian vault, founder metrics) that proxies the app's localhost:3456 API, so Claude can read and write real data. Runs over stdio by default, with an optional --http transport for Tailscale access.",
+      "The MCP server in mcp-server/src/index.ts proxies the localhost:3456 API for habits, books, CRM, calendar, finance, coursework, and founder metrics. It supports stdio and an optional HTTP transport.",
       "Three-tier persistence hook: Electron IPC to encrypted JSON, then the HTTP web API, then localStorage, with size-adaptive debounce (150/500/1000ms) and batched queueMicrotask writes. The web server socket is IP-gated to localhost and the Tailscale CGNAT range (100.64.0.0/10).",
-      "Opportunity Radar: a launchd-scheduled pipeline that scrapes feeds on a Lima VM, then classifies and scores them with a tool-less `claude -p` call against an editable profile. Untrusted scraped text is fenced as data and the model can run no tools, so a prompt-injected post can't escalate. You steer it in plain language with hunt orders, survivors are deduped by normalized apply-URL, title, and host across X, Reddit, and Devpost, and a sibling tracker charts fast-growing GitHub projects by stars and forks.",
+      "Opportunity Radar runs from scripts/ on a launchd schedule. Native feed collectors supply candidates to a classifier with no tool access; hunt orders steer the search, and normalized application URLs, titles, and hosts prevent duplicate records.",
       "A KeepAlive watcher daemon turns a 'Run radar' button press into a full pipeline run by polling a runStatus flag over the HTTP API every 5 seconds. It is decoupled from Electron and self-heals stale runs after 45 minutes, so it needs zero app-code changes.",
-      "Bridges founder integrations (GitHub commits, Lemon Squeezy MRR, Vercel deploys, Supabase signups) and an Obsidian journal vault into a weekly-audit rollup, surfaced in both the UI and over MCP."
+      "Cloud Spend keeps 13 months of AWS Cost Explorer and Google BigQuery billing data in an encrypted local ledger. Usage, credits, budgets, service totals, and source health stay visible together."
     ],
     "metrics": [
-      "51 MCP tools across 18 groups",
-      "20 feature modules",
-      "~22,000 lines of TypeScript",
-      "140 commits, solo, over ~3.5 months"
+      "256-bit authenticated encryption",
+      "3 persistence paths",
+      "13 months of cloud cost history",
+      "2 MCP transports"
     ],
     "links": [
       {
@@ -333,12 +333,12 @@ export const projects: Project[] = [
       {
         "name": "cortex-mcp-server",
         "kind": "mcp",
-        "oneLiner": "A 51-tool MCP server across 18 groups that proxies the app's localhost:3456 API, so Claude can read and write habits, journal, contacts, calendar, GTM, and founder metrics over stdio or an optional --http transport."
+        "oneLiner": "MCP access to the app's local API for study, habits, journal, contacts, calendar, GTM, and founder metrics over stdio or HTTP."
       },
       {
         "name": "opportunity-radar",
         "kind": "worker",
-        "oneLiner": "A launchd-scheduled pipeline that scrapes feeds on a Lima VM, has a tool-less claude -p call score them against an editable profile, then validates and dedupes survivors by apply-URL, title, and host before POSTing them back to the app."
+        "oneLiner": "Native feed collectors, a classifier with no tool access, an editable profile, and deduplication before opportunities enter the app."
       },
       {
         "name": "electron main (:3456 web server)",
@@ -1819,7 +1819,7 @@ export const projects: Project[] = [
     "tagline": "A private study deck that knows which lecture and page you've reached.",
     "oneLiner": "A phone-first review deck grounded in your courses and books",
     "year": "2026",
-    "status": "wip",
+    "status": "live",
     "role": "Solo · design + engineering",
     "tags": ["spaced repetition", "MCP", "local-first", "study", "PWA", "Cortex"],
     "stack": ["React 19", "TypeScript 7", "Vite 8", "Hono 4", "SQLite", "ts-fsrs 5", "MCP SDK 1.30", "Tailscale"],
@@ -1833,14 +1833,14 @@ export const projects: Project[] = [
       "A pocket-sized review flow. src/LiveReview.tsx supports swipe-up reveal, five visible grade buttons, undo, and reduced-motion preferences.",
       "A daily run you can inspect. server/store/cards.ts records success, zero-card, and rejected results; server/monitor/check.ts alerts after 8:00 a.m. Bogota when a run is missing or failed."
     ],
-    "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "41 server tests"],
+    "metrics": ["30 distinct cards per day", "5 review grades", "14 MCP tools", "5 new cards a day"],
     "links": [
       { "label": "GitHub", "url": "https://github.com/pablomanjarres/anki", "kind": "repo" },
       { "label": "Landing page", "url": "https://pablomanjarres.com/oss/anki", "kind": "demo" }
     ],
     "cover": "/portfolio/previews/anki.png",
     "previewKind": "web",
-    "accent": "#bca9ee",
+    "accent": "#b7673f",
     "subProjects": [
       { "name": "Pocket PWA", "kind": "app", "oneLiner": "Phone-first review, books, decks, statistics, swipe reveal, and offline app shell." },
       { "name": "Study store", "kind": "library", "oneLiner": "SQLite cards, reading progress, FSRS schedules, history, and daily generation records." },
