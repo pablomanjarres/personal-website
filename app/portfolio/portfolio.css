@@ -914,6 +914,12 @@
   text-wrap: pretty;
 }
 
+.proj-logo {
+  display: block;
+  width: min(480px, 100%);
+  height: auto;
+}
+
 /* spec strip — a captioned "specimen" caption block */
 .proj-spec {
   position: relative;

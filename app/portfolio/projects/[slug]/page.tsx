@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getProject, projects, type ProjectLink } from "../../../projects";
 import { Chip, DemoFrame, PreviewPlate, Status } from "../../components";
 import { SiteNav } from "../../../SiteNav";
+import ProjectLogo from "../../../ProjectLogo";
 
 // Only the known projects exist; unknown slugs 404 at build/runtime.
 export const dynamicParams = false;
@@ -103,7 +104,9 @@ export default async function ProjectPage({
           <span className="n">¶ {project.num}</span> · {project.tags[0] ?? "Project"}
         </div>
         <h1 className="proj-title">
-          {titleWords.map((w, i) => (
+          {project.identity ? (
+            <ProjectLogo identity={project.identity} title={project.title} className="proj-logo" />
+          ) : titleWords.map((w, i) => (
             <Fragment key={i}>
               {i > 0 ? " " : ""}
               <span className="rise-word" style={{ "--i": i } as CSSProperties}>

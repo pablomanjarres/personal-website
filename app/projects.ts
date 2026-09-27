@@ -5,6 +5,8 @@
 // Generated from repo-grounded analysis of each project, then curated by hand
 // for order + framing. Edit freely: add/remove an entry to add/remove a project.
 
+import type { ProjectIdentity } from "./ProjectLogo";
+
 export type ProjectLinkKind = "live" | "repo" | "demo" | "video" | "docs";
 export type ProjectStatus = "live" | "shipped" | "wip" | "prototype" | "archived";
 
@@ -18,6 +20,7 @@ export type Project = {
   slug: string;
   num: string; // catalog number, e.g. "01"
   title: string;
+  identity?: ProjectIdentity;
   tagline: string; // one vivid line
   oneLiner: string; // short line for the grid card
   year: string;
@@ -262,6 +265,7 @@ export const projects: Project[] = [
     "slug": "cortex",
     "num": "03",
     "title": "Cortex",
+    "identity": { "src": "/brand/cortex/cortex-logo.svg", "width": 1590, "height": 320 },
     "tagline": "A private, encrypted desktop app for auditing your days as a founder, student, and human. Claude can read and write all of it.",
     "oneLiner": "Local-first personal dashboard with a 51-tool MCP",
     "year": "2026",
@@ -1811,6 +1815,7 @@ export const projects: Project[] = [
     "slug": "anki",
     "num": "20",
     "title": "Anki",
+    "identity": { "src": "/brand/anki/anki-logo.svg", "width": 1398, "height": 320 },
     "tagline": "A private study deck that knows which lecture and page you've reached.",
     "oneLiner": "A phone-first review deck grounded in your courses and books",
     "year": "2026",
