@@ -201,7 +201,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <div style={{ position: "absolute", inset: 0, display: "flex", backgroundImage: theme.fallback, backgroundSize: "100% 100%" }} />
         )}
         {bg ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={bg}
             alt=""
@@ -241,7 +240,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
         {identity && (
           <div style={{ position: "absolute", top: 54, left: 76, display: "flex", backgroundColor: "#FFFDF9", padding: "20px 26px", borderRadius: 20 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={identity} alt="" width={330} height={Math.round(330 * 320 / (slug === "cortex" ? 1590 : 1398))} />
           </div>
         )}
