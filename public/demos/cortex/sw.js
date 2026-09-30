@@ -1,4 +1,4 @@
-const CACHE = 'cortex-demo-brand-v2'
+const CACHE = 'cortex-demo-brand-v3'
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html'])))
