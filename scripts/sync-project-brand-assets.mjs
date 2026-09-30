@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,7 +21,7 @@ const assets = [
   ["cortex", "public/brand/mark.svg", "public/brand/cortex/cortex-symbol.svg"],
   ["cortex", "public/brand/wordmark.svg", "public/brand/cortex/cortex-wordmark.svg"],
   ["cortex", "public/brand/logo.svg", "public/brand/cortex/cortex-logo.svg"],
-  ["cortex", "public/favicon.svg", "public/brand/cortex/cortex-app-icon.svg"],
+  ["cortex", "public/favicon.svg", "public/brand/cortex/cortex-app-icon.svg", 512],
   ["cortex", "public/brand/mark.svg", "public/demos/cortex/brand/mark.svg"],
   ["cortex", "public/brand/wordmark.svg", "public/demos/cortex/brand/wordmark.svg"],
   ["cortex", "public/favicon.svg", "public/demos/cortex/favicon.svg"],
@@ -41,10 +41,17 @@ for (const [project, source] of assets) {
   }
 }
 
-for (const [project, source, destination] of assets) {
+for (const [project, source, destination, outputSize] of assets) {
   const output = resolve(website, destination);
   mkdirSync(dirname(output), { recursive: true });
-  copyFileSync(resolve(sources[project], source), output);
+  if (outputSize) {
+    const icon = readFileSync(resolve(sources[project], source), "utf8");
+    const resized = icon.replace('width="64" height="64"', `width="${outputSize}" height="${outputSize}"`);
+    if (resized === icon) throw new Error(`Expected a 64px source icon: ${source}`);
+    writeFileSync(output, resized);
+  } else {
+    copyFileSync(resolve(sources[project], source), output);
+  }
 }
 
 console.log(`Synced ${assets.length} brand assets from the Cortex and Anki geometry sources.`);
