@@ -1,0 +1,52 @@
+import Image from "next/image";
+import Link from "next/link";
+import { STATUS_LABEL } from "../../portfolio/status";
+import { ankiAppMockup } from "../anki-media";
+import interaction from "../interaction.module.css";
+import { getCaseStudy } from "./case-study";
+import { studyHref, type ProjectStudy, type StudyDirectionId } from "./data";
+import { StudyMedia } from "./primitives";
+import styles from "./case-study-primitives.module.css";
+
+type StudyProps = { study: ProjectStudy; className?: string };
+
+export function StudyBrief({ study, className = "" }: StudyProps) {
+  const story = getCaseStudy(study);
+  const facts = [
+    ["Role", study.project.role.replace("Solo · design + engineering", "Product design and engineering").replace("Sole developer · client work", "Sole developer, client work")],
+    ["Year", study.project.year], ["Platform", story.platform], ["Status", STATUS_LABEL[study.project.status]],
+  ];
+  return <dl className={`${styles.brief} ${className}`}>{facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>;
+}
+
+export function StudyMeasures({ study, className = "" }: StudyProps) {
+  const { measures } = getCaseStudy(study);
+  if (!measures.length) return null;
+  return <dl className={`${styles.measures} ${className}`}>{measures.map(measure => <div key={`${measure.value}-${measure.label}`}><dt>{measure.label}</dt><dd>{measure.value}</dd></div>)}</dl>;
+}
+
+export function StudyDecisions({ study, className = "" }: StudyProps) {
+  return <div className={`${styles.decisions} ${className}`}>{getCaseStudy(study).decisions.map(decision => <article key={decision.title + decision.body}><h3>{decision.title}</h3><p>{decision.body}</p></article>)}</div>;
+}
+
+export function StudyFlow({ study, className = "" }: StudyProps) {
+  const { flow } = getCaseStudy(study);
+  if (!flow.length) return null;
+  return <ol className={`${styles.flow} ${className}`}>{flow.map(step => <li key={step.title}><strong>{step.title}</strong><p>{step.body}</p></li>)}</ol>;
+}
+
+export function StudyComponents({ study, className = "" }: StudyProps) {
+  return <div className={`${styles.components} ${className}`}>{getCaseStudy(study).components.map(component => <article key={component.name}><h3>{component.name}</h3><p>{component.body}</p></article>)}</div>;
+}
+
+export function StudyProductVisual({ study, className = "", priority = false, caption = true }: StudyProps & { priority?: boolean; caption?: boolean }) {
+  if (study.project.slug !== "anki") {
+    const asset = study.media.find(item => item.kind !== "video") ?? study.media[0];
+    return <StudyMedia asset={asset} className={className} priority={priority} caption={caption} />;
+  }
+  return <figure className={`${styles.productVisual} ${className}`}><Image {...ankiAppMockup} alt={ankiAppMockup.alt} sizes="(max-width: 700px) 90vw, 46vw" preload={priority} />{caption && <figcaption>Home and review screens from the mobile app</figcaption>}</figure>;
+}
+
+export function StudyBack({ direction, className = "" }: { direction: StudyDirectionId; className?: string }) {
+  return <Link href={studyHref(direction)} className={`${interaction.action} ${styles.back} ${className}`}><span aria-hidden>←</span> All projects</Link>;
+}
