@@ -1,0 +1,27 @@
+.contact { margin: 70px auto 0; padding: 0 5% 24px; max-width: 1440px; scroll-margin-top: 24px; }
+.invitation { position: relative; isolation: isolate; padding: 50px 0 55px; }
+.message { position: relative; z-index: 1; }
+.message h2 { font: 500 clamp(45px, 5.5vw, 78px)/1.03 var(--font-hanken), sans-serif; letter-spacing: -.055em; max-width: 750px; }
+.message p { font-size: 17px; line-height: 1.6; max-width: 410px; margin-top: 24px; }
+.routes { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 20px 36px; }
+.email { display: flex; align-items: center; gap: 20px; min-height: 56px; font-size: clamp(18px, 2.3vw, 33px); letter-spacing: -.03em; overflow-wrap: anywhere; }
+.email > span:first-of-type { min-width: 0; }
+.email > span:last-of-type { flex-shrink: 0; }
+.booking { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 44px; font-size: 14px; border-bottom: 1px solid; }
+.note { position: relative; z-index: 1; font-size: 13px; }
+.connector { position: absolute; width: 64%; height: 250px; right: 0; top: 150px; z-index: -1; pointer-events: none; fill: none; stroke: var(--accent); stroke-width: 1; opacity: .3; }
+.branch { display: none; }
+.marker { display: none; }
+.choices { position: relative; display: grid; gap: 18px; z-index: 1; }
+.choice { min-height: 100px; padding: 20px 46px 20px 24px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.choice > span:first-child { font-size: 21px; letter-spacing: -.035em; }
+.choice small { font-size: 13px; margin-top: 6px; opacity: .8; }
+.choiceArrow { position: absolute; right: 22px; top: 22px; font-size: 21px; }
+.choice:hover .choiceArrow { transform: translate(2px, -2px); }
+.contact a:focus-visible { outline: 3px solid currentColor; outline-offset: 5px; }
+.contact a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.footerLinks { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 32px; border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent); padding-top: 18px; font-size: 12px; }
+.footerLinks nav { display: flex; gap: 22px; }
+.footerLinks a { display: inline-flex; align-items: center; min-height: 44px; }
+.roles { display: flex; flex-wrap: wrap; gap: 10px 34px; }
+.signature { font: italic 34px var(--font-serif), serif; display: block; margin-top: 20px; }
