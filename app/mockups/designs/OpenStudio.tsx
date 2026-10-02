@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MockupShell, Portrait, ActionLinks } from "../shared";
 import StudioBody from "../bodies/StudioBody";
 import { concepts } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 import { profile } from "../../socials";
 import { projects, type Project } from "../../projects";
 import styles from "./open-studio.module.css";
@@ -10,7 +11,7 @@ const orbitProjects = ["noelle", "cortex"].map(slug => projects.find(project => 
 
 function OrbitProject({ project }: { project: Project }) {
   return (
-    <Link className={styles.project} href={`/portfolio/projects/${project.slug}`} data-project={project.slug}>
+    <Link className={styles.project} href={conceptStudyHref("open-studio", project.slug)} data-project={project.slug}>
       <span className={styles.projectSymbol} aria-hidden>{project.slug === "noelle" ? "✳" : "⌘"}</span>
       <span><strong>{project.title}</strong><small>{project.tags[0]}</small></span>
       <span className={styles.projectArrow} aria-hidden>↗</span>

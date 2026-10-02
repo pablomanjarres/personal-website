@@ -1,9 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { profile } from "../socials";
 import type { Concept } from "./concepts";
 import { MotionRoot } from "./motion";
 import styles from "./mockups.module.css";
+
+export function SiteMark({ href = "#main", className = "" }: { href?: string; className?: string }) {
+  return <Link href={href} className={`${styles.brand} ${className}`} aria-label="Pablo Manjarres, home">pm<span aria-hidden>.</span></Link>;
+}
 
 export function MockupShell({ concept, children }: { concept: Concept; children: ReactNode }) {
   const tokens = {
@@ -14,7 +19,7 @@ export function MockupShell({ concept, children }: { concept: Concept; children:
     <MotionRoot className={styles.shell} style={tokens} concept={concept.id}>
       <a href="#main" className={styles.skip}>Skip to content</a>
       <header className={styles.nav}>
-        <a href="#main" className={styles.brand} aria-label="Pablo Manjarres, home">pm<span aria-hidden>.</span></a>
+        <SiteMark />
         <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
         <a className={styles.navContact} href={profile.booking} target="_blank" rel="noreferrer">Let’s talk <span aria-hidden>↗</span></a>
       </header>
