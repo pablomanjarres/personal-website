@@ -1,7 +1,7 @@
 .hero { width: min(1280px, 90%); margin: auto; padding: 18px 0 56px; text-align: center; }
-.signature { font-size: 14px; margin-bottom: 20px; }
-.headline { font-family: var(--font-display), sans-serif; font-size: clamp(48px, 7.3vw, 108px); line-height: 1.02; font-weight: 500; letter-spacing: -.065em; }
-.note { font-size: 18px; max-width: 37ch; margin: 22px auto 0; line-height: 1.5; opacity: .75; }
+.signature { --enter-delay: 50ms; font-size: 14px; margin-bottom: 20px; }
+.headline { --enter-delay: 120ms; font-family: var(--font-display), sans-serif; font-size: clamp(48px, 7.3vw, 108px); line-height: 1.02; font-weight: 500; letter-spacing: -.065em; }
+.note { --enter-delay: 220ms; font-size: 18px; max-width: 37ch; margin: 22px auto 0; line-height: 1.5; opacity: .75; }
 .orbitStage { position: relative; isolation: isolate; width: min(1080px, 100%); height: 560px; margin: -8px auto -24px; }
 .halo { position: absolute; z-index: -1; width: 540px; height: 450px; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(ellipse, color-mix(in srgb, var(--panel) 78%, var(--paper)) 0%, var(--paper) 70%); }
 .orbits { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--accent); }
@@ -14,9 +14,9 @@
 .roles { display: contents; }
 .role { position: absolute; display: inline-flex; align-items: center; gap: 10px; background: var(--paper); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--paper)); padding: 12px 20px; border-radius: 999px; font-size: 14px; line-height: 1.4; box-shadow: 0 8px 18px color-mix(in srgb, var(--ink) 5%, transparent); }
 .role i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-.role:first-child { left: 12%; top: 19%; }
-.role:nth-child(2) { right: 8%; top: 55%; }
-.role:nth-child(3) { left: 36%; bottom: 4%; }
+.role:first-child { --enter-delay: 450ms; left: 12%; top: 19%; }
+.role:nth-child(2) { --enter-delay: 600ms; right: 8%; top: 55%; }
+.role:nth-child(3) { --enter-delay: 750ms; left: 36%; bottom: 4%; }
 .orbitProjects { display: contents; }
 .project { position: absolute; display: flex; align-items: center; gap: 13px; min-height: 88px; padding: 18px 20px; text-align: left; border-radius: 26px; background: var(--panel); box-shadow: 0 16px 30px color-mix(in srgb, var(--ink) 7%, transparent); }
 .project[data-project="noelle"] { left: 7%; bottom: 14%; transform: rotate(-9deg); }
@@ -29,3 +29,49 @@
 .pinwheel { position: absolute; width: 68px; height: 68px; right: 25%; bottom: 7%; color: var(--accent); }
 .pinwheel path { fill: currentColor; }
 .actions { justify-content: center; position: relative; }
+@media (prefers-reduced-motion: no-preference) {
+  .project { transition: transform .45s cubic-bezier(.2,.8,.2,1), background .3s; }
+  .project[data-project="noelle"]:hover { transform: rotate(-3deg) translateY(-4px); }
+  .project[data-project="cortex"]:hover { transform: rotate(3deg) translateY(-4px); }
+  .portraitWrap { transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+  :global([data-motion="active"]) .portraitWrap { transform: translateX(calc(-50% + var(--pointer-x, 0) * 8px)) translateY(calc(var(--pointer-y, 0) * 8px)) rotate(calc(-6deg + var(--pointer-x, 0) * 2deg)); }
+  :global([data-motion="active"]) .orbitPath { stroke-dasharray: 1; animation: traceOrbit 1.8s cubic-bezier(.22,.7,.2,1) both; }
+  :global([data-motion="active"]) .pinwheel { animation: turn 28s linear infinite; }
+  @keyframes traceOrbit { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes turn { to { transform: rotate(360deg); } }
+}
+@media (max-width: 950px) {
+  .hero { padding-top: 24px; }
+  .orbitStage { height: 520px; margin-top: 8px; }
+  .portraitWrap { width: 280px; height: 360px; top: 76px; }
+  .role:first-child { left: 3%; top: 16%; }
+  .role:nth-child(2) { right: 0; top: 61%; }
+  .role:nth-child(3) { left: 34%; bottom: 5%; }
+  .project[data-project="noelle"] { left: 0; bottom: 18%; }
+  .project[data-project="cortex"] { right: 0; top: 12%; }
+  .pinwheel { right: 17%; bottom: 7%; width: 52px; }
+}
+@media (max-width: 580px) {
+  .hero { width: 90%; padding-top: 14px; padding-bottom: 38px; }
+  .signature { margin-bottom: 14px; font-size: 12px; }
+  .headline { max-width: 8ch; margin: auto; font-size: clamp(42px, 12.5vw, 64px); }
+  .note { max-width: 29ch; margin-top: 18px; font-size: 15px; }
+  .orbitStage { height: 430px; margin-top: 20px; margin-bottom: 20px; }
+  .halo { width: 340px; height: 340px; }
+  .orbits { width: 125%; height: 100%; left: -12.5%; opacity: .8; }
+  .portraitWrap { width: 218px; height: 280px; top: 70px; outline-width: 6px; }
+  .role { gap: 7px; font-size: 11px; padding: 10px 13px; }
+  .role i { width: 5px; height: 5px; }
+  .role:first-child { left: 0; top: 0; }
+  .role:nth-child(2) { right: 0; top: auto; bottom: 13%; }
+  .role:nth-child(3) { left: 13%; bottom: 0; }
+  .project { min-height: 66px; padding: 12px 14px; gap: 7px; border-radius: 21px; }
+  .project strong { font-size: 15px; }
+  .project small { font-size: 10px; }
+  .projectSymbol { width: 26px; height: 32px; font-size: 25px; }
+  .projectArrow { margin-left: 5px; font-size: 14px; }
+  .project[data-project="noelle"] { left: -1%; bottom: 19%; }
+  .project[data-project="cortex"] { right: 0; top: 9%; }
+  .pinwheel { right: 10%; bottom: 0; width: 40px; height: 40px; }
+  .actions { gap: 14px; }
+}
