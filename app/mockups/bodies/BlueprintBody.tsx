@@ -1,4 +1,6 @@
 import type { FeaturedProject } from "./content";
+import type { CSSProperties } from "react";
+import { ankiMobileScreens } from "../anki-media";
 import { featuredProjects } from "./content";
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
 import styles from "./blueprint-body.module.css";
@@ -9,17 +11,24 @@ const responsibilities = [
   { title: "Systems", detail: "APIs, worker jobs, and the rules that keep the product working.", layer: "Foundation" },
 ] as const;
 
+function PocketStudy({ item }: { item: FeaturedProject }) {
+  const screen = ankiMobileScreens[0];
+  return <div className={styles.pocket} style={{ "--pocket-ratio": `${screen.width} / ${screen.height}` } as CSSProperties}>
+    <ProjectVisual item={item} className={styles.mobilePreview} sizes="(max-width: 430px) 65vw, 330px" />
+  </div>;
+}
+
 function LaptopStudy({ item, index }: { item: FeaturedProject; index: number }) {
   return (
     <article className={`${styles.study} ${index % 2 ? styles.cobalt : styles.ice}`}>
       <div className={styles.deviceStage}>
-        <div className={styles.laptop}>
+        {item.project.slug === "anki" ? <PocketStudy item={item} /> : <div className={styles.laptop}>
           <div className={styles.display}>
             <span className={styles.camera} aria-hidden="true" />
             <ProjectVisual item={item} className={styles.preview} sizes="(max-width: 800px) 88vw, 58vw" />
           </div>
           <div className={styles.keyboard} aria-hidden="true"><span /></div>
-        </div>
+        </div>}
         <p className={styles.previewNote}>{item.previewLabel}</p>
       </div>
       <div className={styles.specification}>
@@ -82,7 +91,7 @@ export default function BlueprintBody() {
       <section id="work" className={styles.work} aria-labelledby="blueprint-work">
         <header className={styles.workHeader}>
           <h2 id="blueprint-work">From the screen<br />to the system.</h2>
-          <p>Four projects. Each starts with a different problem.</p>
+          <p>Each project starts with a different problem.</p>
         </header>
         <div className={styles.studies}>{featuredProjects.map((item, index) => <LaptopStudy key={item.project.slug} item={item} index={index} />)}</div>
         <ProjectArchive className={styles.archive} />

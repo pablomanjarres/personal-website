@@ -18,6 +18,8 @@
 .ice { background: var(--ice); }
 .cobalt { background: var(--blue); color: var(--white); }
 .deviceStage { min-width: 0; padding: 30px 0 14px; }
+.pocket { width: min(78%, 346px); margin: 0 auto; padding: 8px; border: 1px solid var(--chrome); border-radius: 24px; background: var(--navy); box-shadow: 0 20px 35px color-mix(in srgb, var(--navy) 14%, transparent); }
+.mobilePreview { aspect-ratio: var(--pocket-ratio); border-radius: 17px; background: var(--ice); }
 .laptop { position: relative; width: 96%; margin: 0 auto; transform: perspective(1400px) rotateY(5deg) rotateX(2deg); }
 .display { position: relative; padding: 16px 10px 10px; border: 1px solid #70829a; border-radius: 15px 15px 5px 5px; background: #152033; box-shadow: 0 1px 0 #fff8 inset; }
 .camera { position: absolute; top: 6px; left: calc(50% - 2px); width: 4px; height: 4px; border-radius: 50%; background: #52617a; }
