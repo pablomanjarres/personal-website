@@ -30,4 +30,3 @@ export const studies: readonly ProjectStudy[] = [...projects].sort((a, b) => {
 
 export function studyHref(direction: StudyDirectionId, slug?: string) { return `/mockups/projects/${direction}${slug ? `/${slug}` : ""}`; }
 export function getStudy(slug: string) { return studies.find(study => study.project.slug === slug); }
-export function nextStudy(slug: string) { const i = studies.findIndex(study => study.project.slug === slug); return studies[(i + 1) % studies.length]; }

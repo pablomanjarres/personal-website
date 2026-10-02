@@ -8,7 +8,7 @@ import { ProductPlaygroundIndex, ProductPlaygroundDetail } from "../project-desi
 import type { ProjectStudy, StudyDirectionId } from "./data";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 export const studyDesigns = {
   cinema: { Index: ProductCinemaIndex, Detail: ProductCinemaDetail }, gallery: { Index: InterfaceGalleryIndex, Detail: InterfaceGalleryDetail }, workbench: { Index: ProductWorkbenchIndex, Detail: ProductWorkbenchDetail }, atlas: { Index: ProductAtlasIndex, Detail: ProductAtlasDetail }, stack: { Index: ProductStackIndex, Detail: ProductStackDetail }, playground: { Index: ProductPlaygroundIndex, Detail: ProductPlaygroundDetail },
 } satisfies Record<StudyDirectionId, { Index: ComponentType<IndexProps>; Detail: ComponentType<DetailProps> }>;

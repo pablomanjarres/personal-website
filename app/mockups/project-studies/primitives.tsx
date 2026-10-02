@@ -30,7 +30,3 @@ export function StudyLink({ study, direction, children, className = "" }: { stud
 export function StudyActions({ study, className = "" }: { study: ProjectStudy; className?: string }) {
   return <nav className={`${styles.actions} ${className}`} aria-label={`${study.project.title} links`}>{study.project.links.slice(0, 4).map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className={styles.action}>{link.label}<span aria-hidden> ↗</span></a>)}</nav>;
 }
-
-export function StudyNext({ study, direction, className = "" }: { study: ProjectStudy; direction: StudyDirectionId; className?: string }) {
-  return <StudyLink study={study} direction={direction} className={`${styles.next} ${className}`}><span>Next project</span><strong>{study.project.title}</strong><span aria-hidden>↗</span></StudyLink>;
-}
