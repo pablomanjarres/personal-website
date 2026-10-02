@@ -49,7 +49,9 @@
 .panHint { margin-left: auto; display: none; font-size: 11px; }
 .screenViewport { position: relative; max-height: 900px; overflow: auto; background: var(--white); border-radius: var(--screen-radius); color: var(--white); overscroll-behavior: contain; }
 .screen img { width: 100%; max-width: none; height: auto; }
+.screenshotView[data-portrait="true"] .screen { width: min(100%, calc(min(80vh, 800px) * var(--screen-ratio))); margin-inline: auto; }
 .screenshotView:has(input[value="close"]:checked) .screen { width: 190%; }
+.screenshotView[data-portrait="true"]:has(input[value="close"]:checked) .screen { width: min(190%, calc(min(80vh, 800px) * var(--screen-ratio) * 1.9)); }
 .screenshotView:has(input[value="close"]:checked) .screenViewport { max-height: 660px; }
 .screenshotView:has(input[value="close"]:checked) .panHint { display: block; }
 .liveDemo { min-height: 0; border-radius: var(--screen-radius); }
@@ -108,6 +110,7 @@
   .panHint { width: 100%; margin-left: 0; }
   .screenViewport { border-radius: var(--screen-radius); max-height: none; }
   .screenshotView:has(input[value="close"]:checked) .screen { width: 260%; }
+  .screenshotView[data-portrait="true"]:has(input[value="close"]:checked) .screen { width: min(260%, calc(min(80vh, 800px) * var(--screen-ratio) * 2.6)); }
   .screenshotView:has(input[value="close"]:checked) .screenViewport { max-height: 420px; }
   .liveDemo :global(.live-launch), .liveDemo :global(.live-iframe), .video video { border-radius: var(--screen-radius); }
   .projectNotes { grid-template-columns: 1fr; gap: 20px; padding: 24px 6px 50px; }

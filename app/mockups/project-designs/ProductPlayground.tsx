@@ -1,4 +1,5 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
+import type { CSSProperties } from "react";
 import { selectedWorkSlugs } from "../selected-work";
 import { StudyActions, StudyDemo, StudyFacts, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
 import interaction from "../interaction.module.css";
@@ -34,7 +35,8 @@ function BuiltStrip({ studies, direction }: IndexProps) {
 
 function ScreenshotView({ study, priority = false }: { study: ProjectStudy; priority?: boolean }) {
   const asset = still(study);
-  return <fieldset className={styles.screenshotView}>
+  if (asset.kind === "unavailable") return <StudyMedia asset={asset} className={styles.screen} />;
+  return <fieldset className={styles.screenshotView} data-portrait={asset.width < asset.height} style={{ "--screen-ratio": asset.width / asset.height } as CSSProperties}>
     <legend>{asset.label}</legend>
     <div className={styles.viewChoices}>
       <label><input type="radio" name={`${study.project.slug}-view`} value="full" defaultChecked className={interaction.action} />Full view</label>
@@ -42,7 +44,7 @@ function ScreenshotView({ study, priority = false }: { study: ProjectStudy; prio
       <span className={styles.panHint}>Scroll to inspect</span>
     </div>
     <div className={`${styles.screenViewport} ${interaction.action}`} tabIndex={0} role="region" aria-label={`${study.project.title} screenshot. Use the arrow keys to pan the enlarged view.`}>
-      <StudyMedia asset={asset} className={styles.screen} priority={priority} caption={false} />
+      <StudyMedia asset={asset} className={styles.screen} priority={priority} caption={false} boundPortrait={false} />
     </div>
   </fieldset>;
 }
