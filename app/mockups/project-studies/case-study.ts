@@ -116,7 +116,7 @@ export function getCaseStudy(study: ProjectStudy): CaseStudy {
     headline: plain(project.oneLiner), introduction: plain(project.summary.split("\n\n")[0]),
     challenge: plain(project.problem), responsibility: plain(project.role),
     outcome: components.length ? `The work includes ${components.slice(0, 3).map(part => part.name).join(", ")}.` : plain(project.summary.split("\n\n").at(-1) ?? project.oneLiner),
-    platform: project.previewKind === "app" ? "Desktop app" : project.previewKind === "web" ? "Web app" : "Software project",
+    platform: "Software project",
     decisions, flow: [], components,
     measures: (project.metrics ?? []).slice(0, 3).map(metric => {
       const text = plain(metric);
