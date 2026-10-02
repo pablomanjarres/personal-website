@@ -1,4 +1,6 @@
 import { getProject, type Project } from "../../projects";
+import { selectedWorkSlugs } from "../selected-work";
+import { ankiMobileScreens } from "../anki-media";
 
 export type FeaturedProject = {
   project: Project;
@@ -7,24 +9,30 @@ export type FeaturedProject = {
   note: string;
   preview: string;
   previewLabel: string;
-  artwork?: string;
 };
 
-const notes = [
-  { slug: "noelle", problem: "Audience research and drafting take time.", product: "AI agents research people and queue drafts for human approval.", note: "Approval stays with the person.", artwork: "/oss/noelle.png" },
-  { slug: "construcredit", problem: "A lender needs dependable balances and a clear approval trail.", product: "Applications, client records, payments, and staff tools for a Colombian lender.", note: "Business rules belong in the software." },
-  { slug: "nella", problem: "Coding agents need the actual code and earlier decisions.", product: "Code search, persistent memory, and coordination through MCP and a CLI.", note: "Context should come from the code.", artwork: "/oss/nella.png" },
-  { slug: "cortex", problem: "Daily work lives across too many tools.", product: "An encrypted desktop dashboard for focus, habits, coursework, and finances.", note: "Private records, kept together." },
-] as const;
+const notes = {
+  anki: {
+    problem: "Review cards need to match what you’ve actually reached.",
+    note: "Cards stay tied to their sources.",
+    previewLabel: ankiMobileScreens[0].label,
+  },
+  construcredit: {
+    problem: "A lender needs dependable balances and a clear approval trail.",
+    note: "Business rules belong in the software.",
+    previewLabel: "Public website",
+  },
+  cortex: {
+    problem: "Daily work lives across too many tools.",
+    note: "Private records, kept together.",
+    previewLabel: "Desktop dashboard",
+  },
+} satisfies Record<(typeof selectedWorkSlugs)[number], Pick<FeaturedProject, "problem" | "note" | "previewLabel">>;
 
-export const featuredProjects: readonly FeaturedProject[] = notes.map(note => {
-  const project = getProject(note.slug);
-  if (!project?.cover) throw new Error(`Missing featured project preview: ${note.slug}`);
-  return {
-    ...note, project,
-    preview: project.slug === "nella" ? "/portfolio/covers/nella.png" : project.cover,
-    previewLabel: project.slug === "nella" ? "Product illustration" : project.slug === "cortex" ? "Desktop dashboard" : "Public website",
-  };
+export const featuredProjects: readonly FeaturedProject[] = selectedWorkSlugs.map(slug => {
+  const project = getProject(slug);
+  if (!project?.cover) throw new Error(`Missing featured project preview: ${slug}`);
+  return { ...notes[slug], project, product: project.oneLiner, preview: slug === "anki" ? ankiMobileScreens[0].src : project.cover };
 });
 
 export const capabilities = [

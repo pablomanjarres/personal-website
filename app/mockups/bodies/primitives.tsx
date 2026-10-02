@@ -13,13 +13,18 @@ export function ProjectLink({ item, className = "", children }: { item: Featured
   return <Link href={`/portfolio/projects/${item.project.slug}`} className={`${styles.action} ${className}`}>{children}</Link>;
 }
 
-export function ProjectVisual({ item, source = "preview", className = "", sizes = "(max-width: 700px) 90vw, 65vw" }: {
-  item: FeaturedProject; source?: "preview" | "artwork"; className?: string; sizes?: string;
+export function ProjectVisual({ item, className = "", sizes = "(max-width: 700px) 90vw, 65vw" }: {
+  item: FeaturedProject; className?: string; sizes?: string;
 }) {
-  const artwork = source === "artwork" && item.artwork;
   return <Link href={`/portfolio/projects/${item.project.slug}`} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`}>
-    <Image src={artwork || item.preview} alt={`${item.project.title} ${artwork ? "project artwork" : item.previewLabel.toLowerCase()}`} fill sizes={sizes} />
+    <Image src={item.preview} alt={`${item.project.title} ${item.previewLabel.toLowerCase()}`} fill sizes={sizes} />
   </Link>;
+}
+
+export function BuildingLink({ className = "", children = profile.building }: { className?: string; children?: ReactNode }) {
+  const project = projects.find(item => item.title === profile.building);
+  if (!project) throw new Error(`Missing current project: ${profile.building}`);
+  return <Link href={`/portfolio/projects/${project.slug}`} className={`${styles.action} ${className}`}>{children}</Link>;
 }
 
 export function ProjectArchive({ className = "" }: { className?: string }) {
