@@ -56,7 +56,7 @@
 .invitation h2 { font: 400 clamp(65px, 8.4vw, 120px)/.99 var(--font-hanken), sans-serif; letter-spacing: -.075em; }
 .reply p { max-width: 30ch; margin-bottom: 27px; font-size: 15px; line-height: 1.7; }
 .body .email { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; letter-spacing: -.035em; text-decoration: underline; text-decoration-color: var(--copper); text-decoration-thickness: 2px; text-underline-offset: 9px; overflow-wrap: anywhere; }
-.booking { display: inline-flex; align-items: center; min-height: 44px; margin-top: 22px; font-size: 12px; text-decoration: none; }
+.booking { display: flex; align-items: center; width: fit-content; min-height: 44px; margin-top: 22px; font-size: 12px; text-decoration: none; }
 .body .booking:hover { text-decoration: underline; text-underline-offset: 4px; }
 .footerLinks { margin-top: 95px; padding-top: 30px; font-size: 12px; }
 @media (prefers-reduced-motion: no-preference) {
