@@ -1,13 +1,13 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyActions, StudyDemo, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import interaction from "../interaction.module.css";
 import styles from "./product-playground.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function still(study: ProjectStudy) {
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
@@ -46,7 +46,7 @@ export function ProductPlaygroundIndex({ studies, direction }: IndexProps) {
   </div>;
 }
 
-export function ProductPlaygroundDetail({ study, nextStudy, direction }: DetailProps) {
+export function ProductPlaygroundDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
   const videos = study.media.filter(asset => asset.kind === "video");
   return <div className={`${styles.playground} ${styles.detailPage}`}>
@@ -71,9 +71,5 @@ export function ProductPlaygroundDetail({ study, nextStudy, direction }: DetailP
       <StudyComponents study={study} className={styles.components} />
     </section>
     {(study.project.embedUrl || videos.length > 0) && <section className={styles.tryProduct} aria-labelledby="playground-try-heading"><h2 id="playground-try-heading">See it in action.</h2><StudyDemo study={study} className={styles.liveDemo} />{videos.map(asset => <StudyMedia key={asset.id} asset={asset} className={styles.video} />)}</section>}
-    <footer className={styles.nextProduct}>
-      <StudyNext study={nextStudy} direction={direction} className={styles.nextLabel} />
-      <StudyLink study={nextStudy} direction={direction} className={styles.nextVisual}><StudyMedia asset={still(nextStudy)} className={styles.nextImage} caption={false} /></StudyLink>
-    </footer>
   </div>;
 }

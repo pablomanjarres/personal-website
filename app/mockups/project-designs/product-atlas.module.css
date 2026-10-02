@@ -35,7 +35,7 @@
 .landmarkWindow { display: block; text-decoration: none; border-radius: 14px; }
 .mapMedia { position: relative; }
 .mapMedia img, .mapMedia video { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 16px 40px #263acb0b; }
-.mapMedia figcaption, .compactMedia figcaption, .nextMedia figcaption { font-size: 12px; line-height: 1.4; padding: 12px 2px 0; }
+.mapMedia figcaption, .compactMedia figcaption { font-size: 12px; line-height: 1.4; padding: 12px 2px 0; }
 .moreWork { padding: 70px 8% 110px; background: color-mix(in srgb, var(--atlas-lilac) 12%, var(--atlas-chalk)); border-top: 1px solid color-mix(in srgb, var(--atlas-blue) 15%, transparent); scroll-margin-top: 80px; }
 .moreWork > h2 { font-size: clamp(44px, 5vw, 76px); color: var(--atlas-blue); letter-spacing: -.07em; font-weight: 650; line-height: 1; margin: 0 0 60px; }
 .satellites { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 50px 32px; align-items: start; }
@@ -59,7 +59,7 @@
 .fullView { padding: 40px 7%; background: var(--detail-surface); }
 .fullMedia img { display: block; width: 100%; height: auto; object-fit: contain; }
 .fullMedia figcaption { padding: 18px 0 0; font-size: 14px; color: var(--body-muted); }
-.detailMap { display: grid; grid-template-columns: 155px minmax(0, 1fr); gap: 6%; padding: 82px 7% 85px; }
+.detailMap { display: grid; grid-template-columns: 155px minmax(0, 1fr); gap: 6%; padding: 82px 7% 24px; }
 .detailRail { position: sticky; top: 100px; align-self: start; padding-top: 2px; }
 .detailRail nav { display: grid; gap: 4px; }
 .detailRail a { display: flex; align-items: center; padding-left: 17px; border-left: 2px solid var(--detail-line); font-size: 16px; text-decoration: none; }
@@ -91,13 +91,6 @@
 .productDemo { margin: 0; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px 26px; }
 .actions a { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; color: var(--atlas-blue); text-underline-offset: 6px; }
-.nextRoute { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 8%; padding: 70px 9% 100px; background: var(--atlas-blue); color: var(--atlas-chalk); }
-.nextLink { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; text-decoration: none; overflow-wrap: anywhere; }
-.nextLink > :first-child { font-size: 15px; }
-.nextLink > strong { font-size: clamp(36px, 6.5vw, 88px); line-height: 1; letter-spacing: -.06em; }
-.nextLink > span:last-child { font-size: 24px; }
-.nextLink:hover { text-decoration: underline; text-underline-offset: 8px; }
-.nextMedia img, .nextMedia video { width: 100%; height: auto; display: block; border-radius: 9px; }
 
 @keyframes mapProgress { to { transform: scaleY(1); } }
 @media (prefers-reduced-motion: no-preference) {
@@ -145,7 +138,7 @@
   .briefFacts dd { font-size: 15px; }
   .fullView { padding: 24px 6%; }
   .fullMedia figcaption { font-size: 12px; }
-  .detailMap { display: block; padding: 30px 6% 50px; }
+  .detailMap { display: block; padding: 30px 6% 24px; }
   .detailRail { position: static; margin-bottom: 38px; padding: 0; }
   .detailRail nav { display: flex; flex-wrap: wrap; gap: 8px 24px; border-bottom: 1px solid var(--detail-line); }
   .detailRail a { padding: 0; border: 0; font-size: 14px; }
@@ -161,13 +154,8 @@
   .flow { grid-auto-flow: row; grid-template-columns: 1fr; gap: 24px; }
   .flow li:not(:last-child)::after { content: "↓"; top: auto; bottom: -24px; right: auto; left: 20px; }
   .flow p, .components p, .stack p { font-size: 16px; }
-  .nextRoute { gap: 32px; padding: 50px 7% 75px; }
-  .nextLink > strong { font-size: 35px; }
-  .nextMedia figcaption { font-size: 10px; }
 }
 @media (max-width: 420px) {
   .compactLandmark .landmarkLabel h2 { font-size: 19px; }
   .satellites { gap: 32px 7%; }
-  .nextRoute { grid-template-columns: 1fr; }
-  .nextMedia { width: 72%; justify-self: end; }
 }

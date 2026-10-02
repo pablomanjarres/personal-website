@@ -1,5 +1,5 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
-import { StudyActions, StudyDemo, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import interaction from "../interaction.module.css";
@@ -7,7 +7,7 @@ import styles from "./product-atlas.module.css";
 import { selectedWorkSlugs } from "../selected-work";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function mapAsset(study: ProjectStudy) {
   return study.media.find(asset => asset.kind === "screen")
@@ -60,7 +60,7 @@ export function ProductAtlasIndex({ studies, direction }: IndexProps) {
   </div>;
 }
 
-export function ProductAtlasDetail({ study, nextStudy, direction }: DetailProps) {
+export function ProductAtlasDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
   const hasArchitecture = story.flow.length > 0 || story.components.length > 0;
   return <div className={`${styles.atlas} ${styles.caseStudy}`}>
@@ -103,9 +103,5 @@ export function ProductAtlasDetail({ study, nextStudy, direction }: DetailProps)
         <StudyActions study={study} className={styles.actions} />
       </div>
     </div>
-    <footer className={styles.nextRoute}>
-      <StudyNext study={nextStudy} direction={direction} className={styles.nextLink} />
-      <StudyMedia asset={mapAsset(nextStudy)} className={styles.nextMedia} />
-    </footer>
   </div>;
 }

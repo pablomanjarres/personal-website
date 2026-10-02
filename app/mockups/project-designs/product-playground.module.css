@@ -43,6 +43,7 @@
   --media-surface: color-mix(in srgb, var(--blue) 16%, var(--white));
   padding-top: 32px;
 }
+.playground.detailPage { padding-bottom: 24px; }
 .back { display: inline-flex; align-items: center; font-size: 15px; color: var(--deep); }
 .detailHeading { display: grid; grid-template-columns: minmax(0, 1fr) 310px; align-items: end; gap: 6%; padding: 32px 0 46px; }
 .detailHeading h1 { margin: 0 0 25px; font-family: var(--font-sora), sans-serif; font-weight: 500; font-size: clamp(58px, 8vw, 114px); line-height: 1.06; letter-spacing: -.073em; color: var(--blue); overflow-wrap: anywhere; }
@@ -86,13 +87,6 @@
 .liveDemo :global(.live-launch), .liveDemo :global(.live-iframe) { border-radius: 10px; overflow: hidden; }
 .video { margin: 25px 0 0; }
 .video video { border-radius: 10px; background: var(--deep); }
-.nextProduct { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8vw; padding: 42px 0 0; border-top: 1px solid color-mix(in srgb, var(--deep) 18%, transparent); }
-.nextLabel { display: grid; gap: 10px; }
-.nextLabel > span:first-child { font-size: 12px; }
-.nextLabel strong { font-size: clamp(30px, 4.5vw, 68px); letter-spacing: -.06em; line-height: 1.1; }
-.nextLabel > span:last-child { font-size: 32px; }
-.nextVisual { display: block; }
-.nextImage { border-radius: var(--screen-radius); overflow: hidden; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   :global([data-motion="active"]) .stripItem:hover .stripImage { transform: translateY(-2px); }
   .stripImage { transition: transform 250ms ease; }
@@ -105,7 +99,6 @@
   .detailHeading { grid-template-columns: 1fr; gap: 36px; }
   .briefFacts { grid-template-columns: repeat(4, 1fr); }
   .context { gap: 5%; }
-  .nextProduct { gap: 30px; padding-top: 36px; }
 }
 @media (max-width: 600px) {
   .playground { padding: 12px 18px 50px; }
@@ -152,9 +145,4 @@
   .tryProduct { padding-bottom: 40px; }
   .actions { gap: 8px; margin-top: 24px; }
   .actions a { font-size: 13px; padding: 0 15px; }
-  .nextProduct { grid-template-columns: 1fr; gap: 24px; padding-top: 30px; }
-  .nextLabel { grid-template-columns: 1fr auto; align-items: center; gap: 10px; }
-  .nextLabel > span:first-child { grid-column: 1 / -1; }
-  .nextLabel strong { font-size: 42px; }
-  .nextVisual { width: 100%; }
 }
