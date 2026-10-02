@@ -1,0 +1,9 @@
+.shell { min-height: 100vh; background: var(--paper); color: var(--ink); font-family: var(--font-hanken), var(--font-sans), sans-serif; }
+.shell a { color: inherit; }
+.header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px clamp(20px, 4vw, 64px); font-size: 12px; }
+.header a, .footer a { display: inline-flex; align-items: center; }
+.header a:hover, .footer a:hover { text-decoration: underline; }
+.skip { position: fixed; top: 10px; left: 10px; translate: 0 -200%; padding: 12px; color: var(--paper); background: var(--ink); z-index: 50; }
+.skip:focus { translate: none; }
+.footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding: 30px clamp(20px, 4vw, 64px) 110px; font-size: 12px; }
+@media (max-width: 600px) { .header { gap: 10px; font-size: 10px; } .header a { max-width: 34%; } }
