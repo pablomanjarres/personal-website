@@ -1,14 +1,14 @@
 import { profile } from "../../socials";
 import { capabilities, featuredProjects, type FeaturedProject } from "./content";
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { AnkiInterfaceStudy } from "./AnkiInterfaceStudy";
 import styles from "./studio-body.module.css";
 
 function ProductStudy({ item }: { item: FeaturedProject }) {
   return (
     <article className={styles.study} data-product={item.project.slug}>
       <div className={styles.visuals}>
-        <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />
-
+        {item.project.slug === "anki" ? <AnkiInterfaceStudy item={item} className={styles.mainVisual} /> : <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />}
         <span className={styles.mediaNote}>{item.previewLabel}</span>
       </div>
       <div className={styles.projectCopy}>
