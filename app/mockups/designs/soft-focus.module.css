@@ -1,0 +1,52 @@
+.softFocus {
+  --sea-muted: color-mix(in srgb, var(--ink) 68%, var(--paper));
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 28px clamp(22px, 5vw, 76px) 0;
+}
+.hero { padding-bottom: clamp(80px, 9vw, 132px); }
+.introduction { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; margin-bottom: 34px; }
+.greeting { margin: 0; color: var(--ink); font: 400 clamp(25px, 2.7vw, 39px)/1.15 var(--font-serif), serif; }
+.profession { margin: 3px 0 0; color: var(--sea-muted); font: 400 14px/1.5 var(--font-hanken), sans-serif; }
+.headline {
+  margin: 0;
+  color: var(--ink);
+  font: 500 clamp(60px, 10.8vw, 152px)/.94 var(--font-hanken), sans-serif;
+  letter-spacing: -.065em;
+}
+.headline span { display: block; }
+.headline span + span { text-align: right; margin-top: .06em; }
+.studio { display: grid; grid-template-columns: .95fr 2fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; margin-top: 44px; }
+.note { padding-bottom: 60px; }
+.note p { margin: 0 0 27px; max-width: 240px; color: var(--ink); font: 400 clamp(24px, 2.6vw, 36px)/1.12 var(--font-serif), serif; }
+.note span { color: var(--sea-muted); font: 400 13px/1.7 var(--font-hanken), sans-serif; }
+.mainPortrait, .secondPortrait { margin: 0; }
+.mainPortrait { transform: rotate(-2deg); }
+.secondPortrait { align-self: end; padding-bottom: 23px; transform: rotate(3deg); }
+.secondPortrait figcaption { margin-top: 12px; max-width: 190px; color: var(--sea-muted); font: 400 12px/1.4 var(--font-hanken), sans-serif; }
+.heroFoot { display: flex; justify-content: space-between; align-items: center; gap: 32px; margin-top: 42px; }
+.heroFoot > p { margin: 0; color: var(--ink); font: 400 16px/1.5 var(--font-hanken), sans-serif; }
+.actions { flex-shrink: 0; }
+@media (max-width: 1050px) {
+  .studio { grid-template-columns: 1fr 1.8fr .9fr; gap: 24px; }
+  .note { padding-bottom: 0; }
+  .note p { font-size: 27px; }
+  .headline { font-size: 11.2vw; }
+}
+@media (max-width: 680px) {
+  .softFocus { padding: 22px 22px 0; }
+  .introduction { margin-bottom: 32px; gap: 20px; }
+  .greeting { max-width: 160px; font-size: 28px; }
+  .profession { font-size: 12px; }
+  .headline { font-size: clamp(47px, 12.6vw, 85px); letter-spacing: -.065em; }
+  .headline span + span { margin-top: .1em; }
+  .studio { position: relative; grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
+  .mainPortrait { grid-row: 1; width: 72%; transform: rotate(-2deg); }
+  .secondPortrait { position: absolute; right: 0; top: 26%; width: 35%; padding: 0; transform: rotate(4deg); }
+  .secondPortrait figcaption { display: none; }
+  .note { grid-row: 2; max-width: 245px; padding: 0; }
+  .note p { max-width: none; font-size: 30px; margin-bottom: 20px; }
+  .heroFoot { align-items: flex-start; flex-direction: column; gap: 22px; margin-top: 30px; }
+  .heroFoot > p { font-size: 15px; }
+  .hero { padding-bottom: 64px; }
+}
