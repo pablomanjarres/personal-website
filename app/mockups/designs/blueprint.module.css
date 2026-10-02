@@ -1,0 +1,63 @@
+.blueprint {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 18px clamp(20px, 4.4vw, 68px) 0;
+}
+.hero { padding-bottom: clamp(68px, 8vw, 112px); }
+.introduction {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+  padding-block: 30px 28px;
+  color: var(--ink);
+}
+.name { font: 600 clamp(18px, 1.6vw, 23px)/1.2 var(--font-hanken), sans-serif; margin: 0; }
+.discipline { font: 400 14px/1.55 var(--font-sans), sans-serif; margin: 0; min-width: 32%; }
+.composition { position: relative; isolation: isolate; padding-block: 8px 34px; }
+.headline {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--ink);
+  font: 800 clamp(100px, 18.4vw, 262px)/.84 var(--font-bigshoulders), sans-serif;
+  letter-spacing: -.045em;
+}
+.headline span { display: block; width: fit-content; }
+.headline span + span { margin-top: .07em; }
+.headline .software { color: var(--accent); margin-top: .1em; }
+.portraitBlock {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  top: 24px;
+  width: 32%;
+  margin: 0;
+  padding-left: 15px;
+  border-left: 2px solid var(--accent);
+}
+.portraitBlock figcaption {
+  padding-top: 13px;
+  color: var(--ink);
+  font: 400 12px/1.45 var(--font-sans), sans-serif;
+}
+.heroFoot { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; }
+.heroFoot > p { max-width: 390px; margin: 0; color: var(--ink); font: 400 18px/1.5 var(--font-hanken), sans-serif; }
+.actions { flex-shrink: 0; }
+@media (max-width: 1050px) {
+  .headline { font-size: clamp(96px, 19vw, 196px); }
+  .portraitBlock { top: 14px; width: 33%; }
+  .heroFoot { align-items: flex-start; flex-direction: column; gap: 22px; }
+}
+@media (max-width: 680px) {
+  .blueprint { padding-inline: 20px; padding-top: 0; }
+  .introduction { padding-block: 24px 28px; }
+  .name { max-width: 150px; }
+  .discipline { font-size: 12px; min-width: auto; }
+  .composition { padding-bottom: 0; display: flex; flex-direction: column; }
+  .headline { font-size: clamp(86px, 24vw, 162px); line-height: .88; letter-spacing: -.045em; }
+  .portraitBlock { position: relative; width: 65%; align-self: flex-end; top: auto; margin-block: 28px; padding-left: 10px; }
+  .portraitBlock figcaption { font-size: 11px; }
+  .heroFoot > p { font-size: 17px; }
+  .hero { padding-bottom: 60px; }
+}
