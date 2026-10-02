@@ -33,7 +33,7 @@ export default function AfterHours() {
       </section>
       <WorkSection layout="reel" title="Built, shipped, still growing." />
       <AboutSection variant="cards" />
-      <ContactSection variant="inline" />
+      <ContactSection concept="after-hours" />
     </MockupShell>
   );
 }

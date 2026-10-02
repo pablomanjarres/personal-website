@@ -49,7 +49,7 @@ export default function SoftFocus() {
       </section>
       <WorkSection layout="journal" title="From the working notebook." />
       <AboutSection variant="note" />
-      <ContactSection variant="banner" />
+      <ContactSection concept="soft-focus" />
     </MockupShell>
   );
 }

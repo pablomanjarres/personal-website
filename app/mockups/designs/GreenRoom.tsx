@@ -33,7 +33,7 @@ export default function GreenRoom() {
       </section>
       <WorkSection layout="chapters" title="A closer look at the work." />
       <AboutSection variant="note" />
-      <ContactSection variant="orb" />
+      <ContactSection concept="green-room" />
     </MockupShell>
   );
 }
