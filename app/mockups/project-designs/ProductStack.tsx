@@ -1,12 +1,13 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyActions, StudyFacts, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
 import interaction from "../interaction.module.css";
+import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
+import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-stack.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
-type Asset = ProjectStudy["media"][number];
 
 function preview(study: ProjectStudy) {
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
@@ -39,28 +40,6 @@ function ProjectShelf({ studies, direction }: IndexProps) {
   );
 }
 
-function OpenSheet({ asset, priority = false }: { asset: Asset; priority?: boolean }) {
-  return <section className={styles.openSheet} data-media={asset.kind}><StudyMedia asset={asset} className={styles.openMedia} priority={priority} /></section>;
-}
-
-function Foldout({ asset }: { asset: Asset }) {
-  return (
-    <details className={styles.foldout}>
-      <summary className={interaction.action}>A closer look <span aria-hidden="true">+</span></summary>
-      <div className={styles.foldoutContent}><StudyMedia asset={asset} detail className={styles.closeupMedia} /></div>
-    </details>
-  );
-}
-
-function NextSheet({ study, direction }: { study: ProjectStudy; direction: StudyDirectionId }) {
-  return (
-    <footer className={styles.nextSheet}>
-      <StudyNext study={study} direction={direction} className={styles.nextTitle} />
-      <StudyLink study={study} direction={direction} className={styles.nextPreview}><StudyMedia asset={preview(study)} className={styles.nextMedia} /></StudyLink>
-    </footer>
-  );
-}
-
 export function ProductStackIndex({ studies, direction }: IndexProps) {
   const selected = studies.slice(0, selectedWorkSlugs.length);
   return (
@@ -76,18 +55,48 @@ export function ProductStackIndex({ studies, direction }: IndexProps) {
 }
 
 export function ProductStackDetail({ study, nextStudy, direction }: DetailProps) {
-  const primary = preview(study);
-  const otherMedia = study.media.filter(asset => asset.id !== primary.id);
+  const story = getCaseStudy(study);
+  const supportingScreen = study.project.slug === "anki" ? study.media.find(asset => asset.id === "anki-home") : study.media.find(asset => asset.kind === "video");
   return (
-    <div className={styles.stack}>
-      <header className={styles.detailHeading}><h1>{study.project.title}</h1><p>{study.caption}</p></header>
-      <div className={styles.openBook}>
-        <OpenSheet asset={primary} priority />
-        <div className={styles.projectNotes}><StudyFacts study={study} className={styles.facts} /><StudyActions study={study} className={styles.actions} /></div>
-        {primary.kind !== "unavailable" && <Foldout asset={primary} />}
+    <article className={`${styles.stack} ${styles.caseFolio}`}>
+      <StudyBack direction={direction} className={styles.folioBack} />
+      <header className={styles.folioCover}>
+        <div className={styles.coverText}>
+          <h1>{study.project.title}</h1>
+          <h2>{story.headline}</h2>
+          <p>{story.introduction}</p>
+          <StudyActions study={study} className={styles.folioActions} />
+        </div>
+        <StudyProductVisual study={study} className={styles.coverVisual} priority caption={false} />
+      </header>
+      <div className={styles.readingSpread}>
+        <aside className={styles.marginNotes}>
+          <StudyBrief study={study} className={styles.marginalBrief} />
+          <h2>My part</h2><p>{story.responsibility}</p>
+          <StudyMeasures study={study} className={styles.marginalMeasures} />
+        </aside>
+        <div className={styles.readingPages}>
+          <section className={styles.problemPage}>
+            <h2>The starting point.</h2><p>{story.challenge}</p>
+          </section>
+          <section>
+            <h2>Working through the details.</h2>
+            <StudyDecisions study={study} className={styles.folioDecisions} />
+          </section>
+          {supportingScreen && <StudyMedia asset={supportingScreen} className={styles.insertedScreen} />}
+          <section>
+            <h2>Inside the build.</h2>
+            <StudyFlow study={study} className={styles.folioFlow} />
+            <StudyComponents study={study} className={styles.buildNotes} />
+            <div className={styles.folioTechnology}><h3>Built with</h3><p>{study.project.stack.join(" / ")}</p></div>
+          </section>
+          <section className={styles.finalPage}>
+            <h2>{getReleaseHeading(study)}</h2><p>{story.outcome}</p>
+            <StudyActions study={study} className={styles.folioActions} />
+          </section>
+        </div>
       </div>
-      {otherMedia.length > 0 && <section className={styles.extraPages} aria-label="More project media">{otherMedia.map(asset => <OpenSheet asset={asset} key={asset.id} />)}</section>}
-      <NextSheet study={nextStudy} direction={direction} />
-    </div>
+      <footer className={styles.folioNext}><StudyNext study={nextStudy} direction={direction} className={styles.nextTitle} /></footer>
+    </article>
   );
 }
