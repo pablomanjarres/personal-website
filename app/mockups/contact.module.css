@@ -96,7 +96,9 @@
 
 @keyframes creditLight { from { transform: translateX(-12%); opacity: .2; } to { transform: translateX(12%); opacity: .5; } }
 @media (prefers-reduced-motion: no-preference) {
-  :global([data-motion="active"]) .credits .invitation::before { animation: creditLight 9s ease-in-out infinite alternate; }
+  :global([data-motion="active"]) .credits .invitation::before,
+  :global([data-motion="paused"]) .credits .invitation::before { animation: creditLight 9s ease-in-out infinite alternate; }
+  :global([data-motion="paused"]) .credits .invitation::before { animation-play-state: paused; }
   .choiceArrow { transition: transform 200ms ease; }
 }
 @media (max-width: 850px) {
