@@ -95,7 +95,7 @@ const selectedStories: Record<string, CaseStudy> = {
 };
 
 function plain(text: string) {
-  return text.replace(/[*`]/g, "").replace(/[—–]/g, ", ").replace(/\s+/g, " ").trim();
+  return text.replace(/[*`]/g, "").replace(/[—–]/g, ", ").replace(/\bserves as\b/g, "is").replace(/\s+/g, " ").trim();
 }
 
 export function getReleaseHeading(study: ProjectStudy) {
