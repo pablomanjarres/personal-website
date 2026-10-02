@@ -4,6 +4,7 @@
 .shell a:focus-visible, .shell summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
 .skip { position: absolute; top: -80px; left: 24px; padding: 16px; background: var(--paper); z-index: 20; }
 .skip:focus { top: 8px; }
+.portrait { display: block; width: 100%; height: auto; object-fit: cover; }
 .nav { max-width: 1440px; margin: auto; padding: 28px 5%; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .brand { font-family: var(--font-display), sans-serif; font-size: 32px; letter-spacing: -.08em; }
 .brand span { color: var(--accent); }

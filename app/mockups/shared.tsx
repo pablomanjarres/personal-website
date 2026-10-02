@@ -28,7 +28,7 @@ export function MockupShell({ concept, children }: { concept: Concept; children:
 export function Portrait({ portrait, className, preload = true, alt = "Pablo Manjarres" }: {
   portrait: "forest" | "teal" | "denim" | "hoodie"; className?: string; preload?: boolean; alt?: string;
 }) {
-  return <Image src={`/mockups/portraits/${portrait}.webp`} alt={alt} width={1122} height={1402} sizes="(max-width: 700px) 90vw, 50vw" preload={preload} className={className} />;
+  return <Image src={`/mockups/portraits/${portrait}.webp`} alt={alt} width={1122} height={1402} sizes="(max-width: 700px) 90vw, 50vw" preload={preload} className={`${styles.portrait} ${className ?? ""}`} />;
 }
 
 export function ActionLinks({ className = "" }: { className?: string }) {
