@@ -4,6 +4,7 @@
 .brief dd { margin: 6px 0 0; font-size: 15px; line-height: 1.5; }
 .measures div { display: flex; flex-direction: column-reverse; }
 .measures dd { margin: 0 0 8px; font-size: 40px; line-height: 1.1; letter-spacing: -.045em; }
+.measures dd[data-prose] { font-size: 16px; line-height: 1.6; letter-spacing: normal; }
 .decisions { display: grid; gap: 30px; }
 .decisions h3 { margin: 0 0 12px; font-size: 23px; line-height: 1.2; letter-spacing: -.025em; }
 .decisions p, .flow p { margin: 0; font-size: 16px; line-height: 1.7; max-width: 65ch; }

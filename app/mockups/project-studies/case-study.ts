@@ -98,6 +98,10 @@ function plain(text: string) {
   return text.replace(/[*`]/g, "").replace(/[—–]/g, ", ").replace(/\s+/g, " ").trim();
 }
 
+export function getReleaseHeading(study: ProjectStudy) {
+  return ["live", "shipped"].includes(study.project.status) ? "What shipped." : "Current build.";
+}
+
 export function getCaseStudy(study: ProjectStudy): CaseStudy {
   const curated = selectedStories[study.project.slug];
   if (curated) return curated;
@@ -112,7 +116,12 @@ export function getCaseStudy(study: ProjectStudy): CaseStudy {
     headline: plain(project.oneLiner), introduction: plain(project.summary.split("\n\n")[0]),
     challenge: plain(project.problem), responsibility: plain(project.role),
     outcome: components.length ? `The work includes ${components.slice(0, 3).map(part => part.name).join(", ")}.` : plain(project.summary.split("\n\n").at(-1) ?? project.oneLiner),
-    platform: project.tags[0] ?? "Software", decisions, flow: [], components,
-    measures: (project.metrics ?? []).slice(0, 3).map(label => ({ value: plain(label.split(" ")[0]), label: plain(label.split(" ").slice(1).join(" ")) })),
+    platform: project.previewKind === "app" ? "Desktop app" : project.previewKind === "web" ? "Web app" : "Software project",
+    decisions, flow: [], components,
+    measures: (project.metrics ?? []).slice(0, 3).map(metric => {
+      const text = plain(metric);
+      const quantitative = text.match(/^([<>~+]?\d[\d,.]*(?:\+|%|-bit)?)\s+(.+)$/);
+      return quantitative ? { value: quantitative[1], label: quantitative[2] } : { value: "", label: text };
+    }),
   };
 }

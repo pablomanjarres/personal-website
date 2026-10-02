@@ -22,7 +22,7 @@ export function StudyBrief({ study, className = "" }: StudyProps) {
 export function StudyMeasures({ study, className = "" }: StudyProps) {
   const { measures } = getCaseStudy(study);
   if (!measures.length) return null;
-  return <dl className={`${styles.measures} ${className}`}>{measures.map(measure => <div key={`${measure.value}-${measure.label}`}><dt>{measure.label}</dt><dd>{measure.value}</dd></div>)}</dl>;
+  return <dl className={`${styles.measures} ${className}`}>{measures.map(measure => <div key={`${measure.value}-${measure.label}`}><dt>{measure.value ? measure.label : "Build detail"}</dt><dd data-prose={!measure.value || undefined}>{measure.value || measure.label}</dd></div>)}</dl>;
 }
 
 export function StudyDecisions({ study, className = "" }: StudyProps) {
@@ -39,12 +39,12 @@ export function StudyComponents({ study, className = "" }: StudyProps) {
   return <div className={`${styles.components} ${className}`}>{getCaseStudy(study).components.map(component => <article key={component.name}><h3>{component.name}</h3><p>{component.body}</p></article>)}</div>;
 }
 
-export function StudyProductVisual({ study, className = "", priority = false, caption = true }: StudyProps & { priority?: boolean; caption?: boolean }) {
+export function StudyProductVisual({ study, className = "", priority = false, caption = true, sizes = "(max-width: 700px) 90vw, 46vw" }: StudyProps & { priority?: boolean; caption?: boolean; sizes?: string }) {
   if (study.project.slug !== "anki") {
     const asset = study.media.find(item => item.kind !== "video") ?? study.media[0];
-    return <StudyMedia asset={asset} className={className} priority={priority} caption={caption} />;
+    return <StudyMedia asset={asset} className={className} priority={priority} caption={caption} sizes={sizes} />;
   }
-  return <figure className={`${styles.productVisual} ${className}`}><Image {...ankiAppMockup} alt={ankiAppMockup.alt} sizes="(max-width: 700px) 90vw, 46vw" preload={priority} />{caption && <figcaption>Home and review screens from the mobile app</figcaption>}</figure>;
+  return <figure className={`${styles.productVisual} ${className}`}><Image {...ankiAppMockup} alt={ankiAppMockup.alt} sizes={sizes} preload={priority} />{caption && <figcaption>Home and review screens from the mobile app</figcaption>}</figure>;
 }
 
 export function StudyBack({ direction, className = "" }: { direction: StudyDirectionId; className?: string }) {
