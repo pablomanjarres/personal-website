@@ -7,6 +7,11 @@ import { StudyShell } from "../../../project-studies/shell";
 export const dynamicParams = false;
 export function generateStaticParams() { return studyDirections.flatMap(direction => studies.map(study => ({ direction: direction.id, slug: study.project.slug }))); }
 
+export async function generateMetadata({ params }: { params: Promise<{ direction: string; slug: string }> }) {
+  const { direction, slug } = await params;
+  return { title: `${getStudy(slug)?.project.title ?? "Project"} — ${getStudyDirection(direction)?.name ?? "Project designs"}` };
+}
+
 export default async function ProjectDetailMockup({ params }: { params: Promise<{ direction: string; slug: string }> }) {
   const { direction: id, slug } = await params;
   const direction = getStudyDirection(id);
