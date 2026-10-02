@@ -1,18 +1,18 @@
-import { MockupShell, Portrait, ActionLinks, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks, RoleSummary, WorkSection, AboutSection, ContactSection } from "../shared";
 import { concepts } from "../concepts";
 import styles from "./signal.module.css";
 
 export default function Signal() {
   return (
     <MockupShell concept={concepts[0]}>
-      <section className={styles.hero} aria-labelledby="signal-name">
+      <section className={styles.hero} aria-labelledby="signal-role">
         <div className={styles.intro}>
-          <p>Software developer<br /><span>Solo founder</span></p>
+          <RoleSummary />
           <p className={styles.current}>An idea in progress.<br /><strong>Currently building Noelle.</strong></p>
         </div>
         <div className={styles.stage}>
-          <h1 id="signal-name" className={styles.name}>
-            <span>Pablo</span><span className={styles.surname}>Manjarres.</span>
+          <h1 id="signal-role" className={styles.headline}>
+            <span>Build.</span><span>Design.</span><span>Launch.</span>
           </h1>
           <figure className={styles.frame}>
             <Portrait portrait="forest" />
@@ -23,7 +23,7 @@ export default function Signal() {
           </div>
         </div>
         <div className={styles.endnote}>
-          <span>From idea to working product.</span>
+          <span>Pablo Manjarres</span>
           <span>Design with intent.<br />Build with care.</span>
         </div>
       </section>
