@@ -1,15 +1,13 @@
 # Personal site mockups
 
-Six original portfolio directions for people hiring Pablo as a Software Engineer, Product Designer, and Founder. The headline explains his work, the portrait carries the identity, and real product screenshots carry the proof. His name is a small signature. These are review prototypes at `/mockups`; the production homepage is unchanged until a direction is selected.
-
-- Each direction has one palette record in `app/mockups/concepts.ts`, exposed as shared CSS variables. Hero-specific palettes live with the corresponding design.
-- Reuse the existing Next font owners: Archivo Black, Big Shoulders, and Hanken Grotesk for display; IBM Plex Sans for body; Instrument Serif for personal notes.
-- Each design composes a distinct hero and one shared work layout, followed by shared about and contact sections. Work is on the main mockup page.
-- Shared controls, focus, hover, spacing, image presentation, and responsive states live in `app/mockups/mockups.module.css`. Reduced motion is static.
-- Only the approved forest, lighter teal, denim jacket, and gray hoodie portraits are used. The bright hoodie is excluded.
+Six independent portfolio directions for hiring Pablo as a Software Engineer, Product Designer, and Founder. His name stays small. Real project screenshots show the work. Review the prototypes at `/mockups` before selecting the production redesign.
 
 ## Ownership
 
-`app/theme.ts`, `app/globals.css`, and `app/layout.tsx` retain the site tokens, resets, and fonts. `app/mockups/shared.tsx` owns prototype navigation, controls, portraits, work, about, and contact presentation. `app/mockups/designs/` owns the six heroes and their composition. Route pages compose these components; the comparison gallery has its own small review stylesheet.
+- `app/mockups/concepts.ts` owns each palette and description. Shared CSS variables carry those tokens through the page.
+- `app/mockups/designs/` owns six hero compositions and their art. Each has a different silhouette, entrance, detail, and project layout.
+- `shared.tsx` owns the shell, navigation, portraits, roles, and action links. `work.tsx` presents canonical projects as stack, bento, browser, reel, chapters, or journal layouts. `sections.tsx` composes about and contact variants. Each owner has one stylesheet.
+- `motion.tsx` owns motion preference, Pause, Replay, pointer depth, and scroll reveals. It uses one observer and bounded animation frames, cleans up on exit, and reacts to reduced-motion changes. Designer CSS preserves animation declarations while paused. Static content remains readable.
+- `app/projects.ts` owns project facts, `app/socials.ts` owns roles and contact details, and the portfolio `Status` component owns status labels. Four projects are featured; a native disclosure exposes the full registry without per-project requests.
 
-`app/projects.ts` remains the single project registry, `app/socials.ts` owns contact data, and the existing portfolio `Status` component owns status labels. Four selected projects are featured; the native disclosure exposes all projects without per-project requests. Existing homepage, case-study, and demo routes stay intact.
+Reuse the fonts from `app/layout.tsx` and the existing site tokens. Use the approved forest, teal, denim, and gray hoodie portraits. Visible copy uses the human-writing check. Verify all six layouts on desktop and phone, project links, keyboard focus, motion controls, and reduced motion after a shared change.
