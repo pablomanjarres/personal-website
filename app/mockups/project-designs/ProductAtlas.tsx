@@ -1,12 +1,13 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
-import { StudyActions, StudyDemo, StudyFacts, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyDemo, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { getCaseStudy } from "../project-studies/case-study";
+import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import interaction from "../interaction.module.css";
 import styles from "./product-atlas.module.css";
 import { selectedWorkSlugs } from "../selected-work";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
-type Asset = ProjectStudy["media"][number];
 
 function mapAsset(study: ProjectStudy) {
   return study.media.find(asset => asset.kind === "screen")
@@ -39,12 +40,6 @@ function MapRail({ studies }: { studies: readonly ProjectStudy[] }) {
   </aside>;
 }
 
-function DetailLandmark({ asset, side }: { asset: Asset; side: "left" | "right" }) {
-  return <div className={`${styles.detailLandmark} ${side === "left" ? styles.leftCrop : styles.rightCrop}`} data-reveal>
-    <StudyMedia asset={asset} className={styles.cropMedia} detail />
-  </div>;
-}
-
 export function ProductAtlasIndex({ studies, direction }: IndexProps) {
   const featured = studies.slice(0, selectedWorkSlugs.length);
   return <div className={styles.atlas}>
@@ -66,35 +61,46 @@ export function ProductAtlasIndex({ studies, direction }: IndexProps) {
 }
 
 export function ProductAtlasDetail({ study, nextStudy, direction }: DetailProps) {
-  const primary = mapAsset(study);
-  const extras = study.media.filter(asset => asset.id !== primary.id);
-  return <div className={styles.atlas}>
+  const story = getCaseStudy(study);
+  const hasArchitecture = story.flow.length > 0 || story.components.length > 0;
+  return <div className={`${styles.atlas} ${styles.caseStudy}`}>
+    <StudyBack direction={direction} className={styles.back} />
     <header className={styles.detailHeader}>
       <h1>{study.project.title}</h1>
-      <p>{study.caption}</p>
+      <p>{story.headline}</p>
+      <StudyBrief study={study} className={styles.briefFacts} />
     </header>
-    <section id="full-view" className={styles.fullView} aria-label={`${study.project.title} full view`}>
-      <StudyMedia asset={primary} className={styles.fullMedia} priority />
+    <section className={styles.fullView} aria-label={`${study.project.title} product interface`}>
+      <StudyProductVisual study={study} className={styles.fullMedia} priority sizes="(max-width: 700px) 88vw, 86vw" />
     </section>
     <div className={styles.detailMap}>
-      <aside className={`${styles.rail} ${styles.detailRail}`}><nav aria-label="Project views">
-        <span className={styles.railLabel}>{study.project.title}</span>
-        <a href="#full-view" className={interaction.action}>Full view</a>{primary.kind !== "unavailable" && <a href="#details" className={interaction.action}>Details</a>}<a href="#project-facts" className={interaction.action}>Project facts</a>
+      <aside className={styles.detailRail}><nav aria-label="Case study sections">
+        <a href="#brief" className={interaction.action}>Brief</a>
+        <a href="#decisions" className={interaction.action}>Decisions</a>
+        {hasArchitecture && <a href="#architecture" className={interaction.action}>Architecture</a>}
       </nav></aside>
       <div className={styles.detailRoute}>
-        {primary.kind !== "unavailable" && <section id="details" className={styles.landmarkPair} aria-labelledby="atlas-details-heading">
-          <h2 id="atlas-details-heading">Closer.</h2>
-          <DetailLandmark asset={primary} side="left" />
-          <DetailLandmark asset={primary} side="right" />
-        </section>}
-        <StudyDemo study={study} className={styles.productDemo} />
-        {extras.length > 0 && <section className={styles.extraMedia} aria-label="More product views">
-          {extras.map(asset => <StudyMedia key={asset.id} asset={asset} className={styles.extraCapture} />)}
-        </section>}
-        <section id="project-facts" className={styles.projectFacts} aria-label="Project facts and links">
-          <StudyFacts study={study} className={styles.facts} />
-          <StudyActions study={study} className={styles.actions} />
+        <section id="brief" className={styles.storySection} aria-labelledby="atlas-brief-heading">
+          <h2 id="atlas-brief-heading">The brief.</h2>
+          <p className={styles.introduction}>{story.introduction}</p>
+          <div className={styles.context}>
+            <article><h3>The challenge</h3><p>{story.challenge}</p></article>
+            <article><h3>My responsibility</h3><p>{story.responsibility}</p></article>
+          </div>
+          <div className={styles.outcome}><h3>The result</h3><p>{story.outcome}</p><StudyMeasures study={study} className={styles.measures} /></div>
         </section>
+        <section id="decisions" className={styles.storySection} aria-labelledby="atlas-decisions-heading">
+          <h2 id="atlas-decisions-heading">Decisions that shaped it.</h2>
+          <StudyDecisions study={study} className={styles.decisions} />
+        </section>
+        {hasArchitecture && <section id="architecture" className={styles.storySection} aria-labelledby="atlas-architecture-heading">
+          <h2 id="atlas-architecture-heading">How it fits together.</h2>
+          <StudyFlow study={study} className={styles.flow} />
+          <StudyComponents study={study} className={styles.components} />
+          <div className={styles.stack}><h3>Built with</h3><p>{study.project.stack.join(" / ")}</p></div>
+        </section>}
+        {study.project.embedUrl && <section className={styles.demoSection} aria-label="Try the product"><h2>Try the product.</h2><StudyDemo study={study} className={styles.productDemo} /></section>}
+        <StudyActions study={study} className={styles.actions} />
       </div>
     </div>
     <footer className={styles.nextRoute}>
