@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { MockupShell, Portrait, RoleSummary, ActionLinks } from "../shared";
 import NightBody from "../bodies/NightBody";
 import { concepts } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 import { profile } from "../../socials";
 import styles from "./after-hours.module.css";
 
@@ -16,9 +18,9 @@ export default function AfterHours() {
           <div className={styles.light} aria-hidden="true" />
           <div className={styles.curtain} aria-hidden="true"><span /><span /></div>
           <div className={styles.intro}>
-            <a className={styles.building} href="https://trynoelle.com" target="_blank" rel="noreferrer" data-enter="fade">
+            <Link className={styles.building} href={conceptStudyHref("after-hours", profile.building.toLowerCase())} data-enter="fade">
               Currently building {profile.building}
-            </a>
+            </Link>
             <h1 id="after-hours-heading" className={styles.heading} data-enter="word">
               I make software<br />people can use.
             </h1>

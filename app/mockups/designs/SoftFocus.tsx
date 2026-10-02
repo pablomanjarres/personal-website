@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { profile } from "../../socials";
 import { concepts } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 import { MockupShell, Portrait, ActionLinks, RoleSummary } from "../shared";
 import LetterBody from "../bodies/LetterBody";
 import styles from "./soft-focus.module.css";
@@ -40,7 +41,7 @@ export default function SoftFocus() {
             <path d="M44 9C47 24 48 34 46 42M13 21C28 29 36 35 41 42M7 49C25 46 35 45 42 47M21 77C32 62 38 56 43 51M52 83C48 68 47 58 47 51M80 66C64 58 56 52 50 48M84 34C67 40 57 44 50 45M67 8C59 24 53 35 49 42" />
           </svg>
         </div>
-        <Link href={`/portfolio/projects/${profile.building.toLowerCase()}`} className={styles.building} data-enter="fade">
+        <Link href={conceptStudyHref("soft-focus", profile.building.toLowerCase())} className={styles.building} data-enter="fade">
           <span className={styles.notePin} aria-hidden />
           <span>On my desk</span>
           <strong>{profile.building}</strong>

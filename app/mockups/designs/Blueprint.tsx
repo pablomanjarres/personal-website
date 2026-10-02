@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getProject } from "../../projects";
 import { concepts } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 import { MockupShell, Portrait, ActionLinks, RoleSummary } from "../shared";
 import BlueprintBody from "../bodies/BlueprintBody";
 import styles from "./blueprint.module.css";
@@ -28,7 +29,7 @@ function ProductAssembly() {
           <span className={styles.node} aria-hidden="true" />{connection.label}
         </span>
       ))}
-      <Link href={`/portfolio/projects/${cortex.slug}`} className={styles.appWindow} aria-label="Read the Cortex case study">
+      <Link href={conceptStudyHref("blueprint", cortex.slug)} className={styles.appWindow} aria-label="Read the Cortex case study">
         <div className={styles.windowBar}>
           <span className={styles.windowDots} aria-hidden="true"><i /><i /><i /></span>
           <span>{cortex.title}</span><span className={styles.windowType}>Desktop app</span>

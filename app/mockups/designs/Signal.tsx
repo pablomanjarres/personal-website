@@ -4,12 +4,13 @@ import { profile } from "../../socials";
 import { MockupShell, Portrait, ActionLinks, RoleSummary } from "../shared";
 import SignalBody from "../bodies/SignalBody";
 import { concepts } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 import styles from "./signal.module.css";
 
 const proofProjects = ["noelle", "cortex"].map(slug => projects.find(project => project.slug === slug)).filter(project => project !== undefined);
 
 function ProofTag({ project, index }: { project: Project; index: number }) {
-  return <Link href={`/portfolio/projects/${project.slug}`} className={styles.proof} data-proof={index} data-enter="fade"><span aria-hidden>↗</span><span><strong>{project.title}</strong><small>{project.role}</small></span></Link>;
+  return <Link href={conceptStudyHref("signal", project.slug)} className={styles.proof} data-proof={index} data-enter="fade"><span aria-hidden>↗</span><span><strong>{project.title}</strong><small>{project.role}</small></span></Link>;
 }
 
 export default function Signal() {
