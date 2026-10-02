@@ -10,7 +10,7 @@
 @keyframes clip { from { clip-path: inset(0 0 100% 0 round 40px); } to { clip-path: inset(0 round 40px); } }
 @keyframes pop { from { opacity: 0; scale: .88; } to { opacity: 1; scale: 1; } }
 @media (prefers-reduced-motion: no-preference) {
-  .root[data-motion="active"] [data-enter] { animation: settle var(--motion-time) var(--motion-ease) both; animation-delay: var(--enter-delay, 0ms); }
+  .root:is([data-motion="active"], [data-motion="paused"]) [data-enter] { animation: settle var(--motion-time) var(--motion-ease) both; animation-delay: var(--enter-delay, 0ms); }
   .root[data-motion="active"] [data-enter="word"] { animation-name: word; }
   .root[data-motion="active"] [data-enter="clip"] { animation-name: clip; }
   .root[data-motion="active"] [data-enter="pop"] { animation-name: pop; }

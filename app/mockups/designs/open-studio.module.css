@@ -34,9 +34,9 @@
   .project[data-project="noelle"]:hover { transform: rotate(-3deg) translateY(-4px); }
   .project[data-project="cortex"]:hover { transform: rotate(3deg) translateY(-4px); }
   .portraitWrap { transition: transform .8s cubic-bezier(.2,.8,.2,1); }
-  :global([data-motion="active"]) .portraitWrap { transform: translateX(calc(-50% + var(--pointer-x, 0) * 8px)) translateY(calc(var(--pointer-y, 0) * 8px)) rotate(calc(-6deg + var(--pointer-x, 0) * 2deg)); }
-  :global([data-motion="active"]) .orbitPath { stroke-dasharray: 1; animation: traceOrbit 1.8s cubic-bezier(.22,.7,.2,1) both; }
-  :global([data-motion="active"]) .pinwheel { animation: turn 28s linear infinite; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .portraitWrap { transform: translateX(calc(-50% + var(--pointer-x, 0) * 8px)) translateY(calc(var(--pointer-y, 0) * 8px)) rotate(calc(-6deg + var(--pointer-x, 0) * 2deg)); }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .orbitPath { stroke-dasharray: 1; animation: traceOrbit 1.8s cubic-bezier(.22,.7,.2,1) both; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .pinwheel { animation: turn 28s linear infinite; }
   @keyframes traceOrbit { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   @keyframes turn { to { transform: rotate(360deg); } }
 }

@@ -21,3 +21,9 @@
 .shell .primary:hover { background: var(--action-hover-bg, var(--accent)); color: var(--action-hover-ink, var(--paper)); }
 .navContact:hover { background: var(--accent); color: var(--paper) !important; }
 @media (prefers-reduced-motion: reduce) { .shell *, .shell *::before, .shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+.nav nav { padding: 0 22px; gap: 26px; border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--panel) 40%, transparent); }
+.shell[data-concept="green-room"] .nav { background: #193b2e; color: #f0f2e9; max-width: none; }
+.shell[data-concept="green-room"] .brand span { color: #b6c7ab; }
+.shell[data-concept="after-hours"] .nav { max-width: none; padding-left: 6%; padding-right: 6%; }
+@media (max-width: 580px) { .nav { padding: 18px 5%; gap: 12px; } .brand { font-size: 28px; } .nav nav { padding: 0 14px; gap: 18px; font-size: 13px; } .navContact { display: none; } }

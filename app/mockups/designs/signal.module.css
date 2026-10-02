@@ -65,12 +65,12 @@
   .body > section:first-child { padding-top: 35px; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  :global([data-motion="active"]) .mask > span { animation: typeRise 1.1s cubic-bezier(.2,.75,.15,1) both; }
-  :global([data-motion="active"]) .mask:nth-child(2) > span { animation-delay: .13s; }
-  :global([data-motion="active"]) .window { transform: translate3d(calc(var(--pointer-x, 0) * 9px), calc(var(--pointer-y, 0) * 6px + var(--hero-scroll, 0) * 24px), 0) rotate(calc(3deg + var(--pointer-x, 0) * 1deg)); transition: transform .4s ease-out; }
-  :global([data-motion="active"]) .window img { transform: scale(1.05) rotate(-3deg) translate3d(calc(var(--pointer-x, 0) * -5px), calc(var(--pointer-y, 0) * -5px), 0); transition: transform .4s ease-out; }
-  :global([data-motion="active"]) .connector path { stroke-dasharray: 1; animation: trace 1.8s .45s cubic-bezier(.3,.3,.2,1) both; }
-  :global([data-motion="active"]) .halo { animation: haloEnter 1.4s .25s ease-out both; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .mask > span { animation: typeRise 1.1s cubic-bezier(.2,.75,.15,1) both; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .mask:nth-child(2) > span { animation-delay: .13s; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .window { transform: translate3d(calc(var(--pointer-x, 0) * 9px), calc(var(--pointer-y, 0) * 6px + var(--hero-scroll, 0) * 24px), 0) rotate(calc(3deg + var(--pointer-x, 0) * 1deg)); transition: transform .4s ease-out; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .window img { transform: scale(1.05) rotate(-3deg) translate3d(calc(var(--pointer-x, 0) * -5px), calc(var(--pointer-y, 0) * -5px), 0); transition: transform .4s ease-out; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .connector path { stroke-dasharray: 1; animation: trace 1.8s .45s cubic-bezier(.3,.3,.2,1) both; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .halo { animation: haloEnter 1.4s .25s ease-out both; }
   .proof { transition: background .25s, box-shadow .25s; }
   .proof:hover { background: var(--panel); box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 20%, transparent); }
   @keyframes typeRise { from { transform: translateY(110%) rotate(3deg); } to { transform: translateY(0) rotate(0); } }
