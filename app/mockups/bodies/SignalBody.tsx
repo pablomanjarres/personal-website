@@ -1,8 +1,11 @@
 import { Status } from "../../portfolio/components";
 import { profile } from "../../socials";
-import { capabilities, featuredProjects, type FeaturedProject } from "./content";
+import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
 import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
 import styles from "./signal-body.module.css";
+
+const concept = "signal";
+const featuredProjects = getFeaturedProjects(concept);
 
 function FieldStudy({ item }: { item: FeaturedProject }) {
   return (
@@ -30,7 +33,7 @@ function ProfileNote() {
         <aside className={styles.sideNote}>
           <h2 id="signal-about">A little about me.</h2>
           <p>I’m Pablo. I’m a software engineer, product designer, and founder. I work on web apps, AI tools, and developer products.</p>
-          <BuildingLink className={styles.current}>Currently building {profile.building}.</BuildingLink>
+          <BuildingLink concept={concept} className={styles.current}>Currently building {profile.building}.</BuildingLink>
         </aside>
         <div className={styles.disciplines}>
           {capabilities.map(capability => <div key={capability.title}><h3>{capability.title}</h3><p>{capability.text}</p></div>)}
@@ -65,7 +68,7 @@ export default function SignalBody() {
           <p>A study app, lending software, and a desktop dashboard.</p>
         </div>
         <div className={styles.studies}>{featuredProjects.map(item => <FieldStudy key={item.project.slug} item={item} />)}</div>
-        <ProjectArchive className={styles.archive} />
+        <ProjectArchive concept={concept} className={styles.archive} />
       </section>
       <ProfileNote />
       <Invitation />

@@ -1,6 +1,9 @@
-import { featuredProjects, capabilities, type FeaturedProject } from "./content";
+import { getFeaturedProjects, capabilities, type FeaturedProject } from "./content";
 import { ProjectVisual, ProjectLink, ProjectArchive, EmailLink, BookingLink, FooterLinks } from "./primitives";
 import styles from "./garden-body.module.css";
+
+const concept = "green-room";
+const featuredProjects = getFeaturedProjects(concept);
 
 function ProjectPlot({ item }: { item: FeaturedProject }) {
   return (
@@ -60,7 +63,7 @@ export default function GardenBody() {
           <p>Studying. Lending.<br />Keeping track of daily work.</p>
         </div>
         <div className={styles.terrain}>{featuredProjects.map(item => <ProjectPlot key={item.project.slug} item={item} />)}</div>
-        <ProjectArchive className={styles.archive} />
+        <ProjectArchive concept={concept} className={styles.archive} />
       </section>
       <SkillsLandscape />
       <GardenContact />

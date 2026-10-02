@@ -1,7 +1,10 @@
 import { profile } from "../../socials";
-import { featuredProjects, type FeaturedProject } from "./content";
+import { getFeaturedProjects, type FeaturedProject } from "./content";
 import { ProjectVisual, ProjectLink, ProjectArchive, EmailLink, BookingLink, FooterLinks } from "./primitives";
 import styles from "./night-body.module.css";
+
+const concept = "after-hours";
+const featuredProjects = getFeaturedProjects(concept);
 
 function Screening({ item }: { item: FeaturedProject }) {
   return (
@@ -54,7 +57,7 @@ export default function NightBody() {
       <section id="work" className={styles.work} aria-labelledby="night-work">
         <div className={styles.opening}><h2 id="night-work">The work,<br />in focus.</h2><p>Selected products.<br />Different problems.</p></div>
         {featuredProjects.map(item => <Screening key={item.project.slug} item={item} />)}
-        <ProjectArchive className={styles.archive} />
+        <ProjectArchive concept={concept} className={styles.archive} />
       </section>
       <WorkingRoles />
       <ClosingTitles />

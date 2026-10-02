@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { profile } from "../../socials";
-import { featuredProjects, type FeaturedProject } from "./content";
+import { getFeaturedProjects, type FeaturedProject } from "./content";
 import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
 import styles from "./letter-body.module.css";
+
+const concept = "soft-focus";
+const featuredProjects = getFeaturedProjects(concept);
 
 function FolioEntry({ item }: { item: FeaturedProject }) {
   return (
@@ -33,7 +36,7 @@ function PersonalLetter() {
       <div className={styles.letterCopy}>
         <h2 id="letter-about">A note from me.</h2>
         <p>My work spans software engineering, product design, and founding products. I design the screens and build the systems behind them.</p>
-        <p>I’m building <BuildingLink>{profile.building}</BuildingLink>. The projects here cover studying, lending, and daily work.</p>
+        <p>I’m building <BuildingLink concept={concept}>{profile.building}</BuildingLink>. The projects here cover studying, lending, and daily work.</p>
         <p>If you’re looking for someone who can work across design and implementation, these are the projects I’d point you to.</p>
       </div>
     </section>
@@ -69,7 +72,7 @@ export default function LetterBody() {
           <p>Some products I’ve designed and built.<br />Open a project for the details.</p>
         </div>
         <div className={styles.folio}>{featuredProjects.map(item => <FolioEntry key={item.project.slug} item={item} />)}</div>
-        <ProjectArchive className={styles.archive} />
+        <ProjectArchive concept={concept} className={styles.archive} />
       </section>
       <PersonalLetter />
       <OpenPostcard />
