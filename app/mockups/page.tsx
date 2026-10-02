@@ -9,12 +9,12 @@ export const metadata: Metadata = { title: "Six directions for Pablo’s website
 export default function MockupGallery() {
   return (
     <main className={styles.gallery}>
-      <header className={styles.galleryHeader}><span>Pablo Manjarres / Homepage explorations</span><h1>Six directions.<br />One personal website.</h1><p>Six independent designs, your latest portraits, and your actual work. Open a page to see its layout and motion.</p></header>
+      <header className={styles.galleryHeader}><span>Pablo Manjarres / Homepage explorations</span><h1>Six directions.<br />One personal website.</h1><p>Six directions for the whole page. Compare the projects, the story, and the way each one ends.</p><a className={styles.savedLink} href="https://personal-website-9fwnfj3oa-nella-labs.vercel.app/mockups" target="_blank" rel="noreferrer">Open the saved six versions</a></header>
       <div className={styles.conceptGrid}>{concepts.map(concept => <Link key={concept.id} href={`/mockups/${concept.id}`} className={styles.conceptCard}>
-        <div className={styles.conceptImage} style={{ background: concept.paper }}><Image src={`/mockups/previews/${concept.id}.webp`} alt={`${concept.name} homepage preview`} fill sizes="(max-width: 700px) 90vw, 45vw" /></div>
+        <div className={styles.previewPair}><div className={styles.conceptImage} style={{ background: concept.paper }}><Image src={`/mockups/previews/${concept.id}.webp`} alt={`${concept.name} hero`} fill sizes="(max-width: 700px) 90vw, 45vw" /></div><div className={styles.bodyImage}><Image src={`/mockups/body-previews/${concept.id}.webp`} alt={`${concept.name} project presentation`} fill sizes="(max-width: 700px) 90vw, 45vw" /></div></div>
         <div className={styles.conceptLabel}><span>{concept.number}</span><h2>{concept.name}</h2><span aria-hidden>↗</span></div><p>{concept.description}</p>
       </Link>)}</div>
-      <footer className={styles.galleryFooter}>Each page has its own composition, project layout, and motion. Use Pause and Replay to compare them.</footer>
+      <footer className={styles.galleryFooter}>Open a page to see all four featured projects, its about section, and its contact section. Pause and Replay let you compare the motion.</footer>
     </main>
   );
 }
