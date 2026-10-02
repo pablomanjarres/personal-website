@@ -1,5 +1,5 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
-import { StudyActions, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-cinema.module.css";
@@ -7,7 +7,7 @@ import interaction from "../interaction.module.css";
 import { selectedWorkSlugs } from "../selected-work";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function ScreenCut({ study, direction, priority = false, compact = false }: { study: ProjectStudy; direction: StudyDirectionId; priority?: boolean; compact?: boolean }) {
   const asset = study.media.find(item => item.kind !== "video");
@@ -41,7 +41,7 @@ export function ProductCinemaIndex({ studies, direction }: IndexProps) {
   );
 }
 
-export function ProductCinemaDetail({ study, nextStudy, direction }: DetailProps) {
+export function ProductCinemaDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
   const supportingScreen = study.project.slug === "anki" ? study.media.find(asset => asset.id === "anki-review") : study.media.find(asset => asset.kind === "video");
   return (
@@ -83,7 +83,6 @@ export function ProductCinemaDetail({ study, nextStudy, direction }: DetailProps
         <h2>{getReleaseHeading(study)}</h2>
         <div><p>{story.outcome}</p><StudyActions study={study} className={styles.projectActions} /></div>
       </section>
-      <footer className={styles.nextScene}><StudyNext study={nextStudy} direction={direction} className={styles.next} /></footer>
     </article>
   );
 }

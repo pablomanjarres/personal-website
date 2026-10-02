@@ -41,7 +41,8 @@
 .shelfMedia img { aspect-ratio: 1.6; object-fit: cover; object-position: top; }
 .shelfProject > span { display: flex; align-items: center; min-height: 44px; margin-top: 13px; font-size: 17px; }
 /* A reading folio for project details; index sheets stay unchanged. */
-.caseFolio { --folio-paper: #fffaf3; --folio-text: #342b33; --folio-quiet: #69595f; --folio-rule: #dacdc4; padding-bottom: 65px; }
+.caseFolio { --folio-paper: #fffaf3; --folio-text: #342b33; --folio-quiet: #69595f; --folio-rule: #dacdc4; }
+.stack.caseFolio { padding-bottom: 24px; }
 .folioBack { display: flex; min-height: 44px; align-items: center; width: fit-content; max-width: 1340px; margin: 15px auto 24px 0; font-size: 13px; }
 .folioCover { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 6%; max-width: 1340px; margin: auto; padding: clamp(32px, 5vw, 70px); background: var(--folio-paper); color: var(--folio-text); border-radius: 8px 8px 0 0; }
 .coverText h1 { font: 400 clamp(65px, 8vw, 115px)/1 var(--font-newsreader), serif; letter-spacing: -.06em; margin: 0 0 24px; }
@@ -82,11 +83,6 @@
 .buildNotes p, .folioTechnology p { font-size: 14px; line-height: 1.7; color: var(--folio-quiet); }
 .folioTechnology { padding-top: 24px; }
 .finalPage .folioActions { margin-top: 20px; }
-.folioNext { max-width: 1340px; margin: 45px auto 0; }
-.nextTitle { display: grid; grid-template-columns: 1fr auto; gap: 18px; text-decoration: none; }
-.nextTitle > span:first-child { grid-column: 1 / -1; font-size: 13px; }
-.nextTitle strong { font: 400 clamp(35px, 5vw, 64px)/1.1 var(--font-newsreader), serif; letter-spacing: -.045em; }
-.nextTitle > span:last-child { font-size: 35px; }
 @media (prefers-reduced-motion: no-preference) {
   :global([data-motion="active"]) .shelfMedia { transition: rotate 450ms cubic-bezier(.16, 1, .3, 1), translate 450ms cubic-bezier(.16, 1, .3, 1); }
   :global([data-motion="active"]) .shelfProject:is(:hover, :focus-visible) .shelfMedia { rotate: 0deg; translate: 0 -5px; }
@@ -124,5 +120,4 @@
   .readingPages section > h2 { font-size: 32px; }
   .problemPage > p, .finalPage > p { font-size: 17px; }
   .buildNotes { grid-template-columns: 1fr; }
-  .folioNext { margin-top: 30px; }
 }

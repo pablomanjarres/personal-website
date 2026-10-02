@@ -83,12 +83,9 @@
 .systemParts p { color: var(--case-muted); font-size: 14px; line-height: 1.6; margin: 0; }
 .technology { margin-top: 45px; padding-top: 25px; border-top: 1px solid var(--case-line); }
 .releaseScene { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 12%; }
+.cinema.caseCinema { padding-bottom: 0; }
+.caseCinema .releaseScene { padding-bottom: 32px; }
 .releaseScene > div > p { margin: 0 0 25px; font-size: 21px; line-height: 1.6; }
-.nextScene { max-width: var(--case-width); margin: 30px auto 0; padding: 40px 6%; border-top: 1px solid var(--case-line); }
-.cinema .next { display: grid; grid-template-columns: 1fr auto; gap: 20px; text-decoration: none; }
-.next > span:first-child { grid-column: 1 / -1; color: var(--case-muted); font-size: 14px; }
-.next strong { font: 500 clamp(32px, 4vw, 55px)/1.15 var(--font-spacegrotesk), sans-serif; letter-spacing: -.04em; }
-.next > span:last-child { font-size: 35px; }
 @media (prefers-reduced-motion: no-preference) {
   :global(:is([data-motion="active"], [data-motion="paused"])) .heroVisual { animation: screenIn .9s ease-out both; }
   :global([data-motion="active"]) .indexMedia img { transition: filter .35s ease; }
@@ -138,5 +135,4 @@
   .buildFlow li { display: grid; grid-template-columns: 35px 1fr; column-gap: 15px; }
   .buildFlow li::before { grid-row: 1 / 3; font-size: 32px; margin: 0; }
   .buildFlow p { margin-top: 7px; }
-  .nextScene { margin-top: 0; }
 }

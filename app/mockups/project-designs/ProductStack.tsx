@@ -1,13 +1,13 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyActions, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitives";
 import interaction from "../interaction.module.css";
 import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-stack.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function preview(study: ProjectStudy) {
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
@@ -54,7 +54,7 @@ export function ProductStackIndex({ studies, direction }: IndexProps) {
   );
 }
 
-export function ProductStackDetail({ study, nextStudy, direction }: DetailProps) {
+export function ProductStackDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
   const supportingScreen = study.project.slug === "anki" ? study.media.find(asset => asset.id === "anki-home") : study.media.find(asset => asset.kind === "video");
   return (
@@ -96,7 +96,6 @@ export function ProductStackDetail({ study, nextStudy, direction }: DetailProps)
           </section>
         </div>
       </div>
-      <footer className={styles.folioNext}><StudyNext study={nextStudy} direction={direction} className={styles.nextTitle} /></footer>
     </article>
   );
 }
