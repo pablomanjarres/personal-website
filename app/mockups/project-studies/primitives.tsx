@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { STATUS_LABEL } from "../../portfolio/status";
 import { LiveEmbed } from "../../portfolio/LiveEmbed";
 import { studyHref, type ProjectStudy, type StudyAsset, type StudyDirectionId } from "./data";
@@ -10,16 +10,18 @@ import interaction from "../interaction.module.css";
 
 const styles = { ...localStyles, ...interaction };
 
-export function StudyMedia({ asset, className = "", priority = false, detail = false, caption = true, sizes = "(max-width: 700px) 94vw, 90vw" }: { asset: StudyAsset; className?: string; priority?: boolean; detail?: boolean; caption?: boolean; sizes?: string }) {
+export function StudyMedia({ asset, className = "", priority = false, detail = false, caption = true, boundPortrait = true, sizes = "(max-width: 700px) 94vw, 90vw" }: { asset: StudyAsset; className?: string; priority?: boolean; detail?: boolean; caption?: boolean; boundPortrait?: boolean; sizes?: string }) {
+  const portraitStyle: CSSProperties | undefined = asset.width < asset.height && !detail && boundPortrait ? { width: "auto", maxWidth: "100%", height: "auto", maxHeight: "min(80vh, 800px)", marginInline: "auto", objectFit: "contain" } : undefined;
   return <figure className={`${styles.media} ${className}`} data-media-kind={asset.kind}>
-    {asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes={sizes} preload={priority} />}
-    {caption && <figcaption>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>}
+    {asset.kind === "unavailable" ? <div className={styles.unavailable} style={{ aspectRatio: `${asset.width} / ${asset.height}` }}><strong>{asset.label}</strong><span>No screen capture yet</span></div> : asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes={sizes} preload={priority} style={portraitStyle} />}
+    {caption && asset.kind !== "unavailable" && <figcaption>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>}
   </figure>;
 }
 
 export function StudyDemo({ study, className = "" }: { study: ProjectStudy; className?: string }) {
-  if (!study.project.embedUrl) return null;
-  return <section className={`${styles.demo} ${className}`} aria-label={`${study.project.title} demo`}><LiveEmbed embedUrl={study.project.embedUrl} cover={study.media[0].src} title={study.project.title} className={interaction.action} /><p>Interactive demo</p></section>;
+  const capture = study.media.find(asset => asset.kind === "screen");
+  if (!study.project.embedUrl || !capture?.src) return null;
+  return <section className={`${styles.demo} ${className}`} aria-label={`${study.project.title} demo`}><LiveEmbed embedUrl={study.project.embedUrl} cover={capture.src} title={study.project.title} className={interaction.action} /><p>Interactive demo</p></section>;
 }
 
 export function StudyLink({ study, direction, children, className = "" }: { study: ProjectStudy; direction: StudyDirectionId; children: ReactNode; className?: string }) {
