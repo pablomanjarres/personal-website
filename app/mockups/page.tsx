@@ -14,7 +14,7 @@ export default function MockupGallery() {
         <div className={styles.previewPair}><div className={styles.conceptImage} style={{ background: concept.paper }}><Image src={`/mockups/previews/${concept.id}.webp`} alt={`${concept.name} hero`} fill sizes="(max-width: 700px) 90vw, 45vw" /></div><div className={styles.bodyImage}><Image src={`/mockups/body-previews/${concept.id}.webp`} alt={`${concept.name} project presentation`} fill sizes="(max-width: 700px) 90vw, 45vw" /></div></div>
         <div className={styles.conceptLabel}><span>{concept.number}</span><h2>{concept.name}</h2><span aria-hidden>↗</span></div><p>{concept.description}</p>
       </Link>)}</div>
-      <footer className={styles.galleryFooter}>Open a page to see all four featured projects, its about section, and its contact section. Pause and Replay let you compare the motion.</footer>
+      <footer className={styles.galleryFooter}><Link className={styles.savedLink} href="/mockups/projects">Explore six project page designs ↗</Link><p>Open a page to see all four featured projects, its about section, and its contact section. Pause and Replay let you compare the motion.</p></footer>
     </main>
   );
 }
