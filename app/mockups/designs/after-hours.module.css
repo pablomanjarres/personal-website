@@ -1,0 +1,68 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(880px, calc(100svh - 88px));
+  overflow: hidden;
+  background: var(--paper);
+}
+.art { position: absolute; inset: 0 0 0 37%; z-index: -1; }
+.art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--paper), transparent 37%), linear-gradient(0deg, var(--paper), transparent 24%);
+}
+.portrait { height: 100%; object-position: 50% 25%; }
+.intro { padding: clamp(76px, 9vw, 145px) 6.5vw 145px; width: 65%; }
+.intro .role { margin: 0 0 28px; color: var(--accent); font-size: 15px; }
+.name {
+  margin: 0;
+  font-family: var(--font-bigshoulders), var(--font-display), sans-serif;
+  font-size: clamp(110px, 12.9vw, 200px);
+  line-height: .86;
+  letter-spacing: -.045em;
+  font-weight: 800;
+}
+.name span { display: block; }
+.name span + span { font-size: .82em; margin-top: 8px; }
+.intro .description { max-width: 29ch; margin: 36px 0 24px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; }
+.actions { width: max-content; max-width: 100%; }
+.heroFooter {
+  position: absolute;
+  left: 6.5vw;
+  right: 6.5vw;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--accent);
+}
+.heroFooter p { margin: 0; }
+.heroFooter a { color: inherit; text-decoration: none; }
+.heroFooter p a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.heroFooter > a { display: flex; align-items: center; gap: 32px; }
+.heroFooter a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+@media (min-width: 1600px) {
+  .intro { padding-left: max(6.5vw, calc((100vw - 1420px) / 2)); }
+}
+@media (max-width: 1000px) {
+  .hero { min-height: 760px; }
+  .intro { width: 77%; padding-top: 95px; }
+  .art { left: 32%; opacity: .8; }
+  .name { font-size: 15vw; }
+}
+@media (max-width: 600px) {
+  .hero { min-height: 945px; }
+  .intro { width: 100%; padding: 38px 24px 0; }
+  .intro .role { font-size: 12px; margin-bottom: 23px; }
+  .name { font-size: 24vw; line-height: .9; }
+  .name span + span { font-size: .76em; }
+  .intro .description { margin: 25px 0 18px; max-width: 29ch; font-size: 16px; }
+  .art { top: 365px; left: -12%; right: -12%; bottom: 34px; opacity: 1; }
+  .art::after { background: linear-gradient(0deg, var(--paper), transparent 27%, transparent 75%, var(--paper)); }
+  .portrait { object-position: 50% 10%; }
+  .heroFooter { left: 24px; right: 24px; bottom: 25px; font-size: 11px; gap: 10px; }
+  .heroFooter > a { gap: 10px; }
+}
