@@ -3,9 +3,6 @@ import type { CSSProperties, ReactNode } from "react";
 import { profile } from "../socials";
 import type { Concept } from "./concepts";
 import { MotionRoot } from "./motion";
-export { WorkSection } from "./work";
-export { AboutSection } from "./sections";
-export { ContactSection } from "./contact";
 import styles from "./mockups.module.css";
 
 export function MockupShell({ concept, children }: { concept: Concept; children: ReactNode }) {

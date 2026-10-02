@@ -9,4 +9,3 @@ export const concepts = [
 
 export type Concept = (typeof concepts)[number];
 export type ConceptId = Concept["id"];
-export type WorkLayout = "stack" | "bento" | "browser" | "reel" | "chapters" | "journal";

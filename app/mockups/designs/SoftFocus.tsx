@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { profile } from "../../socials";
 import { concepts } from "../concepts";
-import { MockupShell, Portrait, ActionLinks, RoleSummary, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks, RoleSummary } from "../shared";
+import LetterBody from "../bodies/LetterBody";
 import styles from "./soft-focus.module.css";
 
 function JournalPath() {
@@ -47,9 +48,7 @@ export default function SoftFocus() {
         </Link>
         <a href="#work" className={styles.marginNote}>A few things I’ve built <span aria-hidden>↓</span></a>
       </section>
-      <WorkSection layout="journal" title="From the working notebook." />
-      <AboutSection variant="note" />
-      <ContactSection concept="soft-focus" />
+      <LetterBody />
     </MockupShell>
   );
 }
