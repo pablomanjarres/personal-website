@@ -30,12 +30,10 @@
 .studyImage { min-width: 0; margin: 0; }
 .visual { aspect-ratio: 1.1; background: var(--oat); border-radius: 44% 56% 39% 61% / 40% 34% 66% 60%; }
 .visual img { object-fit: contain; padding: 7%; }
-.study[data-project="noelle"] .visual { background: var(--bone); border-radius: 45% 45% 16% 16%; }
-.study[data-project="noelle"] .visual img { object-fit: cover; padding: 0; }
+.study[data-project="anki"] .visual { aspect-ratio: 1.44; background: var(--bone); border-radius: 16px; }
+.study[data-project="anki"] .visual img { object-fit: contain; padding: 0; }
 .study[data-project="construcredit"] .visual { aspect-ratio: 1.4; border-radius: 70px 12px 12px 12px; }
 .study[data-project="construcredit"] .visual img { padding: 5%; }
-.study[data-project="nella"] .studyImage { width: 92%; margin-left: auto; }
-.study[data-project="nella"] .visual { aspect-ratio: 1.12; background: #d5d9cb; border-radius: 48% 52% 14% 14%; }
 .study[data-project="cortex"] .visual { aspect-ratio: 1.45; border-radius: 12px 12px 70px 12px; }
 .studyImage figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; padding: 20px 8px 0; font-size: 11px; line-height: 1.5; }
 .studyImage figcaption span:last-child { color: var(--copper); }
@@ -90,7 +88,6 @@
   .product { max-width: 35ch; }
   .credit { margin-top: 16px; }
   .body .read { margin-top: 9px; }
-  .study[data-project="nella"] .studyImage { width: 90%; margin: 0 auto; }
   .visual { max-height: 390px; }
   .studyImage figcaption { padding-inline: 0; font-size: 10px; }
   .archive { margin-top: 55px; }

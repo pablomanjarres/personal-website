@@ -1,7 +1,7 @@
 import { Status } from "../../portfolio/components";
 import { profile } from "../../socials";
 import { capabilities, featuredProjects, type FeaturedProject } from "./content";
-import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
 import styles from "./signal-body.module.css";
 
 function FieldStudy({ item }: { item: FeaturedProject }) {
@@ -16,8 +16,8 @@ function FieldStudy({ item }: { item: FeaturedProject }) {
         <ProjectLink item={item} className={styles.read}>Read the project</ProjectLink>
       </div>
       <figure className={styles.studyImage}>
-        <ProjectVisual item={item} source={item.artwork ? "artwork" : "preview"} className={styles.visual} sizes="(max-width: 700px) 88vw, 54vw" />
-        <figcaption><span>{item.artwork ? "Project artwork" : item.previewLabel}</span><span>{item.note}</span></figcaption>
+        <ProjectVisual item={item} className={styles.visual} sizes="(max-width: 700px) 88vw, 54vw" />
+        <figcaption><span>{item.previewLabel}</span><span>{item.note}</span></figcaption>
       </figure>
     </article>
   );
@@ -30,7 +30,7 @@ function ProfileNote() {
         <aside className={styles.sideNote}>
           <h2 id="signal-about">A little about me.</h2>
           <p>I’m Pablo. I’m a software engineer, product designer, and founder. I work on web apps, AI tools, and developer products.</p>
-          <ProjectLink item={featuredProjects[0]} className={styles.current}>Currently building {profile.building}.</ProjectLink>
+          <BuildingLink className={styles.current}>Currently building {profile.building}.</BuildingLink>
         </aside>
         <div className={styles.disciplines}>
           {capabilities.map(capability => <div key={capability.title}><h3>{capability.title}</h3><p>{capability.text}</p></div>)}
@@ -62,7 +62,7 @@ export default function SignalBody() {
       <section id="work" className={styles.work} aria-labelledby="signal-work">
         <div className={styles.workIntro}>
           <h2 id="signal-work">Products with<br />a job to do.</h2>
-          <p>AI agents, lending software, developer tools, and a desktop app. Here’s the work behind them.</p>
+          <p>A study app, lending software, and a desktop dashboard.</p>
         </div>
         <div className={styles.studies}>{featuredProjects.map(item => <FieldStudy key={item.project.slug} item={item} />)}</div>
         <ProjectArchive className={styles.archive} />

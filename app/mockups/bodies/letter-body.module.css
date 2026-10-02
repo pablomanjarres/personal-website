@@ -26,15 +26,12 @@
 .marginNote { position: absolute; width: 18%; left: 0; top: 35%; }
 .marginNote p { font-size: 19px; line-height: 1.6; }
 .body .projectLink { display: inline-flex; min-height: 44px; align-items: center; margin-top: 22px; font: 400 11px/1.5 var(--font-sora), sans-serif; text-decoration: underline; text-underline-offset: 5px; }
-.entry[data-project="noelle"] .visual img { padding: 0; object-fit: cover; }
+.entry[data-project="anki"] .visual { aspect-ratio: 1.44; border-radius: 16px; }
+.entry[data-project="anki"] .visual img { padding: 0; object-fit: contain; }
 .entry[data-project="construcredit"] .projectHeading { width: 86%; margin-left: 0; }
 .entry[data-project="construcredit"] .placement { width: 86%; margin-left: 0; }
 .entry[data-project="construcredit"] .visual { border-radius: 12px 12px 80px 12px; background: var(--blue); }
 .entry[data-project="construcredit"] .marginNote { position: relative; width: 38%; margin: 27px 0 0 auto; top: auto; }
-.entry[data-project="nella"] .projectHeading { width: 70%; margin-inline: auto; }
-.entry[data-project="nella"] .placement { width: 70%; margin-inline: auto; }
-.entry[data-project="nella"] .visual { aspect-ratio: 1.2; border-radius: 80px 12px 80px 12px; background: var(--white); }
-.entry[data-project="nella"] .marginNote { position: relative; top: auto; width: 33%; margin: 27px 0 0 15%; }
 .entry[data-project="cortex"] .projectHeading { width: 83%; }
 .entry[data-project="cortex"] .placement { width: 83%; }
 .entry[data-project="cortex"] .visual { aspect-ratio: 1.45; background: var(--blue); border-radius: 12px 70px 12px 70px; }
@@ -81,7 +78,6 @@
   .projectHeading p { max-width: 19ch; font-size: 9px; }
   .entry .placement, .entry[data-project] .placement { width: 100%; margin-inline: 0; }
   .body .visual { border-radius: 12px 45px 12px 12px; }
-  .entry[data-project="nella"] .visual { aspect-ratio: 1.25; border-radius: 45px 12px 45px 12px; }
   .entry[data-project="cortex"] .visual { border-radius: 12px 45px 12px 45px; }
   .entry[data-project="construcredit"] .visual { border-radius: 12px 12px 45px 12px; }
   .entry .marginNote, .entry[data-project] .marginNote { position: static; width: 88%; margin: 20px 0 0 12%; }

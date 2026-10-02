@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { profile } from "../../socials";
 import { featuredProjects, type FeaturedProject } from "./content";
-import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
 import styles from "./letter-body.module.css";
 
 function FolioEntry({ item }: { item: FeaturedProject }) {
@@ -12,8 +12,8 @@ function FolioEntry({ item }: { item: FeaturedProject }) {
         <p>{item.project.role}</p>
       </header>
       <figure className={styles.placement}>
-        <ProjectVisual item={item} source={item.artwork ? "artwork" : "preview"} className={styles.visual} sizes="(max-width: 700px) 88vw, 76vw" />
-        <figcaption>{item.artwork ? "Project artwork" : item.previewLabel}</figcaption>
+        <ProjectVisual item={item} className={styles.visual} sizes="(max-width: 700px) 88vw, 76vw" />
+        <figcaption>{item.previewLabel}</figcaption>
       </figure>
       <aside className={styles.marginNote}>
         <p>{item.product}</p>
@@ -33,7 +33,7 @@ function PersonalLetter() {
       <div className={styles.letterCopy}>
         <h2 id="letter-about">A note from me.</h2>
         <p>My work spans software engineering, product design, and founding products. I design the screens and build the systems behind them.</p>
-        <p>I’m building <ProjectLink item={featuredProjects[0]}>{profile.building}</ProjectLink>. The projects here cover AI agents, financial software, developer tools, and a desktop app.</p>
+        <p>I’m building <BuildingLink>{profile.building}</BuildingLink>. The projects here cover studying, lending, and daily work.</p>
         <p>If you’re looking for someone who can work across design and implementation, these are the projects I’d point you to.</p>
       </div>
     </section>
