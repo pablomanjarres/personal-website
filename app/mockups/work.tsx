@@ -17,19 +17,22 @@ const selected: ProjectNote[] = [
 function ProjectMedia({ project, note, layout }: { project: Project; note: ProjectNote; layout: WorkLayout }) {
   const device = layout === "browser";
   const layered = layout === "stack" || layout === "chapters";
-  const source = !device && note.artwork ? note.artwork : project.cover;
+  const preview = project.slug === "nella" ? "/portfolio/covers/nella.png" : project.cover;
+  const source = !device && note.artwork ? note.artwork : preview;
+  const previewLabel = project.slug === "nella" ? "Product illustration" : project.slug === "cortex" ? "Desktop dashboard" : "Public website";
+  const caption = note.artwork && !device ? layered ? "Project artwork + product preview" : "Project artwork" : previewLabel;
   return (
     <div className={styles.media} style={{ "--product-color": note.color } as CSSProperties}>
       <Link className={styles.mediaLink} href={`/portfolio/projects/${project.slug}`} aria-label={`View ${project.title} project`}>
         <div className={styles.screen}>
           {device && <span className={styles.camera} aria-hidden />}
-          {source && <Image src={source} alt={note.artwork && !device ? `${project.title} project artwork` : `${project.title} product preview`} fill sizes="(max-width: 700px) 90vw, 70vw" />}
+          {source && <Image src={source} alt={note.artwork && !device ? `${project.title} project artwork` : `${project.title} ${previewLabel.toLowerCase()}`} fill sizes="(max-width: 700px) 90vw, 70vw" />}
         </div>
         {device && <span className={styles.keyboard} aria-hidden><i /></span>}
-        {layered && project.cover && <span className={styles.detail} aria-hidden><Image src={project.cover} alt="" fill sizes="(max-width: 700px) 45vw, 24vw" /></span>}
+        {layered && preview && <span className={styles.detail} aria-hidden><Image src={preview} alt="" fill sizes="(max-width: 700px) 45vw, 24vw" /></span>}
         <span className={styles.open} aria-hidden>View project ↗</span>
       </Link>
-      <span className={styles.mediaCaption}>{note.artwork && !device ? "Project artwork + interface" : "Product interface"}</span>
+      <span className={styles.mediaCaption}>{caption}</span>
     </div>
   );
 }
