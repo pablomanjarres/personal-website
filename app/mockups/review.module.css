@@ -1,5 +1,5 @@
 .reviewBar { display: flex; justify-content: space-between; align-items: center; gap: 20px; background: #fff; color: #24312f; font: 13px var(--font-sans), sans-serif; padding: 12px 5%; border-bottom: 1px solid #dbe2de; }
-.reviewBar a { color: inherit; text-decoration: none; padding: 4px 0; }
+.reviewBar a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; padding: 4px 0; }
 .reviewBar a:hover { text-decoration: underline; }
 .reviewBar a:focus-visible, .conceptCard:focus-visible { outline: 3px solid #2c6b61; outline-offset: 6px; }
 .gallery { background: #edf1ed; color: #1d3430; min-height: 100vh; font-family: var(--font-sans), sans-serif; padding: 70px 6%; }

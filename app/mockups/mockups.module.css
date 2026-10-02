@@ -1,5 +1,5 @@
 .shell { background: var(--paper); color: var(--ink); font-family: var(--font-sans), sans-serif; line-height: 1.5; overflow: clip; }
-.shell h1, .shell h2, .shell h3, .shell p { margin: 0; }
+:where(.shell h1, .shell h2, .shell h3, .shell p) { margin: 0; }
 .shell a { color: inherit; text-decoration: none; }
 .shell a:focus-visible, .shell summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
 .skip { position: absolute; top: -80px; left: 24px; padding: 16px; background: var(--paper); z-index: 20; }
@@ -9,9 +9,9 @@
 .brand { font-family: var(--font-display), sans-serif; font-size: 32px; letter-spacing: -.08em; }
 .brand span { color: var(--accent); }
 .nav nav { display: flex; gap: 36px; font-size: 15px; }
-.nav nav a { padding: 8px 0; border-bottom: 1px solid transparent; }
+.nav nav a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; padding: 8px 0; border-bottom: 1px solid transparent; }
 .nav nav a:hover { border-color: currentColor; }
-.navContact { padding: 11px 22px; border: 1px solid currentColor; border-radius: 999px; font-size: 14px; }
+.navContact { min-height: 44px; padding: 11px 22px; border: 1px solid currentColor; border-radius: 999px; font-size: 14px; }
 .navContact span { margin-left: 20px; }
 .actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
 .shell .primary { background: var(--action-bg, var(--ink)); color: var(--action-ink, var(--paper)); padding: 15px 24px; border-radius: 999px; font-size: 15px; }
@@ -72,7 +72,7 @@
 .smallLabel { display: inline-block; font-size: 14px; margin-bottom: 24px; opacity: .7; }
 .aboutIntro h2 { font-family: var(--font-hanken), sans-serif; font-size: clamp(34px, 3.5vw, 52px); line-height: 1.1; letter-spacing: -.05em; font-weight: 600; }
 .aboutIntro p { font-size: 18px; margin: 28px 0; max-width: 550px; opacity: .8; }
-.aboutIntro a { font-size: 14px; border-bottom: 1px solid; padding-bottom: 6px; }
+.aboutIntro a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px; border-bottom: 1px solid; padding-bottom: 6px; }
 .capabilities { display: grid; align-content: start; }
 .capabilities > div { padding: 24px 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); }
 .capabilities > div:first-child { padding-top: 0; }
@@ -83,10 +83,11 @@
 .contactTop { display: flex; justify-content: space-between; font-size: 14px; opacity: .75; }
 .contact h2 { font-family: var(--font-hanken), sans-serif; font-size: clamp(44px, 6.5vw, 92px); line-height: 1.02; letter-spacing: -.06em; font-weight: 600; margin: 60px 0 40px; }
 .contactActions { display: flex; gap: 40px; flex-wrap: wrap; align-items: center; }
-.contactActions a { border-bottom: 1px solid; padding: 8px 0; font-size: 18px; }
+.contactActions a { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 1px solid; padding: 8px 0; font-size: 18px; }
 .contactActions span { margin-left: 18px; }
 .footer { border-top: 1px solid color-mix(in srgb, var(--paper) 22%, transparent); margin-top: 90px; padding-top: 24px; display: flex; justify-content: space-between; gap: 24px; font-size: 13px; }
 .footer > div { display: flex; gap: 24px; }
+.footer a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 .shell[data-concept="after-hours"] .contact { background: #0b1012; color: #f1f2ed; }
 .shell[data-concept="after-hours"] .contact .footer { border-color: #343b3f; }
 .shell[data-concept="green-room"] .nav { max-width: none; background: #183429; color: #f0f2e9; }
