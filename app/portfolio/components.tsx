@@ -3,14 +3,7 @@ import Link from "next/link";
 import type { Project, ProjectStatus } from "../projects";
 import { LiveEmbed } from "./LiveEmbed";
 import { ScrambleText } from "./effects";
-
-const STATUS_LABEL: Record<ProjectStatus, string> = {
-  live: "live",
-  shipped: "shipped",
-  wip: "in progress",
-  prototype: "prototype",
-  archived: "archived",
-};
+import { STATUS_LABEL } from "./status";
 
 export function Status({ status }: { status: ProjectStatus }) {
   return (
