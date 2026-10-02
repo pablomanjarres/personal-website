@@ -4,7 +4,6 @@ import { ProjectVisual, ProjectLink, ProjectArchive, EmailLink, BookingLink, Foo
 import styles from "./night-body.module.css";
 
 function Screening({ item }: { item: FeaturedProject }) {
-  const isOpening = item.project.slug === "noelle";
   return (
     <article className={styles.screening} data-project={item.project.slug} aria-labelledby={`night-${item.project.slug}`}>
       <header className={styles.projectHeading}>
@@ -12,8 +11,7 @@ function Screening({ item }: { item: FeaturedProject }) {
         <p className={styles.projectRole}>{item.project.role}</p>
       </header>
       <div className={styles.projection} data-reveal>
-        <ProjectVisual item={item} source={item.artwork ? "artwork" : "preview"} className={styles.screen} sizes="(max-width: 700px) 92vw, 85vw" />
-        {isOpening && <ProjectVisual item={item} className={styles.preview} sizes="(max-width: 700px) 76vw, 35vw" />}
+        <ProjectVisual item={item} className={styles.screen} sizes="(max-width: 700px) 92vw, 85vw" />
         <p className={styles.frameNote}>{item.note}</p>
       </div>
       <div className={styles.caption}>
@@ -54,7 +52,7 @@ export default function NightBody() {
   return (
     <div className={styles.body}>
       <section id="work" className={styles.work} aria-labelledby="night-work">
-        <div className={styles.opening}><h2 id="night-work">The work,<br />in focus.</h2><p>Four products.<br />Four different problems.</p></div>
+        <div className={styles.opening}><h2 id="night-work">The work,<br />in focus.</h2><p>Selected products.<br />Different problems.</p></div>
         {featuredProjects.map(item => <Screening key={item.project.slug} item={item} />)}
         <ProjectArchive className={styles.archive} />
       </section>

@@ -57,7 +57,7 @@ export default function GardenBody() {
       <section id="work" className={styles.work} aria-labelledby="garden-work-heading">
         <div className={styles.workHeading}>
           <h2 id="garden-work-heading">A few things<br />I&apos;ve built.</h2>
-          <p>AI agents. Lending software.<br />Tools for developers and daily work.</p>
+          <p>Studying. Lending.<br />Keeping track of daily work.</p>
         </div>
         <div className={styles.terrain}>{featuredProjects.map(item => <ProjectPlot key={item.project.slug} item={item} />)}</div>
         <ProjectArchive className={styles.archive} />

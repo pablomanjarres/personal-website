@@ -22,17 +22,13 @@
 .projectText p { max-width: 34ch; font-size: 18px; line-height: 1.6; margin-top: 22px; }
 .body .projectAction { display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; font-size: 14px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
 .plot .preview { aspect-ratio: 1.6; border-radius: 24px; background: transparent; }
-.plot[data-project="noelle"] { grid-column: 1 / -1; display: grid; grid-template-columns: 4fr 7fr; gap: 44px; align-items: center; padding: 64px 55px 64px 72px; background: var(--canopy); border-radius: 24px 160px 32px 110px; }
-.plot[data-project="noelle"] .preview { border-radius: 26px 80px 26px 26px; }
+.plot[data-project="anki"] { grid-column: 1 / -1; display: grid; grid-template-columns: 4fr 7fr; gap: 44px; align-items: center; padding: 64px 55px 64px 72px; background: var(--canopy); border-radius: 24px 160px 32px 110px; }
+.plot[data-project="anki"] .preview { aspect-ratio: 1.44; border-radius: 16px; }
 .plot[data-project="construcredit"] { grid-column: 1 / 8; display: flex; flex-direction: column-reverse; gap: 30px; padding: 36px 36px 48px; background: var(--sand); color: var(--forest); border-radius: 100px 22px 24px 24px; }
 .plot[data-project="construcredit"] .preview { border-radius: 70px 14px 14px 14px; }
 .plot[data-project="construcredit"] .projectText { padding: 0 8px; }
-.plot[data-project="nella"] { grid-column: 8 / -1; margin-top: 130px; padding: 48px 34px 34px; background: var(--celadon); color: var(--forest); border-radius: 130px 100px 24px 24px; }
-.plot[data-project="nella"] .projectText { margin-bottom: 36px; padding: 20px 8px 0; }
-.plot[data-project="nella"] .preview { border-radius: 12px 12px 24px 24px; }
-.plot[data-project="cortex"] { grid-column: 1 / -1; display: grid; grid-template-columns: 7fr 4fr; align-items: center; gap: 60px; padding: 40px 50px 40px 0; }
-.plot[data-project="cortex"] .preview { grid-column: 1; grid-row: 1; aspect-ratio: 1.44; border-radius: 24px 24px 90px 24px; }
-.plot[data-project="cortex"] .projectText { grid-column: 2; grid-row: 1; }
+.plot[data-project="cortex"] { grid-column: 8 / -1; display: flex; flex-direction: column-reverse; gap: 30px; margin-top: 90px; }
+.plot[data-project="cortex"] .preview { aspect-ratio: 1.44; border-radius: 24px 24px 90px 24px; }
 .archive { max-width: 1360px; margin: 60px auto 0; padding: 0 24px; background: var(--canopy); border-radius: 20px; }
 .about { --ink: var(--forest); --accent: var(--forest); color: var(--ink); background: var(--sand); padding: 110px 8% 150px; border-radius: 50% 9% 0 0 / 7% 2% 0 0; }
 .aboutHeading { display: grid; grid-template-columns: 6fr 4fr; gap: 80px; align-items: end; max-width: 1280px; margin: auto; }
@@ -58,8 +54,7 @@
   :global([data-motion="active"]) .plot:is(:hover, :focus-within) .preview { transform: translateY(-8px) rotate(-1deg); }
 }
 @media (max-width: 1000px) {
-  .plot[data-project="noelle"] { padding: 45px; gap: 30px; }
-  .plot[data-project="cortex"] { gap: 30px; padding-right: 0; }
+  .plot[data-project="anki"] { padding: 45px; gap: 30px; }
   .aboutHeading, .contactHeading { gap: 35px; }
   .skills { gap: 35px; }
   .aboutHeading > p { font-size: 21px; }
@@ -73,14 +68,12 @@
   .plot + .plot { margin-top: 40px; }
   .projectText h3 { font-size: 43px; }
   .projectText p { font-size: 16px; margin-top: 16px; }
-  .plot[data-project="noelle"] { display: flex; flex-direction: column; align-items: stretch; padding: 38px 24px 28px; gap: 25px; border-radius: 24px 85px 24px 45px; }
-  .plot[data-project="noelle"] .preview { border-radius: 14px 14px 14px 24px; }
+  .plot[data-project="anki"] { display: flex; flex-direction: column; align-items: stretch; padding: 38px 24px 28px; gap: 25px; border-radius: 24px 85px 24px 45px; }
+  .plot[data-project="anki"] .preview { border-radius: 14px 14px 14px 24px; }
   .plot[data-project="construcredit"] { padding: 24px 20px 30px; border-radius: 65px 20px 20px 20px; }
   .plot[data-project="construcredit"] .preview { border-radius: 44px 12px 12px 12px; }
   .plot[data-project="construcredit"] .projectText { padding: 0; }
-  .plot[data-project="nella"] { margin-left: 10%; padding: 35px 24px 24px; border-radius: 80px 50px 20px 20px; }
-  .plot[data-project="nella"] .projectText { margin-bottom: 25px; padding: 15px 0 0; }
-  .plot[data-project="cortex"] { display: flex; flex-direction: column-reverse; align-items: stretch; padding: 10px 0 0; gap: 25px; }
+  .plot[data-project="cortex"] { align-items: stretch; margin-top: 40px; padding: 10px 0 0; gap: 25px; }
   .archive { margin-top: 50px; padding: 0 17px; }
   .about { padding: 75px 8% 130px; border-radius: 50% 9% 0 0 / 2% 1% 0 0; }
   .aboutHeading { display: block; }
