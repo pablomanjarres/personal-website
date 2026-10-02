@@ -79,14 +79,14 @@ export function ProductAtlasDetail({ study, nextStudy, direction }: DetailProps)
     <div className={styles.detailMap}>
       <aside className={`${styles.rail} ${styles.detailRail}`}><nav aria-label="Project views">
         <span className={styles.railLabel}>{study.project.title}</span>
-        <a href="#full-view" className={interaction.action}>Full view</a><a href="#details" className={interaction.action}>Details</a><a href="#project-facts" className={interaction.action}>Project facts</a>
+        <a href="#full-view" className={interaction.action}>Full view</a>{primary.kind !== "unavailable" && <a href="#details" className={interaction.action}>Details</a>}<a href="#project-facts" className={interaction.action}>Project facts</a>
       </nav></aside>
       <div className={styles.detailRoute}>
-        <section id="details" className={styles.landmarkPair} aria-labelledby="atlas-details-heading">
+        {primary.kind !== "unavailable" && <section id="details" className={styles.landmarkPair} aria-labelledby="atlas-details-heading">
           <h2 id="atlas-details-heading">Closer.</h2>
           <DetailLandmark asset={primary} side="left" />
           <DetailLandmark asset={primary} side="right" />
-        </section>
+        </section>}
         <StudyDemo study={study} className={styles.productDemo} />
         {extras.length > 0 && <section className={styles.extraMedia} aria-label="More product views">
           {extras.map(asset => <StudyMedia key={asset.id} asset={asset} className={styles.extraCapture} />)}

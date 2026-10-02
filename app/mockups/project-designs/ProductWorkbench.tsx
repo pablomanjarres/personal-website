@@ -53,7 +53,7 @@ function BenchCapture({ asset, priority = false }: { asset: Asset; priority?: bo
     <figure className={styles.fullCapture} data-kind={asset.kind}>
       <StudyMedia asset={asset} className={styles.captureMedia} priority={priority} caption={false} />
       <figcaption className={styles.captureLabel}>
-        <span>{asset.label}</span><a className={interaction.action} href={asset.src} target="_blank" rel="noreferrer">Open full size</a>
+        <span>{asset.label}</span>{asset.kind !== "unavailable" && <a className={interaction.action} href={asset.src} target="_blank" rel="noreferrer">Open full size</a>}
       </figcaption>
     </figure>
   );
@@ -95,13 +95,13 @@ export function ProductWorkbenchDetail({ study, nextStudy, direction }: DetailPr
         <StudyFacts study={study} className={styles.facts} />
         <StudyActions study={study} className={styles.actions} />
       </div>
-      <section className={styles.closeups} aria-label={`Details of ${study.project.title}`}>
+      {primary.kind !== "unavailable" && <section className={styles.closeups} aria-label={`Details of ${study.project.title}`}>
         <h2>A closer look.</h2>
         <div className={styles.cropCollection}>
           <DetailCrop asset={primary} region="focus" />
           <DetailCrop asset={primary} />
         </div>
-      </section>
+      </section>}
       {extras.length > 0 && <section className={styles.additionalMedia} aria-label="More project media">
         {extras.map(asset => <BenchCapture key={asset.id} asset={asset} />)}
       </section>}

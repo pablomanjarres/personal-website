@@ -70,12 +70,12 @@ export function InterfaceGalleryDetail({ study, nextStudy, direction }: DetailPr
       </header>
       <figure className={styles.hero}>
         <StudyMedia asset={primary} className={styles.heroMedia} priority caption={false} />
-        <figcaption className={styles.mediaCaption}><span>{primary.label}</span><a className={interaction.action} href={primary.src} target="_blank" rel="noreferrer">View full size</a></figcaption>
+        <figcaption className={styles.mediaCaption}><span>{primary.label}</span>{primary.kind !== "unavailable" && <a className={interaction.action} href={primary.src} target="_blank" rel="noreferrer">View full size</a>}</figcaption>
       </figure>
-      <div className={styles.exhibition}>
+      {primary.kind !== "unavailable" && <div className={styles.exhibition}>
         <Exhibit asset={primary} detail />
         {secondary.map(asset => <Exhibit key={asset.id} asset={asset} />)}
-      </div>
+      </div>}
       <div className={styles.factsRow}>
         <StudyFacts study={study} className={styles.facts} />
         <StudyActions study={study} className={styles.actions} />
