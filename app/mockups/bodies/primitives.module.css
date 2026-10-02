@@ -12,6 +12,6 @@
 .archive summary:focus-visible, .archiveGrid a:focus-visible, .footerLinks a:focus-visible, .visual:focus-visible { outline: 3px solid currentColor; outline-offset: 5px; }
 .footerLinks { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 40px 0 100px; font-size: 14px; }
 .footerLinks nav { display: flex; flex-wrap: wrap; gap: 24px; }
-.footerLinks a { display: inline-flex; align-items: center; color: inherit; min-height: 44px; text-decoration: none; }
+.footerLinks a { display: inline-flex; align-items: center; color: inherit; min-width: 44px; min-height: 44px; text-decoration: none; }
 .footerLinks a:hover { text-decoration: underline; }
 @media (max-width: 700px) { .archiveGrid { grid-template-columns: 1fr; } .footerLinks { flex-direction: column; align-items: flex-start; gap: 12px; } }
