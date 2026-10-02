@@ -9,7 +9,6 @@
   font-family: var(--font-newsreader), serif;
 }
 .body a { color: inherit; }
-.body a:focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
 .work { max-width: 1500px; margin: auto; padding: 80px 6% 100px; }
 .intro { display: flex; justify-content: space-between; gap: 50px; align-items: end; margin-bottom: 90px; }
 .intro h2 { font: 400 clamp(34px, 4.2vw, 58px)/1.2 var(--font-sora), sans-serif; letter-spacing: -.065em; }

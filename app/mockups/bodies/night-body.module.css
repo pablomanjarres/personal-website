@@ -77,7 +77,6 @@
 .replyNote { margin-top: 21px; color: var(--night-muted); font-size: 14px; }
 .footer { margin-top: 70px; border-top: 1px solid color-mix(in srgb, var(--night-muted) 25%, transparent); text-align: left; }
 .body .footer a { color: var(--night-text); }
-.body .screening a:focus-visible, .body .closing a:focus-visible, .body .archive :is(a, summary):focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
 .body .caseLink:hover, .body .email:hover { text-decoration: underline; text-underline-offset: 5px; }
 .body .booking:hover { background: var(--night-cyan); }
 @media (prefers-reduced-motion: no-preference) {
