@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { STATUS_LABEL } from "../../portfolio/status";
 import { LiveEmbed } from "../../portfolio/LiveEmbed";
 import { studyHref, type ProjectStudy, type StudyAsset, type StudyDirectionId } from "./data";
 import { StudyVideo } from "./video";
@@ -26,11 +25,6 @@ export function StudyDemo({ study, className = "" }: { study: ProjectStudy; clas
 
 export function StudyLink({ study, direction, children, className = "" }: { study: ProjectStudy; direction: StudyDirectionId; children: ReactNode; className?: string }) {
   return <Link href={studyHref(direction, study.project.slug)} className={`${styles.action} ${className}`}>{children}</Link>;
-}
-
-export function StudyFacts({ study, className = "" }: { study: ProjectStudy; className?: string }) {
-  const project = study.project;
-  return <details className={`${styles.facts} ${className}`}><summary className={styles.action}>Project facts <span aria-hidden>+</span></summary><dl><div><dt>Role</dt><dd>{project.role}</dd></div><div><dt>Year</dt><dd>{project.year}</dd></div><div><dt>Status</dt><dd>{STATUS_LABEL[project.status]}</dd></div><div><dt>Built with</dt><dd>{project.stack.slice(0, 5).join(" / ")}</dd></div></dl></details>;
 }
 
 export function StudyActions({ study, className = "" }: { study: ProjectStudy; className?: string }) {
