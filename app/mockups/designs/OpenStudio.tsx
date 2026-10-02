@@ -33,7 +33,7 @@ export default function OpenStudio() {
             <circle cx="143" cy="301" r="5" />
             <circle cx="939" cy="264" r="7" />
           </svg>
-          <figure className={styles.portraitWrap} data-enter="clip"><Portrait portrait="teal" /></figure>
+          <figure className={styles.portraitWrap} data-enter="clip"><Portrait portrait="denim" /></figure>
           <div className={styles.roles} aria-label="What I do">
             {profile.roles.map(role => <span key={role} className={styles.role} data-enter="pop"><i aria-hidden />{role}</span>)}
           </div>

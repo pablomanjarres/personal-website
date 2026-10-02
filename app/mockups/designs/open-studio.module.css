@@ -2,7 +2,7 @@
 .signature { --enter-delay: 50ms; font-size: 14px; margin-bottom: 20px; }
 .headline { --enter-delay: 120ms; font-family: var(--font-display), sans-serif; font-size: clamp(48px, 7.3vw, 108px); line-height: 1.02; font-weight: 500; letter-spacing: -.065em; }
 .note { --enter-delay: 220ms; font-size: 18px; max-width: 37ch; margin: 22px auto 0; line-height: 1.5; opacity: .75; }
-.orbitStage { position: relative; isolation: isolate; width: min(1080px, 100%); height: 560px; margin: -8px auto -24px; }
+.orbitStage { position: relative; isolation: isolate; width: min(1080px, 100%); height: 560px; margin: -8px auto 32px; }
 .halo { position: absolute; z-index: -1; width: 540px; height: 450px; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(ellipse, color-mix(in srgb, var(--panel) 78%, var(--paper)) 0%, var(--paper) 70%); }
 .orbits { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--accent); }
 .orbits ellipse { stroke: currentColor; stroke-width: 1; }
@@ -56,7 +56,7 @@
   .signature { margin-bottom: 14px; font-size: 12px; }
   .headline { max-width: 8ch; margin: auto; font-size: clamp(42px, 12.5vw, 64px); }
   .note { max-width: 29ch; margin-top: 18px; font-size: 15px; }
-  .orbitStage { height: 430px; margin-top: 20px; margin-bottom: 20px; }
+  .orbitStage { height: 430px; margin-top: 20px; margin-bottom: 32px; }
   .halo { width: 340px; height: 340px; }
   .orbits { width: 125%; height: 100%; left: -12.5%; opacity: .8; }
   .portraitWrap { width: 218px; height: 280px; top: 70px; outline-width: 6px; }
