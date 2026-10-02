@@ -1,9 +1,12 @@
 import { getProject, type Project } from "../../projects";
 import { selectedWorkSlugs } from "../selected-work";
 import { ankiMobileScreens } from "../anki-media";
+import type { ConceptId } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 
 export type FeaturedProject = {
   project: Project;
+  href: string;
   problem: string;
   product: string;
   note: string;
@@ -29,11 +32,13 @@ const notes = {
   },
 } satisfies Record<(typeof selectedWorkSlugs)[number], Pick<FeaturedProject, "problem" | "note" | "previewLabel">>;
 
-export const featuredProjects: readonly FeaturedProject[] = selectedWorkSlugs.map(slug => {
-  const project = getProject(slug);
-  if (!project?.cover) throw new Error(`Missing featured project preview: ${slug}`);
-  return { ...notes[slug], project, product: project.oneLiner, preview: slug === "anki" ? ankiMobileScreens[0].src : project.cover };
-});
+export function getFeaturedProjects(concept: ConceptId): readonly FeaturedProject[] {
+  return selectedWorkSlugs.map(slug => {
+    const project = getProject(slug);
+    if (!project?.cover) throw new Error(`Missing featured project preview: ${slug}`);
+    return { ...notes[slug], project, href: conceptStudyHref(concept, slug), product: project.oneLiner, preview: slug === "anki" ? ankiMobileScreens[0].src : project.cover };
+  });
+}
 
 export const capabilities = [
   { title: "AI products", text: "Agent workflows, retrieval, and tools that keep people in control.", examples: "Noelle / Nella" },

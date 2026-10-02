@@ -1,5 +1,5 @@
 import type { ConceptId } from "../concepts";
-import type { StudyDirectionId } from "./data";
+import { studyHref, type StudyDirectionId } from "./data";
 
 export type StudyDirection = { id: StudyDirectionId; name: string; description: string; paper: string; ink: string; accent: string; motionConcept: ConceptId };
 export const studyDirections: readonly StudyDirection[] = [
@@ -11,3 +11,9 @@ export const studyDirections: readonly StudyDirection[] = [
   { id: "playground", name: "Product Playground", description: "Big visuals and a few things to try.", paper: "#edf2fb", ink: "#152958", accent: "#294ee8", motionConcept: "signal" },
 ];
 export function getStudyDirection(id: string) { return studyDirections.find(direction => direction.id === id); }
+
+export function conceptStudyHref(concept: ConceptId, slug?: string) {
+  const direction = studyDirections.find(direction => direction.motionConcept === concept);
+  if (!direction) throw new Error(`Missing project direction for homepage: ${concept}`);
+  return studyHref(direction.id, slug);
+}

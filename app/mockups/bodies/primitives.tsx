@@ -4,33 +4,35 @@ import type { ReactNode } from "react";
 import { projects } from "../../projects";
 import { profile } from "../../socials";
 import type { FeaturedProject } from "./content";
+import type { ConceptId } from "../concepts";
+import { conceptStudyHref } from "../project-studies/directions";
 import localStyles from "./primitives.module.css";
 import interaction from "../interaction.module.css";
 
 const styles = { ...localStyles, ...interaction };
 
 export function ProjectLink({ item, className = "", children }: { item: FeaturedProject; className?: string; children: ReactNode }) {
-  return <Link href={`/portfolio/projects/${item.project.slug}`} className={`${styles.action} ${className}`}>{children}</Link>;
+  return <Link href={item.href} className={`${styles.action} ${className}`}>{children}</Link>;
 }
 
 export function ProjectVisual({ item, className = "", sizes = "(max-width: 700px) 90vw, 65vw" }: {
   item: FeaturedProject; className?: string; sizes?: string;
 }) {
-  return <Link href={`/portfolio/projects/${item.project.slug}`} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`}>
+  return <Link href={item.href} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`}>
     <Image src={item.preview} alt={`${item.project.title} ${item.previewLabel.toLowerCase()}`} fill sizes={sizes} />
   </Link>;
 }
 
-export function BuildingLink({ className = "", children = profile.building }: { className?: string; children?: ReactNode }) {
+export function BuildingLink({ concept, className = "", children = profile.building }: { concept: ConceptId; className?: string; children?: ReactNode }) {
   const project = projects.find(item => item.title === profile.building);
   if (!project) throw new Error(`Missing current project: ${profile.building}`);
-  return <Link href={`/portfolio/projects/${project.slug}`} className={`${styles.action} ${className}`}>{children}</Link>;
+  return <Link href={conceptStudyHref(concept, project.slug)} className={`${styles.action} ${className}`}>{children}</Link>;
 }
 
-export function ProjectArchive({ className = "" }: { className?: string }) {
+export function ProjectArchive({ concept, className = "" }: { concept: ConceptId; className?: string }) {
   return <details className={`${styles.archive} ${className}`}>
     <summary className={styles.action}>See all {projects.length} projects <span aria-hidden>+</span></summary>
-    <div className={styles.archiveGrid}>{projects.map(project => <Link key={project.slug} href={`/portfolio/projects/${project.slug}`} className={styles.action}><span>{project.title}</span><small>{project.tags[0]}</small></Link>)}</div>
+    <div className={styles.archiveGrid}>{projects.map(project => <Link key={project.slug} href={conceptStudyHref(concept, project.slug)} className={styles.action}><span>{project.title}</span><small>{project.tags[0]}</small></Link>)}</div>
   </details>;
 }
 
