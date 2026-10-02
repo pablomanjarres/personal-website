@@ -1,83 +1,52 @@
 .stage {
-  --paper: #183429;
-  --ink: #f0f2e9;
-  --accent: #d6c7a8;
-  --panel: #264d3c;
+  --paper: #16382c;
+  --ink: #f1f3e9;
+  --accent: #c2d7b9;
+  --panel: #285340;
+  --action-bg: #d7e2c4;
+  --action-ink: #16382c;
+  --action-hover-bg: #f1f3e9;
   position: relative;
   isolation: isolate;
-  min-height: max(740px, calc(100svh - 88px));
-  max-height: 1050px;
+  min-height: max(830px, calc(100svh - 102px));
   overflow: hidden;
-  background: var(--paper);
   color: var(--ink);
+  background: radial-gradient(ellipse at 72% 43%, #31543e 0, #16382c 59%);
+  border-radius: 48px 48px 0 0;
 }
-.heading { margin: 0; font-family: var(--font-display), sans-serif; font-weight: 400; letter-spacing: -.065em; line-height: .82; }
-.topWord {
-  position: absolute;
-  top: 22px;
-  left: 5%;
-  right: 5%;
-  z-index: 3;
-  text-align: left;
-  font-size: clamp(170px, 16vw, 250px);
-}
-.bottomWord {
-  position: absolute;
-  left: 4.5%;
-  right: 4.5%;
-  bottom: 52px;
-  z-index: 3;
-  text-align: center;
-  font-size: clamp(100px, 13.4vw, 213px);
-}
-.art { position: absolute; top: 0; bottom: 0; left: 25%; right: 25%; z-index: 2; }
-.portrait {
-  height: 100%;
-  object-position: 50% 35%;
-  mask-image: linear-gradient(90deg, transparent, #000 13%, #000 87%, transparent);
-}
-.intro { position: absolute; top: 41%; left: 6%; width: 20%; max-width: 260px; z-index: 4; }
-.intro .signature { margin: 0 0 16px; font-size: 13px; color: var(--accent); }
-.intro .description { margin: 0 0 25px; font-size: clamp(14px, 1.25vw, 18px); line-height: 1.6; }
-.actions { flex-direction: column; align-items: flex-start; gap: 15px; }
-.intro .current { margin: 28px 0 0; font-size: 12px; color: var(--accent); }
-.role {
-  position: absolute;
-  top: 39%;
-  right: 6%;
-  width: 18%;
-  z-index: 4;
-  margin: 0;
-  font-family: var(--font-serif), serif;
-  font-size: clamp(30px, 3vw, 48px);
-  line-height: 1.1;
-  letter-spacing: -.02em;
-}
-.role span { display: block; }
-.role span + span { margin-top: 20px; }
-@media (min-width: 1600px) {
-  .intro { left: max(6%, calc((100vw - 1420px) / 2)); }
-  .role { right: max(6%, calc((100vw - 1420px) / 2)); }
-}
+.heading { position: absolute; inset: 0; z-index: 3; margin: 0; font-family: var(--font-serif), serif; font-weight: 400; font-size: clamp(96px, 10.4vw, 160px); letter-spacing: -.04em; line-height: .9; pointer-events: none; }
+.first { position: absolute; top: 10%; left: 7%; }
+.last { position: absolute; bottom: 24%; left: 20%; }
+.window { position: absolute; top: 7%; right: 7%; width: 51%; height: 79%; z-index: 2; overflow: hidden; border-radius: 46% 54% 66% 34% / 33% 42% 58% 67%; transform: rotate(-7deg); box-shadow: 0 50px 110px #07170e45; }
+.portrait { height: 112%; width: 112%; max-width: none; object-position: 48% 36%; transform: rotate(7deg) translate(-4%, -3%); }
+.window::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 -100px 90px -80px #102c20; border-radius: inherit; pointer-events: none; }
+.path { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; fill: none; stroke: #b3c8a8; stroke-width: 1; opacity: .42; pointer-events: none; }
+.path circle { fill: #d7e2c4; stroke: none; }
+.contour { position: absolute; z-index: 1; width: 58%; height: 83%; right: 3%; top: 5%; border: 1px solid #b7cca745; border-radius: 46% 54% 66% 34% / 33% 42% 58% 67%; transform: rotate(6deg); pointer-events: none; }
+.intro { position: absolute; z-index: 4; left: 7%; top: 43%; width: 29%; max-width: 350px; }
+.intro p { margin: 0 0 24px; max-width: 27ch; font-size: 17px; line-height: 1.65; }
+.actions { gap: 18px; }
+.actions a { font-size: 14px; }
+.actions a:first-child { padding: 14px 21px; }
+.roles { position: absolute; left: 7%; bottom: 6%; z-index: 4; display: flex; flex-wrap: wrap; gap: 8px 23px; margin: 0; font-size: 13px; }
+.roles span { display: inline-block; }
+.roles span + span::before { content: ""; display: inline-block; margin-right: 23px; width: 4px; height: 4px; border: 1px solid currentColor; border-radius: 50%; vertical-align: 3px; }
+.current { position: absolute; top: 14%; right: 6%; z-index: 4; display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.current::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px #c2d7b910; }
+.current span { display: block; }
+.current strong { display: block; font-weight: 500; font-size: 18px; }
+.workLink { position: absolute; right: 8%; bottom: 5%; z-index: 4; width: 103px; height: 103px; border-radius: 50%; border: 1px solid #c2d7b967; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 13px; transition: background 350ms, color 350ms, transform 350ms; }
+.workLink span { font-size: 25px; line-height: 1.2; }
+.workLink:hover { background: var(--accent); color: var(--paper); transform: rotate(-8deg); }
+.stage .workLink:focus-visible, .stage .actions a:focus-visible { outline-color: var(--accent); }
 @media (max-width: 1000px) {
   .stage { min-height: 790px; }
-  .topWord { top: 35px; font-size: 20vw; }
-  .bottomWord { font-size: 13.4vw; bottom: 44px; }
-  .art { left: 17%; right: 17%; }
-  .intro { top: auto; bottom: 180px; width: 27%; left: 5%; }
-  .role { top: 29%; right: 5%; width: 21%; }
-}
-@media (max-width: 600px) {
-  .stage { min-height: 825px; max-height: none; }
-  .topWord { top: 28px; left: 0; right: 0; text-align: center; font-size: 31vw; }
-  .bottomWord { left: 5%; right: 5%; bottom: 265px; font-size: 21vw; letter-spacing: -.075em; }
-  .art { top: 130px; bottom: 173px; left: -5%; right: -5%; }
-  .portrait { object-position: 50% 25%; mask-image: linear-gradient(0deg, transparent, #000 15%, #000 92%, transparent); }
-  .intro { left: 24px; right: 24px; width: auto; max-width: none; bottom: 27px; }
-  .intro .signature { margin-bottom: 13px; font-size: 12px; }
-  .intro .description { margin-bottom: 17px; max-width: 34ch; font-size: 14px; }
-  .actions { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 15px; }
-  .intro .current { margin-top: 17px; font-size: 11px; }
-  .role { top: 142px; right: 22px; width: 125px; font-size: 20px; }
-  .role span + span { margin-top: 12px; }
+  .heading { font-size: 12.4vw; }
+  .first { top: 12%; }
+  .last { left: 16%; bottom: 25%; }
+  .intro { width: 35%; top: 39%; }
+  .intro p { font-size: 15px; }
+  .window { width: 57%; right: 2%; height: 73%; top: 12%; }
+  .current { top: 6%; }
+  .roles { max-width: 65%; }
 }
