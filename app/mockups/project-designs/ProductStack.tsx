@@ -84,7 +84,7 @@ export function ProductStackDetail({ study, nextStudy, direction }: DetailProps)
       <div className={styles.openBook}>
         <OpenSheet asset={primary} priority />
         <div className={styles.projectNotes}><StudyFacts study={study} className={styles.facts} /><StudyActions study={study} className={styles.actions} /></div>
-        <Foldout asset={primary} />
+        {primary.kind !== "unavailable" && <Foldout asset={primary} />}
       </div>
       {otherMedia.length > 0 && <section className={styles.extraPages} aria-label="More project media">{otherMedia.map(asset => <OpenSheet asset={asset} key={asset.id} />)}</section>}
       <NextSheet study={nextStudy} direction={direction} />

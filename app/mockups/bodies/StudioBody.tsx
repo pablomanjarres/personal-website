@@ -8,7 +8,7 @@ function ProductStudy({ item }: { item: FeaturedProject }) {
     <article className={styles.study} data-product={item.project.slug}>
       <div className={styles.visuals}>
         <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />
-        
+
         <span className={styles.mediaNote}>{item.previewLabel}</span>
       </div>
       <div className={styles.projectCopy}>
