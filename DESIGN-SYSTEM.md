@@ -1,6 +1,6 @@
 # Personal site mockups
 
-Six original portfolio directions for people hiring Pablo to build software. The portrait and large typography carry the identity; real product screenshots carry the proof. These are review prototypes at `/mockups`; the production homepage is unchanged until a direction is selected.
+Six original portfolio directions for people hiring Pablo as a Software Engineer, Product Designer, and Founder. The headline explains his work, the portrait carries the identity, and real product screenshots carry the proof. His name is a small signature. These are review prototypes at `/mockups`; the production homepage is unchanged until a direction is selected.
 
 - Each direction has one palette record in `app/mockups/concepts.ts`, exposed as shared CSS variables. Hero-specific palettes live with the corresponding design.
 - Reuse the existing Next font owners: Archivo Black, Big Shoulders, and Hanken Grotesk for display; IBM Plex Sans for body; Instrument Serif for personal notes.

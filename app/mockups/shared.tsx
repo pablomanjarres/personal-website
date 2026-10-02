@@ -35,6 +35,10 @@ export function ActionLinks({ className = "" }: { className?: string }) {
   return <div className={`${styles.actions} ${className}`}><a className={styles.primary} href="#work">Explore my work <span aria-hidden>↘</span></a><a className={styles.secondary} href={`mailto:${profile.email}`}>Get in touch</a></div>;
 }
 
+export function RoleSummary({ className = "" }: { className?: string }) {
+  return <p className={`${styles.roles} ${className}`}>{profile.roles.map(role => <span key={role}>{role}</span>)}</p>;
+}
+
 const selectedSlugs = ["noelle", "construcredit", "nella", "cortex"];
 const selected = selectedSlugs.map(slug => projects.find(project => project.slug === slug)!);
 
@@ -75,7 +79,7 @@ const capabilities = [
 export function AboutSection() {
   return (
     <section id="about" className={styles.about}>
-      <div className={styles.aboutIntro}><span className={styles.smallLabel}>A little about me</span><h2>I like turning ambitious ideas into useful software.</h2><p>I’m Pablo, a solo founder who designs and builds software. My work spans AI agents, web products, and developer tools. I like owning the path from the first idea to something people can use.</p><a href="https://trynoelle.com" target="_blank" rel="noreferrer">Currently building Noelle <span aria-hidden>↗</span></a></div>
+      <div className={styles.aboutIntro}><span className={styles.smallLabel}>Engineering. Design. Entrepreneurship.</span><h2>I turn ambitious ideas into products people can use.</h2><p>I’m Pablo, a {profile.roles.slice(0, -1).join(", ")}, and {profile.roles.at(-1)}. I work across AI agents, web products, and developer tools, connecting the product decisions, the interface, and the systems behind them.</p><a href="https://trynoelle.com" target="_blank" rel="noreferrer">Currently building Noelle <span aria-hidden>↗</span></a></div>
       <div className={styles.capabilities}>{capabilities.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.text}</p><span>{item.examples}</span></div>)}</div>
     </section>
   );

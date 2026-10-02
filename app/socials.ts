@@ -9,6 +9,7 @@ export type Social = {
 
 export const profile = {
   name: "Pablo Manjarres",
+  roles: ["Software Engineer", "Product Designer", "Founder"],
   age: 17,
   tagline: "Solo founder",
   building: "Noelle",
