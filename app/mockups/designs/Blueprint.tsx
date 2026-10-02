@@ -67,7 +67,7 @@ export default function Blueprint() {
         </section>
         <AboutSection variant="compact" />
         <WorkSection layout="browser" title="Open a project. See how it works." />
-        <ContactSection variant="inline" />
+        <ContactSection concept="blueprint" />
       </div>
     </MockupShell>
   );

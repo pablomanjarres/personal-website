@@ -45,7 +45,7 @@ export default function OpenStudio() {
       </section>
       <WorkSection layout="bento" />
       <AboutSection variant="compact" />
-      <ContactSection variant="orb" />
+      <ContactSection concept="open-studio" />
     </MockupShell>
   );
 }

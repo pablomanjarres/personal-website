@@ -45,7 +45,7 @@ export default function Signal() {
       <div className={styles.body}>
         <WorkSection layout="stack" title="See what I’ve built." />
         <AboutSection variant="split" />
-        <ContactSection variant="banner" />
+        <ContactSection concept="signal" />
       </div>
     </MockupShell>
   );
