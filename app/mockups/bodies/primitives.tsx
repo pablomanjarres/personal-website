@@ -4,7 +4,10 @@ import type { ReactNode } from "react";
 import { projects } from "../../projects";
 import { profile } from "../../socials";
 import type { FeaturedProject } from "./content";
-import styles from "./primitives.module.css";
+import localStyles from "./primitives.module.css";
+import interaction from "../interaction.module.css";
+
+const styles = { ...localStyles, ...interaction };
 
 export function ProjectLink({ item, className = "", children }: { item: FeaturedProject; className?: string; children: ReactNode }) {
   return <Link href={`/portfolio/projects/${item.project.slug}`} className={`${styles.action} ${className}`}>{children}</Link>;
