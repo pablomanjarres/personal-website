@@ -1,9 +1,11 @@
 export const ankiMobileScreens = [
-  { id: "anki-mobile-home", src: "/mockups/anki-mobile/home.png", width: 415, height: 942, alt: "Anki mobile interface study with a daily review queue", label: "Mobile interface study", kind: "screen" },
-  { id: "anki-mobile-review", src: "/mockups/anki-mobile/review.png", width: 430, height: 976, alt: "Anki mobile review study with a cited card and five grades", label: "Mobile review study", kind: "screen" },
+  { id: "anki-home", src: "/mockups/anki-app/home.png", width: 1179, height: 2556, alt: "Anki home with today's review queue and cloud illustration", label: "Anki home", kind: "screen" },
+  { id: "anki-review", src: "/mockups/anki-app/review.png", width: 1179, height: 2556, alt: "Anki review card tied to a book source", label: "Review card", kind: "screen" },
 ] as const;
 
-export const ankiInterfaceStudyScreens = [
-  { id: "anki-study-home", src: "/mockups/anki-study/home.png", width: 860, height: 1952, alt: "Anki mobile interface study with daily reviews and courses" },
-  { id: "anki-study-review", src: "/mockups/anki-study/review.png", width: 860, height: 1952, alt: "Anki mobile interface study with a source-linked review card" },
-] as const;
+export const ankiAppMockup = {
+  src: "/mockups/anki-app/paired-phones.webp",
+  width: 1450,
+  height: 2000,
+  alt: "Anki home and review screens in two iPhones",
+} as const;
