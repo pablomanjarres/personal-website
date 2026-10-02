@@ -28,4 +28,5 @@
 .shell[data-concept="green-room"] .nav { background: #193b2e; color: #f0f2e9; max-width: none; }
 .shell[data-concept="green-room"] .brand span { color: #b6c7ab; }
 .shell[data-concept="after-hours"] .nav { max-width: none; padding-left: 6%; padding-right: 6%; }
-@media (max-width: 580px) { .nav { padding: 18px 5%; gap: 12px; } .brand { font-size: 28px; } .nav nav { width: 228px; padding: 0 6px; font-size: 13px; } .navContact { display: none; } }
+@media (max-width: 580px) { .nav { padding: 18px 5%; gap: 12px; } .brand { font-size: 28px; } .nav nav { width: min(228px, 61vw); padding: 0 6px; font-size: 13px; } .navContact { display: none; } }
+@media (max-width: 360px) { .brand { font-size: 24px; } .nav nav { width: 54vw; padding: 0 4px; } }
