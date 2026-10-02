@@ -15,7 +15,7 @@ function mediaFor(project: Project): readonly StudyAsset[] {
   const label = project.slug === "nella" ? "Product illustration" : project.slug === "cortex" ? "Desktop dashboard" : ["noelle", "construcredit"].includes(project.slug) ? "Public website" : "Project preview";
   const src = project.slug === "nella" ? "/portfolio/covers/nella.png" : project.cover;
   const media: StudyAsset[] = [{ id: `${project.slug}-preview`, src, alt: `${project.title}: ${label.toLowerCase()}`, label, kind: project.slug === "nella" ? "artwork" : "screen", width, height }];
-  if (project.video) media.push({ id: `${project.slug}-walkthrough`, src: project.video, poster: src, alt: `${project.title} recorded walkthrough`, label: "Recorded product walkthrough", kind: "video", width: 1280, height: 800 });
+  if (project.video) media.push({ id: `${project.slug}-walkthrough`, src: project.video, poster: src, alt: `${project.title} animated product introduction`, label: "Product animation", kind: "video", width: 1280, height: 800 });
   return media;
 }
 

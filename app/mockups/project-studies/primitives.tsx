@@ -10,9 +10,9 @@ import interaction from "../interaction.module.css";
 
 const styles = { ...localStyles, ...interaction };
 
-export function StudyMedia({ asset, className = "", priority = false, detail = false, caption = true }: { asset: StudyAsset; className?: string; priority?: boolean; detail?: boolean; caption?: boolean }) {
+export function StudyMedia({ asset, className = "", priority = false, detail = false, caption = true, sizes = "(max-width: 700px) 94vw, 90vw" }: { asset: StudyAsset; className?: string; priority?: boolean; detail?: boolean; caption?: boolean; sizes?: string }) {
   return <figure className={`${styles.media} ${className}`} data-media-kind={asset.kind}>
-    {asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes="(max-width: 700px) 94vw, 90vw" preload={priority} />}
+    {asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes={sizes} preload={priority} />}
     {caption && <figcaption>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>}
   </figure>;
 }
