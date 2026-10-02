@@ -13,19 +13,19 @@
   background: linear-gradient(90deg, var(--paper), transparent 37%), linear-gradient(0deg, var(--paper), transparent 24%);
 }
 .portrait { height: 100%; object-position: 50% 25%; }
-.intro { padding: clamp(76px, 9vw, 145px) 6.5vw 145px; width: 65%; }
-.intro .role { margin: 0 0 28px; color: var(--accent); font-size: 15px; }
-.name {
+.intro { padding: clamp(64px, 6vw, 96px) 6.5vw 125px; width: 65%; }
+.intro .role { display: flex; flex-wrap: wrap; gap: 0 14px; margin: 0 0 26px; color: var(--accent); font-size: 14px; }
+.heading {
   margin: 0;
   font-family: var(--font-bigshoulders), var(--font-display), sans-serif;
-  font-size: clamp(110px, 12.9vw, 200px);
-  line-height: .86;
+  font-size: clamp(96px, 9.5vw, 146px);
+  line-height: .9;
   letter-spacing: -.045em;
   font-weight: 800;
 }
-.name span { display: block; }
-.name span + span { font-size: .82em; margin-top: 8px; }
-.intro .description { max-width: 29ch; margin: 36px 0 24px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; }
+.heading span { display: block; }
+.heading span + span { margin-top: 5px; }
+.intro .description { max-width: 29ch; margin: 28px 0 24px; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; }
 .actions { width: max-content; max-width: 100%; }
 .heroFooter {
   position: absolute;
@@ -39,7 +39,8 @@
   font-size: 13px;
   color: var(--accent);
 }
-.heroFooter p { margin: 0; }
+.heroFooter p { display: flex; flex-direction: column; gap: 6px; margin: 0; }
+.signature { font-size: 12px; color: var(--ink); }
 .heroFooter a { color: inherit; text-decoration: none; }
 .heroFooter p a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 .heroFooter > a { display: flex; align-items: center; gap: 32px; }
@@ -49,18 +50,17 @@
 }
 @media (max-width: 1000px) {
   .hero { min-height: 760px; }
-  .intro { width: 77%; padding-top: 95px; }
+  .intro { width: 77%; padding-top: 75px; }
   .art { left: 32%; opacity: .8; }
-  .name { font-size: 15vw; }
+  .heading { font-size: 12.5vw; }
 }
 @media (max-width: 600px) {
-  .hero { min-height: 945px; }
+  .hero { min-height: 1080px; }
   .intro { width: 100%; padding: 38px 24px 0; }
   .intro .role { font-size: 12px; margin-bottom: 23px; }
-  .name { font-size: 24vw; line-height: .9; }
-  .name span + span { font-size: .76em; }
+  .heading { font-size: clamp(64px, 21vw, 96px); line-height: .9; }
   .intro .description { margin: 25px 0 18px; max-width: 29ch; font-size: 16px; }
-  .art { top: 365px; left: -12%; right: -12%; bottom: 34px; opacity: 1; }
+  .art { top: 425px; left: -12%; right: -12%; bottom: 55px; opacity: 1; }
   .art::after { background: linear-gradient(0deg, var(--paper), transparent 27%, transparent 75%, var(--paper)); }
   .portrait { object-position: 50% 10%; }
   .heroFooter { left: 24px; right: 24px; bottom: 25px; font-size: 11px; gap: 10px; }

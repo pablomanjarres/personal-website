@@ -11,8 +11,8 @@
   background: var(--paper);
   color: var(--ink);
 }
-.name { margin: 0; font-family: var(--font-display), sans-serif; font-weight: 400; letter-spacing: -.065em; line-height: .82; }
-.firstName {
+.heading { margin: 0; font-family: var(--font-display), sans-serif; font-weight: 400; letter-spacing: -.065em; line-height: .82; }
+.topWord {
   position: absolute;
   top: 22px;
   left: 5%;
@@ -21,7 +21,7 @@
   text-align: left;
   font-size: clamp(170px, 16vw, 250px);
 }
-.lastName {
+.bottomWord {
   position: absolute;
   left: 4.5%;
   right: 4.5%;
@@ -37,7 +37,8 @@
   mask-image: linear-gradient(90deg, transparent, #000 13%, #000 87%, transparent);
 }
 .intro { position: absolute; top: 41%; left: 6%; width: 20%; max-width: 260px; z-index: 4; }
-.intro > p:first-child { margin: 0 0 25px; font-size: clamp(14px, 1.25vw, 18px); line-height: 1.6; }
+.intro .signature { margin: 0 0 16px; font-size: 13px; color: var(--accent); }
+.intro .description { margin: 0 0 25px; font-size: clamp(14px, 1.25vw, 18px); line-height: 1.6; }
 .actions { flex-direction: column; align-items: flex-start; gap: 15px; }
 .intro .current { margin: 28px 0 0; font-size: 12px; color: var(--accent); }
 .role {
@@ -48,33 +49,35 @@
   z-index: 4;
   margin: 0;
   font-family: var(--font-serif), serif;
-  font-size: clamp(31px, 3.6vw, 57px);
-  line-height: 1.04;
+  font-size: clamp(30px, 3vw, 48px);
+  line-height: 1.1;
   letter-spacing: -.02em;
 }
-.role span { display: block; margin-top: 26px; font-family: var(--font-sans), sans-serif; font-size: 14px; letter-spacing: 0; line-height: 1.4; }
+.role span { display: block; }
+.role span + span { margin-top: 20px; }
 @media (min-width: 1600px) {
   .intro { left: max(6%, calc((100vw - 1420px) / 2)); }
   .role { right: max(6%, calc((100vw - 1420px) / 2)); }
 }
 @media (max-width: 1000px) {
   .stage { min-height: 790px; }
-  .firstName { top: 35px; font-size: 20vw; }
-  .lastName { font-size: 13.4vw; bottom: 44px; }
+  .topWord { top: 35px; font-size: 20vw; }
+  .bottomWord { font-size: 13.4vw; bottom: 44px; }
   .art { left: 17%; right: 17%; }
   .intro { top: auto; bottom: 180px; width: 27%; left: 5%; }
   .role { top: 29%; right: 5%; width: 21%; }
 }
 @media (max-width: 600px) {
   .stage { min-height: 825px; max-height: none; }
-  .firstName { top: 28px; left: 0; right: 0; text-align: center; font-size: 31vw; }
-  .lastName { left: 5%; right: 5%; bottom: 237px; font-size: 13.9vw; letter-spacing: -.075em; }
+  .topWord { top: 28px; left: 0; right: 0; text-align: center; font-size: 31vw; }
+  .bottomWord { left: 5%; right: 5%; bottom: 265px; font-size: 21vw; letter-spacing: -.075em; }
   .art { top: 130px; bottom: 173px; left: -5%; right: -5%; }
   .portrait { object-position: 50% 25%; mask-image: linear-gradient(0deg, transparent, #000 15%, #000 92%, transparent); }
   .intro { left: 24px; right: 24px; width: auto; max-width: none; bottom: 27px; }
-  .intro > p:first-child { margin-bottom: 17px; max-width: 34ch; font-size: 14px; }
+  .intro .signature { margin-bottom: 13px; font-size: 12px; }
+  .intro .description { margin-bottom: 17px; max-width: 34ch; font-size: 14px; }
   .actions { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 15px; }
   .intro .current { margin-top: 17px; font-size: 11px; }
-  .role { top: 142px; right: 22px; width: 125px; font-size: 29px; }
-  .role span { margin-top: 12px; font-size: 11px; }
+  .role { top: 142px; right: 22px; width: 125px; font-size: 20px; }
+  .role span + span { margin-top: 12px; }
 }
