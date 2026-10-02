@@ -1,12 +1,13 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyMedia, StudyLink, StudyFacts, StudyActions, StudyNext } from "../project-studies/primitives";
+import { StudyMedia, StudyLink, StudyActions, StudyNext } from "../project-studies/primitives";
 import interaction from "../interaction.module.css";
+import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
+import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./interface-gallery.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
-type Asset = ProjectStudy["media"][number];
 
 function GalleryPiece({ study, direction, priority }: { study: ProjectStudy; direction: StudyDirectionId; priority: boolean }) {
   return (
@@ -34,15 +35,6 @@ function GalleryArchive({ studies, direction }: IndexProps) {
   );
 }
 
-function Exhibit({ asset, detail = false }: { asset: Asset; detail?: boolean }) {
-  return (
-    <figure className={styles.exhibit}>
-      <StudyMedia asset={asset} detail={detail} caption={false} className={`${styles.exhibitMedia} ${detail ? styles.detailMedia : ""}`} />
-      <figcaption className={styles.mediaCaption}>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>
-    </figure>
-  );
-}
-
 export function InterfaceGalleryIndex({ studies, direction }: IndexProps) {
   return (
     <div className={styles.gallery}>
@@ -60,33 +52,45 @@ export function InterfaceGalleryIndex({ studies, direction }: IndexProps) {
 }
 
 export function InterfaceGalleryDetail({ study, nextStudy, direction }: DetailProps) {
-  const primary = study.media[0];
-  const secondary = study.media.filter(asset => asset.id !== primary.id).slice(0, 1);
+  const story = getCaseStudy(study);
+  const supportingScreen = study.media.find((asset, index) => index > 0 && asset.kind === "screen");
+  const video = study.media.find(asset => asset.kind === "video");
   return (
-    <div className={styles.gallery}>
-      <header className={styles.intro}>
+    <article className={`${styles.gallery} ${styles.caseExhibit}`}>
+      <header className={styles.exhibitHeader}>
+        <StudyBack direction={direction} className={styles.exhibitBack} />
         <h1>{study.project.title}</h1>
-        <p>{study.caption}</p>
+        <div className={styles.exhibitHeadline}><p>{story.headline}</p><StudyActions study={study} className={styles.exhibitActions} /></div>
       </header>
-      <figure className={styles.hero}>
-        <StudyMedia asset={primary} className={styles.heroMedia} priority caption={false} />
-        <figcaption className={styles.mediaCaption}><span>{primary.label}</span>{primary.kind !== "unavailable" && <a className={interaction.action} href={primary.src} target="_blank" rel="noreferrer">View full size</a>}</figcaption>
-      </figure>
-      {primary.kind !== "unavailable" && <div className={styles.exhibition}>
-        <Exhibit asset={primary} detail />
-        {secondary.map(asset => <Exhibit key={asset.id} asset={asset} />)}
-      </div>}
-      <div className={styles.factsRow}>
-        <StudyFacts study={study} className={styles.facts} />
-        <StudyActions study={study} className={styles.actions} />
+      <div className={styles.openingPlate}>
+        <StudyProductVisual study={study} priority caption={false} className={styles.plateVisual} sizes="(max-width: 700px) 90vw, 86vw" />
+        <div className={styles.plateCaption}><span>{story.platform}</span><p>{story.introduction}</p></div>
       </div>
-      <div className={styles.next}>
-        <StudyNext study={nextStudy} direction={direction} className={styles.nextText} />
-        <StudyLink study={nextStudy} direction={direction} className={styles.nextVisual}>
-          <StudyMedia asset={nextStudy.media[0]} className={styles.nextMedia} />
-        </StudyLink>
+      <div className={styles.editorialBrief}>
+        <StudyBrief study={study} className={styles.exhibitBrief} />
+        <section className={styles.briefText} aria-labelledby="gallery-brief"><h2 id="gallery-brief">The brief</h2><p>{story.challenge}</p><p>{story.responsibility}</p></section>
       </div>
-      <div className={styles.foot}><span>Software engineering and product design</span></div>
-    </div>
+      <section className={styles.annotatedChoices} aria-labelledby="gallery-decisions">
+        <header><h2 id="gallery-decisions">Designed around the work.</h2></header>
+        <div className={`${styles.annotationLayout} ${supportingScreen ? styles.hasPlate : ""}`}>
+          <StudyDecisions study={study} className={styles.exhibitDecisions} />
+          {supportingScreen && <div className={styles.secondaryPlate}><StudyMedia asset={supportingScreen} className={styles.secondaryVisual} boundPortrait={false} /></div>}
+        </div>
+      </section>
+      {story.flow.length > 0 && <section className={styles.flowSpread} aria-labelledby="gallery-flow">
+        <h2 id="gallery-flow">A path through the product</h2>
+        <StudyFlow study={study} className={styles.exhibitFlow} />
+      </section>}
+      <section className={styles.shippedSpread} aria-labelledby="gallery-shipped">
+        <div><h2 id="gallery-shipped">{getReleaseHeading(study)}</h2><p>{story.outcome}</p></div>
+        {story.measures.length > 0 && <StudyMeasures study={study} className={styles.exhibitMeasures} />}
+      </section>
+      {story.components.length > 0 && <section className={styles.productionNotes} aria-labelledby="gallery-notes">
+        <h2 id="gallery-notes">Build notes</h2>
+        <StudyComponents study={study} />
+      </section>}
+      {video && <StudyMedia asset={video} className={styles.exhibitVideo} />}
+      <footer className={styles.exhibitNext}><StudyNext study={nextStudy} direction={direction} className={styles.exhibitNextLink} /><p>{getCaseStudy(nextStudy).headline}</p></footer>
+    </article>
   );
 }
