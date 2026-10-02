@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getProject } from "../../projects";
 import { concepts } from "../concepts";
-import { MockupShell, Portrait, ActionLinks, RoleSummary, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks, RoleSummary } from "../shared";
+import BlueprintBody from "../bodies/BlueprintBody";
 import styles from "./blueprint.module.css";
 
 const cortex = getProject("cortex")!;
@@ -65,9 +66,7 @@ export default function Blueprint() {
           </div>
           <ProductAssembly />
         </section>
-        <AboutSection variant="compact" />
-        <WorkSection layout="browser" title="Open a project. See how it works." />
-        <ContactSection concept="blueprint" />
+        <BlueprintBody />
       </div>
     </MockupShell>
   );

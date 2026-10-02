@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { MockupShell, Portrait, ActionLinks, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks } from "../shared";
+import StudioBody from "../bodies/StudioBody";
 import { concepts } from "../concepts";
 import { profile } from "../../socials";
 import { projects, type Project } from "../../projects";
@@ -43,9 +44,7 @@ export default function OpenStudio() {
         </div>
         <ActionLinks className={styles.actions} />
       </section>
-      <WorkSection layout="bento" />
-      <AboutSection variant="compact" />
-      <ContactSection concept="open-studio" />
+      <StudioBody />
     </MockupShell>
   );
 }

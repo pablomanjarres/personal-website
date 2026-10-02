@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { projects, type Project } from "../../projects";
 import { profile } from "../../socials";
-import { MockupShell, Portrait, ActionLinks, RoleSummary, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks, RoleSummary } from "../shared";
+import SignalBody from "../bodies/SignalBody";
 import { concepts } from "../concepts";
 import styles from "./signal.module.css";
 
@@ -42,11 +43,7 @@ export default function Signal() {
           <a href="#work">A few things I’ve built <span aria-hidden>↓</span></a>
         </div>
       </section>
-      <div className={styles.body}>
-        <WorkSection layout="stack" title="See what I’ve built." />
-        <AboutSection variant="split" />
-        <ContactSection concept="signal" />
-      </div>
+      <div className={styles.body}><SignalBody /></div>
     </MockupShell>
   );
 }
