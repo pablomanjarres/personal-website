@@ -27,7 +27,6 @@
 .study[data-product="construcredit"] .mainVisual img { padding: 18px; }
 .study[data-product="cortex"] .mainVisual { background: var(--studio-petrol); border-radius: 110px 28px 100px 28px; aspect-ratio: 1.05; }
 .study[data-product="cortex"] .mainVisual img { padding: 22px; }
-.preview { position: absolute; width: 58%; right: -6%; bottom: 34px; aspect-ratio: 1.6; border: 7px solid var(--studio-paper); border-radius: 12px; transform: rotate(7deg); box-shadow: 0 18px 30px #173e4a22; }
 .mediaNote { position: absolute; bottom: 0; left: 10px; color: var(--studio-link); font-size: 12px; }
 .projectCopy { max-width: 43ch; margin-top: 14px; }
 .projectCopy h3 { font: 500 clamp(27px, 3vw, 43px)/1.2 var(--font-sora), sans-serif; letter-spacing: -.055em; }
@@ -59,9 +58,8 @@
 .footerLinks { color: var(--studio-link); padding-top: 50px; }
 .studio a:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .mainVisual, .preview, .fold { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
+  .mainVisual, .fold { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
   :global([data-motion="active"]) .study:is(:hover, :focus-within) .mainVisual { transform: rotate(0deg) translateY(-6px); }
-  :global([data-motion="active"]) .study:is(:hover, :focus-within) .preview { transform: rotate(0deg) translateY(8px); }
   :global([data-motion="active"]) .ticket:is(:hover, :focus-within) .fold { transform: scale(1.16); transform-origin: top right; }
 }
 @media (max-width: 1000px) {
@@ -89,7 +87,6 @@
   .study[data-product="construcredit"] .mainVisual { aspect-ratio: 1.1; }
   .study[data-product="cortex"] .mainVisual { border-radius: 60px 20px 60px 20px; }
   .mainVisual img, .study[data-product="cortex"] .mainVisual img { padding: 14px; }
-  .preview { border-width: 4px; border-radius: 6px; }
   .projectCopy h3 { font-size: 30px; }
   .projectCopy p { font-size: 16px; }
   .archive { margin-top: 54px; padding-inline: 20px; }

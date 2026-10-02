@@ -8,7 +8,7 @@ Six portfolio directions for hiring Pablo as a Software Engineer, Product Design
 - `app/mockups/bodies/*Body.tsx` owns each concept’s work, about, and contact presentation. Matching CSS modules own local body palettes, typography, and geometry. Keep presentation choices within that concept.
 - `app/mockups/bodies/content.ts` owns featured project briefs, preview sources and labels, and shared capability copy. It resolves project facts from `app/projects.ts`.
 - `app/mockups/selected-work.ts` owns the selected order: Anki, ConstruCredit, and Cortex. Homepage content and project explorations use that same list.
-- `app/mockups/anki-media.ts` owns the two mobile interface study captures used by the homepage and project explorations. `StudyMedia` bounds portrait captures in one place.
+- `app/mockups/anki-media.ts` owns mobile captures and the Figma template study exports. `AnkiInterfaceStudy` presents the template study in Open Studio. `StudyMedia` bounds project-page portraits in one place.
 - `app/mockups/bodies/primitives.tsx` owns homepage project images and links, the full archive, email and booking links, and footer links. `app/mockups/interaction.module.css` owns focus and minimum action height across homepage and project explorations.
 - `app/mockups/shared.tsx` owns the shell, navigation, approved portraits, roles, and hero action links. `mockups.module.css` owns their styles.
 - `app/mockups/motion.tsx` owns motion preference, Pause, Replay, pointer depth, and scroll reveals. One observer and bounded animation frames handle shared behavior. `motion.module.css` owns pause and reduced motion states.
