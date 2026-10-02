@@ -1,12 +1,12 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyActions, StudyFacts, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
-import interaction from "../interaction.module.css";
+import { StudyActions, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { getCaseStudy } from "../project-studies/case-study";
+import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-workbench.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
-type Asset = ProjectStudy["media"][number];
 
 function still(study: ProjectStudy) {
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
@@ -48,26 +48,6 @@ function ProjectLedger({ studies, direction }: IndexProps) {
   );
 }
 
-function BenchCapture({ asset, priority = false }: { asset: Asset; priority?: boolean }) {
-  return (
-    <figure className={styles.fullCapture} data-kind={asset.kind}>
-      <StudyMedia asset={asset} className={styles.captureMedia} priority={priority} caption={false} />
-      <figcaption className={styles.captureLabel}>
-        <span>{asset.label}</span>{asset.kind !== "unavailable" && <a className={interaction.action} href={asset.src} target="_blank" rel="noreferrer">Open full size</a>}
-      </figcaption>
-    </figure>
-  );
-}
-
-function DetailCrop({ asset, region = "wide" }: { asset: Asset; region?: "focus" | "wide" }) {
-  return (
-    <figure className={`${styles.crop} ${region === "focus" ? styles.focusCrop : styles.wideCrop}`}>
-      <StudyMedia asset={asset} className={styles.cropMedia} detail caption={false} />
-      <figcaption>Detail of {asset.label.toLowerCase()}</figcaption>
-    </figure>
-  );
-}
-
 export function ProductWorkbenchIndex({ studies, direction }: IndexProps) {
   return (
     <div className={styles.workbench}>
@@ -83,34 +63,49 @@ export function ProductWorkbenchIndex({ studies, direction }: IndexProps) {
 }
 
 export function ProductWorkbenchDetail({ study, nextStudy, direction }: DetailProps) {
-  const primary = still(study);
-  const extras = study.media.filter(asset => asset.id !== primary.id);
+  const story = getCaseStudy(study);
+  const supportingScreen = study.media.find((asset, index) => index > 0 && asset.kind === "screen");
+  const video = study.media.find(asset => asset.kind === "video");
   return (
-    <div className={styles.workbench}>
-      <header className={styles.detailHeader}>
-        <h1>{study.project.title}</h1><p>{study.caption}</p>
-      </header>
-      <div className={styles.inspectionBench}><BenchCapture asset={primary} priority /></div>
-      <div className={styles.projectDrawer}>
-        <StudyFacts study={study} className={styles.facts} />
-        <StudyActions study={study} className={styles.actions} />
-      </div>
-      {primary.kind !== "unavailable" && <section className={styles.closeups} aria-label={`Details of ${study.project.title}`}>
-        <h2>A closer look.</h2>
-        <div className={styles.cropCollection}>
-          <DetailCrop asset={primary} region="focus" />
-          <DetailCrop asset={primary} />
+    <article className={`${styles.workbench} ${styles.caseStudy}`}>
+      <StudyBack direction={direction} className={styles.backLink} />
+      <header className={styles.caseIntro}>
+        <div className={styles.introCopy}>
+          <h1>{study.project.title}</h1>
+          <p className={styles.caseHeadline}>{story.headline}</p>
+          <p className={styles.introduction}>{story.introduction}</p>
+          <StudyActions study={study} className={styles.caseActions} />
         </div>
+        <StudyProductVisual study={study} priority caption={false} className={styles.productVisual} />
+      </header>
+      <StudyBrief study={study} className={styles.caseBrief} />
+      <section className={styles.context} aria-label="Project context">
+        <div><h2>The problem</h2><p>{story.challenge}</p></div>
+        <div><h2>What I built</h2><p>{story.outcome}</p></div>
+      </section>
+      <section className={styles.decisionsSection} aria-labelledby="workbench-decisions">
+        <header className={styles.sectionHeading}><h2 id="workbench-decisions">The choices behind it.</h2><p>{story.responsibility}</p></header>
+        <div className={`${styles.decisionLayout} ${supportingScreen ? styles.withScreen : ""}`}>
+          <StudyDecisions study={study} className={styles.caseDecisions} />
+          {supportingScreen && <div className={styles.screenNote}>
+            <StudyMedia asset={supportingScreen} className={styles.supportingScreen} caption boundPortrait={false} />
+          </div>}
+        </div>
+      </section>
+      {story.flow.length > 0 && <section className={styles.productFlow} aria-labelledby="workbench-flow">
+        <header className={styles.sectionHeading}><h2 id="workbench-flow">From start to finish.</h2></header>
+        <StudyFlow study={study} className={styles.caseFlow} />
       </section>}
-      {extras.length > 0 && <section className={styles.additionalMedia} aria-label="More project media">
-        {extras.map(asset => <BenchCapture key={asset.id} asset={asset} />)}
+      {story.measures.length > 0 && <StudyMeasures study={study} className={styles.caseMeasures} />}
+      {story.components.length > 0 && <section className={styles.buildNotes} aria-labelledby="workbench-build">
+        <h2 id="workbench-build">Under the surface.</h2>
+        <StudyComponents study={study} />
       </section>}
-      <footer className={styles.nextProject}>
-        <StudyNext study={nextStudy} direction={direction} className={styles.nextLabel} />
-        <StudyLink study={nextStudy} direction={direction} className={styles.nextPreview}>
-          <StudyMedia asset={still(nextStudy)} className={styles.nextMedia} />
-        </StudyLink>
+      {video && <StudyMedia asset={video} className={styles.caseVideo} />}
+      <footer className={styles.caseNext}>
+        <StudyNext study={nextStudy} direction={direction} className={styles.caseNextLink} />
+        <p>{getCaseStudy(nextStudy).headline}</p>
       </footer>
-    </div>
+    </article>
   );
 }
