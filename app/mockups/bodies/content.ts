@@ -5,17 +5,16 @@ export type FeaturedProject = {
   problem: string;
   product: string;
   note: string;
-  scope: readonly string[];
   preview: string;
   previewLabel: string;
   artwork?: string;
 };
 
 const notes = [
-  { slug: "noelle", problem: "Audience research and drafting take time.", product: "AI agents research people and queue drafts for human approval.", note: "Approval stays with the person.", scope: ["Agent dashboard", "Draft review", "Worker system"], artwork: "/oss/noelle.png" },
-  { slug: "construcredit", problem: "A lender needs dependable balances and a clear approval trail.", product: "Applications, client records, payments, and staff tools for a Colombian lender.", note: "Business rules belong in the software.", scope: ["Public website", "Staff panel", "Lending engine"] },
-  { slug: "nella", problem: "Coding agents need the actual code and earlier decisions.", product: "Code search, persistent memory, and coordination through MCP and a CLI.", note: "Context should come from the code.", scope: ["Code search", "Agent memory", "MCP + CLI"], artwork: "/oss/nella.png" },
-  { slug: "cortex", problem: "Daily work lives across too many tools.", product: "An encrypted desktop dashboard for focus, habits, coursework, and finances.", note: "Private records, kept together.", scope: ["Desktop app", "Local encryption", "Agent access"] },
+  { slug: "noelle", problem: "Audience research and drafting take time.", product: "AI agents research people and queue drafts for human approval.", note: "Approval stays with the person.", artwork: "/oss/noelle.png" },
+  { slug: "construcredit", problem: "A lender needs dependable balances and a clear approval trail.", product: "Applications, client records, payments, and staff tools for a Colombian lender.", note: "Business rules belong in the software." },
+  { slug: "nella", problem: "Coding agents need the actual code and earlier decisions.", product: "Code search, persistent memory, and coordination through MCP and a CLI.", note: "Context should come from the code.", artwork: "/oss/nella.png" },
+  { slug: "cortex", problem: "Daily work lives across too many tools.", product: "An encrypted desktop dashboard for focus, habits, coursework, and finances.", note: "Private records, kept together." },
 ] as const;
 
 export const featuredProjects: readonly FeaturedProject[] = notes.map(note => {
