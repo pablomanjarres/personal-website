@@ -1,5 +1,5 @@
 import { concepts } from "../concepts";
-import { MockupShell, Portrait, ActionLinks, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks, RoleSummary, WorkSection, AboutSection, ContactSection } from "../shared";
 import styles from "./soft-focus.module.css";
 
 export default function SoftFocus() {
@@ -8,8 +8,8 @@ export default function SoftFocus() {
       <div className={styles.softFocus}>
         <section className={styles.hero} aria-labelledby="soft-focus-title">
           <div className={styles.introduction}>
-            <p className={styles.greeting}>Hello, I’m Pablo.</p>
-            <p className={styles.profession}>Software developer<br />&amp; solo founder.</p>
+            <p className={styles.greeting}>Pablo Manjarres</p>
+            <RoleSummary className={styles.profession} />
           </div>
           <h1 id="soft-focus-title" className={styles.headline}>
             <span>From idea</span>

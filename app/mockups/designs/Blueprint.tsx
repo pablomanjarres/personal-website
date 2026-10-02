@@ -1,5 +1,5 @@
 import { concepts } from "../concepts";
-import { MockupShell, Portrait, ActionLinks, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, ActionLinks, RoleSummary, WorkSection, AboutSection, ContactSection } from "../shared";
 import styles from "./blueprint.module.css";
 
 export default function Blueprint() {
@@ -9,7 +9,7 @@ export default function Blueprint() {
         <section className={styles.hero} aria-labelledby="blueprint-title">
           <div className={styles.introduction}>
             <p className={styles.name}>Pablo Manjarres</p>
-            <p className={styles.discipline}>Software developer<br />Solo founder</p>
+            <RoleSummary className={styles.discipline} />
           </div>
           <div className={styles.composition}>
             <h1 id="blueprint-title" className={styles.headline}>

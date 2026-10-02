@@ -12,8 +12,8 @@
   padding-block: 30px 28px;
   color: var(--ink);
 }
-.name { font: 600 clamp(18px, 1.6vw, 23px)/1.2 var(--font-hanken), sans-serif; margin: 0; }
-.discipline { font: 400 14px/1.55 var(--font-sans), sans-serif; margin: 0; min-width: 32%; }
+.name { font: 400 16px/1.3 var(--font-hanken), sans-serif; margin: 0; }
+.discipline { font: 500 16px/1.5 var(--font-sans), sans-serif; margin: 0; min-width: 32%; flex-shrink: 0; }
 .composition { position: relative; isolation: isolate; padding-block: 8px 34px; }
 .headline {
   position: relative;
@@ -51,9 +51,9 @@
 }
 @media (max-width: 680px) {
   .blueprint { padding-inline: 20px; padding-top: 0; }
-  .introduction { padding-block: 24px 28px; }
-  .name { max-width: 150px; }
-  .discipline { font-size: 12px; min-width: auto; }
+  .introduction { padding-block: 24px 28px; gap: 18px; }
+  .name { max-width: 134px; font-size: 14px; }
+  .discipline { font-size: 14px; min-width: auto; }
   .composition { padding-bottom: 0; display: flex; flex-direction: column; }
   .headline { font-size: clamp(86px, 24vw, 162px); line-height: .88; letter-spacing: -.045em; }
   .portraitBlock { position: relative; width: 65%; align-self: flex-end; top: auto; margin-block: 28px; padding-left: 10px; }
