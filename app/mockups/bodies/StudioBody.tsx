@@ -7,9 +7,9 @@ function ProductStudy({ item }: { item: FeaturedProject }) {
   return (
     <article className={styles.study} data-product={item.project.slug}>
       <div className={styles.visuals}>
-        <ProjectVisual item={item} source={item.artwork ? "artwork" : "preview"} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />
-        {item.artwork && <ProjectVisual item={item} className={styles.preview} sizes="(max-width: 700px) 50vw, 24vw" />}
-        <span className={styles.mediaNote}>{item.artwork ? "Artwork and product preview" : item.previewLabel}</span>
+        <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />
+        
+        <span className={styles.mediaNote}>{item.previewLabel}</span>
       </div>
       <div className={styles.projectCopy}>
         <h3><ProjectLink item={item}>{item.project.title}</ProjectLink></h3>
