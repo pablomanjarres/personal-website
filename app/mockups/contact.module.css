@@ -1,4 +1,4 @@
-.contact { margin: 70px auto 0; padding: 0 5% 24px; max-width: 1440px; scroll-margin-top: 24px; }
+.contact { margin: 70px auto 0; padding: 0 5% 90px; max-width: 1440px; scroll-margin-top: 24px; }
 .invitation { position: relative; isolation: isolate; padding: 50px 0 55px; }
 .message { position: relative; z-index: 1; }
 .message h2 { font: 500 clamp(45px, 5.5vw, 78px)/1.03 var(--font-hanken), sans-serif; letter-spacing: -.055em; max-width: 750px; }
