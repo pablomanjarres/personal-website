@@ -10,7 +10,6 @@
   font: 400 17px/1.5 var(--font-hanken), sans-serif;
 }
 .body h2 { font: 500 clamp(38px, 5.4vw, 76px)/1.03 var(--font-spacegrotesk), sans-serif; letter-spacing: -.065em; }
-.body .study a:focus-visible, .body .archive a:focus-visible, .body .archive summary:focus-visible, .body .contact a:focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
 .work { scroll-margin-top: 30px; padding: 70px 0 0; }
 .workHeader { display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; gap: 10%; padding: 0 6% 60px; }
 .workHeader p { max-width: 290px; font-size: 20px; }

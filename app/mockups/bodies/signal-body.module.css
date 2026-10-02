@@ -10,7 +10,6 @@
   font-family: var(--font-publicsans), sans-serif;
 }
 .body a { color: inherit; }
-.body a:focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
 .work { max-width: 1500px; margin: auto; padding: 90px 6% 110px; }
 .workIntro { display: flex; align-items: flex-end; justify-content: space-between; gap: 7%; margin-bottom: 100px; }
 .workIntro h2 { font: 500 clamp(38px, 4.6vw, 67px)/1.06 var(--font-hanken), sans-serif; letter-spacing: -.065em; }

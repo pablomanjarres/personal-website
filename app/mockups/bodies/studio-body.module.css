@@ -61,7 +61,6 @@
 .ticketActions p { font-size: 14px; }
 .fold { position: absolute; right: 0; top: 0; width: 54px; height: 54px; background: #edb792; border-radius: 0 20px 0 54px; }
 .footerLinks { color: var(--studio-purple); padding-top: 50px; }
-.studio a[class]:focus-visible, .studio .archive summary:focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
 .studio a:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
   .mainVisual, .preview, .fold { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
