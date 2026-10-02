@@ -1,13 +1,13 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyMedia, StudyLink, StudyActions, StudyNext } from "../project-studies/primitives";
+import { StudyMedia, StudyLink, StudyActions } from "../project-studies/primitives";
 import interaction from "../interaction.module.css";
 import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./interface-gallery.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function GalleryPiece({ study, direction, priority }: { study: ProjectStudy; direction: StudyDirectionId; priority: boolean }) {
   return (
@@ -51,7 +51,7 @@ export function InterfaceGalleryIndex({ studies, direction }: IndexProps) {
   );
 }
 
-export function InterfaceGalleryDetail({ study, nextStudy, direction }: DetailProps) {
+export function InterfaceGalleryDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
   const supportingScreen = study.media.find((asset, index) => index > 0 && asset.kind === "screen");
   const video = study.media.find(asset => asset.kind === "video");
@@ -90,7 +90,6 @@ export function InterfaceGalleryDetail({ study, nextStudy, direction }: DetailPr
         <StudyComponents study={study} />
       </section>}
       {video && <StudyMedia asset={video} className={styles.exhibitVideo} />}
-      <footer className={styles.exhibitNext}><StudyNext study={nextStudy} direction={direction} className={styles.exhibitNextLink} /><p>{getCaseStudy(nextStudy).headline}</p></footer>
     </article>
   );
 }

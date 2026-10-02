@@ -64,7 +64,7 @@
   .ledgerLink { font-size: 17px; min-height: 54px; }
 }
 
-.caseStudy { --bench-edge: #d4d8d0; --bench-muted: #5f675f; max-width: 1550px; margin: auto; padding-top: 40px; }
+.caseStudy { --bench-edge: #d4d8d0; --bench-muted: #5f675f; max-width: 1550px; margin: auto; padding-top: 40px; padding-bottom: 24px; }
 .backLink { display: inline-flex; align-items: center; margin-bottom: 30px; font-size: 14px; color: var(--bench-muted); }
 .caseIntro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(30px, 6vw, 100px); align-items: center; }
 .introCopy { padding: 20px 0; }
@@ -111,12 +111,6 @@
 .buildNotes h3 { font-size: 20px; font-weight: 500; margin: 0 0 12px; }
 .buildNotes p { font-size: 16px; }
 .caseVideo { margin: 0 0 60px; }
-.caseNext { border-top: 1px solid var(--bench-edge); padding-top: 36px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
-.caseNextLink { display: grid; gap: 12px; }
-.caseNextLink > span:first-child { color: var(--bench-muted); font-size: 14px; }
-.caseNextLink > strong { font-size: clamp(30px, 4vw, 58px); letter-spacing: -.05em; font-weight: 500; }
-.caseNextLink > span:last-child { display: none; }
-.caseNext > p { max-width: 30ch; color: var(--bench-muted); font-size: 17px; line-height: 1.5; }
 @media (max-width: 800px) {
   .caseStudy { padding-top: 24px; }
   .caseIntro { grid-template-columns: 1fr; gap: 20px; }
@@ -135,6 +129,4 @@
   .caseMeasures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 20px; }
   .buildNotes > div { grid-template-columns: 1fr; }
   .buildNotes { padding: 45px 0; }
-  .caseNext { display: block; }
-  .caseNext > p { margin-top: 20px; }
 }

@@ -1,12 +1,12 @@
 import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
-import { StudyActions, StudyLink, StudyMedia, StudyNext } from "../project-studies/primitives";
+import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-workbench.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
-type DetailProps = { study: ProjectStudy; nextStudy: ProjectStudy; direction: StudyDirectionId };
+type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function still(study: ProjectStudy) {
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
@@ -62,7 +62,7 @@ export function ProductWorkbenchIndex({ studies, direction }: IndexProps) {
   );
 }
 
-export function ProductWorkbenchDetail({ study, nextStudy, direction }: DetailProps) {
+export function ProductWorkbenchDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
   const supportingScreen = study.media.find((asset, index) => index > 0 && asset.kind === "screen");
   const video = study.media.find(asset => asset.kind === "video");
@@ -102,10 +102,6 @@ export function ProductWorkbenchDetail({ study, nextStudy, direction }: DetailPr
         <StudyComponents study={study} />
       </section>}
       {video && <StudyMedia asset={video} className={styles.caseVideo} />}
-      <footer className={styles.caseNext}>
-        <StudyNext study={nextStudy} direction={direction} className={styles.caseNextLink} />
-        <p>{getCaseStudy(nextStudy).headline}</p>
-      </footer>
     </article>
   );
 }
