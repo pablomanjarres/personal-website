@@ -41,7 +41,7 @@
 }
 .heroFooter p { display: flex; flex-direction: column; gap: 6px; margin: 0; }
 .signature { font-size: 12px; color: var(--ink); }
-.heroFooter a { color: inherit; text-decoration: none; }
+.heroFooter a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; color: inherit; text-decoration: none; }
 .heroFooter p a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 .heroFooter > a { display: flex; align-items: center; gap: 32px; }
 .heroFooter a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
