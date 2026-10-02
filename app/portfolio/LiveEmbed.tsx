@@ -9,17 +9,19 @@ export function LiveEmbed({
   embedUrl,
   cover,
   title,
+  className = "",
 }: {
   embedUrl: string;
   cover?: string;
   title: string;
+  className?: string;
 }) {
   const [live, setLive] = useState(false);
 
   if (live) {
     return (
       <iframe
-        className="live-iframe"
+        className={`live-iframe ${className}`}
         src={embedUrl}
         title={`${title} live demo`}
         loading="lazy"
@@ -31,7 +33,7 @@ export function LiveEmbed({
   return (
     <button
       type="button"
-      className="live-launch"
+      className={`live-launch ${className}`}
       onClick={() => setLive(true)}
       aria-label={`Run the live ${title} demo`}
     >
