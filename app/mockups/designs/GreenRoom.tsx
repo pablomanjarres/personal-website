@@ -1,4 +1,5 @@
-import { MockupShell, Portrait, RoleSummary, ActionLinks, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, RoleSummary, ActionLinks } from "../shared";
+import GardenBody from "../bodies/GardenBody";
 import { concepts } from "../concepts";
 import { profile } from "../../socials";
 import styles from "./green-room.module.css";
@@ -31,9 +32,7 @@ export default function GreenRoom() {
           View work<span aria-hidden="true">↓</span>
         </a>
       </section>
-      <WorkSection layout="chapters" title="A closer look at the work." />
-      <AboutSection variant="note" />
-      <ContactSection concept="green-room" />
+      <GardenBody />
     </MockupShell>
   );
 }

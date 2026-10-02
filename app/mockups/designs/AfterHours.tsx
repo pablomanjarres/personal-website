@@ -1,4 +1,5 @@
-import { MockupShell, Portrait, RoleSummary, ActionLinks, WorkSection, AboutSection, ContactSection } from "../shared";
+import { MockupShell, Portrait, RoleSummary, ActionLinks } from "../shared";
+import NightBody from "../bodies/NightBody";
 import { concepts } from "../concepts";
 import { profile } from "../../socials";
 import styles from "./after-hours.module.css";
@@ -31,9 +32,7 @@ export default function AfterHours() {
         </div>
         <div className={styles.afterword}><p>Engineering, with an eye for the whole product.</p><p>Selected work below</p></div>
       </section>
-      <WorkSection layout="reel" title="Built, shipped, still growing." />
-      <AboutSection variant="cards" />
-      <ContactSection concept="after-hours" />
+      <NightBody />
     </MockupShell>
   );
 }
