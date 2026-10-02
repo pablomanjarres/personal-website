@@ -1,0 +1,121 @@
+.playground {
+  --blue: var(--accent);
+  --ice: var(--paper);
+  --coral: #ff846c;
+  --deep: var(--ink);
+  --white: #fff;
+  --frame-radius: 16px;
+  --screen-radius: 12px;
+  background: var(--ice);
+  color: var(--deep);
+  font-family: var(--font-hanken), sans-serif;
+  padding: 28px clamp(20px, 4vw, 64px) 80px;
+}
+.indexHeading { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding: 30px 0 52px; }
+.indexHeading h1 { margin: 0; font-family: var(--font-sora), sans-serif; font-size: clamp(38px, 5.8vw, 86px); font-weight: 500; letter-spacing: -.07em; line-height: 1.1; color: var(--blue); }
+.allWork { display: inline-flex; align-items: center; gap: 18px; font-size: 13px; white-space: nowrap; }
+.productStage { position: relative; }
+.productView { position: relative; min-width: 0; }
+.productLink { display: block; position: relative; }
+.productLabel { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 16px; }
+.productLabel h2 { margin: 0; font-size: clamp(22px, 2.5vw, 36px); font-weight: 500; letter-spacing: -.05em; }
+.productLabel span { font-size: 11px; }
+.viewfinder { position: relative; border-radius: var(--screen-radius); overflow: hidden; }
+.preview img { width: 100%; height: auto; }
+.open { display: flex; justify-content: space-between; align-items: center; min-height: 44px; font-size: 12px; margin-top: 8px; }
+.lead { padding: clamp(18px, 2vw, 28px); background: var(--blue); color: var(--white); border-radius: var(--frame-radius); }
+.lead .productLabel { align-items: center; margin-bottom: 30px; }
+.lead h2 { font-family: var(--font-sora), sans-serif; font-size: clamp(38px, 5vw, 72px); letter-spacing: -.07em; line-height: 1.05; }
+.lead .productLabel span { font-size: 12px; }
+.lead .open { margin-top: 20px; }
+.companions { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(26px, 4vw, 58px); margin: 64px 0 100px; align-items: start; }
+.companions .productView:nth-child(2) { margin-top: 40px; }
+.builtStrip { padding: 0 0 60px; scroll-margin-top: 30px; }
+.builtStrip h2 { margin: 0 0 36px; font-size: clamp(32px, 4vw, 56px); font-weight: 500; letter-spacing: -.055em; }
+.stripItems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 7vw; row-gap: 18px; }
+.stripItem { display: grid; grid-template-columns: 136px 1fr auto; gap: 18px; align-items: center; padding: 9px 0; font-size: 18px; letter-spacing: -.025em; }
+.stripItem small { font-size: 11px; letter-spacing: 0; opacity: .66; }
+.stripImage { border-radius: 6px; overflow: hidden; background: var(--white); }
+.stripImage img { width: 100%; aspect-ratio: 1.6; height: auto; object-fit: contain; }
+.detailHeading { padding: 30px 0 48px; }
+.detailHeading h1 { margin: 0 0 20px; font-family: var(--font-sora), sans-serif; font-weight: 500; font-size: clamp(54px, 10vw, 150px); line-height: 1.05; letter-spacing: -.075em; color: var(--blue); overflow-wrap: anywhere; }
+.detailHeading p { margin: 0; max-width: 58ch; font-size: clamp(16px, 1.6vw, 22px); line-height: 1.5; }
+.mediaStage { padding: clamp(16px, 2vw, 24px); background: var(--blue); color: var(--white); border-radius: var(--frame-radius); }
+.screenshotView { margin: 0; padding: 0; border: 0; min-width: 0; }
+.screenshotView legend { margin-bottom: 8px; font-size: 12px; }
+.viewChoices { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; margin-bottom: 18px; font-size: 13px; }
+.viewChoices label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+.viewChoices input { width: 18px; height: 18px; min-height: 18px; margin: 0; color: inherit; accent-color: var(--coral); }
+.panHint { margin-left: auto; display: none; font-size: 11px; }
+.screenViewport { position: relative; max-height: 900px; overflow: auto; background: var(--white); border-radius: var(--screen-radius); color: var(--white); overscroll-behavior: contain; }
+.screen img { width: 100%; max-width: none; height: auto; }
+.screenshotView:has(input[value="close"]:checked) .screen { width: 190%; }
+.screenshotView:has(input[value="close"]:checked) .screenViewport { max-height: 660px; }
+.screenshotView:has(input[value="close"]:checked) .panHint { display: block; }
+.liveDemo { min-height: 0; border-radius: var(--screen-radius); }
+.liveDemo :global(.live-launch) { border-radius: var(--screen-radius); overflow: hidden; }
+.liveDemo :global(.live-iframe) { background: var(--white); border-radius: var(--screen-radius); }
+.inspection { margin-top: 16px; }
+.inspection summary { display: flex; justify-content: space-between; align-items: center; list-style: none; cursor: pointer; font-size: 13px; }
+.inspection summary::-webkit-details-marker { display: none; }
+.inspection[open] summary { margin-bottom: 22px; }
+.inspection[open] summary span { rotate: 45deg; }
+.recording { margin-top: 32px; }
+.video video { border-radius: var(--screen-radius); background: var(--deep); }
+.projectNotes { display: grid; grid-template-columns: minmax(240px, .75fr) 1.25fr; align-items: start; gap: 6vw; padding: 32px 18px 80px; }
+.facts summary { min-height: 44px; font-size: 14px; }
+.actions { justify-content: flex-end; }
+.actions a { font-size: 14px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--deep) 22%, transparent); padding: 0 20px; }
+.nextProduct { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 8vw; padding: 42px 0 0; border-top: 1px solid color-mix(in srgb, var(--deep) 18%, transparent); }
+.nextLabel { display: grid; gap: 10px; }
+.nextLabel > span:first-child { font-size: 12px; }
+.nextLabel strong { font-size: clamp(30px, 4.5vw, 68px); letter-spacing: -.06em; line-height: 1.1; }
+.nextLabel > span:last-child { font-size: 32px; }
+.nextVisual { display: block; }
+.nextImage { border-radius: var(--screen-radius); overflow: hidden; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :global([data-motion="active"]) .stripItem:hover .stripImage { transform: translateY(-2px); }
+  .stripImage { transition: transform 250ms ease; }
+}
+@media (max-width: 900px) {
+  .companions { gap: 28px; margin-inline: 8px; }
+  .productLabel { display: block; }
+  .productLabel span { display: inline-block; margin-top: 8px; }
+  .stripItem { grid-template-columns: 100px 1fr auto; font-size: 16px; gap: 14px; }
+  .projectNotes { gap: 24px; }
+  .nextProduct { gap: 30px; padding-top: 36px; }
+}
+@media (max-width: 600px) {
+  .playground { padding: 12px 18px 50px; }
+  .indexHeading { display: block; padding: 24px 0 28px; }
+  .indexHeading h1 { max-width: 7ch; font-size: 54px; }
+  .allWork { margin-top: 18px; }
+  .lead { padding: 20px 14px 14px; }
+  .lead .productLabel { margin-bottom: 20px; }
+  .lead h2 { font-size: 46px; }
+  .lead .productLabel span { font-size: 11px; }
+  .companions { grid-template-columns: 1fr; gap: 38px; margin: 44px 12px 66px; }
+  .companions .productView:nth-child(2) { margin-top: 0; }
+  .productLabel h2 { font-size: 26px; }
+  .stripItems { grid-template-columns: 1fr; gap: 12px; }
+  .stripItem { grid-template-columns: 100px 1fr auto; font-size: 17px; }
+  .builtStrip h2 { margin-bottom: 22px; }
+  .detailHeading { padding: 24px 0 30px; }
+  .detailHeading h1 { font-size: clamp(44px, 16vw, 64px); }
+  .detailHeading p { font-size: 16px; }
+  .mediaStage { padding: 20px 14px 14px; }
+  .viewChoices { gap: 4px 18px; margin-bottom: 12px; font-size: 12px; }
+  .panHint { width: 100%; margin-left: 0; }
+  .screenViewport { border-radius: var(--screen-radius); max-height: none; }
+  .screenshotView:has(input[value="close"]:checked) .screen { width: 260%; }
+  .screenshotView:has(input[value="close"]:checked) .screenViewport { max-height: 420px; }
+  .liveDemo :global(.live-launch), .liveDemo :global(.live-iframe), .video video { border-radius: var(--screen-radius); }
+  .projectNotes { grid-template-columns: 1fr; gap: 20px; padding: 24px 6px 50px; }
+  .actions { justify-content: flex-start; gap: 8px; }
+  .actions a { font-size: 12px; padding: 0 15px; }
+  .nextProduct { grid-template-columns: 1fr; gap: 24px; padding-top: 30px; }
+  .nextLabel { grid-template-columns: 1fr auto; align-items: center; gap: 10px; }
+  .nextLabel > span:first-child { grid-column: 1 / -1; }
+  .nextLabel strong { font-size: 42px; }
+  .nextVisual { width: 100%; }
+}
