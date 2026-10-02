@@ -1,9 +1,12 @@
 import type { FeaturedProject } from "./content";
 import type { CSSProperties } from "react";
 import { ankiMobileScreens } from "../anki-media";
-import { featuredProjects } from "./content";
+import { getFeaturedProjects } from "./content";
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
 import styles from "./blueprint-body.module.css";
+
+const concept = "blueprint";
+const featuredProjects = getFeaturedProjects(concept);
 
 const responsibilities = [
   { title: "Product decisions", detail: "The problem, the people, and the flows they need.", layer: "Product" },
@@ -94,7 +97,7 @@ export default function BlueprintBody() {
           <p>Each project starts with a different problem.</p>
         </header>
         <div className={styles.studies}>{featuredProjects.map((item, index) => <LaptopStudy key={item.project.slug} item={item} index={index} />)}</div>
-        <ProjectArchive className={styles.archive} />
+        <ProjectArchive concept={concept} className={styles.archive} />
       </section>
       <ProductAssembly />
       <AppointmentDesk />

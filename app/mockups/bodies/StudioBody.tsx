@@ -1,14 +1,17 @@
 import { profile } from "../../socials";
-import { capabilities, featuredProjects, type FeaturedProject } from "./content";
+import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
-import { AnkiInterfaceStudy } from "./AnkiInterfaceStudy";
+import { AnkiAppMockup } from "./AnkiAppMockup";
 import styles from "./studio-body.module.css";
+
+const concept = "open-studio";
+const featuredProjects = getFeaturedProjects(concept);
 
 function ProductStudy({ item }: { item: FeaturedProject }) {
   return (
     <article className={styles.study} data-product={item.project.slug}>
       <div className={styles.visuals}>
-        {item.project.slug === "anki" ? <AnkiInterfaceStudy item={item} className={styles.mainVisual} /> : <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />}
+        {item.project.slug === "anki" ? <AnkiAppMockup item={item} className={styles.mainVisual} /> : <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />}
         <span className={styles.mediaNote}>{item.previewLabel}</span>
       </div>
       <div className={styles.projectCopy}>
@@ -71,7 +74,7 @@ export default function StudioBody() {
             <p>Products I’ve designed and built.<br />A look at what each one needed.</p>
           </header>
           <div className={styles.studies}>{featuredProjects.map(item => <ProductStudy key={item.project.slug} item={item} />)}</div>
-          <ProjectArchive className={styles.archive} />
+          <ProjectArchive concept={concept} className={styles.archive} />
         </div>
       </section>
       <StudioPractice />

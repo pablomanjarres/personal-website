@@ -6,6 +6,6 @@ import styles from "./anki-app-mockup.module.css";
 
 export function AnkiAppMockup({ item, className = "" }: { item: FeaturedProject; className?: string }) {
   return <ProjectLink item={item} className={`${styles.mockup} ${className}`}>
-    <Image {...ankiAppMockup} className={styles.image} sizes="(max-width: 700px) 86vw, 54vw" />
+    <Image src={ankiAppMockup.src} alt={ankiAppMockup.alt} width={ankiAppMockup.width} height={ankiAppMockup.height} className={styles.image} sizes="(max-width: 700px) 86vw, 54vw" />
   </ProjectLink>;
 }
