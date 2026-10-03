@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import { SiteMark } from "./site/components";
 import { profile } from "./socials";
 
 type NavSection = "home" | "portfolio" | "oss";
@@ -35,54 +36,6 @@ export function SplitChars({ text, scatter = false }: { text: string; scatter?: 
   );
 }
 
-// ---- brand mark: PABLO decrypts on hover, the ✦ spins (reform / scramble) --
-// Hand-rolled requestAnimationFrame char-cycling (soulwire technique) — zero
-// deps. Honors prefers-reduced-motion and fires on focus for keyboard users.
-const SCRAMBLE = "!<>-_\\/[]{}=+*#?◇✶✦·";
-function BrandMark() {
-  const word = useRef<HTMLSpanElement>(null);
-  const raf = useRef(0);
-  const run = useCallback(() => {
-    const el = word.current;
-    if (!el) return;
-    const text = "PABLO";
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.textContent = text;
-      return;
-    }
-    const t0 = performance.now();
-    const dur = 620;
-    const step = (now: number) => {
-      const p = Math.min(1, (now - t0) / dur);
-      const lock = Math.floor(p * text.length);
-      el.textContent = [...text]
-        .map((c, i) => (i < lock ? c : SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0]))
-        .join("");
-      if (p < 1) raf.current = requestAnimationFrame(step);
-      else el.textContent = text;
-    };
-    cancelAnimationFrame(raf.current);
-    raf.current = requestAnimationFrame(step);
-  }, []);
-  useEffect(() => () => cancelAnimationFrame(raf.current), []);
-  return (
-    <Link
-      href="/"
-      className="topnav-brand"
-      aria-label="Pablo, home"
-      onMouseEnter={run}
-      onFocus={run}
-    >
-      <span aria-hidden className="brand-star">
-        ✦
-      </span>{" "}
-      <span aria-hidden className="brand-word" ref={word}>
-        PABLO
-      </span>
-    </Link>
-  );
-}
-
 /**
  * The single, shared top nav used across the site chrome (home, portfolio,
  * oss index, and the oss detail fallback). Renders the same brand + three links
@@ -107,7 +60,7 @@ export function SiteNav({
       data-bleed={bleed ? "true" : undefined}
       aria-label="Primary"
     >
-      <BrandMark />
+      <SiteMark href="/" className="topnav-brand" />
       <div className="topnav-links">
         <Link
           href="/portfolio"

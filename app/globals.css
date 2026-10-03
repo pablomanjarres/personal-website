@@ -134,7 +134,7 @@ a:focus-visible {
 .topnav-link[aria-current="page"] {
   color: var(--accent);
 }
-.topnav-brand {
+.topnav .topnav-brand {
   display: inline-flex;
   align-items: center;
   gap: 7px;
