@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { concepts, type ConceptId } from "../concepts";
@@ -8,7 +7,7 @@ import Blueprint from "../designs/Blueprint";
 import AfterHours from "../designs/AfterHours";
 import GreenRoom from "../designs/GreenRoom";
 import SoftFocus from "../designs/SoftFocus";
-import styles from "../review.module.css";
+import { ReviewBar } from "../review";
 
 const designs = { signal: Signal, "open-studio": OpenStudio, blueprint: Blueprint, "after-hours": AfterHours, "green-room": GreenRoom, "soft-focus": SoftFocus } satisfies Record<ConceptId, React.ComponentType>;
 
@@ -23,5 +22,5 @@ export default async function ConceptPage({ params }: { params: Promise<{ concep
   const concept = concepts[index];
   const Design = designs[concept.id];
   const next = concepts[(index + 1) % concepts.length];
-  return <><div className={styles.reviewBar}><Link href="/mockups">All six designs</Link><span>{concept.number} / {concept.name}</span><Link href={`/mockups/${next.id}`}>Next design <span aria-hidden>↗</span></Link></div><Design /></>;
+  return <><ReviewBar number={concept.number} name={concept.name} nextHref={`/mockups/${next.id}`} /><Design /></>;
 }
