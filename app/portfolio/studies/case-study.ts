@@ -11,7 +11,7 @@ export type CaseStudy = {
   decisions: readonly Note[];
   flow: readonly Note[];
   measures: readonly { value: string; label: string }[];
-  components: readonly { name: string; body: string }[];
+  components: readonly { name: string; body: string; kind?: string }[];
 };
 
 // Case-study narrative. Status, dates, stack and links stay in the project
@@ -94,7 +94,7 @@ const selectedStories: Record<string, CaseStudy> = {
   },
 };
 
-function plain(text: string) {
+export function studyText(text: string) {
   return text.replace(/[*`]/g, "").replace(/[—–]/g, ", ").replace(/\bserves as\b/g, "is").replace(/\s+/g, " ").trim();
 }
 
@@ -106,20 +106,20 @@ export function getCaseStudy(study: ProjectStudy): CaseStudy {
   const curated = selectedStories[study.project.slug];
   if (curated) return curated;
   const project = study.project;
-  const components = (project.subProjects ?? []).map(part => ({ name: plain(part.name), body: plain(part.oneLiner) }));
-  const decisions = project.highlights.slice(0, 3).map(highlight => {
-    const text = plain(highlight);
+  const components = (project.subProjects ?? []).map(part => ({ name: studyText(part.name), body: studyText(part.oneLiner), kind: part.kind }));
+  const decisions = project.highlights.map(highlight => {
+    const text = studyText(highlight);
     const split = text.indexOf(". ");
     return split > 0 && split < 100 ? { title: text.slice(0, split), body: text.slice(split + 2) } : { title: "Implementation choice", body: text };
   });
   return {
-    headline: plain(project.oneLiner), introduction: plain(project.summary.split("\n\n")[0]),
-    challenge: plain(project.problem), responsibility: plain(project.role),
-    outcome: components.length ? `The work includes ${components.slice(0, 3).map(part => part.name).join(", ")}.` : plain(project.summary.split("\n\n").at(-1) ?? project.oneLiner),
+    headline: studyText(project.oneLiner), introduction: studyText(project.summary.split("\n\n")[0]),
+    challenge: studyText(project.problem), responsibility: studyText(project.role),
+    outcome: components.length ? `The work includes ${components.slice(0, 3).map(part => part.name).join(", ")}.` : studyText(project.summary.split("\n\n").at(-1) ?? project.oneLiner),
     platform: "Software project",
     decisions, flow: [], components,
-    measures: (project.metrics ?? []).slice(0, 3).map(metric => {
-      const text = plain(metric);
+    measures: (project.metrics ?? []).map(metric => {
+      const text = studyText(metric);
       const quantitative = text.match(/^([<>~+]?\d[\d,.]*(?:\+|%|-bit)?)\s+(.+)$/);
       return quantitative ? { value: quantitative[1], label: quantitative[2] } : { value: "", label: text };
     }),

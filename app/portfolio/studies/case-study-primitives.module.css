@@ -10,6 +10,7 @@
 .decisions p, .flow p { margin: 0; font-size: 16px; line-height: 1.7; max-width: 65ch; }
 .components { display: grid; gap: 24px; }
 .components h3 { margin: 0 0 10px; font-size: 19px; line-height: 1.3; }
+.components small { display: block; font-size: 12px; margin-bottom: 10px; }
 .components p { margin: 0; font-size: 15px; line-height: 1.6; max-width: 65ch; }
 .flow { display: grid; gap: 24px; list-style: none; padding: 0; margin: 0; counter-reset: step; }
 .flow li { min-width: 0; counter-increment: step; }

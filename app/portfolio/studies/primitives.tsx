@@ -17,10 +17,10 @@ export function StudyMedia({ asset, className = "", priority = false, detail = f
   </figure>;
 }
 
-export function StudyDemo({ study, className = "" }: { study: ProjectStudy; className?: string }) {
+export function StudyDemo({ study, className = "", fullScreenHref }: { study: ProjectStudy; className?: string; fullScreenHref?: string }) {
   const capture = study.media.find(asset => asset.kind === "screen");
   if (!study.project.embedUrl || !capture?.src) return null;
-  return <section className={`${styles.demo} ${className}`} aria-label={`${study.project.title} demo`}><LiveEmbed embedUrl={study.project.embedUrl} cover={capture.src} title={study.project.title} className={interaction.action} /><p>Interactive demo</p></section>;
+  return <section className={`${styles.demo} ${className}`} aria-label={`${study.project.title} demo`}><LiveEmbed embedUrl={study.project.embedUrl} cover={capture.src} title={study.project.title} className={interaction.action} /><p>Interactive demo{fullScreenHref && <> · <Link href={fullScreenHref} className={interaction.action}>Open full screen <span aria-hidden>↗</span></Link></>}</p></section>;
 }
 
 export function StudyLink({ href, children, className = "" }: { href: string; children: ReactNode; className?: string }) {
@@ -28,5 +28,5 @@ export function StudyLink({ href, children, className = "" }: { href: string; ch
 }
 
 export function StudyActions({ study, className = "" }: { study: ProjectStudy; className?: string }) {
-  return <nav className={`${styles.actions} ${className}`} aria-label={`${study.project.title} links`}>{study.project.links.slice(0, 4).map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className={styles.action}>{link.label}<span aria-hidden> ↗</span></a>)}</nav>;
+  return <nav className={`${styles.actions} ${className}`} aria-label={`${study.project.title} links`}>{study.project.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className={styles.action}>{link.label}<span aria-hidden> ↗</span></a>)}</nav>;
 }
