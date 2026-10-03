@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { studies } from "../../project-studies/data";
+import { studies } from "@/app/portfolio/studies/data";
 import { getStudyDirection, studyDirections } from "../../project-studies/directions";
 import { studyDesigns } from "../../project-studies/registry";
 import { StudyShell } from "../../project-studies/shell";
