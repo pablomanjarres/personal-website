@@ -76,6 +76,9 @@ a:focus-visible {
   text-decoration: none;
   transition: color 0.15s ease;
 }
+/* Navigation hover and keyboard states use the motion rules below. */
+
+/* Per-letter navigation glyphs. */
 .at-split {
   display: inline-block;
 }
@@ -176,74 +179,5 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .topnav-link--call::before {
     transition: none;
-  }
-}
-.noelle-cta::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -75%;
-  width: 55%;
-  background: linear-gradient(
-    100deg,
-    transparent 18%,
-    rgba(255, 255, 255, 0.5) 50%,
-    transparent 82%
-  );
-  transform: skewX(-22deg);
-  pointer-events: none;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .noelle-cta::before {
-    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .noelle-cta:hover::before,
-  .noelle-cta:focus-visible::before {
-    left: 130%;
-  }
-}
-
-/* 6 - EMAIL PILL - draw-on (the hand-drawn circle draws itself) ------------- */
-.email-circle path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.72s cubic-bezier(0.6, 0.05, 0.2, 1);
-}
-.email-pill:hover .email-circle path,
-.email-pill:focus-visible .email-circle path {
-  stroke-dashoffset: 0;
-}
-@media (prefers-reduced-motion: reduce) {
-  .email-circle path {
-    transition: none;
-    stroke-dashoffset: 0;
-  }
-}
-
-/* 7 - PINS - magnetic lean is handled in JS (see Badge in atelier.tsx);
-   the resting drop-shadow already lives on .badge above. */
-
-/* 8 - HERO "founder" - explode (letters scatter, then reassemble) ----------- */
-.at-explode {
-  cursor: default;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .at-explode:hover .at-char {
-    animation: at-explode 0.72s cubic-bezier(0.34, 1.2, 0.5, 1)
-      calc(var(--i) * 24ms) both;
-  }
-}
-@keyframes at-explode {
-  0% {
-    transform: translate(0, 0) rotate(0);
-  }
-  38% {
-    transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--rot, 0));
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate(0, 0) rotate(0);
-    opacity: 1;
   }
 }
