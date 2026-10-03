@@ -1,4 +1,4 @@
-import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
+import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../project-studies/data";
 import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
@@ -11,8 +11,7 @@ type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function mapAsset(study: ProjectStudy) {
   return study.media.find(asset => asset.kind === "screen")
-    ?? study.media.find(asset => asset.kind !== "video")
-    ?? study.media[0];
+    ?? getStudyPreview(study);
 }
 
 function ProductLandmark({ study, direction, compact = false, priority = false }: {
