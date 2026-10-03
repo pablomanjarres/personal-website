@@ -3,7 +3,7 @@ import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitiv
 import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-cinema.module.css";
-import interaction from "../interaction.module.css";
+import interaction from "@/app/site/interaction.module.css";
 import { selectedWorkSlugs } from "../selected-work";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };

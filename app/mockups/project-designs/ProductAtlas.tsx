@@ -2,7 +2,7 @@ import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../pr
 import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
-import interaction from "../interaction.module.css";
+import interaction from "@/app/site/interaction.module.css";
 import styles from "./product-atlas.module.css";
 import { selectedWorkSlugs } from "../selected-work";
 
