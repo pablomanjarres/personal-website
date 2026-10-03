@@ -6,12 +6,12 @@ import { profile } from "@/app/socials";
 import { projects, type Project } from "@/app/projects";
 import styles from "./open-studio.module.css";
 
-const orbitProjects = ["noelle", "cortex"].map(slug => projects.find(project => project.slug === slug)!);
+const orbitProjects = ["nella", "cortex"].map(slug => projects.find(project => project.slug === slug)!);
 
 function OrbitProject({ project, href }: { project: Project; href: string }) {
   return (
     <Link className={styles.project} href={href} data-project={project.slug}>
-      <span className={styles.projectSymbol} aria-hidden>{project.slug === "noelle" ? "✳" : "⌘"}</span>
+      <span className={styles.projectSymbol} aria-hidden>{project.slug === "nella" ? "✳" : "⌘"}</span>
       <span><strong>{project.title}</strong><small>{project.tags[0]}</small></span>
       <span className={styles.projectArrow} aria-hidden>↗</span>
     </Link>
