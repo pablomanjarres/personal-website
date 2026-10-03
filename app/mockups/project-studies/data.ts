@@ -30,3 +30,7 @@ export const studies: readonly ProjectStudy[] = [...projects].sort((a, b) => {
 
 export function studyHref(direction: StudyDirectionId, slug?: string) { return `/mockups/projects/${direction}${slug ? `/${slug}` : ""}`; }
 export function getStudy(slug: string) { return studies.find(study => study.project.slug === slug); }
+
+export function getStudyPreview(study: ProjectStudy): StudyAsset {
+  return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
+}

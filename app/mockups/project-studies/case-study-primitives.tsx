@@ -4,7 +4,7 @@ import { STATUS_LABEL } from "../../portfolio/status";
 import { ankiAppMockup } from "../anki-media";
 import interaction from "../interaction.module.css";
 import { getCaseStudy } from "./case-study";
-import { studyHref, type ProjectStudy, type StudyDirectionId } from "./data";
+import { getStudyPreview, studyHref, type ProjectStudy, type StudyDirectionId } from "./data";
 import { StudyMedia } from "./primitives";
 import styles from "./case-study-primitives.module.css";
 
@@ -41,7 +41,7 @@ export function StudyComponents({ study, className = "" }: StudyProps) {
 
 export function StudyProductVisual({ study, className = "", priority = false, caption = true, sizes = "(max-width: 700px) 90vw, 46vw" }: StudyProps & { priority?: boolean; caption?: boolean; sizes?: string }) {
   if (study.project.slug !== "anki") {
-    const asset = study.media.find(item => item.kind !== "video") ?? study.media[0];
+    const asset = getStudyPreview(study);
     return <StudyMedia asset={asset} className={className} priority={priority} caption={caption} sizes={sizes} />;
   }
   return <figure className={`${styles.productVisual} ${className}`}><Image {...ankiAppMockup} alt={ankiAppMockup.alt} sizes={sizes} preload={priority} />{caption && <figcaption>Home and review screens from the mobile app</figcaption>}</figure>;
