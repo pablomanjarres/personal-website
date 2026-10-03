@@ -234,7 +234,7 @@ export const projects: Project[] = [
         "kind": "demo"
       }
     ],
-    "cover": "/portfolio/previews/nella.png",
+    "cover": "/portfolio/previews/nella-hero.webp",
     "video": "/portfolio/videos/nella-demo.mp4",
     "demoLabel": "nella · product walkthrough",
     "featured": true,

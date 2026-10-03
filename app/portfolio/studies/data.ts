@@ -7,7 +7,7 @@ export type StudyAsset = StudyAssetBase & ({ kind: "screen" | "video"; src: stri
 export type ProjectStudy = { project: Project; caption: string; media: readonly StudyAsset[] };
 
 const sizes: Record<string, readonly [number, number]> = {
-  agentbar: [1600, 814], "band-of-agents": [1280, 800], "content-pipeline": [1684, 1170], "study-hub": [1600, 1000], "grit-x-awa": [1600, 1000], redline: [1280, 800], cortex: [1440, 1000], omegahack: [1280, 800], "localhost-mirror": [1200, 860], "lumen-frontier": [1600, 1000], noelle: [1280, 800], construcredit: [1200, 750], forge: [1423, 942], valhalla: [2480, 1296], archgraph: [1280, 800], nella: [1280, 800], portpeek: [1120, 700], lumen: [1120, 700],
+  agentbar: [1600, 814], "band-of-agents": [1280, 800], "content-pipeline": [1684, 1170], "study-hub": [1600, 1000], "grit-x-awa": [1600, 1000], redline: [1280, 800], cortex: [1440, 1000], omegahack: [1280, 800], "localhost-mirror": [1200, 860], "lumen-frontier": [1600, 1000], noelle: [1280, 800], construcredit: [1200, 750], forge: [1423, 942], valhalla: [2480, 1296], archgraph: [1280, 800], nella: [1265, 791], portpeek: [1120, 700], lumen: [1120, 700],
 };
 
 function mediaFor(project: Project): readonly StudyAsset[] {
