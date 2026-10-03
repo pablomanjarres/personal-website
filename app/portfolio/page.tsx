@@ -1,96 +1,29 @@
-import type { CSSProperties } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { projects } from "../projects";
-import { profile } from "../socials";
-import { ProjectCard } from "./components";
-import { Magnetic } from "./effects";
-import { SiteNav } from "../SiteNav";
+import { studies } from "@/app/portfolio/studies/data";
+import { portfolioHref, projectHref } from "@/app/portfolio/routes";
+import { WorkbenchIndex } from "@/app/portfolio/workbench/Workbench";
+import { PortfolioShell } from "@/app/portfolio/workbench/PortfolioShell";
 
 export const metadata: Metadata = {
-  title: "Work — Pablo Manjarres",
-  description:
-    "Selected projects by Pablo Manjarres: AI agents, developer tools, and products. Noelle, Nella, Cortex, and more.",
+  title: "Work | Pablo Manjarres",
+  description: "Products, apps, and developer tools I’ve designed and built. Anki, ConstruCredit, Cortex, and the rest of my work.",
+  alternates: { canonical: portfolioHref },
+  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: "Work | Pablo Manjarres",
+    description: "Products, apps, and developer tools I’ve designed and built.",
+    images: ["/opengraph-image"],
+  },
   openGraph: {
-    title: "Work — Pablo Manjarres",
-    description:
-      "Selected projects: AI agents, developer tools, and products built solo.",
-    url: "https://pablomanjarres.com/portfolio",
+    title: "Work | Pablo Manjarres",
+    description: "Products, apps, and developer tools I’ve designed and built.",
+    url: portfolioHref,
     type: "website",
+    images: ["/opengraph-image"],
   },
 };
 
 export default function PortfolioIndex() {
-  const count = projects.length;
-  return (
-    <div className="folio-inner">
-      <SiteNav active="portfolio" />
-      <header className="folio-head">
-        <span className="who">Notebook № 8 · Work · pablomanjarres</span>
-        <span>
-          index · {count} {count === 1 ? "work" : "works"}
-        </span>
-      </header>
-
-      <section className="folio-hero">
-        <div className="folio-kicker">
-          <span className="kicker-mark" aria-hidden />¶ 03 · Work
-        </div>
-        <h1 className="folio-title">
-          <span className="reveal-mask">
-            <span className="reveal-word" style={{ "--i": 0 } as CSSProperties}>
-              Selected
-            </span>
-          </span>
-          <br />
-          <span className="reveal-mask">
-            <span
-              className="reveal-word accent"
-              style={{ "--i": 1 } as CSSProperties}
-            >
-              work.
-            </span>
-          </span>
-        </h1>
-        <p className="folio-lede">
-          Things I&apos;ve designed and built, mostly solo: AI agents that run like a
-          company, developer tools, and a few products that shipped. Each plate opens
-          to the full story.
-        </p>
-        <div className="folio-count">
-          <span className="folio-count-star" aria-hidden>
-            ✶
-          </span>{" "}
-          pull a plate — every project has a page, source, and where it lives
-        </div>
-        <Magnetic className="folio-cta-wrap">
-          <a
-            className="folio-cta"
-            href={profile.booking}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span aria-hidden>✦</span> Book a call
-            <span className="folio-cta-arr" aria-hidden>
-              ↗
-            </span>
-          </a>
-        </Magnetic>
-      </section>
-
-      <section className="folio-grid">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.slug} project={p} index={i} />
-        ))}
-      </section>
-
-      <footer className="folio-foot">
-        <Link href="/">← back to the poster</Link>
-        <a href={profile.booking} target="_blank" rel="noreferrer">
-          book a call ↗
-        </a>
-        <span>pg. 016 / D · pablomanjarres.com</span>
-      </footer>
-    </div>
-  );
+  return <PortfolioShell><WorkbenchIndex studies={studies} projectHref={projectHref} /></PortfolioShell>;
 }

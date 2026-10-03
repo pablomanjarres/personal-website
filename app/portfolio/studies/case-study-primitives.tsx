@@ -36,7 +36,7 @@ export function StudyFlow({ study, className = "" }: StudyProps) {
 }
 
 export function StudyComponents({ study, className = "" }: StudyProps) {
-  return <div className={`${styles.components} ${className}`}>{getCaseStudy(study).components.map(component => <article key={component.name}><h3>{component.name}</h3><p>{component.body}</p></article>)}</div>;
+  return <div className={`${styles.components} ${className}`}>{getCaseStudy(study).components.map(component => <article key={component.name}><h3>{component.name}</h3>{component.kind && <small>{component.kind}</small>}<p>{component.body}</p></article>)}</div>;
 }
 
 export function StudyProductVisual({ study, className = "", priority = false, caption = true, sizes = "(max-width: 700px) 90vw, 46vw" }: StudyProps & { priority?: boolean; caption?: boolean; sizes?: string }) {
