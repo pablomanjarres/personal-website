@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
-import interaction from "./interaction.module.css";
+import interaction from "@/app/site/interaction.module.css";
 import styles from "./review.module.css";
 
 export function ReviewGallery({ header, footer, children }: { header: ReactNode; footer: ReactNode; children: ReactNode }) {

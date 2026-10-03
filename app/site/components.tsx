@@ -2,21 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { profile } from "../socials";
-import type { Concept } from "./concepts";
-import { MotionRoot } from "./motion";
-import styles from "./mockups.module.css";
+import { MotionRoot } from "@/app/site/motion";
+import styles from "./shell.module.css";
+
+export type SiteTheme = { id: string; paper: string; ink: string; accent: string; panel?: string };
 
 export function SiteMark({ href = "#main", className = "" }: { href?: string; className?: string }) {
   return <Link href={href} className={`${styles.brand} ${className}`} aria-label="Pablo Manjarres, home">pm<span aria-hidden>.</span></Link>;
 }
 
-export function MockupShell({ concept, children }: { concept: Concept; children: ReactNode }) {
+export function SiteShell({ theme, children }: { theme: SiteTheme; children: ReactNode }) {
   const tokens = {
-    "--paper": concept.paper, "--ink": concept.ink, "--accent": concept.accent,
-    "--panel": concept.panel, "--display": "var(--font-display)",
+    "--paper": theme.paper, "--ink": theme.ink, "--accent": theme.accent,
+    "--panel": theme.panel, "--display": "var(--font-display)",
   } as CSSProperties;
   return (
-    <MotionRoot className={styles.shell} style={tokens} concept={concept.id}>
+    <MotionRoot className={styles.shell} style={tokens} concept={theme.id}>
       <a href="#main" className={styles.skip}>Skip to content</a>
       <header className={styles.nav}>
         <SiteMark />
@@ -31,7 +32,7 @@ export function MockupShell({ concept, children }: { concept: Concept; children:
 export function Portrait({ portrait, className, preload = true, alt = "Pablo Manjarres" }: {
   portrait: "forest" | "teal" | "denim" | "hoodie"; className?: string; preload?: boolean; alt?: string;
 }) {
-  return <Image src={`/mockups/portraits/${portrait}.webp`} alt={alt} width={1122} height={1402} sizes="(max-width: 700px) 90vw, 50vw" preload={preload} className={`${styles.portrait} ${className ?? ""}`} />;
+  return <Image src={`/images/portraits/${portrait}.webp`} alt={alt} width={1122} height={1402} sizes="(max-width: 700px) 90vw, 50vw" preload={preload} className={`${styles.portrait} ${className ?? ""}`} />;
 }
 
 export function ActionLinks({ className = "" }: { className?: string }) {
