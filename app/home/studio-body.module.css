@@ -12,7 +12,7 @@
 .workInner, .practiceInner { width: min(1240px, 88%); margin-inline: auto; }
 .workHeading { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 88px; }
 .workHeading h2 { font: 500 clamp(48px, 6.4vw, 92px)/1.03 var(--font-sora), sans-serif; letter-spacing: -.075em; }
-.workHeading > p { font-size: 19px; line-height: 1.5; padding-bottom: 10px; }
+.workHeading > p { --reveal-delay: 120ms; font-size: 19px; line-height: 1.5; padding-bottom: 10px; }
 .studies { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 72px 24px; align-items: start; }
 .study { min-width: 0; }
 .study:nth-child(1) { grid-column: 1 / span 7; }
@@ -28,7 +28,7 @@
 .study[data-product="cortex"] .mainVisual { background: var(--studio-petrol); border-radius: 110px 28px 100px 28px; aspect-ratio: 1.05; }
 .study[data-product="cortex"] .mainVisual img { padding: 22px; }
 .mediaNote { position: absolute; bottom: 0; left: 10px; color: var(--studio-link); font-size: 12px; }
-.projectCopy { max-width: 43ch; margin-top: 14px; }
+.projectCopy { --reveal-delay: 120ms; max-width: 43ch; margin-top: 14px; }
 .projectCopy h3 { font: 500 clamp(27px, 3vw, 43px)/1.2 var(--font-sora), sans-serif; letter-spacing: -.055em; }
 .projectCopy h3 a { display: inline-flex; align-items: center; min-height: 48px; color: inherit; text-decoration: none; }
 .projectCopy p { font-size: 17px; line-height: 1.5; margin: 10px 0 12px; }
@@ -37,9 +37,12 @@
 .practice { background: var(--studio-petrol); color: var(--studio-mist); border-radius: 70px 0 0 0; margin-top: -1px; padding: 105px 0 115px; }
 .practiceInner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px 90px; align-items: end; }
 .practice h2 { font: 500 clamp(54px, 7.5vw, 112px)/1.04 var(--font-sora), sans-serif; letter-spacing: -.075em; }
+.practiceIntro { --reveal-delay: 120ms; }
 .practiceIntro > p { font-size: clamp(20px, 2.1vw, 28px); line-height: 1.5; max-width: 28ch; }
 .roles { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 25px; font-size: 15px; color: var(--studio-apricot); }
 .capabilities { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px; margin-top: 32px; }
+.capabilities > :nth-child(2) { --reveal-delay: 100ms; }
+.capabilities > :nth-child(3) { --reveal-delay: 160ms; }
 .capabilities h3 { font: 500 21px/1.3 var(--font-sora), sans-serif; letter-spacing: -.035em; }
 .capabilities p { font-size: 17px; line-height: 1.5; margin: 15px 0; max-width: 30ch; }
 .capabilities small { font-size: 13px; color: var(--studio-sage); }
@@ -50,17 +53,37 @@
 .ticket::after { right: -21px; }
 .invitation h2 { font: 500 clamp(43px, 5.3vw, 76px)/1.05 var(--font-sora), sans-serif; letter-spacing: -.07em; }
 .invitation p { max-width: 26ch; font-size: 18px; line-height: 1.5; margin-top: 24px; }
-.ticketActions { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 22px; border-left: 2px dotted #173e4a55; padding-left: 48px; }
+.ticketActions { --reveal-delay: 140ms; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 22px; border-left: 2px dotted #173e4a55; padding-left: 48px; }
 .studio .email { display: inline-flex; align-items: center; min-height: 48px; max-width: 100%; overflow-wrap: anywhere; font-size: clamp(16px, 1.8vw, 25px); color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 7px; }
 .studio .book { display: inline-flex; min-height: 54px; align-items: center; padding: 12px 25px; border-radius: 12px 12px 24px 12px; background: var(--studio-petrol); color: var(--studio-paper); text-decoration: none; font-size: 16px; }
 .ticketActions p { font-size: 14px; }
 .fold { position: absolute; right: 0; top: 0; width: 54px; height: 54px; background: #edb792; border-radius: 0 20px 0 54px; }
 .footerLinks { color: var(--studio-link); padding-top: 50px; }
 .studio a:hover { text-decoration: underline; }
-@media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .mainVisual, .fold { transition: transform .55s cubic-bezier(.2,.8,.2,1); }
-  :global([data-motion="active"]) .study:is(:hover, :focus-within) .mainVisual { transform: rotate(0deg) translateY(-6px); }
-  :global([data-motion="active"]) .ticket:is(:hover, :focus-within) .fold { transform: scale(1.16); transform-origin: top right; }
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-motion="active"]) :is(.mainVisual, .fold, .book) {
+    transition: transform var(--motion-time) var(--motion-ease), box-shadow var(--motion-time) var(--motion-ease);
+  }
+  :global([data-motion="active"]) .study:has(:focus-visible) .mainVisual {
+    transform: rotate(0deg) translateY(-12px) scale(1.025);
+    box-shadow: 0 26px 50px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
+  }
+  :global([data-motion="active"]) .ticket:has(:focus-visible) .fold { transform: scale(1.18); transform-origin: top right; }
+  :global([data-motion="active"]) .book:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px color-mix(in srgb, var(--studio-petrol) 20%, transparent);
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  :global([data-motion="active"]) .study:hover .mainVisual {
+    transform: rotate(0deg) translateY(-12px) scale(1.025);
+    box-shadow: 0 26px 50px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
+  }
+  :global([data-motion="active"]) .ticket:hover .fold { transform: scale(1.18); transform-origin: top right; }
+  :global([data-motion="active"]) .book:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px color-mix(in srgb, var(--studio-petrol) 20%, transparent);
+  }
 }
 @media (max-width: 1000px) {
   .studies { gap: 66px 30px; }

@@ -16,10 +16,10 @@
 :where(.workbench) a { color: inherit; text-decoration: none; }
 .indexHeader { max-width: 1450px; margin: auto; padding: 84px 0 60px; display: flex; align-items: end; justify-content: space-between; gap: 40px; }
 .indexHeader h1 { font-size: clamp(62px, 8.7vw, 128px); line-height: .98; font-weight: 600; letter-spacing: -.07em; }
-.indexHeader p { font-size: 17px; padding-bottom: 7px; }
+.indexHeader p { --enter-delay: 160ms; font-size: 17px; padding-bottom: 7px; }
 .selected { max-width: 1450px; margin: auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 110px 7%; }
-.benchProject { min-width: 0; }
-.leadProject { grid-column: 1 / -1; }
+.benchProject { --reveal-delay: 70ms; min-width: 0; }
+.leadProject { --enter-delay: 260ms; grid-column: 1 / -1; }
 .projectMount { position: relative; background: var(--bench-plate); padding: 8%; border-radius: var(--bench-corner); }
 .projectVisual { display: block; position: relative; z-index: 1; }
 .projectMedia { width: 100%; aspect-ratio: 1.6; box-shadow: 0 20px 36px #292b2d14; }
@@ -41,8 +41,20 @@
 .ledgerLink small { font-size: 12px; color: var(--bench-muted); }
 .ledgerLink:hover, .projectLabel h2 a:hover { color: var(--bench-action); }
 @media (prefers-reduced-motion: no-preference) {
-  :global([data-motion="active"]) .projectVisual { transition: transform 600ms cubic-bezier(.16, 1, .3, 1); }
-  :global([data-motion="active"]) .projectVisual:is(:hover, :focus-visible) { transform: translateY(-3px); }
+  :global([data-motion="active"]) .projectVisual { transition: transform 650ms var(--motion-ease); }
+  :global([data-motion="active"]) .indexLens { transition: transform 800ms var(--motion-ease); }
+  :global([data-motion="active"]) .benchProject:has(:focus-visible) .projectVisual { transform: translateY(-10px) scale(1.025); }
+  :global([data-motion="active"]) .benchProject:has(:focus-visible) .indexLens { transform: translate(7px, -5px) rotate(4deg); }
+  :global([data-motion="active"]) .ledgerLink { transition: color 220ms ease, background 220ms ease; }
+  :global([data-motion="active"]) .ledgerLink > span, :global([data-motion="active"]) .ledgerLink > small { transition: translate 400ms var(--motion-ease); }
+  :global([data-motion="active"]) .ledgerLink:focus-visible > span { translate: 8px 0; }
+  :global([data-motion="active"]) .ledgerLink:focus-visible > small { translate: -4px 0; }
+  @media (hover: hover) and (pointer: fine) {
+    :global([data-motion="active"]) .benchProject:hover .projectVisual { transform: translateY(-10px) scale(1.025); }
+    :global([data-motion="active"]) .benchProject:hover .indexLens { transform: translate(7px, -5px) rotate(4deg); }
+    :global([data-motion="active"]) .ledgerLink:hover > span { translate: 8px 0; }
+    :global([data-motion="active"]) .ledgerLink:hover > small { translate: -4px 0; }
+  }
 }
 @media (max-width: 700px) {
   .workbench { --bench-corner: 14px; padding: 0 6% 70px; }
@@ -74,7 +86,7 @@
 .caseActions { margin-top: 24px; gap: 10px; }
 .caseActions a { padding: 9px 18px; background: var(--bench-ink); color: var(--bench-paper); border-radius: 9px; font-size: 14px; }
 .caseActions a:hover { background: var(--bench-action); }
-.productVisual { width: 100%; min-width: 0; }
+.productVisual { --enter-delay: 180ms; width: 100%; min-width: 0; }
 .productVisual img { width: 100%; height: auto; max-height: 620px; object-fit: contain; }
 .caseBrief { margin: 46px 0 0; padding: 27px 0; border-block: 1px solid var(--bench-edge); display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 30px; }
 .caseBrief dt { color: var(--bench-muted); font-size: 13px; margin-bottom: 10px; }
