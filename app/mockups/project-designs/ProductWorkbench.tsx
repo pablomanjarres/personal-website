@@ -1,4 +1,4 @@
-import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
+import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
 import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
@@ -8,14 +8,10 @@ import styles from "./product-workbench.module.css";
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
-function still(study: ProjectStudy) {
-  return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
-}
-
 function BenchProject({ study, direction, lead = false }: {
   study: ProjectStudy; direction: StudyDirectionId; lead?: boolean;
 }) {
-  const asset = still(study);
+  const asset = getStudyPreview(study);
   return (
     <article className={`${styles.benchProject} ${lead ? styles.leadProject : ""}`}>
       <div className={styles.projectMount}>

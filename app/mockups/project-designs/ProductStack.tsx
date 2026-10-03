@@ -1,4 +1,4 @@
-import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
+import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
 import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitives";
 import interaction from "../interaction.module.css";
@@ -9,16 +9,12 @@ import styles from "./product-stack.module.css";
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
-function preview(study: ProjectStudy) {
-  return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
-}
-
 function ProjectSheet({ study, direction, index }: { study: ProjectStudy; direction: StudyDirectionId; index: number }) {
   return (
     <article id={`stack-${study.project.slug}`} className={styles.projectSheet} data-sheet={index}>
       <StudyLink study={study} direction={direction} className={styles.sheetLink}>
         <div className={styles.sheetHeading}><h2>{study.project.title}</h2><span>{study.project.year}</span></div>
-        <StudyMedia asset={preview(study)} className={styles.sheetMedia} priority={index === 0} />
+        <StudyMedia asset={getStudyPreview(study)} className={styles.sheetMedia} priority={index === 0} />
         <span className={styles.openProject}>Open project <span aria-hidden="true">↗</span></span>
       </StudyLink>
     </article>
@@ -32,7 +28,7 @@ function ProjectShelf({ studies, direction }: IndexProps) {
       <h2>Keep looking.</h2>
       <div className={styles.shelfItems}>{studies.map(study => (
         <StudyLink study={study} direction={direction} className={styles.shelfProject} key={study.project.slug}>
-          <StudyMedia asset={preview(study)} className={styles.shelfMedia} caption={false} sizes="(max-width: 800px) calc((100vw - 82px) / 2), (max-width: 1556px) calc((90vw - 164px) / 4), 309px" />
+          <StudyMedia asset={getStudyPreview(study)} className={styles.shelfMedia} caption={false} sizes="(max-width: 800px) calc((100vw - 82px) / 2), (max-width: 1556px) calc((90vw - 164px) / 4), 309px" />
           <span>{study.project.title}</span>
         </StudyLink>
       ))}</div>

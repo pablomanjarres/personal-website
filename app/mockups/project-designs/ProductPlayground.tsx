@@ -1,4 +1,4 @@
-import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
+import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
 import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "../project-studies/primitives";
 import { getCaseStudy } from "../project-studies/case-study";
@@ -9,12 +9,8 @@ import styles from "./product-playground.module.css";
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
-function still(study: ProjectStudy) {
-  return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
-}
-
 function ProductView({ study, direction, lead = false }: { study: ProjectStudy; direction: StudyDirectionId; lead?: boolean }) {
-  const asset = still(study);
+  const asset = getStudyPreview(study);
   return <article className={`${styles.productView} ${lead ? styles.lead : ""}`} data-product={study.project.slug}>
     <StudyLink study={study} direction={direction} className={styles.productLink}>
       <div className={styles.productLabel}><h2>{study.project.title}</h2><span>{asset.label}</span></div>
@@ -28,7 +24,7 @@ function BuiltStrip({ studies, direction }: IndexProps) {
   return <section className={styles.builtStrip} aria-label="More projects">
     <h2>Also built.</h2>
     <div className={styles.stripItems}>{studies.map(study => <StudyLink key={study.project.slug} study={study} direction={direction} className={styles.stripItem}>
-      <StudyMedia asset={still(study)} className={styles.stripImage} caption={false} sizes="(max-width: 900px) 100px, 136px" />
+      <StudyMedia asset={getStudyPreview(study)} className={styles.stripImage} caption={false} sizes="(max-width: 900px) 100px, 136px" />
       <span>{study.project.title}</span><small>{study.project.year}</small>
     </StudyLink>)}</div>
   </section>;
