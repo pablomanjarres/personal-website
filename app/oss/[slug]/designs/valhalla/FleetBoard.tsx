@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { useReducedMotion } from "@/app/site/useReducedMotion";
 import styles from "../valhalla.module.css";
 
 /**
@@ -44,14 +45,13 @@ export default function FleetBoard({
   style?: CSSProperties;
 }) {
   const [tick, setTick] = useState(0);
-  const [animate, setAnimate] = useState(false);
+  const animate = !useReducedMotion(true);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setAnimate(true);
+    if (!animate) return;
     const id = window.setInterval(() => setTick((t) => t + 1), 150);
     return () => window.clearInterval(id);
-  }, []);
+  }, [animate]);
 
   // Boot prompt types once, then holds. Static = fully typed.
   const typedBoot = animate ? BOOT.slice(0, Math.min(BOOT.length, tick)) : BOOT;
