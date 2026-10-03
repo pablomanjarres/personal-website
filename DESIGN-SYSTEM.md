@@ -22,3 +22,5 @@ Project explorations live at `/mockups/projects`. `app/portfolio/studies/data.ts
 Reuse the fonts from `app/layout.tsx` and the approved forest, teal, denim, and gray hoodie portraits. Keep body tokens local so they do not alter approved heroes. Visible copy uses the human-writing check. After a shared change, verify all six pages on desktop and phone, project links, keyboard focus, motion controls, and reduced motion.
 
 Keep approved hero markup and styles unchanged when exploring bodies and endings. Use product captures in the shared media contracts. Keep GitHub hero artwork out of mockups.
+
+`app/portfolio/workbench` owns the real archive and project layout. Its mockup supplies direction URLs to the same presenter. `technical-notes.ts` derives registry facts omitted from the visible story; `ProjectTechnicalNotes` keeps that context in a keyboard-accessible disclosure. Live demos retain the existing `LiveEmbed` owner. Run `npm run build` and `npm run test:portfolio` to verify production boundaries, canonical pages, project information, and preserved explorations.
