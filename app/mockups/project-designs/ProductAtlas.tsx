@@ -1,10 +1,13 @@
-import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../project-studies/data";
-import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "../project-studies/primitives";
-import { getCaseStudy } from "../project-studies/case-study";
-import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
+import { getStudyPreview, type ProjectStudy } from "@/app/portfolio/studies/data";
+import type { StudyDirectionId } from "../project-studies/data";
+import { StudyActions, StudyDemo, StudyMedia } from "@/app/portfolio/studies/primitives";
+import { StudyLink } from "../project-studies/primitives";
+import { getCaseStudy } from "@/app/portfolio/studies/case-study";
+import { StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "@/app/portfolio/studies/case-study-primitives";
+import { StudyBack } from "../project-studies/case-study-primitives";
 import interaction from "@/app/site/interaction.module.css";
 import styles from "./product-atlas.module.css";
-import { selectedWorkSlugs } from "../selected-work";
+import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
