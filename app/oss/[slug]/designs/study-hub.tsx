@@ -13,7 +13,7 @@
 // dialed back to a faint screen-blended accent that floats over the art, never
 // hiding it. All looping motion is gated behind prefers-reduced-motion.
 // See ./CONTRACT.md — the signature/props/nav shape are locked.
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Hero } from "../../heroes";
@@ -48,19 +48,6 @@ const SUBJECTS: { label: string; accent: string }[] = [
   { label: "Estructuras de Datos", accent: "#26bd93" }, // jade
   { label: "Sistemas de Gestión", accent: "#9b7cf6" }, // amethyst
 ];
-
-// Render the run/install line, promoting `code` spans if the copy contains them.
-function NoteBody({ text }: { text: string }): ReactNode {
-  return text.split("`").map((seg, i) =>
-    i % 2 === 1 ? (
-      <code key={i} className={styles.code}>
-        {seg}
-      </code>
-    ) : (
-      <span key={i}>{seg}</span>
-    ),
-  );
-}
 
 // A ghost CTA / primary CTA with the shared highlighter-marker sweep. The sweep
 // is a hover-driven pseudo-stroke in the current (drifting) accent — user gesture

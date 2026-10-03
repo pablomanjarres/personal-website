@@ -54,7 +54,7 @@ export function useScramble(dudClass?: string) {
     resolve: null as null | (() => void),
   });
 
-  const tick = useCallback(() => {
+  const tick = useCallback(function tick() {
     const s = st.current;
     const el = ref.current;
     if (!el) return;
