@@ -1,12 +1,8 @@
-import { profile } from "../../socials";
-import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
-import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
-import { FooterLinks, ProjectArchive } from "./primitives";
+import { profile } from "@/app/socials";
+import { capabilities, getFeaturedProjects, type FeaturedProject } from "@/app/portfolio/featured/content";
+import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
 import { AnkiAppMockup } from "@/app/portfolio/featured/AnkiAppMockup";
 import styles from "./studio-body.module.css";
-
-const concept = "open-studio";
-const featuredProjects = getFeaturedProjects(concept);
 
 function ProductStudy({ item }: { item: FeaturedProject }) {
   return (
@@ -45,7 +41,7 @@ function StudioPractice() {
   );
 }
 
-function StudioInvitation() {
+function StudioInvitation({ footerDestination }: { footerDestination?: { href: string; label: string } }) {
   return (
     <footer id="contact" className={styles.contact}>
       <div className={styles.ticket}>
@@ -60,12 +56,16 @@ function StudioInvitation() {
         </div>
         <span className={styles.fold} aria-hidden />
       </div>
-      <FooterLinks className={styles.footerLinks} />
+      <FooterLinks className={styles.footerLinks} destination={footerDestination} />
     </footer>
   );
 }
 
-export default function StudioBody() {
+export default function StudioBody({ projectHref, footerDestination }: {
+  projectHref: (slug: string) => string;
+  footerDestination?: { href: string; label: string };
+}) {
+  const featuredProjects = getFeaturedProjects(projectHref);
   return (
     <div className={styles.studio}>
       <section id="work" className={styles.work} aria-labelledby="studio-work-heading">
@@ -75,11 +75,11 @@ export default function StudioBody() {
             <p>Products I’ve designed and built.<br />A look at what each one needed.</p>
           </header>
           <div className={styles.studies}>{featuredProjects.map(item => <ProductStudy key={item.project.slug} item={item} />)}</div>
-          <ProjectArchive concept={concept} className={styles.archive} />
+          <ProjectArchive projectHref={projectHref} className={styles.archive} />
         </div>
       </section>
       <StudioPractice />
-      <StudioInvitation />
+      <StudioInvitation footerDestination={footerDestination} />
     </div>
   );
 }
