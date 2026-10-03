@@ -11,7 +11,20 @@ export function SiteMark({ href = "#main", className = "" }: { href?: string; cl
   return <Link href={href} className={`${styles.brand} ${className}`} aria-label="Pablo Manjarres, home">pm<span aria-hidden>.</span></Link>;
 }
 
-export function SiteShell({ theme, children }: { theme: SiteTheme; children: ReactNode }) {
+type NavigationItem = { label: string; href: string };
+const homeNavigation: readonly NavigationItem[] = [
+  { label: "Work", href: "#work" }, { label: "About", href: "#about" }, { label: "Contact", href: "#contact" },
+];
+
+export function SiteHeader({ navigation = homeNavigation, brandHref = "#main" }: { navigation?: readonly NavigationItem[]; brandHref?: string }) {
+  return <header className={styles.nav}>
+    <SiteMark href={brandHref} />
+    <nav aria-label="Main navigation">{navigation.map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}</nav>
+    <a className={styles.navContact} href={profile.booking} target="_blank" rel="noreferrer">Let’s talk <span aria-hidden>↗</span></a>
+  </header>;
+}
+
+export function SiteShell({ theme, children, navigation, brandHref }: { theme: SiteTheme; children: ReactNode; navigation?: readonly NavigationItem[]; brandHref?: string }) {
   const tokens = {
     "--paper": theme.paper, "--ink": theme.ink, "--accent": theme.accent,
     "--panel": theme.panel, "--display": "var(--font-display)",
@@ -19,11 +32,7 @@ export function SiteShell({ theme, children }: { theme: SiteTheme; children: Rea
   return (
     <MotionRoot className={styles.shell} style={tokens} concept={theme.id}>
       <a href="#main" className={styles.skip}>Skip to content</a>
-      <header className={styles.nav}>
-        <SiteMark />
-        <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
-        <a className={styles.navContact} href={profile.booking} target="_blank" rel="noreferrer">Let’s talk <span aria-hidden>↗</span></a>
-      </header>
+      <SiteHeader navigation={navigation} brandHref={brandHref} />
       <main id="main">{children}</main>
     </MotionRoot>
   );
