@@ -1,0 +1,12 @@
+.status { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted, currentColor); }
+.status[data-status="live"] .dot,
+.status[data-status="shipped"] .dot { background: var(--accent, currentColor); }
+.status[data-status="wip"] .dot { background: #b8862f; }
+@media (prefers-reduced-motion: no-preference) {
+  .status[data-status="live"] .dot { animation: statusPulse 2.6s ease-in-out infinite; }
+}
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent, currentColor) 50%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent, currentColor) 0%, transparent); }
+}
