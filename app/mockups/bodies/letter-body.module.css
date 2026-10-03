@@ -1,0 +1,100 @@
+.body {
+  --rose: #eedbe3;
+  --blue: #dfeaf1;
+  --petrol: #183b45;
+  --white: #fffefd;
+  --mauve: #805366;
+  background: var(--rose);
+  color: var(--petrol);
+  font-family: var(--font-newsreader), serif;
+}
+.body a { color: inherit; }
+.work { max-width: 1500px; margin: auto; padding: 80px 6% 100px; }
+.intro { display: flex; justify-content: space-between; gap: 50px; align-items: end; margin-bottom: 90px; }
+.intro h2 { font: 400 clamp(34px, 4.2vw, 58px)/1.2 var(--font-sora), sans-serif; letter-spacing: -.065em; }
+.intro p { font-size: 19px; line-height: 1.6; padding-bottom: 6px; }
+.folio { display: grid; gap: 150px; }
+.entry { position: relative; min-width: 0; }
+.projectHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 25px; width: 77%; margin: 0 0 24px auto; }
+.projectHeading h3 { font: 500 23px/1.4 var(--font-sora), sans-serif; letter-spacing: -.04em; }
+.projectHeading h3 a { display: inline-flex; min-height: 44px; align-items: center; }
+.projectHeading p { max-width: 27ch; font: 400 11px/1.7 var(--font-sora), sans-serif; text-align: right; }
+.placement { width: 77%; margin: 0 0 0 auto; }
+.body .visual { aspect-ratio: 1.6; background: var(--white); border-radius: 14px 90px 14px 14px; }
+.visual img { padding: 5%; object-fit: contain; }
+.placement figcaption { padding: 17px 0 0 3px; font: 400 10px/1.5 var(--font-sora), sans-serif; color: var(--mauve); }
+.marginNote { position: absolute; width: 18%; left: 0; top: 35%; }
+.marginNote p { font-size: 19px; line-height: 1.6; }
+.body .projectLink { display: inline-flex; min-height: 44px; align-items: center; margin-top: 22px; font: 400 11px/1.5 var(--font-sora), sans-serif; text-decoration: underline; text-underline-offset: 5px; }
+.entry[data-project="anki"] .visual { aspect-ratio: 1.44; border-radius: 16px; }
+.entry[data-project="anki"] .visual img { padding: 0; object-fit: contain; }
+.entry[data-project="construcredit"] .projectHeading { width: 86%; margin-left: 0; }
+.entry[data-project="construcredit"] .placement { width: 86%; margin-left: 0; }
+.entry[data-project="construcredit"] .visual { border-radius: 12px 12px 80px 12px; background: var(--blue); }
+.entry[data-project="construcredit"] .marginNote { position: relative; width: 38%; margin: 27px 0 0 auto; top: auto; }
+.entry[data-project="cortex"] .projectHeading { width: 83%; }
+.entry[data-project="cortex"] .placement { width: 83%; }
+.entry[data-project="cortex"] .visual { aspect-ratio: 1.45; background: var(--blue); border-radius: 12px 70px 12px 70px; }
+.entry[data-project="cortex"] .marginNote { top: 28%; width: 13%; }
+.entry[data-project="cortex"] .marginNote p { font-size: 17px; }
+.body .archive { width: 77%; margin: 90px 0 0 auto; font-family: var(--font-sora), sans-serif; }
+.archive summary { padding-block: 18px; font-size: 13px; }
+.archive[open] { background: var(--white); border-radius: 18px; padding-inline: 26px; }
+.letter { display: grid; grid-template-columns: 220px minmax(0, 540px); align-items: start; gap: 75px; max-width: 1000px; margin: 0 auto; padding: 100px 6% 130px; }
+.letterPortrait { padding-top: 35px; }
+.letterPortrait img { width: 100%; height: auto; object-fit: cover; border-radius: 60px 10px 10px 10px; }
+.letterPortrait span { display: block; margin-top: 17px; font: 400 11px/1.5 var(--font-sora), sans-serif; }
+.letterCopy h2 { margin-bottom: 40px; font: 400 20px/1.4 var(--font-sora), sans-serif; letter-spacing: -.025em; }
+.letterCopy p { margin-top: 22px; font-size: 25px; line-height: 1.6; }
+.body .letterCopy a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.contact { max-width: 1500px; margin: auto; padding: 0 6%; }
+.postcard { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 65px; width: 88%; padding: 65px 6%; background: var(--white); border-radius: 15px 90px 15px 15px; }
+.message > span, .reply > span { font: 400 11px/1.5 var(--font-sora), sans-serif; }
+.message h2 { margin: 32px 0 24px; font: 400 clamp(28px, 3vw, 43px)/1.25 var(--font-sora), sans-serif; letter-spacing: -.055em; }
+.message p { max-width: 23ch; font-size: 19px; line-height: 1.6; }
+.reply { align-self: end; display: grid; gap: 27px; padding: 45px 35px; margin: 0 -130px -105px 0; background: var(--blue); border-radius: 12px 12px 45px 12px; }
+.body .email { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; font: 400 clamp(17px, 1.8vw, 25px)/1.5 var(--font-sora), sans-serif; letter-spacing: -.035em; overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 7px; }
+.body .booking { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; font: 400 13px/1.5 var(--font-sora), sans-serif; text-decoration: underline; text-underline-offset: 5px; }
+.body .footerLinks { margin-top: 125px; font: 400 11px/1.6 var(--font-sora), sans-serif; }
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-motion="active"]) .reply { rotate: -2deg; transition: rotate .4s ease; }
+  :global([data-motion="active"]) .reply:is(:hover, :focus-within) { rotate: 0deg; }
+}
+@media (max-width: 1000px) {
+  .marginNote { width: 19%; }
+  .marginNote p { font-size: 16px; }
+  .letter { grid-template-columns: 190px minmax(0, 1fr); gap: 50px; }
+  .postcard { gap: 30px; width: 92%; padding: 50px 5%; }
+  .reply { margin-right: -100px; padding: 35px 25px; }
+}
+@media (max-width: 700px) {
+  .work { padding: 55px 6% 60px; }
+  .intro { display: block; margin-bottom: 65px; }
+  .intro h2 { font-size: 36px; }
+  .intro p { margin-top: 25px; font-size: 17px; }
+  .folio { gap: 75px; }
+  .entry .projectHeading, .entry[data-project] .projectHeading { width: 100%; margin-inline: 0; gap: 15px; }
+  .projectHeading h3 { font-size: 21px; }
+  .projectHeading p { max-width: 19ch; font-size: 9px; }
+  .entry .placement, .entry[data-project] .placement { width: 100%; margin-inline: 0; }
+  .body .visual { border-radius: 12px 45px 12px 12px; }
+  .entry[data-project="cortex"] .visual { border-radius: 12px 45px 12px 45px; }
+  .entry[data-project="construcredit"] .visual { border-radius: 12px 12px 45px 12px; }
+  .entry .marginNote, .entry[data-project] .marginNote { position: static; width: 88%; margin: 20px 0 0 12%; }
+  .marginNote p, .entry[data-project="cortex"] .marginNote p { font-size: 18px; }
+  .body .projectLink { margin-top: 10px; }
+  .body .archive { width: 100%; margin-top: 55px; }
+  .archive[open] { padding-inline: 18px; }
+  .letter { grid-template-columns: 1fr; gap: 35px; padding: 35px 6% 75px; }
+  .letterPortrait { display: flex; align-items: end; gap: 20px; padding: 0; }
+  .letterPortrait img { width: 32%; border-radius: 35px 8px 8px 8px; }
+  .letterPortrait span { max-width: 10ch; }
+  .letterCopy h2 { margin-bottom: 27px; }
+  .letterCopy p { font-size: 22px; }
+  .postcard { display: block; width: 96%; padding: 40px 8% 45px; border-radius: 12px 55px 12px 12px; }
+  .message h2 { font-size: 32px; }
+  .message p { font-size: 18px; }
+  .reply { margin: 35px -35px -80px -5px; padding: 30px 24px; gap: 18px; border-radius: 8px 8px 35px 8px; }
+  .body .email { font-size: 16px; }
+  .body .footerLinks { margin-top: 90px; }
+}

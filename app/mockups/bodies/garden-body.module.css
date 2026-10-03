@@ -1,0 +1,93 @@
+.body {
+  --forest: #12382c;
+  --canopy: #285342;
+  --celadon: #dce9d6;
+  --sand: #eee7d9;
+  --moss: #91ab82;
+  --ivory: #f4f5ec;
+  --ink: var(--ivory);
+  --accent: var(--celadon);
+  color: var(--ink);
+  background: var(--forest);
+  font-family: var(--font-hanken), sans-serif;
+}
+.work { padding: 120px 6% 100px; }
+.workHeading { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin: 0 auto 100px; max-width: 1360px; }
+.workHeading h2 { font-size: clamp(64px, 8vw, 120px); line-height: .95; font-weight: 500; letter-spacing: -.065em; }
+.workHeading p { max-width: 31ch; padding-bottom: 9px; font-size: 19px; color: var(--celadon); }
+.terrain { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 60px 40px; max-width: 1360px; margin: auto; }
+.plot { position: relative; min-width: 0; }
+.projectText h3 { font-size: clamp(42px, 4.5vw, 68px); font-weight: 500; line-height: 1; letter-spacing: -.05em; }
+.projectText h3 a { display: inline-flex; align-items: center; min-height: 44px; }
+.projectText p { max-width: 34ch; font-size: 18px; line-height: 1.6; margin-top: 22px; }
+.body .projectAction { display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; font-size: 14px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.plot .preview { aspect-ratio: 1.6; border-radius: 24px; background: transparent; }
+.plot[data-project="anki"] { grid-column: 1 / -1; display: grid; grid-template-columns: 4fr 7fr; gap: 44px; align-items: center; padding: 64px 55px 64px 72px; background: var(--canopy); border-radius: 24px 160px 32px 110px; }
+.plot[data-project="anki"] .preview { aspect-ratio: 1.44; border-radius: 16px; }
+.plot[data-project="construcredit"] { grid-column: 1 / 8; display: flex; flex-direction: column-reverse; gap: 30px; padding: 36px 36px 48px; background: var(--sand); color: var(--forest); border-radius: 100px 22px 24px 24px; }
+.plot[data-project="construcredit"] .preview { border-radius: 70px 14px 14px 14px; }
+.plot[data-project="construcredit"] .projectText { padding: 0 8px; }
+.plot[data-project="cortex"] { grid-column: 8 / -1; display: flex; flex-direction: column-reverse; gap: 30px; margin-top: 90px; }
+.plot[data-project="cortex"] .preview { aspect-ratio: 1.44; border-radius: 24px 24px 90px 24px; }
+.archive { max-width: 1360px; margin: 60px auto 0; padding: 0 24px; background: var(--canopy); border-radius: 20px; }
+.about { --ink: var(--forest); --accent: var(--forest); color: var(--ink); background: var(--sand); padding: 110px 8% 150px; border-radius: 50% 9% 0 0 / 7% 2% 0 0; }
+.aboutHeading { display: grid; grid-template-columns: 6fr 4fr; gap: 80px; align-items: end; max-width: 1280px; margin: auto; }
+.aboutHeading h2 { font-size: clamp(64px, 7.5vw, 110px); line-height: .98; font-weight: 500; letter-spacing: -.06em; }
+.aboutHeading > p { max-width: 29ch; font-size: 24px; line-height: 1.4; margin-bottom: 10px; }
+.skills { display: grid; grid-template-columns: 1.15fr 1fr 1fr; align-items: start; gap: 70px; max-width: 1280px; margin: 100px auto 0; }
+.skill h3 { max-width: 13ch; font-size: 36px; line-height: 1.05; letter-spacing: -.04em; font-weight: 500; }
+.skill p { max-width: 28ch; margin: 22px 0 28px; font-size: 18px; line-height: 1.65; }
+.skill small { display: block; color: var(--canopy); font-size: 14px; }
+.skill:nth-child(2) { margin-top: 75px; }
+.skill:nth-child(3) { margin-top: 150px; }
+.contact { position: relative; padding: 125px 8% 0; background: var(--forest); border-radius: 180px 0 0 0; margin-top: -70px; }
+.contactHeading { display: grid; grid-template-columns: 7fr 3fr; gap: 70px; align-items: end; max-width: 1280px; margin: auto; }
+.contactHeading h2 { font-size: clamp(70px, 8.6vw, 132px); font-weight: 500; line-height: .95; letter-spacing: -.065em; }
+.contactNote p { max-width: 25ch; font-size: 19px; color: var(--celadon); }
+.body .booking { display: inline-flex; justify-content: center; align-items: center; min-height: 50px; padding: 13px 22px; background: var(--celadon); color: var(--forest); border-radius: 12px 28px 12px 28px; margin-top: 28px; font-size: 15px; }
+.body .booking:hover { background: var(--ivory); }
+.body .email { display: block; width: fit-content; max-width: 100%; margin: 80px auto 60px 0; font-size: clamp(21px, 4.2vw, 62px); letter-spacing: -.035em; min-height: 44px; overflow-wrap: anywhere; }
+.body .email:hover { text-decoration: underline; text-underline-offset: 10px; text-decoration-thickness: 2px; }
+.footerLinks { max-width: 1280px; margin: auto; color: var(--celadon); }
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-motion="active"]) .plot .preview { transition: transform 550ms cubic-bezier(.16, 1, .3, 1); }
+  :global([data-motion="active"]) .plot:is(:hover, :focus-within) .preview { transform: translateY(-8px) rotate(-1deg); }
+}
+@media (max-width: 1000px) {
+  .plot[data-project="anki"] { padding: 45px; gap: 30px; }
+  .aboutHeading, .contactHeading { gap: 35px; }
+  .skills { gap: 35px; }
+  .aboutHeading > p { font-size: 21px; }
+}
+@media (max-width: 700px) {
+  .work { padding: 70px 6% 85px; }
+  .workHeading { display: block; margin-bottom: 55px; }
+  .workHeading h2 { font-size: 64px; }
+  .workHeading p { margin-top: 28px; font-size: 16px; }
+  .terrain { display: block; }
+  .plot + .plot { margin-top: 40px; }
+  .projectText h3 { font-size: 43px; }
+  .projectText p { font-size: 16px; margin-top: 16px; }
+  .plot[data-project="anki"] { display: flex; flex-direction: column; align-items: stretch; padding: 38px 24px 28px; gap: 25px; border-radius: 24px 85px 24px 45px; }
+  .plot[data-project="anki"] .preview { border-radius: 14px 14px 14px 24px; }
+  .plot[data-project="construcredit"] { padding: 24px 20px 30px; border-radius: 65px 20px 20px 20px; }
+  .plot[data-project="construcredit"] .preview { border-radius: 44px 12px 12px 12px; }
+  .plot[data-project="construcredit"] .projectText { padding: 0; }
+  .plot[data-project="cortex"] { align-items: stretch; margin-top: 40px; padding: 10px 0 0; gap: 25px; }
+  .archive { margin-top: 50px; padding: 0 17px; }
+  .about { padding: 75px 8% 130px; border-radius: 50% 9% 0 0 / 2% 1% 0 0; }
+  .aboutHeading { display: block; }
+  .aboutHeading h2 { font-size: 58px; }
+  .aboutHeading > p { margin-top: 35px; font-size: 20px; }
+  .skills { grid-template-columns: 1fr; gap: 45px; margin-top: 65px; }
+  .skill h3 { font-size: 32px; }
+  .skill p { margin: 18px 0 18px; font-size: 16px; }
+  .skill:nth-child(2) { margin: 0 0 0 10%; }
+  .skill:nth-child(3) { margin: 0 18% 0 0; }
+  .contact { padding: 80px 8% 0; border-radius: 85px 0 0 0; }
+  .contactHeading { display: block; }
+  .contactHeading h2 { font-size: 65px; }
+  .contactNote { margin-top: 35px; }
+  .contactNote p { max-width: 29ch; font-size: 17px; }
+  .body .email { margin: 55px 0 30px; font-size: 22px; letter-spacing: -.03em; }
+}

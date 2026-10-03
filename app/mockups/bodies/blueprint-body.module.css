@@ -1,0 +1,113 @@
+.body {
+  --blue: #234dd5;
+  --navy: #122b4a;
+  --ice: #e4edfa;
+  --white: #fcfdff;
+  --chrome: #c4d3e7;
+  --accent: var(--blue);
+  color: var(--navy);
+  background: var(--white);
+  font: 400 17px/1.5 var(--font-hanken), sans-serif;
+}
+.body h2 { font: 500 clamp(38px, 5.4vw, 76px)/1.03 var(--font-spacegrotesk), sans-serif; letter-spacing: -.065em; }
+.work { scroll-margin-top: 30px; padding: 70px 0 0; }
+.workHeader { display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; gap: 10%; padding: 0 6% 60px; }
+.workHeader p { max-width: 290px; font-size: 20px; }
+.studies { display: grid; gap: 16px; }
+.study { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); align-items: center; gap: 4%; padding: 58px 5% 48px; }
+.ice { background: var(--ice); }
+.cobalt { background: var(--blue); color: var(--white); }
+.deviceStage { min-width: 0; padding: 30px 0 14px; }
+.pocket { width: min(78%, 346px); margin: 0 auto; padding: 8px; border: 1px solid var(--chrome); border-radius: 24px; background: var(--navy); box-shadow: 0 20px 35px color-mix(in srgb, var(--navy) 14%, transparent); }
+.mobilePreview { aspect-ratio: var(--pocket-ratio); border-radius: 17px; background: var(--ice); }
+.laptop { position: relative; width: 96%; margin: 0 auto; transform: perspective(1400px) rotateY(5deg) rotateX(2deg); }
+.display { position: relative; padding: 16px 10px 10px; border: 1px solid #70829a; border-radius: 15px 15px 5px 5px; background: #152033; box-shadow: 0 1px 0 #fff8 inset; }
+.camera { position: absolute; top: 6px; left: calc(50% - 2px); width: 4px; height: 4px; border-radius: 50%; background: #52617a; }
+.preview { aspect-ratio: 1.6; border-radius: 3px; background: #eef1f8; }
+.keyboard { position: relative; height: 13px; width: 111%; left: -5.5%; background: linear-gradient(#dfe9f5, #a6b7cd); border-radius: 2px 2px 50% 50% / 2px 2px 12px 12px; box-shadow: 0 20px 25px -8px #10213f35; }
+.keyboard > span { display: block; width: 15%; height: 4px; margin: auto; border-radius: 0 0 5px 5px; background: #94a8c3; }
+.previewNote { margin-top: 30px !important; text-align: center; font: 400 12px/1.5 var(--font-mono), monospace; opacity: .8; }
+.specification { min-width: 0; }
+.specification h3 { font: 500 clamp(30px, 3.4vw, 48px)/1.06 var(--font-spacegrotesk), sans-serif; letter-spacing: -.055em; }
+.role { margin-top: 10px !important; font-size: 14px; opacity: .8; }
+.specification dl { display: grid; gap: 22px; margin: 32px 0; }
+.specification dt { font-weight: 600; font-size: 13px; margin-bottom: 5px; }
+.specification dd { margin: 0; font-size: 16px; line-height: 1.45; max-width: 35ch; }
+.projectLink { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 20px; border: 1px solid currentColor; border-radius: 6px; font-size: 14px; }
+.projectLink:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.cobalt .projectLink:hover { background: var(--white); color: var(--blue); border-color: var(--white); }
+.archive { padding: 0 6% 40px; margin-top: 24px !important; background: var(--white); }
+.archive summary { font-size: 20px; }
+.assembly { display: grid; grid-template-columns: 1fr 1.25fr; gap: 10%; padding: 100px 7% 120px; background: #f1f5fc; }
+.assemblyIntro p { max-width: 34ch; margin-top: 30px !important; font-size: 19px; }
+.layers { display: grid; gap: 36px; padding: 0 0 0 12px; margin: 0; list-style: none; }
+.layer { position: relative; isolation: isolate; }
+.layerFace { position: relative; padding: 23px 28px; background: var(--white); border: 1px solid #b7c9e2; border-radius: 5px; box-shadow: -10px 10px 0 #d7e3f3; }
+.layer:nth-child(2) .layerFace { background: #ceddf4; box-shadow: -10px 10px 0 #a9c0e4; border-color: #a9c0e4; }
+.layer:nth-child(3) .layerFace { color: var(--white); background: var(--blue); box-shadow: -10px 10px 0 #133aab; border-color: var(--blue); }
+.layerFace > span { display: block; font: 400 11px/1.5 var(--font-mono), monospace; opacity: .75; }
+.layerFace strong { display: block; margin-top: 5px; font: 500 26px/1.2 var(--font-spacegrotesk), sans-serif; letter-spacing: -.035em; }
+.layerFace p { max-width: 37ch; margin-top: 9px !important; font-size: 15px; }
+.connector { position: absolute; width: 2px; height: 37px; left: 35px; bottom: -37px; background: var(--blue); z-index: -1; }
+.contact { scroll-margin-top: 0; background: var(--navy); color: var(--white); padding: 90px 6% 0; }
+.desk { display: grid; grid-template-columns: 1.6fr 1fr; gap: 10%; align-items: center; }
+.invitation > p { max-width: 37ch; font-size: 20px; margin-top: 27px !important; }
+.email { margin-top: 52px; }
+.email > span { display: block; font-size: 14px; opacity: .7; margin-bottom: 8px; }
+.email a { display: inline-flex; align-items: center; min-height: 44px; font-size: clamp(17px, 1.9vw, 26px); overflow-wrap: anywhere; }
+.email a:hover { text-decoration: underline; }
+.appointment { position: relative; padding: 42px 30px 36px; color: var(--navy); background: var(--white); border-radius: 5px; transform: rotate(3deg); box-shadow: 0 20px 0 -10px #486382, 0 35px 50px #071a3233; }
+.binding { display: flex; justify-content: space-between; position: absolute; top: -10px; left: 22px; right: 22px; }
+.binding i { width: 9px; height: 21px; background: #96b0d2; border: 2px solid #142d4e; border-radius: 4px; }
+.appointmentTitle { font: 500 32px/1.06 var(--font-spacegrotesk), sans-serif; letter-spacing: -.04em; }
+.appointmentNote { margin-top: 26px !important; font-size: 18px; }
+.appointment .booking { display: flex; justify-content: center; align-items: center; min-height: 54px; margin-top: 33px; border-radius: 6px; background: var(--blue); color: var(--white); font-size: 17px; }
+.appointment .booking:hover { background: var(--navy); }
+.calendarNote { margin-top: 13px !important; text-align: center; font-size: 12px; opacity: .75; }
+.footerLinks { margin-top: 80px; padding-top: 36px; border-top: 1px solid #39516f; }
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-motion="active"]) .laptop { transition: transform .65s cubic-bezier(.16, 1, .3, 1); }
+  :global([data-motion="active"]) .study:has(a:hover, a:focus-visible) .laptop { transform: perspective(1400px) rotateY(0) rotateX(0) translateY(-6px); }
+  :global([data-motion="active"]) .layerFace { transition: transform .4s cubic-bezier(.16, 1, .3, 1); }
+  :global([data-motion="active"]) .layer:hover .layerFace { transform: translate(6px, -6px); }
+  :global([data-motion="active"]) .appointment { transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
+  :global([data-motion="active"]) .appointment:focus-within, :global([data-motion="active"]) .appointment:hover { transform: rotate(0); }
+}
+@media (max-width: 1000px) {
+  .study { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 5%; }
+  .specification dd { font-size: 15px; }
+  .desk { gap: 6%; }
+  .appointment { padding: 35px 23px 28px; }
+  .appointmentTitle { font-size: 27px; }
+}
+@media (max-width: 800px) {
+  .work { padding-top: 50px; }
+  .workHeader { display: block; padding-bottom: 35px; }
+  .workHeader p { margin-top: 22px !important; max-width: 30ch; font-size: 18px; }
+  .study { display: flex; flex-direction: column; align-items: stretch; padding: 22px 6% 35px; }
+  .deviceStage { padding: 12px 0 26px; }
+  .laptop { width: 94%; transform: none; }
+  .display { padding: 13px 6px 6px; border-radius: 10px 10px 4px 4px; }
+  .camera { top: 4px; width: 3px; height: 3px; }
+  .keyboard { height: 9px; }
+  .previewNote { margin-top: 22px !important; font-size: 10px; }
+  .specification h3 { font-size: 35px; }
+  .specification dl { grid-template-columns: 1fr 1fr; gap: 22px; margin: 22px 0; }
+  .specification dd { font-size: 15px; }
+  .archive { padding-bottom: 30px; }
+  .assembly { grid-template-columns: 1fr; gap: 50px; padding: 70px 7% 80px; }
+  .assemblyIntro p { font-size: 18px; margin-top: 24px !important; }
+  .layerFace { padding: 20px 22px; }
+  .contact { padding-top: 65px; }
+  .desk { grid-template-columns: 1fr; gap: 50px; }
+  .invitation > p { font-size: 18px; }
+  .email { margin-top: 30px; }
+  .appointment { transform: rotate(2deg); max-width: 410px; width: 95%; margin-inline: auto; }
+  .footerLinks { margin-top: 65px; }
+}
+@media (max-width: 420px) {
+  .specification dl { grid-template-columns: 1fr; gap: 18px; }
+  .specification dd { max-width: 38ch; }
+  .body h2 { font-size: 40px; }
+  .layerFace strong { font-size: 24px; }
+}

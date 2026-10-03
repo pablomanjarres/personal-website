@@ -1,0 +1,79 @@
+.hero { position: relative; max-width: 1440px; margin: auto; padding: 30px 6% 70px; }
+.intro { display: flex; justify-content: space-between; gap: 24px; align-items: center; }
+.roles { font-size: 13px; line-height: 1.6; }
+.roles span { display: inline; }
+.roles span + span::before { content: "/"; padding: 0 10px; opacity: .45; }
+.signature { font-family: var(--font-serif); font-size: 21px; font-style: italic; }
+.stage { position: relative; display: grid; grid-template-columns: 1.08fr 1fr; align-items: center; gap: 7%; margin-top: 45px; }
+.copy { position: relative; z-index: 2; padding: 40px 0 65px; }
+.headline { font-family: var(--font-hanken); font-size: clamp(64px, 7.8vw, 112px); font-weight: 500; letter-spacing: -.075em; line-height: .98; }
+.mask { display: block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.09em; }
+.mask > span { display: block; }
+.lede { max-width: 31ch; margin: 32px 0 30px; font-size: 18px; line-height: 1.65; }
+.actions { gap: 25px; }
+.portraitStage { position: relative; min-width: 0; padding: 20px 0 32px; }
+.window { position: relative; overflow: hidden; margin: 0; border-radius: 47% 53% 45% 55% / 35% 39% 61% 65%; background: var(--accent); aspect-ratio: .81; transform: rotate(3deg); box-shadow: 0 25px 55px color-mix(in srgb, var(--ink) 14%, transparent); }
+.window img { height: 100%; object-fit: cover; transform: scale(1.05) rotate(-3deg); }
+.halo { position: absolute; inset: 3% -7% 0; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 49% 51% 48% 52% / 42% 38% 62% 58%; transform: rotate(-9deg); pointer-events: none; }
+.proof { position: absolute; z-index: 3; display: flex; align-items: center; gap: 18px; padding: 14px 21px; min-height: 66px; border-radius: 100px; background: var(--paper); box-shadow: 0 10px 28px color-mix(in srgb, var(--ink) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+.proof[data-proof="0"] { top: 8%; left: -15%; transform: rotate(-7deg); }
+.proof[data-proof="1"] { bottom: 3%; right: -5%; transform: rotate(6deg); }
+.proof > span:first-child { font-size: 25px; }
+.proof strong { display: block; font-size: 17px; font-weight: 500; }
+.proof small { display: block; font-size: 10px; opacity: .7; }
+.connector { position: absolute; width: 35%; left: 24%; bottom: 18px; overflow: visible; color: var(--accent); pointer-events: none; }
+.connector path { fill: none; stroke: currentColor; stroke-width: 1.1; }
+.trail { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 15px; font-size: 12px; }
+.trail p { max-width: 22ch; opacity: .7; }
+.trail a { display: inline-flex; align-items: center; min-height: 44px; gap: 14px; }
+.trail a span { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid currentColor; border-radius: 50%; font-size: 17px; }
+.body { position: relative; margin-top: 25px; }
+.body::before { content: ""; display: block; width: 65%; height: 70px; margin-left: auto; border-radius: 100% 0 0 0; background: var(--panel); }
+.body > section:first-child { padding-top: 65px; }
+@media (max-width: 950px) {
+  .hero { padding-inline: 5%; }
+  .roles span { display: block; }
+  .roles span + span::before { content: none; }
+  .stage { gap: 4%; }
+  .headline { font-size: clamp(59px, 8.3vw, 85px); }
+  .proof { padding: 12px 16px; gap: 12px; }
+  .proof[data-proof="0"] { left: -9%; }
+  .proof[data-proof="1"] { right: -2%; }
+  .lede { font-size: 16px; }
+  .actions { gap: 14px; }
+}
+@media (max-width: 620px) {
+  .hero { padding: 16px 6% 30px; }
+  .intro { align-items: start; }
+  .roles { font-size: 11px; }
+  .signature { font-size: 18px; padding-top: 3px; }
+  .stage { display: flex; flex-direction: column; align-items: stretch; gap: 5px; margin-top: 30px; }
+  .copy { padding: 0; }
+  .headline { font-size: clamp(54px, 15.7vw, 84px); letter-spacing: -.07em; }
+  .lede { max-width: 30ch; margin: 24px 0; font-size: 16px; }
+  .portraitStage { width: 81%; margin: 32px auto 0; padding-bottom: 22px; }
+  .proof { padding: 12px 16px; min-height: 60px; }
+  .proof[data-proof="0"] { top: 4%; left: -12%; }
+  .proof[data-proof="1"] { bottom: 0; right: -11%; }
+  .proof strong { font-size: 15px; }
+  .proof small { font-size: 9px; }
+  .connector { width: 23%; bottom: 0; left: 0; transform: rotate(24deg); }
+  .trail { margin-top: 38px; font-size: 11px; gap: 12px; }
+  .trail p { max-width: 19ch; }
+  .body { margin-top: 18px; }
+  .body::before { height: 35px; }
+  .body > section:first-child { padding-top: 35px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :global(:is([data-motion="active"], [data-motion="paused"])) .mask > span { animation: typeRise 1.1s cubic-bezier(.2,.75,.15,1) both; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .mask:nth-child(2) > span { animation-delay: .13s; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .window { transform: translate3d(calc(var(--pointer-x, 0) * 9px), calc(var(--pointer-y, 0) * 6px + var(--hero-scroll, 0) * 24px), 0) rotate(calc(3deg + var(--pointer-x, 0) * 1deg)); transition: transform .4s ease-out; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .window img { transform: scale(1.05) rotate(-3deg) translate3d(calc(var(--pointer-x, 0) * -5px), calc(var(--pointer-y, 0) * -5px), 0); transition: transform .4s ease-out; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .connector path { stroke-dasharray: 1; animation: trace 1.8s .45s cubic-bezier(.3,.3,.2,1) both; }
+  :global(:is([data-motion="active"], [data-motion="paused"])) .halo { animation: haloEnter 1.4s .25s ease-out both; }
+  .proof { transition: background .25s, box-shadow .25s; }
+  .proof:hover { background: var(--panel); box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 20%, transparent); }
+  @keyframes typeRise { from { transform: translateY(110%) rotate(3deg); } to { transform: translateY(0) rotate(0); } }
+  @keyframes trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes haloEnter { from { opacity: 0; transform: rotate(-22deg) scale(.94); } to { opacity: 1; transform: rotate(-9deg) scale(1); } }
+}

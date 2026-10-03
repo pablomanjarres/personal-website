@@ -1,0 +1,84 @@
+import { profile } from "../../socials";
+import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
+import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { AnkiAppMockup } from "./AnkiAppMockup";
+import styles from "./studio-body.module.css";
+
+const concept = "open-studio";
+const featuredProjects = getFeaturedProjects(concept);
+
+function ProductStudy({ item }: { item: FeaturedProject }) {
+  return (
+    <article className={styles.study} data-product={item.project.slug}>
+      <div className={styles.visuals}>
+        {item.project.slug === "anki" ? <AnkiAppMockup item={item} className={styles.mainVisual} /> : <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />}
+        <span className={styles.mediaNote}>{item.previewLabel}</span>
+      </div>
+      <div className={styles.projectCopy}>
+        <h3><ProjectLink item={item}>{item.project.title}</ProjectLink></h3>
+        <p>{item.product}</p>
+        <ProjectLink item={item} className={styles.readLink}>Read the project</ProjectLink>
+      </div>
+    </article>
+  );
+}
+
+function StudioPractice() {
+  return (
+    <section id="about" className={styles.practice} aria-labelledby="studio-practice-heading">
+      <div className={styles.practiceInner}>
+        <h2 id="studio-practice-heading">I design it.<br />I build it.</h2>
+        <div className={styles.practiceIntro}>
+          <p>I work across the product decisions, the interface, and the code behind it.</p>
+          <div className={styles.roles}>{profile.roles.map(role => <span key={role}>{role}</span>)}</div>
+        </div>
+        <div className={styles.capabilities}>
+          {capabilities.map(capability => <div key={capability.title}>
+            <h3>{capability.title}</h3>
+            <p>{capability.text}</p>
+            <small>{capability.examples}</small>
+          </div>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StudioInvitation() {
+  return (
+    <footer id="contact" className={styles.contact}>
+      <div className={styles.ticket}>
+        <div className={styles.invitation}>
+          <h2>Something<br />in mind?</h2>
+          <p>Tell me what you’re hiring for, or what you’d like to build.</p>
+        </div>
+        <div className={styles.ticketActions}>
+          <EmailLink subject="A role or project for Pablo" className={styles.email} />
+          <BookingLink className={styles.book}>Book a conversation</BookingLink>
+          <p>A few lines are enough to start.</p>
+        </div>
+        <span className={styles.fold} aria-hidden />
+      </div>
+      <FooterLinks className={styles.footerLinks} />
+    </footer>
+  );
+}
+
+export default function StudioBody() {
+  return (
+    <div className={styles.studio}>
+      <section id="work" className={styles.work} aria-labelledby="studio-work-heading">
+        <div className={styles.workInner}>
+          <header className={styles.workHeading}>
+            <h2 id="studio-work-heading">Built from<br />the idea up.</h2>
+            <p>Products I’ve designed and built.<br />A look at what each one needed.</p>
+          </header>
+          <div className={styles.studies}>{featuredProjects.map(item => <ProductStudy key={item.project.slug} item={item} />)}</div>
+          <ProjectArchive concept={concept} className={styles.archive} />
+        </div>
+      </section>
+      <StudioPractice />
+      <StudioInvitation />
+    </div>
+  );
+}
