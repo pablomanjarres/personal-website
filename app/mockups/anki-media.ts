@@ -4,7 +4,7 @@ export const ankiMobileScreens = [
 ] as const;
 
 export const ankiAppMockup = {
-  src: "/mockups/anki-app/paired-phones.webp?v=mobile-edge-1",
+  src: "/mockups/anki-app/paired-phones.webp?v=paired-export-2",
   width: 1450,
   height: 2000,
   alt: "Anki home and review screens in two iPhones",
