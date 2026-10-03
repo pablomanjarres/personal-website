@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "brand:sync": "node scripts/sync-project-brand-assets.mjs",
-    "test:portfolio": "node --test tests/portfolio.test.mjs"
+    "test:portfolio": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "next": "16.2.6",
