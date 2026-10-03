@@ -1,22 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import styles from "./motion.module.css";
-
-function subscribeReduced(listener: () => void) {
-  const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-  media.addEventListener("change", listener);
-  return () => media.removeEventListener("change", listener);
-}
-const getReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const serverReduced = () => false;
+import { useReducedMotion } from "./useReducedMotion";
 
 export function MotionRoot({ children, className, style, concept }: {
   children: ReactNode; className: string; style: CSSProperties; concept: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
-  const reduced = useSyncExternalStore(subscribeReduced, getReduced, serverReduced);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const root = ref.current;
