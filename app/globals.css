@@ -76,102 +76,6 @@ a:focus-visible {
   text-decoration: none;
   transition: color 0.15s ease;
 }
-@media (max-width: 859.98px) {
-  .atelier {
-    height: auto;
-    min-height: 100svh;
-    overflow-x: clip;
-    overflow-y: visible;
-  }
-
-  /* thin notebook rule near the left edge instead of a huge gutter */
-  .paper {
-    --margin: clamp(18px, 6vw, 40px);
-  }
-
-  .wrap {
-    height: auto;
-    padding: clamp(16px, 3vh, 26px) clamp(18px, 5vw, 30px) clamp(22px, 3vh, 32px)
-      clamp(26px, 7vw, 52px);
-  }
-
-  .hero {
-    flex: 0 0 auto;
-    margin-top: clamp(14px, 2.5vh, 26px);
-  }
-
-  /* keep the CTA's nowrap label from overflowing narrow screens */
-  .noelle-cta {
-    max-width: 100%;
-    justify-content: center;
-    padding: 13px 18px;
-    gap: 9px;
-    letter-spacing: 0.1em;
-  }
-
-  /* stack the email and its note vertically so the note always sits directly
-     below the pill - then the up-arrow reliably points at it (a plain
-     flex-wrap would leave the note beside the pill at wider mobile widths) */
-  .email-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-  }
-  .email-note {
-    margin-left: 12px;
-  }
-  .arr-desk {
-    display: none;
-  }
-  .arr-mob {
-    display: inline-block;
-  }
-
-  /* findme turns into the header for the sticker sheet that follows it */
-  .findme {
-    margin-top: clamp(26px, 5vh, 40px);
-    padding-top: 12px;
-    border-top: 1.5px solid var(--fg);
-  }
-
-  /* the pin layer leaves the fixed viewport and becomes an in-flow zone */
-  .pinboard {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    height: clamp(320px, 46svh, 440px);
-  }
-
-  /* decorative bits that only make sense on the wide poster */
-  .paperclip,
-  .peel {
-    display: none;
-  }
-
-  .pageno {
-    position: static;
-    text-align: right;
-    padding: 4px clamp(18px, 5vw, 30px) 16px;
-  }
-}
-
-/* ===========================================================================
-   LANDING-PAGE MICRO-INTERACTIONS
-   One signature effect per interactive element so no two feel the same. Every
-   effect is a real CSS-first technique, scoped to atelier-only classes,
-   keyboard-triggerable (:focus-visible), and gated behind prefers-reduced-
-   motion. Keyframes are `at-` prefixed to avoid collisions.
-     1 brand ✦ PABLO ... reform / scramble   (JS decrypt + CSS star spin)
-     2 nav "portfolio" .. words-move          (per-letter kinetic wave)
-     3 nav "open source" changing-colors      (flowing warm gradient text)
-     4 nav "book a call" ink-bleed            (terracotta ink blooms behind)
-     5 Noelle CTA ....... mirror              (light-sweep + soft reflection)
-     6 email pill ....... draw-on             (hand-drawn circle self-draws)
-     7 pins ............. magnetic            (pointer-follow lean, in JS)
-     8 hero "founder" ... explode             (letters scatter & reassemble)
-   =========================================================================== */
-
-/* shared per-letter split primitive (portfolio nav + hero "founder") */
 .at-split {
   display: inline-block;
 }
@@ -179,38 +83,6 @@ a:focus-visible {
   display: inline-block;
   white-space: pre;
   will-change: transform;
-}
-/* screen-reader-only real text sitting behind the split/animated glyphs */
-.at-sr {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* 1 - BRAND ✦ PABLO - reform / scramble ------------------------------------ */
-.brand-word {
-  display: inline-block;
-  color: var(--fg);
-}
-.brand-star {
-  display: inline-block;
-  color: var(--accent);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .brand-star {
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .topnav-brand:hover .brand-star,
-  .topnav-brand:focus-visible .brand-star {
-    transform: rotate(200deg) scale(1.18);
-  }
 }
 
 /* 2 - NAV "portfolio" - words-move (per-letter kinetic wave) ---------------- */
@@ -305,14 +177,6 @@ a:focus-visible {
   .topnav-link--call::before {
     transition: none;
   }
-}
-
-/* 5 - NOELLE CTA - mirror (traveling light-sweep + soft reflection) --------- */
-.noelle-cta {
-  position: relative;
-  overflow: hidden;
-  -webkit-box-reflect: below 1px
-    linear-gradient(transparent 70%, rgba(255, 255, 255, 0.14));
 }
 .noelle-cta::before {
   content: "";
