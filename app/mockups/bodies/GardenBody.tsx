@@ -1,5 +1,6 @@
 import { getFeaturedProjects, capabilities, type FeaturedProject } from "./content";
-import { ProjectVisual, ProjectLink, ProjectArchive, EmailLink, BookingLink, FooterLinks } from "./primitives";
+import { ProjectVisual, ProjectLink, EmailLink, BookingLink } from "@/app/portfolio/featured/components";
+import { ProjectArchive, FooterLinks } from "./primitives";
 import styles from "./garden-body.module.css";
 
 const concept = "green-room";

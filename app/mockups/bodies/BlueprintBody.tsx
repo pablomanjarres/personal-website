@@ -1,8 +1,9 @@
 import type { FeaturedProject } from "./content";
 import type { CSSProperties } from "react";
-import { ankiMobileScreens } from "../anki-media";
+import { ankiMobileScreens } from "@/app/portfolio/anki-media";
 import { getFeaturedProjects } from "./content";
-import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
+import { FooterLinks, ProjectArchive } from "./primitives";
 import styles from "./blueprint-body.module.css";
 
 const concept = "blueprint";

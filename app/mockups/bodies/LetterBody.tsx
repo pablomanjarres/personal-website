@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { profile } from "../../socials";
 import { getFeaturedProjects, type FeaturedProject } from "./content";
-import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
+import { BuildingLink, FooterLinks, ProjectArchive } from "./primitives";
 import styles from "./letter-body.module.css";
 
 const concept = "soft-focus";
