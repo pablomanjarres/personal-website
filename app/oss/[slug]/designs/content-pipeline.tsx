@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCountUp } from "@/app/oss/useCountUp";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { Hero } from "../../heroes";
@@ -56,38 +56,6 @@ const STATUS_LABEL: Record<Status, string> = {
 const pad = (v: number) => String(v).padStart(2, "0");
 const cssVar = (name: string, value: number | string): CSSProperties =>
   ({ [name]: value }) as CSSProperties;
-
-/* Count 00 -> target once the line "boots"; jumps straight to target
- * for reduced-motion users. */
-function useCountUp(target: number, delay = 950, duration = 1500) {
-  const [n, setN] = useState(0);
-  const raf = useRef(0);
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setN(target);
-      return;
-    }
-    let startTs = 0;
-    const tick = (ts: number) => {
-      if (!startTs) startTs = ts;
-      const p = Math.min(1, (ts - startTs) / duration);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setN(Math.round(eased * target));
-      if (p < 1) raf.current = requestAnimationFrame(tick);
-    };
-    const to = window.setTimeout(() => {
-      raf.current = requestAnimationFrame(tick);
-    }, delay);
-    return () => {
-      window.clearTimeout(to);
-      cancelAnimationFrame(raf.current);
-    };
-  }, [target, delay, duration]);
-  return n;
-}
 
 /* The signature CTA: two stacked copies of the label inside an overflow
  * "belt"; each char rides the belt on hover/focus, staggered by index. */
@@ -192,7 +160,7 @@ function renderNote(note: string) {
 
 export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
   const total = PLATFORMS.length;
-  const count = useCountUp(total);
+  const count = Math.round(useCountUp(total, 950, 1500));
   const done = count >= total;
 
   const leadWords = hero.titleLead.split(" ");

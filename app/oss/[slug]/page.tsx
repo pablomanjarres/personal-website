@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getHero, heroes } from "../heroes";
-import { getDesign } from "./designs/registry";
+import DefaultHero from "./designs/DefaultHero";
+import { designRegistry } from "./designs/registry";
 
 export const dynamicParams = false;
 
@@ -50,6 +51,6 @@ export default async function OssHero({
   const h = getHero(slug);
   if (!h) notFound();
 
-  const Design = getDesign(slug);
+  const Design = designRegistry[slug] ?? DefaultHero;
   return <Design hero={h} slug={slug} />;
 }
