@@ -1,17 +1,16 @@
+.gallery, .reviewBar { --action-focus-color: #2c6b61; }
 .reviewBar { display: flex; justify-content: space-between; align-items: center; gap: 20px; background: #fff; color: #24312f; font: 13px var(--font-sans), sans-serif; padding: 12px 5%; border-bottom: 1px solid #dbe2de; }
-.reviewBar a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; padding: 4px 0; }
+.reviewBar a { display: inline-flex; align-items: center; color: inherit; padding: 4px 0; }
 .reviewBar a:hover { text-decoration: underline; }
-.reviewBar a:focus-visible, .conceptCard:focus-visible { outline: 3px solid #2c6b61; outline-offset: 6px; }
 .gallery { background: #edf1ed; color: #1d3430; min-height: 100vh; font-family: var(--font-sans), sans-serif; padding: 70px 6%; }
 .galleryHeader, .conceptGrid, .galleryFooter { max-width: 1300px; margin: auto; }
 .galleryHeader > span { font-size: 14px; }
 .galleryHeader h1 { font-family: var(--font-hanken), sans-serif; font-size: clamp(46px, 5.5vw, 78px); font-weight: 600; line-height: 1.02; letter-spacing: -.055em; margin: 40px 0 24px; }
 .galleryHeader p { font-size: 18px; line-height: 1.5; max-width: 600px; margin-bottom: 24px; }
-.savedLink { display: inline-flex; align-items: center; min-height: 44px; color: inherit; margin-bottom: 48px; text-underline-offset: 5px; }
-.savedLink:focus-visible { outline: 3px solid #2c6b61; outline-offset: 6px; }
+.savedLink { display: inline-flex; align-items: center; color: inherit; margin-bottom: 48px; text-underline-offset: 5px; }
 .previewPair { display: grid; gap: 12px; }
 .conceptGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 54px 30px; }
-.conceptCard { display: block; text-decoration: none; color: inherit; }
+.conceptCard { display: block; color: inherit; }
 .conceptImage { position: relative; aspect-ratio: 1.65; background: #dce4df; overflow: hidden; border-radius: 16px; border: 1px solid #cfdbd5; }
 .conceptImage img { object-fit: contain; }
 .bodyImage { position: relative; aspect-ratio: 1.5; overflow: hidden; border-radius: 16px; }

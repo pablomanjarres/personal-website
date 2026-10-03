@@ -1,2 +1,2 @@
 .action { min-height: 44px; text-decoration: none; }
-.action.action:focus-visible { outline: 3px solid currentColor; outline-offset: 6px; }
+.action.action:focus-visible { outline: 3px solid var(--action-focus-color, currentColor); outline-offset: 6px; }
