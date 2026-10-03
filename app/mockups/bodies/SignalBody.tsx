@@ -1,7 +1,8 @@
 import { Status } from "../../portfolio/components";
 import { profile } from "../../socials";
 import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
-import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
+import { BuildingLink, FooterLinks, ProjectArchive } from "./primitives";
 import styles from "./signal-body.module.css";
 
 const concept = "signal";
