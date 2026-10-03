@@ -355,21 +355,21 @@ const fontVariables = [
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pablomanjarres.com"),
-  title: "Pablo Manjarres",
-  description: "17 y/o solo founder. Building Noelle.",
+  title: "Pablo Manjarres | Software engineer and product designer",
+  description: "Software engineer, product designer, and founder. I design products and build the software behind them.",
   openGraph: {
-    title: "Pablo Manjarres",
-    description: "17 y/o solo founder. Building Noelle.",
+    title: "Pablo Manjarres | Software engineer and product designer",
+    description: "Software engineer, product designer, and founder. I design products and build the software behind them.",
     url: "https://pablomanjarres.com",
     siteName: "Pablo Manjarres",
     type: "website",
-    images: ["/og/home.png"],
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pablo Manjarres",
-    description: "17 y/o solo founder. Building Noelle.",
-    images: ["/og/home.png"],
+    title: "Pablo Manjarres | Software engineer and product designer",
+    description: "Software engineer, product designer, and founder. I design products and build the software behind them.",
+    images: ["/opengraph-image"],
   },
 };
 
