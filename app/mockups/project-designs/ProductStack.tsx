@@ -1,7 +1,7 @@
 import { getStudyPreview, type ProjectStudy, type StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "../selected-work";
 import { StudyActions, StudyLink, StudyMedia } from "../project-studies/primitives";
-import interaction from "../interaction.module.css";
+import interaction from "@/app/site/interaction.module.css";
 import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
 import styles from "./product-stack.module.css";
