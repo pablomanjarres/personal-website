@@ -3,5 +3,5 @@ export const openStudioTheme = {
 } as const;
 
 export const workbenchTheme = {
-  ...openStudioTheme, paper: "#fafaf7", ink: "#292b2d", accent: "#e85819",
+  ...openStudioTheme, paper: "#fafaf7", ink: "#292b2d", accent: "#e85819", actionHover: "#ad3808",
 } as const;

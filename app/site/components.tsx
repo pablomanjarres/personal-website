@@ -5,7 +5,7 @@ import { profile } from "../socials";
 import { MotionRoot } from "@/app/site/motion";
 import styles from "./shell.module.css";
 
-export type SiteTheme = { id: string; paper: string; ink: string; accent: string; panel?: string };
+export type SiteTheme = { id: string; paper: string; ink: string; accent: string; panel?: string; actionHover?: string };
 
 export function SiteMark({ href = "#main", className = "" }: { href?: string; className?: string }) {
   return <Link href={href} className={`${styles.brand} ${className}`} aria-label="Pablo Manjarres, home">pm<span aria-hidden>.</span></Link>;
@@ -27,7 +27,7 @@ export function SiteHeader({ navigation = homeNavigation, brandHref = "#main" }:
 export function SiteShell({ theme, children, navigation, brandHref }: { theme: SiteTheme; children: ReactNode; navigation?: readonly NavigationItem[]; brandHref?: string }) {
   const tokens = {
     "--paper": theme.paper, "--ink": theme.ink, "--accent": theme.accent,
-    "--panel": theme.panel, "--display": "var(--font-display)",
+    "--panel": theme.panel, "--action-hover-bg": theme.actionHover, "--display": "var(--font-display)",
   } as CSSProperties;
   return (
     <MotionRoot className={styles.shell} style={tokens} concept={theme.id}>

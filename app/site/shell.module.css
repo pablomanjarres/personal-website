@@ -21,7 +21,7 @@
 .primary span { margin-left: 20px; }
 .secondary { padding: 12px 0; font-size: 15px; border-bottom: 1px solid currentColor; }
 .shell .primary:hover { background: var(--action-hover-bg, var(--accent)); color: var(--action-hover-ink, var(--paper)); }
-.navContact:hover { background: var(--accent); color: var(--paper) !important; }
+.navContact:hover { background: var(--action-hover-bg, var(--accent)); color: var(--paper) !important; }
 @media (prefers-reduced-motion: reduce) { .shell *, .shell *::before, .shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 
 .nav nav { padding: 0 10px; border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--panel) 40%, transparent); }
