@@ -1,6 +1,6 @@
 .shell { background: var(--paper); color: var(--ink); font-family: var(--font-sans), sans-serif; line-height: 1.5; overflow: clip; }
 :where(.shell h1, .shell h2, .shell h3, .shell p) { margin: 0; }
-.shell a { color: inherit; text-decoration: none; }
+:where(.shell) a { color: inherit; text-decoration: none; }
 .shell a:focus-visible, .shell summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
 .skip { position: absolute; top: -80px; left: 24px; padding: 16px; background: var(--paper); z-index: 20; }
 .skip:focus { top: 8px; }
