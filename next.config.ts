@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/**", search: "" },
       { pathname: "/mockups/anki-app/**", search: "?v=mobile-edge-1" },
+      { pathname: "/mockups/body-previews/**", search: "?v=mobile-edge-1" },
+      { pathname: "/mockups/project-previews/**", search: "?v=mobile-edge-1" },
     ],
   },
   async redirects() {
