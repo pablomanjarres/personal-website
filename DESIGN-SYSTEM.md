@@ -1,6 +1,6 @@
-# Personal site mockups
+# Personal website
 
-Six portfolio directions for hiring Pablo as a Software Engineer, Product Designer, and Founder. Each page presents the same real projects through its own composition, palette, and contact section. Review the full pages at `/mockups` before choosing a direction.
+Open Studio is the selected design for Pablo’s personal website. The homepage presents his work as a software engineer, product designer, and founder. The six saved homepage directions remain available at `/mockups`; project explorations remain at `/mockups/projects`.
 
 ## Ownership
 
@@ -13,7 +13,7 @@ Six portfolio directions for hiring Pablo as a Software Engineer, Product Design
 - `app/portfolio/featured/components.tsx` owns featured visuals, links, archive, email, booking, and footer components. Mockup primitives supply their route and footer destinations. `app/site/interaction.module.css` owns action targets and focus states.
 - `app/site/components.tsx` owns the shell, navigation, `pm.` mark, portraits, roles, and hero actions. `app/site/theme.ts` owns the approved Open Studio and Workbench tokens. `shell.module.css` owns shared presentation. Mockup shells only supply their themes.
 - `app/site/motion.tsx` owns motion preference, Pause, Replay, pointer depth, and scroll reveals. One observer and bounded animation frames handle shared behavior. `motion.module.css` owns pause and reduced motion states.
-- `app/projects.ts` owns project facts, `app/socials.ts` owns roles and contact details, and `app/portfolio/status.ts` owns status labels. Three projects are featured; the full archive stays reachable.
+- `app/projects.ts` owns project facts, `app/socials.ts` owns roles and contact details, and `app/portfolio/status.ts` owns status labels. `app/portfolio/ProjectStatusBadge.tsx` presents those labels and dot states through its CSS module. Three projects are featured; the full archive stays reachable.
 
 Project explorations live at `/mockups/projects`. `app/portfolio/studies/data.ts` resolves the project registry and labels real media. Mockup data adds direction URLs only. When a product has no capture, it supplies an unavailable asset with no image source. `StudyMedia` renders that shared state; presenters omit image-only controls. `directions.ts` owns the six project palettes; `registry.ts` connects their index and detail presenters in `project-designs/`. Pages only resolve parameters and compose the presenter with `StudyShell`. Shared media and actions live in `app/portfolio/studies/primitives.tsx`; mockup primitives supply exploration links. `StudyVideo` connects recorded media to Pause; playable demos reuse the existing `LiveEmbed` owner and load after a click. Every direction exposes all 20 projects through static routes.
 

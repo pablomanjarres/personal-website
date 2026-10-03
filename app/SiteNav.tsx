@@ -11,24 +11,11 @@ type NavSection = "home" | "portfolio" | "oss";
 // Renders text as position-indexed inline-block glyphs so CSS calc() can
 // stagger them. The wrapper is aria-hidden; the accessible label is supplied
 // by the parent (aria-label on the nav link, or a visually-hidden sibling).
-// Shared with the atelier hero, which imports SplitChars for its headline.
-function charStyle(i: number, scatter: boolean): CSSProperties {
-  if (!scatter) return { ["--i" as string]: String(i) };
-  // deterministic pseudo-random scatter (same on server + client -> no
-  // hydration mismatch) for the hero "explode" reassembly.
-  return {
-    ["--i" as string]: String(i),
-    ["--tx" as string]: `${(Math.sin(i * 12.9898) * 40).toFixed(1)}px`,
-    ["--ty" as string]: `${(-16 - Math.abs(Math.cos(i * 3.7)) * 34).toFixed(1)}px`,
-    ["--rot" as string]: `${(Math.sin(i * 5.3) * 36).toFixed(1)}deg`,
-  };
-}
-
-export function SplitChars({ text, scatter = false }: { text: string; scatter?: boolean }) {
+function SplitChars({ text }: { text: string }) {
   return (
     <span className="at-split" aria-hidden>
       {[...text].map((ch, i) => (
-        <span key={i} className="at-char" style={charStyle(i, scatter)}>
+        <span key={i} className="at-char" style={{ ["--i" as string]: String(i) } as CSSProperties}>
           {ch}
         </span>
       ))}
@@ -37,9 +24,8 @@ export function SplitChars({ text, scatter = false }: { text: string; scatter?: 
 }
 
 /**
- * The single, shared top nav used across the site chrome (home, portfolio,
- * oss index, and the oss detail fallback). Renders the same brand + three links
- * everywhere, reusing the `.topnav` styles so every page keeps the same hover
+ * Shared navigation for the OSS index and detail fallback. Renders the
+ * same brand and three links, reusing `.topnav` styles for the same hover
  * signatures. `tone="dark"` remaps the palette for the cinematic /oss pages;
  * `bleed` adds horizontal padding for full-bleed layouts with no padded
  * container of their own; `active` marks the current section.

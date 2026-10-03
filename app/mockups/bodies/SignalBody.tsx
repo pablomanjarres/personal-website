@@ -1,4 +1,4 @@
-import { Status } from "../../portfolio/components";
+import { ProjectStatusBadge } from "@/app/portfolio/ProjectStatusBadge";
 import { profile } from "../../socials";
 import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
 import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
@@ -16,7 +16,7 @@ function FieldStudy({ item }: { item: FeaturedProject }) {
         <h3><ProjectLink item={item}>{item.project.title}</ProjectLink></h3>
         <p className={styles.product}>{item.product}</p>
         <p className={styles.credit}>{item.project.role}</p>
-        <div className={styles.status}><Status status={item.project.status} /></div>
+        <div className={styles.status}><ProjectStatusBadge status={item.project.status} /></div>
         <ProjectLink item={item} className={styles.read}>Read the project</ProjectLink>
       </div>
       <figure className={styles.studyImage}>

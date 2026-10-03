@@ -257,7 +257,7 @@ const cormorantGaramond = Cormorant_Garamond({
 
 // ---- exact per-slug contract vars (aliased to the canonical family vars) ----
 // Consumed by app/oss/[slug]/designs/<slug>.tsx. Documented in
-// app/oss/[slug]/designs/CONTRACT.md. Computed-key form (matches app/theme.ts)
+// app/oss/[slug]/designs/CONTRACT.md. Computed-key form keeps CSS custom properties typed
 // so custom-property keys type-check as CSSProperties.
 const ossFontVars: CSSProperties = {
   // cortex — Martian Mono / Hanken Grotesk / JetBrains Mono
