@@ -4,7 +4,7 @@ Six portfolio directions for hiring Pablo as a Software Engineer, Product Design
 
 ## Ownership
 
-- `app/mockups/concepts.ts` owns gallery descriptions and approved hero palettes. The six components in `designs/` compose their approved hero and matching body.
+- `app/mockups/concepts.ts` owns gallery descriptions and approved hero palettes. The six mockup components compose their approved hero and matching body. `app/home/OpenStudio.tsx` and `StudioBody.tsx` own the selected production layout; its mockup supplies exploration links to those same components.
 - `app/mockups/review.tsx` owns the comparison gallery shell, cards, and preview frames for both gallery routes. `review.module.css` owns layout and image fit; `interaction.module.css` owns action size and focus states. Pages supply route data and content.
 - `app/mockups/bodies/*Body.tsx` owns each concept’s work, about, and contact presentation. Matching CSS modules own local body palettes, typography, and geometry. Keep presentation choices within that concept.
 - `app/portfolio/featured/content.ts` owns featured briefs and capability copy. It resolves project facts from `app/projects.ts` and accepts a project-link callback. `app/mockups/bodies/content.ts` supplies exploration routes only.
