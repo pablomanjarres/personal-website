@@ -18,7 +18,7 @@ export default async function OpenGraphImage() {
         <div style={{ display: "flex", fontSize: 22, marginTop: 40, color: openStudioTheme.accent }}>Pablo Manjarres · pablomanjarres.com</div>
       </div>
       {/* ImageResponse renders an embedded bitmap, rather than a browser image. */}
-      <img src={`data:image/jpeg;base64,${portrait.toString("base64")}`} alt="" width="310" height="430" style={{ objectFit: "cover", borderRadius: "48%" }} />
+      <img src={`data:image/jpeg;base64,${portrait.toString("base64")}`} alt="" width={310} height={430} style={{ objectFit: "cover", borderRadius: "48%" }} />
     </div>, size,
   );
 }

@@ -60,7 +60,7 @@ export function SiteNav({
       data-bleed={bleed ? "true" : undefined}
       aria-label="Primary"
     >
-      <SiteMark href="/" className="brand" />
+      <SiteMark href="/" className="topnav-brand" />
       <div className="topnav-links">
         <Link
           href="/portfolio"
