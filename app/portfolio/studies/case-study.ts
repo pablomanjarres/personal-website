@@ -95,7 +95,10 @@ const selectedStories: Record<string, CaseStudy> = {
 };
 
 export function studyText(text: string) {
-  return text.replace(/[*`]/g, "").replace(/[—–]/g, ", ").replace(/\bserves as\b/g, "is").replace(/\s+/g, " ").trim();
+  return text
+    .replace(/(^|[\s([{])(\*{1,3})(\S(?:[^\n]*?\S)?)\2(?=$|[\s.,!?;:)\]}])/g, "$1$3")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/[—–]/g, ", ").replace(/\bserves as\b/g, "is").replace(/\s+/g, " ").trim();
 }
 
 export function getReleaseHeading(study: ProjectStudy) {
