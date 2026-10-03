@@ -1,0 +1,19 @@
+.notes { margin: 28px 0 44px; padding: 24px 0; border-block: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
+.notes > summary { cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 22px; font-weight: 500; list-style: none; }
+.notes > summary::-webkit-details-marker { display: none; }
+.notes > summary::after { content: "+"; margin-left: auto; }
+.notes[open] > summary::after { content: "−"; }
+.notes > summary > span { font-size: 13px; font-weight: 400; }
+.content { padding-top: 34px; display: grid; gap: 36px; }
+.content h3 { margin: 0 0 16px; font-size: 18px; font-weight: 500; }
+.specifications { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+.labels { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; }
+.labels li { font-size: 13px; padding: 7px 11px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: 7px; overflow-wrap: anywhere; }
+.prose p, .list li, .parts dd { font-size: 16px; line-height: 1.7; max-width: 85ch; overflow-wrap: anywhere; }
+.prose p + p { margin-top: 18px; }
+.list { display: grid; gap: 16px; padding-left: 22px; margin: 0; }
+.parts { display: grid; gap: 24px; margin: 0; }
+.parts dt { font-size: 17px; font-weight: 500; overflow-wrap: anywhere; }
+.parts dt small { display: inline-block; font-size: 12px; font-weight: 400; margin-left: 10px; }
+.parts dd { margin: 8px 0 0; }
+@media (max-width: 700px) { .notes > summary { font-size: 20px; } .notes > summary > span { display: none; } .specifications { grid-template-columns: 1fr; gap: 26px; } }
