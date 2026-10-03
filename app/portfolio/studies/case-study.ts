@@ -14,8 +14,8 @@ export type CaseStudy = {
   components: readonly { name: string; body: string }[];
 };
 
-// Editorial context for mockup case studies. Status, dates, stack and links
-// remain owned by the project registry; media stays in anki-media and data.
+// Case-study narrative. Status, dates, stack and links stay in the project
+// registry; this feature owns the presentation and supporting media.
 const selectedStories: Record<string, CaseStudy> = {
   anki: {
     headline: "A study habit that fits in your pocket.",

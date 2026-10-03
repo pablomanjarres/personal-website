@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ankiAppMockup } from "../anki-media";
 import type { FeaturedProject } from "./content";
-import { ProjectLink } from "./primitives";
+import { ProjectLink } from "./components";
 import styles from "./anki-app-mockup.module.css";
 
 export function AnkiAppMockup({ item, className = "" }: { item: FeaturedProject; className?: string }) {

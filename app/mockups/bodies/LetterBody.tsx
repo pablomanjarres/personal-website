@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { profile } from "../../socials";
 import { getFeaturedProjects, type FeaturedProject } from "./content";
-import { BuildingLink, BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
+import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
+import { BuildingLink, FooterLinks, ProjectArchive } from "./primitives";
 import styles from "./letter-body.module.css";
 
 const concept = "soft-focus";
@@ -30,7 +31,7 @@ function PersonalLetter() {
   return (
     <section id="about" className={styles.letter} aria-labelledby="letter-about">
       <div className={styles.letterPortrait}>
-        <Image src="/mockups/portraits/hoodie.webp" alt={profile.name} width={1122} height={1402} sizes="(max-width: 700px) 34vw, 220px" />
+        <Image src="/images/portraits/hoodie.webp" alt={profile.name} width={1122} height={1402} sizes="(max-width: 700px) 34vw, 220px" />
         <span>{profile.name}</span>
       </div>
       <div className={styles.letterCopy}>

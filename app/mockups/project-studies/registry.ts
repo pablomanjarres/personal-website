@@ -5,7 +5,8 @@ import { ProductWorkbenchIndex, ProductWorkbenchDetail } from "../project-design
 import { ProductAtlasIndex, ProductAtlasDetail } from "../project-designs/ProductAtlas";
 import { ProductStackIndex, ProductStackDetail } from "../project-designs/ProductStack";
 import { ProductPlaygroundIndex, ProductPlaygroundDetail } from "../project-designs/ProductPlayground";
-import type { ProjectStudy, StudyDirectionId } from "./data";
+import type { ProjectStudy } from "@/app/portfolio/studies/data";
+import type { StudyDirectionId } from "./data";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };

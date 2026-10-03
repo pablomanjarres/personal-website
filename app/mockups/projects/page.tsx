@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { studyDirections } from "../project-studies/directions";
-import { studyHref, studies } from "../project-studies/data";
+import { studies } from "@/app/portfolio/studies/data";
+import { studyHref } from "../project-studies/data";
 import { ReviewCard, ReviewGallery, ReviewPreview } from "../review";
 
 export default function ProjectMockupGallery() {

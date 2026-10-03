@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
-import type { ConceptId } from "./concepts";
 import styles from "./motion.module.css";
 
 function subscribeReduced(listener: () => void) {
@@ -13,7 +12,7 @@ const getReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").m
 const serverReduced = () => false;
 
 export function MotionRoot({ children, className, style, concept }: {
-  children: ReactNode; className: string; style: CSSProperties; concept: ConceptId;
+  children: ReactNode; className: string; style: CSSProperties; concept: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);

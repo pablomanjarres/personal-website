@@ -1,9 +1,12 @@
-import type { ProjectStudy, StudyDirectionId } from "../project-studies/data";
-import { selectedWorkSlugs } from "../selected-work";
-import { StudyMedia, StudyLink, StudyActions } from "../project-studies/primitives";
-import interaction from "../interaction.module.css";
-import { getCaseStudy, getReleaseHeading } from "../project-studies/case-study";
-import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "../project-studies/case-study-primitives";
+import type { ProjectStudy } from "@/app/portfolio/studies/data";
+import type { StudyDirectionId } from "../project-studies/data";
+import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
+import { StudyMedia, StudyActions } from "@/app/portfolio/studies/primitives";
+import { StudyLink } from "../project-studies/primitives";
+import interaction from "@/app/site/interaction.module.css";
+import { getCaseStudy, getReleaseHeading } from "@/app/portfolio/studies/case-study";
+import { StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "@/app/portfolio/studies/case-study-primitives";
+import { StudyBack } from "../project-studies/case-study-primitives";
 import styles from "./interface-gallery.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };

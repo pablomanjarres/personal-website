@@ -1,7 +1,8 @@
 import { profile } from "../../socials";
 import { capabilities, getFeaturedProjects, type FeaturedProject } from "./content";
-import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "./primitives";
-import { AnkiAppMockup } from "./AnkiAppMockup";
+import { BookingLink, EmailLink, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
+import { FooterLinks, ProjectArchive } from "./primitives";
+import { AnkiAppMockup } from "@/app/portfolio/featured/AnkiAppMockup";
 import styles from "./studio-body.module.css";
 
 const concept = "open-studio";

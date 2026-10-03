@@ -1,6 +1,7 @@
 import { profile } from "../../socials";
 import { getFeaturedProjects, type FeaturedProject } from "./content";
-import { ProjectVisual, ProjectLink, ProjectArchive, EmailLink, BookingLink, FooterLinks } from "./primitives";
+import { ProjectVisual, ProjectLink, EmailLink, BookingLink } from "@/app/portfolio/featured/components";
+import { ProjectArchive, FooterLinks } from "./primitives";
 import styles from "./night-body.module.css";
 
 const concept = "after-hours";

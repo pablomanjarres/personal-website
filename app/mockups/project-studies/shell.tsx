@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { profile } from "../../socials";
-import { MotionRoot } from "../motion";
+import { MotionRoot } from "@/app/site/motion";
 import { SiteMark } from "../shared";
 import { studyHref } from "./data";
 import type { StudyDirection } from "./directions";
-import interaction from "../interaction.module.css";
+import interaction from "@/app/site/interaction.module.css";
 import styles from "./shell.module.css";
 
 export function StudyShell({ direction, children }: { direction: StudyDirection; children: ReactNode }) {
