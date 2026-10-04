@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { Hero } from "../../heroes";
 import styles from "./lumen-frontier.module.css";
 import GalaxyCanvas from "./lumen-frontier/GalaxyCanvas";
@@ -34,9 +35,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       </div>
 
       <nav className={styles.nav}>
-        <Link className={`${styles.brand} ${styles.rise}`} href="/" style={d("0.15s")}>
-          <b className={styles.brandMark}>✦</b> Pablo
-        </Link>
+        <SiteMark className={`${styles.brand} ${styles.rise}`} href="/" style={d("0.15s")} />
         <div className={`${styles.navLinks} ${styles.rise}`} style={d("0.28s")}>
           <Link href="/oss">Open source</Link>
           <Link href="/portfolio">Portfolio</Link>
