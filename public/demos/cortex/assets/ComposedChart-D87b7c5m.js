@@ -1,0 +1,1 @@
+import{a as e,u as t}from"./createLucideIcon-Cpol8tub.js";import{c as n,it as r}from"./chart-theme-BWVNg7j9.js";var i=t(e()),a=[`axis`],o=(0,i.forwardRef)((e,t)=>i.createElement(n,{chartName:`ComposedChart`,defaultTooltipEventType:`axis`,validateTooltipEventTypes:a,tooltipPayloadSearcher:r,categoricalChartProps:e,ref:t}));export{o as t};
