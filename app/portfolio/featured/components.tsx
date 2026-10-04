@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { projects } from "@/app/projects";
 import { profile } from "@/app/socials";
 import type { FeaturedProject } from "./content";
+import { StudyMedia } from "../studies/primitives";
 import localStyles from "./components.module.css";
 import interaction from "@/app/site/interaction.module.css";
 
@@ -16,8 +16,8 @@ export function ProjectLink({ item, className = "", children }: { item: Featured
 export function ProjectVisual({ item, className = "", sizes = "(max-width: 700px) 90vw, 65vw" }: {
   item: FeaturedProject; className?: string; sizes?: string;
 }) {
-  return <Link href={item.href} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`}>
-    <Image src={item.preview} alt={`${item.project.title} ${item.previewLabel.toLowerCase()}`} fill sizes={sizes} />
+  return <Link href={item.href} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`} data-media-kind={item.preview.kind} style={{ "--media-aspect-ratio": `${item.preview.width} / ${item.preview.height}` } as CSSProperties}>
+    <StudyMedia asset={item.preview} caption={false} sizes={sizes} />
   </Link>;
 }
 

@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import { STATUS_LABEL } from "@/app/portfolio/status";
-import { ankiAppMockup } from "@/app/portfolio/anki-media";
 import interaction from "@/app/site/interaction.module.css";
 import { getCaseStudy } from "./case-study";
 import { getStudyPreview, type ProjectStudy } from "./data";
@@ -40,11 +38,7 @@ export function StudyComponents({ study, className = "" }: StudyProps) {
 }
 
 export function StudyProductVisual({ study, className = "", priority = false, caption = true, sizes = "(max-width: 700px) 90vw, 46vw" }: StudyProps & { priority?: boolean; caption?: boolean; sizes?: string }) {
-  if (study.project.slug !== "anki") {
-    const asset = getStudyPreview(study);
-    return <StudyMedia asset={asset} className={className} priority={priority} caption={caption} sizes={sizes} />;
-  }
-  return <figure className={`${styles.productVisual} ${className}`}><Image {...ankiAppMockup} alt={ankiAppMockup.alt} sizes={sizes} preload={priority} />{caption && <figcaption>Home and review screens from the mobile app</figcaption>}</figure>;
+  return <StudyMedia asset={getStudyPreview(study)} className={className} priority={priority} caption={caption} sizes={sizes} />;
 }
 
 export function StudyBack({ indexHref = "/portfolio", className = "" }: { indexHref?: string; className?: string }) {

@@ -11,7 +11,7 @@ const styles = { ...localStyles, ...interaction };
 
 export function StudyMedia({ asset, className = "", priority = false, detail = false, caption = true, boundPortrait = true, sizes = "(max-width: 700px) 94vw, 90vw" }: { asset: StudyAsset; className?: string; priority?: boolean; detail?: boolean; caption?: boolean; boundPortrait?: boolean; sizes?: string }) {
   const portraitStyle: CSSProperties | undefined = asset.width < asset.height && !detail && boundPortrait ? { width: "auto", maxWidth: "100%", height: "auto", maxHeight: "min(80vh, 800px)", marginInline: "auto", objectFit: "contain" } : undefined;
-  return <figure className={`${styles.media} ${className}`} data-media-kind={asset.kind}>
+  return <figure className={`${styles.media} ${className}`} data-media-kind={asset.kind} style={asset.kind === "presentation" && !detail ? { aspectRatio: `${asset.width} / ${asset.height}` } : undefined}>
     {asset.kind === "unavailable" ? <div className={styles.unavailable} style={{ aspectRatio: `${asset.width} / ${asset.height}` }}><strong>{asset.label}</strong><span>No screen capture yet</span></div> : asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes={sizes} preload={priority} style={portraitStyle} />}
     {caption && asset.kind !== "unavailable" && <figcaption>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>}
   </figure>;
