@@ -128,8 +128,8 @@ export function MotionRoot({ children, className, style, concept }: {
     <div ref={ref} className={`${className} ${styles.root}`} style={style} data-concept={concept} data-motion={reduced ? "reduced" : paused ? "paused" : "active"}>
       {children}
       <div className={styles.controls} role="group" aria-label="Motion controls">
-        <button type="button" onClick={() => setPaused(value => !value)} aria-pressed={paused} disabled={reduced}>{reduced ? "Motion off" : paused ? "Resume motion" : "Pause motion"}</button>
-        <button type="button" onClick={replay} disabled={reduced} aria-label="Replay entrance animation">Replay <span aria-hidden>↻</span></button>
+        <button className={styles.control} type="button" onClick={() => setPaused(value => !value)} aria-pressed={paused} disabled={reduced}>{reduced ? "Motion off" : paused ? "Resume motion" : "Pause motion"}</button>
+        <button className={styles.control} type="button" onClick={replay} disabled={reduced} aria-label="Replay entrance animation">Replay <span aria-hidden>↻</span></button>
       </div>
     </div>
   );
