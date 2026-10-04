@@ -16,7 +16,11 @@ export function ProjectLink({ item, className = "", children }: { item: Featured
 export function ProjectVisual({ item, className = "", sizes = "(max-width: 700px) 90vw, 65vw" }: {
   item: FeaturedProject; className?: string; sizes?: string;
 }) {
-  return <Link href={item.href} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`} data-media-kind={item.preview.kind} style={{ "--media-aspect-ratio": `${item.preview.width} / ${item.preview.height}` } as CSSProperties}>
+  const aspectRatio = `${item.preview.width} / ${item.preview.height}`;
+  const visualStyle: CSSProperties | undefined = item.preview.kind === "presentation"
+    ? { aspectRatio, padding: 0, height: "auto", maxHeight: "none" }
+    : undefined;
+  return <Link href={item.href} className={`${styles.action} ${styles.visual} ${className}`} aria-label={`View ${item.project.title} project`} data-media-kind={item.preview.kind} style={visualStyle}>
     <StudyMedia asset={item.preview} caption={false} sizes={sizes} />
   </Link>;
 }
