@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { ReactNode, CSSProperties } from "react";
 import type { Hero } from "../../heroes";
 import styles from "./omegahack.module.css";
@@ -86,9 +87,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
       {/* nav — same three parts, restyled as a filing header */}
       <nav className={styles.nav}>
-        <Link className={styles.brand} href="/">
-          <span className={styles.brandMark}>✦</span> Pablo
-        </Link>
+        <SiteMark className={styles.brand} href="/" />
         <div className={styles.navLinks}>
           <Link className={styles.navLink} href="/oss">
             Open source
