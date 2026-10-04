@@ -1,6 +1,8 @@
-.preview { position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%); z-index: 80; width: var(--preview-width); margin: 0; padding: 8px; box-sizing: border-box; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: 10px; background: var(--paper); box-shadow: 0 14px 60px color-mix(in srgb, var(--ink) 26%, transparent); pointer-events: none; }
-.preview img { display: block; width: 100%; height: auto; border-radius: 4px; object-fit: contain; }
+.frame { width: fit-content; max-width: 100%; margin-inline: auto; overflow: hidden; border-radius: inherit; }
+.frame img { transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%); }
+.frame[data-zoomed="true"] img { transform: scale(var(--zoom-scale)); }
 @media (prefers-reduced-motion: no-preference) {
-  .preview[data-motion="active"] { animation: previewAppear 160ms var(--motion-ease, ease) both; }
+  :global([data-motion="active"]) .frame img { transition: transform 180ms var(--motion-ease, ease); }
 }
-@keyframes previewAppear { from { opacity: 0; } to { opacity: 1; } }
+:global([data-motion="paused"]) .frame img,
+:global([data-motion="reduced"]) .frame img { transition: none; }

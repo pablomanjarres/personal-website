@@ -14,13 +14,11 @@ export function StudyMedia({ asset, className = "", priority = false, detail = f
   const portraitStyle: CSSProperties | undefined = asset.width < asset.height && !detail && boundPortrait ? { width: "auto", maxWidth: "100%", height: "auto", maxHeight: "min(80vh, 800px)", marginInline: "auto", objectFit: "contain" } : undefined;
   const imageStyle: CSSProperties | undefined = asset.kind === "presentation" && !detail ? { width: "100%", height: "auto", maxHeight: "none", padding: 0, objectFit: "contain" } : portraitStyle;
   const mediaProps = { className: `${styles.media} ${className}`, style: asset.kind === "presentation" && !detail ? { aspectRatio: `${asset.width} / ${asset.height}` } : undefined };
-  const content = <>
-    {asset.kind === "unavailable" ? <div className={styles.unavailable} style={{ aspectRatio: `${asset.width} / ${asset.height}` }}><strong>{asset.label}</strong><span>No screen capture yet</span></div> : asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes={sizes} preload={priority} style={imageStyle} />}
-    {caption && asset.kind !== "unavailable" && <figcaption>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>}
-  </>;
+  const media = asset.kind === "unavailable" ? <div className={styles.unavailable} style={{ aspectRatio: `${asset.width} / ${asset.height}` }}><strong>{asset.label}</strong><span>No screen capture yet</span></div> : asset.kind === "video" ? <StudyVideo asset={asset} /> : <Image src={asset.src} alt={detail ? `Detail of ${asset.alt}` : asset.alt} width={asset.width} height={asset.height} sizes={sizes} preload={priority} style={imageStyle} />;
+  const captionNode = caption && asset.kind !== "unavailable" && <figcaption>{detail ? `Detail of ${asset.label.toLowerCase()}` : asset.label}</figcaption>;
   return !detail && (asset.kind === "presentation" || asset.kind === "screen")
-    ? <StudyImagePreview asset={asset} {...mediaProps}>{content}</StudyImagePreview>
-    : <figure {...mediaProps} data-media-kind={asset.kind}>{content}</figure>;
+    ? <StudyImagePreview asset={asset} caption={captionNode} {...mediaProps}>{media}</StudyImagePreview>
+    : <figure {...mediaProps} data-media-kind={asset.kind}>{media}{captionNode}</figure>;
 }
 
 export function StudyDemo({ study, className = "", fullScreenHref }: { study: ProjectStudy; className?: string; fullScreenHref?: string }) {
