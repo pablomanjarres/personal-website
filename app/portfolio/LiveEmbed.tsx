@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
-// Shows the screenshot by default (always renders, never a blank flash), then
+// Shows a product preview by default, then
 // swaps in the real interactive site on click. Only used for projects whose
 // live site allows framing.
 export function LiveEmbed({
@@ -12,7 +13,7 @@ export function LiveEmbed({
   className = "",
 }: {
   embedUrl: string;
-  cover?: string;
+  cover?: { src: string; width: number; height: number };
   title: string;
   className?: string;
 }) {
@@ -38,8 +39,7 @@ export function LiveEmbed({
       aria-label={`Run the live ${title} demo`}
     >
       {cover && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={cover} alt="" />
+        <Image src={cover.src} width={cover.width} height={cover.height} sizes="(max-width: 700px) 94vw, 90vw" alt="" />
       )}
       <span className="live-scan" aria-hidden />
       <span className="live-launch-overlay">

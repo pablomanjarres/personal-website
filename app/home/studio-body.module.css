@@ -107,9 +107,7 @@
   .study:nth-child(3) { width: 89%; }
   .mainVisual { border-radius: 36px 66px 30px 66px; }
   .study[data-product="anki"] .mainVisual { border-radius: 70px 35px 70px 26px; }
-  .study[data-product="construcredit"] .mainVisual { aspect-ratio: 1.1; }
   .study[data-product="cortex"] .mainVisual { border-radius: 60px 20px 60px 20px; }
-  .mainVisual img, .study[data-product="cortex"] .mainVisual img { padding: 14px; }
   .projectCopy h3 { font-size: 30px; }
   .projectCopy p { font-size: 16px; }
   .archive { margin-top: 54px; padding-inline: 20px; }

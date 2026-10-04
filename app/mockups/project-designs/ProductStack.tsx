@@ -1,4 +1,4 @@
-import { getStudyPreview, type ProjectStudy } from "@/app/portfolio/studies/data";
+import { getStudyPreview, getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
 import type { StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 import { StudyActions, StudyMedia } from "@/app/portfolio/studies/primitives";
@@ -55,7 +55,7 @@ export function ProductStackIndex({ studies, direction }: IndexProps) {
 
 export function ProductStackDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
-  const supportingScreen = study.project.slug === "anki" ? study.media.find(asset => asset.id === "anki-home") : study.media.find(asset => asset.kind === "video");
+  const supportingScreen = getStudySupportingMedia(study) ?? study.media.find(asset => asset.kind === "video");
   return (
     <article className={`${styles.stack} ${styles.caseFolio}`}>
       <StudyBack direction={direction} className={styles.folioBack} />

@@ -47,6 +47,10 @@ function realNavigation(html) {
   assert.ok(!links(html).some(href => href.startsWith("/mockups")), "Production navigation points into mockups");
   assert.ok(!/next project/i.test(normalize(html)), "Removed Next project section returned");
 }
+function imagePath(src) {
+  const url = new URL(src, origin);
+  return decodeURIComponent(url.pathname === "/_next/image" ? new URL(url.searchParams.get("url"), origin).pathname : url.pathname);
+}
 function localImages(html, path) {
   const images = tags(html, "img");
   for (const image of images) {
@@ -94,8 +98,68 @@ test("Open Studio is the real homepage with the approved selected work", () => {
   for (const href of ["#work", "#about", "#contact", "/portfolio"]) assert.ok(links(html).includes(href));
   contains(html, "Software Engineer"); contains(html, "Product Designer"); contains(html, "Founder");
   assert.ok(tags(html, "img").some(image => image.src.includes("forest.webp")), "Approved jacket portrait is missing");
-  assert.ok(tags(html, "img").some(image => image.src.includes("paired-phones.webp")), "Real paired Anki export is missing");
   canonical(html, "/"); realNavigation(html); localImages(html, "/");
+});
+
+test("Selected product presentations reach public and saved routes while live demos remain available", () => {
+  const presentations = [
+    { slug: "anki", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone" },
+    { slug: "cortex", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair" },
+    { slug: "construcredit", src: "/portfolio/presentations/construcredit-workspace.webp", width: 4000, height: 3000, alt: "ConstruCredit client portfolio on a laptop beside its mobile administration view" },
+  ];
+  const concepts = ["signal", "open-studio", "blueprint", "after-hours", "green-room", "soft-focus"];
+  const directions = ["playground", "workbench", "atlas", "cinema", "gallery", "stack"];
+  for (const presentation of presentations) {
+    const paths = ["/", "/portfolio", projectPath(presentation.slug), ...concepts.map(concept => `/mockups/${concept}`), ...directions.flatMap(direction => [`/mockups/projects/${direction}`, `/mockups/projects/${direction}/${presentation.slug}`])];
+    for (const path of paths) {
+      const image = tags(htmlFor(path), "img").find(image => imagePath(image.src) === presentation.src && image.alt === presentation.alt);
+      assert.ok(image, `${path}: missing accessible presentation for ${presentation.slug}`);
+      assert.equal(Number(image.width), presentation.width, `${path}: incorrect intrinsic width`);
+      assert.equal(Number(image.height), presentation.height, `${path}: incorrect intrinsic height`);
+    }
+    const archiveArticle = [...htmlFor("/portfolio").matchAll(/<article\b[^>]*>([^]*?)<\/article>/g)].map(match => match[1]).find(article => links(article).includes(projectPath(presentation.slug)));
+    assert.ok(archiveArticle, `${presentation.slug}: missing archive presentation card`);
+    assert.equal(imagePath(tags(archiveArticle, "img")[0].src), presentation.src, `${presentation.slug}: archive leads with the wrong visual`);
+    const detail = htmlFor(projectPath(presentation.slug));
+    assert.equal(imagePath(tags(detail, "img")[0].src), presentation.src, `${presentation.slug}: presentation is not the lead visual`);
+    for (const [attribute, value] of [["property", "og:image"], ["name", "twitter:image"]]) {
+      const image = tags(detail, "meta").find(tag => tag[attribute] === value)?.content;
+      assert.ok(image, `${presentation.slug}: missing ${value}`);
+      assert.equal(imagePath(image), presentation.src);
+      const optimized = new URL(image, origin);
+      assert.equal(optimized.pathname, "/_next/image");
+      assert.equal(optimized.searchParams.get("url"), presentation.src);
+      assert.equal(optimized.searchParams.get("w"), "1200");
+      assert.equal(optimized.searchParams.get("q"), "75");
+      assert.ok(existsSync(resolve(publicRoot, `.${imagePath(image)}`)), `${presentation.slug}: missing social image file`);
+    }
+    assert.equal(tags(detail, "meta").find(tag => tag.property === "og:image:alt")?.content, presentation.alt);
+    assert.equal(Number(tags(detail, "meta").find(tag => tag.property === "og:image:width")?.content), 1200);
+    assert.equal(Number(tags(detail, "meta").find(tag => tag.property === "og:image:height")?.content), Math.round(1200 * presentation.height / presentation.width));
+  }
+  const review = tags(htmlFor(projectPath("anki")), "img").find(image => imagePath(image.src) === "/portfolio/presentations/anki-review.webp");
+  assert.ok(review, "Anki detail lost its supporting review presentation");
+  assert.equal(review.alt, "Anki calculus review with a tangent graph on an angled iPhone");
+  assert.equal(Number(review.width), 4000); assert.equal(Number(review.height), 3000);
+  for (const supporting of [
+    { slug: "cortex", src: "/portfolio/presentations/cortex-study.webp", width: 4000, height: 3000, alt: "Cortex student workspace on a laptop beside its mobile finance view" },
+    { slug: "construcredit", src: "/portfolio/presentations/construcredit-dashboard.webp", width: 4500, height: 3000, alt: "ConstruCredit loan dashboard on a laptop resting on a green chair" },
+  ]) {
+    for (const path of [projectPath(supporting.slug), ...["gallery", "cinema", "stack", "workbench"].map(direction => `/mockups/projects/${direction}/${supporting.slug}`)]) {
+      const images = tags(htmlFor(path), "img");
+      const image = images.find(image => imagePath(image.src) === supporting.src);
+      assert.ok(image, `${path}: missing supporting presentation`);
+      assert.equal(image.alt, supporting.alt);
+      assert.equal(Number(image.width), supporting.width); assert.equal(Number(image.height), supporting.height);
+      assert.ok(!images.some(image => imagePath(image.src) === projects.find(project => project.slug === supporting.slug).cover), `${path}: obsolete screenshot is displayed`);
+    }
+  }
+  const cortex = htmlFor(projectPath("cortex"));
+  const launcher = cortex.match(/<button\b[^>]*aria-label="Run the live Cortex demo"[^>]*>([^]*?)<\/button>/)?.[1];
+  assert.ok(launcher, "Cortex lost its real demo launcher");
+  assert.equal(imagePath(tags(launcher, "img")[0].src), "/portfolio/presentations/cortex-dashboard.webp");
+  assert.ok(links(cortex).includes("/portfolio/cortex/demo"), "Cortex lost its full-screen demo link");
+  assert.equal(tags(htmlFor("/portfolio/cortex/demo"), "iframe")[0]?.src, projects.find(project => project.slug === "cortex").embedUrl);
 });
 
 test("The production archive reaches every registered project", () => {

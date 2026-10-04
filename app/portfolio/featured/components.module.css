@@ -1,5 +1,7 @@
 .visual { display: block; position: relative; aspect-ratio: 1.6; overflow: hidden; }
-.visual img { object-fit: contain; }
+.visual > figure { width: 100%; height: 100%; }
+.visual[data-media-kind="presentation"] > figure { height: auto; }
+.visual img { width: 100%; height: 100%; object-fit: contain; }
 .archive { margin-top: 60px; color: inherit; }
 .archive summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 56px; cursor: pointer; padding: 10px 0; list-style: none; }
 .archive summary::-webkit-details-marker { display: none; }

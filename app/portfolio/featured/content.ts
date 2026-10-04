@@ -1,6 +1,6 @@
-import { getProject, type Project } from "@/app/projects";
+import type { Project } from "@/app/projects";
 import { selectedWorkSlugs } from "../selected-work";
-import { ankiMobileScreens } from "../anki-media";
+import { getStudy, getStudyPreview, type StudyAsset } from "../studies/data";
 
 export type FeaturedProject = {
   project: Project;
@@ -8,33 +8,30 @@ export type FeaturedProject = {
   problem: string;
   product: string;
   note: string;
-  preview: string;
-  previewLabel: string;
+  preview: StudyAsset;
 };
 
 const notes = {
   anki: {
     problem: "Review cards need to match what you’ve actually reached.",
     note: "Cards stay tied to their sources.",
-    previewLabel: ankiMobileScreens[0].label,
   },
   construcredit: {
     problem: "A lender needs dependable balances and a clear approval trail.",
     note: "Business rules belong in the software.",
-    previewLabel: "Public website",
   },
   cortex: {
     problem: "Daily work lives across too many tools.",
     note: "Private records, kept together.",
-    previewLabel: "Desktop dashboard",
   },
-} satisfies Record<(typeof selectedWorkSlugs)[number], Pick<FeaturedProject, "problem" | "note" | "previewLabel">>;
+} satisfies Record<(typeof selectedWorkSlugs)[number], Pick<FeaturedProject, "problem" | "note">>;
 
 export function getFeaturedProjects(projectHref: (slug: string) => string): readonly FeaturedProject[] {
   return selectedWorkSlugs.map(slug => {
-    const project = getProject(slug);
-    if (!project?.cover) throw new Error(`Missing featured project preview: ${slug}`);
-    return { ...notes[slug], project, href: projectHref(slug), product: project.oneLiner, preview: slug === "anki" ? ankiMobileScreens[0].src : project.cover };
+    const study = getStudy(slug);
+    if (!study) throw new Error(`Missing featured project: ${slug}`);
+    const project = study.project;
+    return { ...notes[slug], project, href: projectHref(slug), product: project.oneLiner, preview: getStudyPreview(study) };
   });
 }
 

@@ -17,7 +17,7 @@ function FolioEntry({ item }: { item: FeaturedProject }) {
       </header>
       <figure className={styles.placement}>
         <ProjectVisual item={item} className={styles.visual} sizes="(max-width: 700px) 88vw, 76vw" />
-        <figcaption>{item.previewLabel}</figcaption>
+        <figcaption>{item.preview.label}</figcaption>
       </figure>
       <aside className={styles.marginNote}>
         <p>{item.product}</p>
