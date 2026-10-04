@@ -129,13 +129,8 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
   color: var(--ink);
   text-decoration: none;
-  font-family: var(--font-anki-display), Georgia, serif;
-  font-size: clamp(21px, 2vw, 25px);
-  font-weight: 600;
-  letter-spacing: -0.025em;
   transition: color 180ms ease;
 }
 .brand:hover,
@@ -146,15 +141,6 @@
   outline-offset: 5px;
   border-radius: 2px;
 }
-.brandStar {
-  color: var(--ink);
-  font-family: var(--font-anki-body), sans-serif;
-  font-size: 17px;
-  line-height: 1;
-  transform: rotate(-18deg);
-  transition: transform 260ms ease;
-}
-.brand:hover .brandStar { transform: rotate(28deg); }
 .navLinks {
   display: flex;
   align-items: center;
@@ -691,7 +677,6 @@
   .hero { padding-left: 16px; padding-right: 16px; }
   .navLinks a { font-size: 9px; }
   .navLinks { gap: 9px; }
-  .brand { font-size: 20px; }
   .headline { font-size: 3.4rem; }
   .principles strong { font-size: 29px; }
   .principles span { font-size: 8px; }
