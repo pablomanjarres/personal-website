@@ -71,6 +71,8 @@ export function StudyImagePreview({ asset, imageProps, caption, className = "", 
       close();
     };
     updatePointer();
+    const frameObserver = new ResizeObserver(updatePointer);
+    frameObserver.observe(frame);
     frame.addEventListener("pointerenter", pointerEnter);
     frame.addEventListener("pointermove", pointerMove);
     frame.addEventListener("pointerleave", pointerLeave);
@@ -79,6 +81,7 @@ export function StudyImagePreview({ asset, imageProps, caption, className = "", 
     hoverMedia.addEventListener("change", updatePointer);
     window.addEventListener("resize", updatePointer);
     return () => {
+      frameObserver.disconnect();
       frame.removeEventListener("pointerenter", pointerEnter);
       frame.removeEventListener("pointermove", pointerMove);
       frame.removeEventListener("pointerleave", pointerLeave);
