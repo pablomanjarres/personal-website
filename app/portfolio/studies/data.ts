@@ -11,8 +11,14 @@ const presentations: Readonly<Record<string, readonly StudyAsset[]>> = {
     { id: "anki-presentation", kind: "presentation", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone", label: "Home and review on mobile" },
     { id: "anki-review-presentation", kind: "presentation", src: "/portfolio/presentations/anki-review.webp", width: 4000, height: 3000, alt: "Anki calculus review with a tangent graph on an angled iPhone", label: "A review card tied to its source" },
   ],
-  cortex: [{ id: "cortex-presentation", kind: "presentation", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair", label: "Daily workspace on desktop" }],
-  construcredit: [{ id: "construcredit-presentation", kind: "presentation", src: "/portfolio/presentations/construcredit-dashboard.webp", width: 4500, height: 3000, alt: "ConstruCredit loan dashboard on a laptop resting on a green chair", label: "The lending dashboard" }],
+  cortex: [
+    { id: "cortex-presentation", kind: "presentation", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair", label: "Daily workspace on desktop" },
+    { id: "cortex-study-presentation", kind: "presentation", src: "/portfolio/presentations/cortex-study.webp", width: 4000, height: 3000, alt: "Cortex student workspace on a laptop beside its mobile finance view", label: "Study on desktop, finances on mobile" },
+  ],
+  construcredit: [
+    { id: "construcredit-presentation", kind: "presentation", src: "/portfolio/presentations/construcredit-workspace.webp", width: 4000, height: 3000, alt: "ConstruCredit client portfolio on a laptop beside its mobile administration view", label: "Lending on desktop and mobile" },
+    { id: "construcredit-dashboard-presentation", kind: "presentation", src: "/portfolio/presentations/construcredit-dashboard.webp", width: 4500, height: 3000, alt: "ConstruCredit loan dashboard on a laptop resting on a green chair", label: "The lending dashboard" },
+  ],
 };
 
 const sizes: Record<string, readonly [number, number]> = {
@@ -41,4 +47,10 @@ export function getStudy(slug: string) { return studies.find(study => study.proj
 
 export function getStudyPreview(study: ProjectStudy): StudyAsset {
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
+}
+
+export function getStudySupportingMedia(study: ProjectStudy): StudyAsset | undefined {
+  const preview = getStudyPreview(study);
+  if (preview.kind === "presentation") return study.media.find(asset => asset.kind === "presentation" && asset.id !== preview.id);
+  return study.media.find(asset => asset.kind === "screen" && asset.id !== preview.id);
 }
