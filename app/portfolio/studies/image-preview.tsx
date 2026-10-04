@@ -1,16 +1,16 @@
 "use client";
 
-import type { ImageProps } from "next/image";
-import { cloneElement, useEffect, useRef, useState, type CSSProperties, type ReactElement, type ReactNode } from "react";
+import Image, { type ImageProps } from "next/image";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import interaction from "@/app/site/interaction.module.css";
 import type { StudyAsset } from "./data";
 import styles from "./image-preview.module.css";
 
 type Preview = { style: CSSProperties; width: number; motion: string | null; source: "pointer" | "focus" };
-type Props = { asset: StudyAsset & { src: string }; children: ReactElement<ImageProps>; caption?: ReactNode; className?: string; style?: CSSProperties };
+type Props = { asset: StudyAsset & { src: string }; imageProps: Pick<ImageProps, "src" | "alt" | "width" | "height" | "sizes" | "preload" | "style">; caption?: ReactNode; className?: string; style?: CSSProperties };
 const zoomScale = 1.7;
 
-export function StudyImagePreview({ asset, children, caption, className = "", style }: Props) {
+export function StudyImagePreview({ asset, imageProps, caption, className = "", style }: Props) {
   const originRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const [preview, setPreview] = useState<Preview | null>(null);
@@ -116,7 +116,7 @@ export function StudyImagePreview({ asset, children, caption, className = "", st
   }, [preview]);
   return <figure ref={originRef} className={`${className} ${interaction.action}`} style={style} data-media-kind={asset.kind}>
     <div ref={frameRef} className={styles.frame} data-zoomed={Boolean(preview)} data-motion={preview?.motion} style={preview?.style}>
-      {cloneElement(children, { sizes: preview ? `${preview.width}px` : children.props.sizes })}
+      <Image {...imageProps} alt={imageProps.alt} sizes={preview ? `${preview.width}px` : imageProps.sizes} />
     </div>
     {caption}
   </figure>;
