@@ -33,11 +33,14 @@ test("StudyMedia enables previews for full images without changing videos, unava
   for (const kind of ["presentation", "screen"]) {
     const media = StudyMedia({ asset: { ...asset, kind } });
     assert.equal(media.tag, StudyImagePreview, `${kind} images do not enable automatic enlargement`);
-    const image = imageProps(media);
+    const image = media.props.imageProps;
+    assert.ok(image, "Image configuration must cross the client boundary as plain data");
+    assert.equal(media.props.children, undefined, "The client must not inspect a server-rendered image element");
     assert.equal(image.src, asset.src);
     assert.equal(image.alt, asset.alt);
     assert.equal(image.width, 4000);
     assert.equal(image.height, 3000);
+    assert.equal(JSON.parse(JSON.stringify(image)).sizes, image.sizes);
     assert.equal(media.props.caption?.tag, "figcaption", "The caption must be separate from the zoomable image");
   }
   for (const props of [{ asset, detail: true }, { asset: { ...asset, kind: "video" } }, { asset: { ...asset, kind: "unavailable", src: undefined } }]) {
@@ -80,7 +83,6 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
     "react-dom": { createPortal: (child, container) => ({ portal: true, child, container }) },
     "react": {
       useRef: () => ({ current: refIndex++ === 0 ? origin : frame }), useState: () => [state, next => { state = next; }],
-      cloneElement: (child, props) => ({ ...child, props: { ...child.props, ...props } }),
       useEffect: (callback, dependencies) => {
         const index = effectIndex++, previous = effects[index];
         if (previous && dependencies.every((value, i) => value === previous.dependencies[i])) return;
@@ -93,7 +95,7 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
   }, { window, document: { body }, getComputedStyle: () => ({ borderRadius: "24px" }) });
   function render() {
     effectIndex = 0; refIndex = 0;
-    output = StudyImagePreview({ asset: mediaAsset, children: jsx("img", { src: mediaAsset.src, alt: mediaAsset.alt, sizes: "(max-width: 700px) 88vw, 24vw", style: { width: "100%", height: "auto" } }), caption: jsx("figcaption", { children: mediaAsset.label }), className: "media", style: { aspectRatio: "4 / 3" } });
+    output = StudyImagePreview({ asset: mediaAsset, imageProps: JSON.parse(JSON.stringify({ src: mediaAsset.src, alt: mediaAsset.alt, width: mediaAsset.width, height: mediaAsset.height, sizes: "(max-width: 700px) 88vw, 24vw", preload: false, style: { width: "100%", height: "auto" } })), caption: jsx("figcaption", { children: mediaAsset.label }), className: "media", style: { aspectRatio: "4 / 3" } });
     for (const effect of effects) if (effect.callback) { effect.cleanup = effect.callback(); effect.callback = null; }
     return output;
   }
