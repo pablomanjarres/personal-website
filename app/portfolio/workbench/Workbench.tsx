@@ -1,4 +1,4 @@
-import { getStudyPreview, type ProjectStudy } from "@/app/portfolio/studies/data";
+import { getStudyPreview, getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
 import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "@/app/portfolio/studies/primitives";
 import { getCaseStudy } from "@/app/portfolio/studies/case-study";
@@ -14,12 +14,12 @@ function BenchProject({ study, projectHref, lead = false }: {
 }) {
   const asset = getStudyPreview(study);
   return (
-    <article className={`${styles.benchProject} ${lead ? styles.leadProject : ""}`} data-reveal="media" data-enter={lead ? "pop" : undefined}>
+    <article className={`${styles.benchProject} ${lead ? styles.leadProject : ""}`} data-media-kind={asset.kind} data-reveal="media" data-enter={lead ? "pop" : undefined}>
       <div className={styles.projectMount}>
         <StudyLink href={projectHref(study.project.slug)} className={styles.projectVisual}>
-          <StudyMedia asset={asset} className={styles.projectMedia} priority={lead} caption={false} />
+          <StudyMedia asset={asset} className={styles.projectMedia} priority={lead} caption={false} sizes={lead ? "(max-width: 700px) 88vw, (max-width: 1611px) 90vw, 1450px" : "(max-width: 700px) 88vw, 53vw"} />
         </StudyLink>
-        {lead && <figure className={styles.indexLens} aria-hidden="true">
+        {lead && asset.kind !== "presentation" && <figure className={styles.indexLens} aria-hidden="true">
           <StudyMedia asset={asset} className={styles.lensMedia} detail caption={false} />
         </figure>}
       </div>
@@ -61,7 +61,7 @@ export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
 
 export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
   const story = getCaseStudy(study);
-  const supportingMedia = study.media.find((asset, index) => index > 0 && (asset.kind === "presentation" || asset.kind === "screen"));
+  const supportingMedia = getStudySupportingMedia(study);
   const video = study.media.find(asset => asset.kind === "video");
   return (
     <article className={`${styles.workbench} ${styles.caseStudy}`}>
