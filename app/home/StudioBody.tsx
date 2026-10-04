@@ -1,15 +1,14 @@
 import { profile } from "@/app/socials";
 import { capabilities, getFeaturedProjects, type FeaturedProject } from "@/app/portfolio/featured/content";
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
-import { AnkiAppMockup } from "@/app/portfolio/featured/AnkiAppMockup";
 import styles from "./studio-body.module.css";
 
 function ProductStudy({ item }: { item: FeaturedProject }) {
   return (
     <article className={styles.study} data-product={item.project.slug}>
       <div className={styles.visuals} data-reveal="media">
-        {item.project.slug === "anki" ? <AnkiAppMockup item={item} className={styles.mainVisual} /> : <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />}
-        <span className={styles.mediaNote}>{item.previewLabel}</span>
+        <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />
+        <span className={styles.mediaNote}>{item.preview.label}</span>
       </div>
       <div className={styles.projectCopy} data-reveal="panel">
         <h3><ProjectLink item={item}>{item.project.title}</ProjectLink></h3>

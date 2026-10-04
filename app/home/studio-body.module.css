@@ -27,6 +27,8 @@
 .study[data-product="construcredit"] .mainVisual img { padding: 18px; }
 .study[data-product="cortex"] .mainVisual { background: var(--studio-petrol); border-radius: 110px 28px 100px 28px; aspect-ratio: 1.05; }
 .study[data-product="cortex"] .mainVisual img { padding: 22px; }
+.study .mainVisual[data-media-kind="presentation"] { aspect-ratio: var(--media-aspect-ratio); }
+.study .mainVisual[data-media-kind="presentation"] img { padding: 0; }
 .mediaNote { position: absolute; bottom: 0; left: 10px; color: var(--studio-link); font-size: 12px; }
 .projectCopy { --reveal-delay: 120ms; max-width: 43ch; margin-top: 14px; }
 .projectCopy h3 { font: 500 clamp(27px, 3vw, 43px)/1.2 var(--font-sora), sans-serif; letter-spacing: -.055em; }
@@ -107,9 +109,7 @@
   .study:nth-child(3) { width: 89%; }
   .mainVisual { border-radius: 36px 66px 30px 66px; }
   .study[data-product="anki"] .mainVisual { border-radius: 70px 35px 70px 26px; }
-  .study[data-product="construcredit"] .mainVisual { aspect-ratio: 1.1; }
   .study[data-product="cortex"] .mainVisual { border-radius: 60px 20px 60px 20px; }
-  .mainVisual img, .study[data-product="cortex"] .mainVisual img { padding: 14px; }
   .projectCopy h3 { font-size: 30px; }
   .projectCopy p { font-size: 16px; }
   .archive { margin-top: 54px; padding-inline: 20px; }

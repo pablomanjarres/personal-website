@@ -61,7 +61,7 @@ export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
 
 export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
   const story = getCaseStudy(study);
-  const supportingScreen = study.media.find((asset, index) => index > 0 && asset.kind === "screen");
+  const supportingMedia = study.media.find((asset, index) => index > 0 && (asset.kind === "presentation" || asset.kind === "screen"));
   const video = study.media.find(asset => asset.kind === "video");
   return (
     <article className={`${styles.workbench} ${styles.caseStudy}`}>
@@ -82,10 +82,10 @@ export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
       </section>
       <section className={styles.decisionsSection} aria-labelledby="workbench-decisions" data-reveal="panel">
         <header className={styles.sectionHeading}><h2 id="workbench-decisions">The choices behind it.</h2><p>{story.responsibility}</p></header>
-        <div className={`${styles.decisionLayout} ${supportingScreen ? styles.withScreen : ""}`}>
+        <div className={`${styles.decisionLayout} ${supportingMedia ? styles.withScreen : ""}`}>
           <StudyDecisions study={study} className={styles.caseDecisions} />
-          {supportingScreen && <div className={styles.screenNote}>
-            <StudyMedia asset={supportingScreen} className={styles.supportingScreen} caption boundPortrait={false} />
+          {supportingMedia && <div className={styles.screenNote}>
+            <StudyMedia asset={supportingMedia} className={styles.supportingScreen} caption boundPortrait={false} />
           </div>}
         </div>
       </section>
