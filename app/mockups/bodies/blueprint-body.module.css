@@ -3,7 +3,6 @@
   --navy: #122b4a;
   --ice: #e4edfa;
   --white: #fcfdff;
-  --chrome: #c4d3e7;
   --accent: var(--blue);
   color: var(--navy);
   background: var(--white);
@@ -18,14 +17,7 @@
 .ice { background: var(--ice); }
 .cobalt { background: var(--blue); color: var(--white); }
 .deviceStage { min-width: 0; padding: 30px 0 14px; }
-.pocket { width: min(78%, 346px); margin: 0 auto; padding: 8px; border: 1px solid var(--chrome); border-radius: 24px; background: var(--navy); box-shadow: 0 20px 35px color-mix(in srgb, var(--navy) 14%, transparent); }
-.mobilePreview { aspect-ratio: var(--pocket-ratio); border-radius: 17px; background: var(--ice); }
-.laptop { position: relative; width: 96%; margin: 0 auto; transform: perspective(1400px) rotateY(5deg) rotateX(2deg); }
-.display { position: relative; padding: 16px 10px 10px; border: 1px solid #70829a; border-radius: 15px 15px 5px 5px; background: #152033; box-shadow: 0 1px 0 #fff8 inset; }
-.camera { position: absolute; top: 6px; left: calc(50% - 2px); width: 4px; height: 4px; border-radius: 50%; background: #52617a; }
-.preview { aspect-ratio: 1.6; border-radius: 3px; background: #eef1f8; }
-.keyboard { position: relative; height: 13px; width: 111%; left: -5.5%; background: linear-gradient(#dfe9f5, #a6b7cd); border-radius: 2px 2px 50% 50% / 2px 2px 12px 12px; box-shadow: 0 20px 25px -8px #10213f35; }
-.keyboard > span { display: block; width: 15%; height: 4px; margin: auto; border-radius: 0 0 5px 5px; background: #94a8c3; }
+.preview { width: 96%; margin: 0 auto; border-radius: 6px; background: #eef1f8; transform: perspective(1400px) rotateY(5deg) rotateX(2deg); }
 .previewNote { margin-top: 30px !important; text-align: center; font: 400 12px/1.5 var(--font-mono), monospace; opacity: .8; }
 .specification { min-width: 0; }
 .specification h3 { font: 500 clamp(30px, 3.4vw, 48px)/1.06 var(--font-spacegrotesk), sans-serif; letter-spacing: -.055em; }
@@ -66,8 +58,8 @@
 .calendarNote { margin-top: 13px !important; text-align: center; font-size: 12px; opacity: .75; }
 .footerLinks { margin-top: 80px; padding-top: 36px; border-top: 1px solid #39516f; }
 @media (prefers-reduced-motion: no-preference) {
-  :global([data-motion="active"]) .laptop { transition: transform .65s cubic-bezier(.16, 1, .3, 1); }
-  :global([data-motion="active"]) .study:has(a:hover, a:focus-visible) .laptop { transform: perspective(1400px) rotateY(0) rotateX(0) translateY(-6px); }
+  :global([data-motion="active"]) .preview { transition: transform .65s cubic-bezier(.16, 1, .3, 1); }
+  :global([data-motion="active"]) .study:has(a:hover, a:focus-visible) .preview { transform: perspective(1400px) rotateY(0) rotateX(0) translateY(-6px); }
   :global([data-motion="active"]) .layerFace { transition: transform .4s cubic-bezier(.16, 1, .3, 1); }
   :global([data-motion="active"]) .layer:hover .layerFace { transform: translate(6px, -6px); }
   :global([data-motion="active"]) .appointment { transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
@@ -86,10 +78,7 @@
   .workHeader p { margin-top: 22px !important; max-width: 30ch; font-size: 18px; }
   .study { display: flex; flex-direction: column; align-items: stretch; padding: 22px 6% 35px; }
   .deviceStage { padding: 12px 0 26px; }
-  .laptop { width: 94%; transform: none; }
-  .display { padding: 13px 6px 6px; border-radius: 10px 10px 4px 4px; }
-  .camera { top: 4px; width: 3px; height: 3px; }
-  .keyboard { height: 9px; }
+  .preview { width: 94%; transform: none; }
   .previewNote { margin-top: 22px !important; font-size: 10px; }
   .specification h3 { font-size: 35px; }
   .specification dl { grid-template-columns: 1fr 1fr; gap: 22px; margin: 22px 0; }

@@ -21,7 +21,7 @@ function FieldStudy({ item }: { item: FeaturedProject }) {
       </div>
       <figure className={styles.studyImage}>
         <ProjectVisual item={item} className={styles.visual} sizes="(max-width: 700px) 88vw, 54vw" />
-        <figcaption><span>{item.previewLabel}</span><span>{item.note}</span></figcaption>
+        <figcaption><span>{item.preview.label}</span><span>{item.note}</span></figcaption>
       </figure>
     </article>
   );
