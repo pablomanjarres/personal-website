@@ -3,6 +3,7 @@
 import { useCountUp } from "@/app/oss/useCountUp";
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { Hero } from "../../heroes";
 import styles from "./content-pipeline.module.css";
 
@@ -181,9 +182,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       <div className={styles.vignette} aria-hidden="true" />
 
       <nav className={styles.bar}>
-        <Link className={styles.brand} href="/">
-          <b>✦</b> Pablo
-        </Link>
+        <SiteMark className={styles.brand} href="/" />
         <div className={styles.navlinks}>
           <Link href="/oss">Open source</Link>
           <Link href="/portfolio">Portfolio</Link>

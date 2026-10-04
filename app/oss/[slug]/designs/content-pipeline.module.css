@@ -164,20 +164,9 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--fmono);
-  font-weight: 600;
-  font-size: clamp(15px, 1.6vw, 18px);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   text-decoration: none;
   color: var(--fg);
   text-shadow: 0 1px 12px rgba(5, 7, 10, 0.7);
-}
-.brand b {
-  color: var(--amber);
-  font-weight: 600;
-  text-shadow: 0 0 14px rgba(255, 178, 36, 0.55);
 }
 .brand:focus-visible {
   outline: 2px solid rgba(255, 178, 36, 0.6);
