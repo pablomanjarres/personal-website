@@ -149,21 +149,9 @@
 .brand {
   display: inline-flex;
   align-items: baseline;
-  gap: 9px;
   text-decoration: none;
   color: var(--paper);
-  font-family: var(--font-archgraph-display), sans-serif;
-  font-weight: 700;
-  font-size: clamp(16px, 1.9vw, 20px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   text-shadow: 0 1px 10px rgba(2, 6, 14, 0.8);
-}
-.brandMark {
-  color: var(--cyan);
-  font-size: 0.9em;
-  transform: translateY(-1px);
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
 }
 .navLinks {
   display: flex;
