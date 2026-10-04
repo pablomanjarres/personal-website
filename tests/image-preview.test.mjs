@@ -128,6 +128,24 @@ test("Keyboard focus uses the existing link and Escape dismisses without moving 
   runtime.cleanup();
 });
 
+test("Focus survives the browser scroll-to-focus, then deliberate scrolling dismisses the preview", () => {
+  for (const linked of [false, true]) {
+    const runtime = mount({ linked });
+    for (const [event, details] of [["wheel", {}], ["touchmove", {}], ["pointerdown", {}], ["keydown", { key: "PageDown" }], ["keydown", { key: " " }]]) {
+      runtime.focusTarget.dispatch("focusin");
+      assert.ok(runtime.preview);
+      runtime.window.dispatch("scroll");
+      assert.ok(runtime.preview, "The browser scroll after Tab must preserve its focus preview");
+      runtime.window.dispatch(event, details);
+      runtime.window.dispatch("scroll");
+      assert.equal(runtime.preview, undefined, `${event} scrolling must dismiss the preview`);
+      runtime.focusTarget.dispatch("focusout");
+    }
+    runtime.cleanup();
+    assert.equal(runtime.window.listeners.size, 0);
+  }
+});
+
 test("Unlinked images support keyboard preview while coarse pointers and touch avoid overlays", () => {
   const runtime = mount();
   assert.equal(runtime.origin.getAttribute("tabindex"), "0");
