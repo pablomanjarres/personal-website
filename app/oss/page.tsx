@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { heroes } from "./heroes";
 import { SiteNav } from "../SiteNav";
@@ -38,9 +39,10 @@ export default function OssIndex() {
             key={h.slug}
             href={`/oss/${h.slug}`}
             className="osh-card"
-            style={art ? { ["--bg" as string]: `url('${art}')` } : undefined}
           >
-            <div className="osh-card-bg" />
+            <div className="osh-card-bg">
+              {art && <Image src={art} alt="" fill sizes="(max-width: 640px) 90vw, (max-width: 1040px) 45vw, 380px" style={{ objectFit: "cover" }} />}
+            </div>
             <div className="osh-card-scrim" />
             <div className="osh-card-in">
               <span className="osh-card-k">{h.kicker}</span>

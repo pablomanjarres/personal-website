@@ -190,7 +190,6 @@
 .osh-card-bg {
   position: absolute;
   inset: 0;
-  background: var(--bg) center / cover no-repeat;
   transition: transform 0.4s ease;
 }
 .osh-card:hover .osh-card-bg {
