@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { CSSProperties, ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import AlfredDesk from "./alfred/AlfredDesk";
@@ -106,10 +107,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       </div>
 
       <nav className={styles.nav}>
-        <Link className={styles.brand} href="/">
-          <span className={styles.brandStar}>✦</span>
-          Pablo
-        </Link>
+        <SiteMark className={styles.brand} href="/" />
         <div className={styles.navLinks}>
           <Link href="/oss">Open source</Link>
           <Link href="/portfolio">Portfolio</Link>

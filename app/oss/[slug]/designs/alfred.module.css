@@ -142,13 +142,8 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   color: var(--a-ivory);
   text-decoration: none;
-  font-family: var(--a-mono);
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 .brand:hover,
@@ -156,10 +151,6 @@
   color: var(--a-brass-hot);
   outline: none;
   transform: translateY(-1px);
-}
-.brandStar {
-  color: var(--a-brass-hot);
-  text-shadow: 0 0 14px rgba(231, 201, 130, 0.58);
 }
 .navLinks {
   display: flex;
@@ -1036,9 +1027,6 @@
 }
 
 @media (max-width: 500px) {
-  .brand {
-    font-size: 11px;
-  }
 
   .title {
     font-size: 2.65rem;
