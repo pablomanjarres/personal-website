@@ -287,7 +287,8 @@ export const projects: Project[] = [
       "Tailwind CSS v4",
       "shadcn/ui",
       "Recharts",
-      "Zustand",
+      "React Router 7",
+      "Framer Motion",
       "Model Context Protocol SDK",
       "Node.js",
       "launchd",
@@ -328,7 +329,7 @@ export const projects: Project[] = [
       {
         "name": "cortex",
         "kind": "app",
-        "oneLiner": "The Electron 41 + React 19 macOS desktop app: around 20 feature modules (daily, habits, founder, CRM, finances, courses, GTM) on an OLED-black Tailwind v4 UI, persisted through Electron IPC, then the HTTP API, then localStorage."
+        "oneLiner": "The Electron 41 and React 19 macOS app for daily planning, study, projects, finance, cloud spend, and automations. The graphite and teal interface has light and dark themes and persists through Electron IPC, the HTTP API, or localStorage."
       },
       {
         "name": "cortex-mcp-server",

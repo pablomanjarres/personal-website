@@ -1,4 +1,4 @@
-const CACHE = 'cortex-demo-brand-v3'
+const CACHE = 'cortex-demo-graphite-teal-v3'
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html'])))
@@ -6,12 +6,16 @@ self.addEventListener('install', (e) => {
 })
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE && (k.startsWith('cortex-demo-') || k === 'cortex-v1' || k === 'cortex-api-v1')).map((k) => caches.delete(k)))
-    )
-  )
-  self.clients.claim()
+  e.waitUntil((async () => {
+    const keys = await caches.keys()
+    await Promise.all(keys.filter((key) => key !== CACHE && key.startsWith('cortex-demo-')).map((key) => caches.delete(key)))
+    await self.clients.claim()
+    const clients = await self.clients.matchAll({ type: 'window' })
+    await Promise.all(clients.filter((client) => {
+      const url = new URL(client.url)
+      return url.origin === self.location.origin && url.pathname.startsWith('/demos/cortex/')
+    }).map((client) => client.navigate(client.url)))
+  })())
 })
 
 self.addEventListener('fetch', (e) => {
@@ -19,7 +23,7 @@ self.addEventListener('fetch', (e) => {
 
   // The sample app has no backend. Never forward API requests.
   if (url.pathname.startsWith('/api/')) {
-    e.respondWith(new Response('null', { headers: { 'Content-Type': 'application/json' } }))
+    e.respondWith(new Response('{"ok":false,"error":"This service is unavailable in the browser demo."}', { status: 503, headers: { 'Content-Type': 'application/json' } }))
     return
   }
 
