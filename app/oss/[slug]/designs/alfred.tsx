@@ -65,6 +65,7 @@ function Seal({ children }: { children: ReactNode }) {
 
 export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
   const writeup = `https://pablomanjarres.com/portfolio/projects/${slug}`;
+  const portrait = "/oss/alfred-poster.webp";
   const leadWords = hero.titleLead.split(" ");
   const mainWords = hero.titleMain.split(" ");
   let word = 0;
@@ -74,7 +75,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       <div className={styles.atmosphere} aria-hidden="true">
         <div
           className={styles.portrait}
-          style={{ ["--portrait" as string]: `url('/oss/${slug}.png')` }}
+          style={{ ["--portrait" as string]: `url('${portrait}')` }}
         />
         <video
           className={styles.portrait}
@@ -83,7 +84,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
           loop
           playsInline
           preload="metadata"
-          poster={`/oss/${slug}.png`}
+          poster={portrait}
         >
           <source
             src="/portfolio/banners/alfred.webm"
