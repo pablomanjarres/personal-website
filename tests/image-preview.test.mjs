@@ -57,11 +57,15 @@ class Element {
   closest() { return null; }
 }
 
-function mount({ linked = false, fine = true, paused = false } = {}) {
+function mount({ linked = false, fine = true, paused = false, mediaAsset = asset, inlineWidth = 320 } = {}) {
   const origin = new Element(), focusTarget = linked ? new Element() : origin;
+  const image = new Element();
+  image.getBoundingClientRect = () => ({ width: inlineWidth, height: inlineWidth * mediaAsset.height / mediaAsset.width });
+  origin.querySelector = selector => selector === "img" ? image : null;
   origin.parentElement = { closest: () => linked ? focusTarget : null };
   origin.closest = () => ({ getAttribute: () => paused ? "paused" : "active" });
   const window = new Element(), media = new Element(); media.matches = fine;
+  window.innerWidth = 1280; window.innerHeight = 720;
   window.matchMedia = () => media;
   const body = {}, effects = [];
   let state = null, effectIndex = 0, output;
@@ -82,12 +86,12 @@ function mount({ linked = false, fine = true, paused = false } = {}) {
   }, { window, document: { body }, getComputedStyle: () => ({ getPropertyValue: name => ({ "--paper": "#f5f7f3", "--ink": "#183d39", "--motion-ease": "ease" })[name] ?? "" }) });
   function render() {
     effectIndex = 0;
-    output = StudyImagePreview({ asset, children: jsx("img", { src: asset.src }), className: "media", style: { aspectRatio: "4 / 3" } });
+    output = StudyImagePreview({ asset: mediaAsset, children: jsx("img", { src: mediaAsset.src }), className: "media", style: { aspectRatio: "4 / 3" } });
     for (const effect of effects) if (effect.callback) { effect.cleanup = effect.callback(); effect.callback = null; }
     return output;
   }
   render();
-  return { origin, focusTarget, window, media, body, render,
+  return { origin, focusTarget, window, media, body, render, setImageWidth: value => { inlineWidth = value; },
     get preview() { return render().props.children.find(child => child?.portal); },
     cleanup() { for (const effect of effects) effect.cleanup?.(); },
   };
@@ -110,6 +114,61 @@ test("Pointer hover opens a larger portal immediately and leaving closes it whil
   runtime.cleanup();
   assert.equal(runtime.origin.listeners.size, 0);
   assert.equal(runtime.focusTarget.listeners.size, 0);
+});
+
+test("Image downloads follow the same aspect-constrained width as the hover preview", () => {
+  const widths = [];
+  for (const mediaAsset of [asset, { ...asset, width: 1200, height: 2600 }]) {
+    const runtime = mount({ mediaAsset, inlineWidth: 150 });
+    runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+    const preview = runtime.preview.child;
+    const width = preview.props.style["--preview-width"];
+    assert.equal(typeof width, "string", "The preview and image must share their width");
+    assert.ok(Number.isFinite(Number.parseFloat(width)), "The browser image budget must use the fitted pixel width");
+    assert.equal(Number.parseFloat(preview.props.children.props.sizes), Number.parseFloat(width) - 18, "The image budget must exclude the frame padding and border");
+    widths.push(width);
+    runtime.cleanup();
+  }
+  assert.notEqual(widths[0], widths[1], "A portrait preview must not request the same viewport width as a landscape preview");
+});
+
+test("Only small images enlarge on hover or focus; full-width images keep their links without another tab stop", () => {
+  for (const linked of [false, true]) {
+    for (const inlineWidth of [320, 1000]) {
+      const runtime = mount({ linked, inlineWidth });
+      const eligible = inlineWidth === 320;
+      assert.equal(runtime.origin.getAttribute("tabindex"), linked ? null : eligible ? "0" : "-1");
+      runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+      assert.equal(Boolean(runtime.preview), eligible, "Full-width images must not shrink into a hover overlay");
+      runtime.origin.dispatch("pointerleave");
+      runtime.focusTarget.dispatch("focusin");
+      assert.equal(Boolean(runtime.preview), eligible, "Keyboard previews must follow the same enlargement rule");
+      runtime.cleanup();
+    }
+  }
+});
+
+test("Resize refreshes the enlargement threshold using image aspect ratio and rendered width", () => {
+  const runtime = mount();
+  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  assert.ok(runtime.preview);
+  runtime.window.innerHeight = 300;
+  runtime.window.dispatch("resize");
+  assert.equal(runtime.preview, undefined);
+  assert.equal(runtime.origin.getAttribute("tabindex"), "-1");
+  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  assert.equal(runtime.preview, undefined, "Less than 20% enlargement is not useful");
+  runtime.window.innerHeight = 900;
+  runtime.window.dispatch("resize");
+  assert.equal(runtime.origin.getAttribute("tabindex"), "0");
+  runtime.focusTarget.dispatch("focusin");
+  assert.ok(runtime.preview);
+  runtime.setImageWidth(1000);
+  runtime.window.dispatch("resize");
+  assert.equal(runtime.origin.getAttribute("tabindex"), "-1");
+  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  assert.equal(runtime.preview, undefined, "Eligibility must use the current rendered image width");
+  runtime.cleanup();
 });
 
 test("Keyboard focus uses the existing link and Escape dismisses without moving focus", () => {

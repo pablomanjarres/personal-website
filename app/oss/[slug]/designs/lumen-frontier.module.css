@@ -176,18 +176,8 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
   text-decoration: none;
   color: var(--ivory);
-  font-family: var(--font-lumen-frontier-display), serif;
-  font-size: 1.08rem;
-  font-variation-settings: "opsz" 40, "wght" 500;
-  letter-spacing: 0.005em;
-}
-.brandMark {
-  color: var(--brass);
-  font-size: 1.05em;
-  line-height: 1;
 }
 .navLinks {
   display: flex;

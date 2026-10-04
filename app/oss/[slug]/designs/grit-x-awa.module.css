@@ -181,19 +181,9 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(15px, 1.7vw, 18px);
-  letter-spacing: 0.1em;
   text-decoration: none;
   color: var(--fg);
   text-shadow: 0 1px 12px rgba(2, 3, 9, 0.7);
-}
-.brandMark {
-  color: var(--cyan);
-  font-weight: 700;
-  text-shadow: 0 0 14px rgba(69, 226, 255, 0.7);
 }
 .navLinks {
   display: flex;

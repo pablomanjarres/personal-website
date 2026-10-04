@@ -246,19 +246,8 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(15px, 1.7vw, 18px);
-  letter-spacing: 0.12em;
   text-decoration: none;
   color: var(--fg);
-  font-variation-settings: "wght" 680, "wdth" 100;
-}
-.brandMark {
-  color: var(--teal);
-  font-weight: 700;
-  text-shadow: 0 0 12px rgba(34, 230, 164, 0.6);
 }
 .navLinks {
   display: flex;

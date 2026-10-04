@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { CSSProperties, ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import s from "./archgraph.module.css";
@@ -67,9 +68,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       <span className={`${s.corner} ${s.cBR}`} aria-hidden="true" />
 
       <nav className={s.bar}>
-        <Link className={s.brand} href="/">
-          <span className={s.brandMark}>✦</span> Pablo
-        </Link>
+        <SiteMark className={s.brand} href="/" />
         <div className={s.navLinks}>
           <Link className={s.navLink} href="/oss">
             Open source

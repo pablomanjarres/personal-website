@@ -1,4 +1,4 @@
-.preview { position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%); z-index: 80; width: min(92vw, calc(86vh * var(--preview-ratio)), 1600px); margin: 0; padding: 8px; box-sizing: border-box; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: 10px; background: var(--paper); box-shadow: 0 14px 60px color-mix(in srgb, var(--ink) 26%, transparent); pointer-events: none; }
+.preview { position: fixed; inset: 50% auto auto 50%; transform: translate(-50%, -50%); z-index: 80; width: var(--preview-width); margin: 0; padding: 8px; box-sizing: border-box; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: 10px; background: var(--paper); box-shadow: 0 14px 60px color-mix(in srgb, var(--ink) 26%, transparent); pointer-events: none; }
 .preview img { display: block; width: 100%; height: auto; border-radius: 4px; object-fit: contain; }
 @media (prefers-reduced-motion: no-preference) {
   .preview[data-motion="active"] { animation: previewAppear 160ms var(--motion-ease, ease) both; }

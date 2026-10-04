@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { CSSProperties, ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import styles from "./forge.module.css";
@@ -55,9 +56,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
       {/* -------- nav (restyled, same three parts) -------------------------- */}
       <nav className={styles.nav}>
-        <Link className={styles.brand} href="/">
-          <span className={styles.brandMark}>✦</span> Pablo
-        </Link>
+        <SiteMark className={styles.brand} href="/" />
         <div className={styles.navRight}>
           <span className={styles.port} aria-hidden="true">
             <span className={styles.portDot} /> :3400

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import ProjectLogo, { projectIdentities } from "../../../ProjectLogo";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { Hero } from "../../heroes";
@@ -131,7 +132,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
     <div className={s.edgeFrame} aria-hidden="true" />
 
     <nav className={s.nav} aria-label="Site navigation">
-      <Link className={s.brand} href="/"><span className={s.brandStar} aria-hidden="true">✦</span> Pablo</Link>
+      <SiteMark className={s.brand} href="/" />
       <div className={s.navLinks}>
         <Link href="/oss">Open source</Link>
         <Link href="/portfolio">Portfolio</Link>

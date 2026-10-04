@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import interaction from "@/app/site/interaction.module.css";
 
 // Shows a product preview by default, then
 // swaps in the real interactive site on click. Only used for projects whose
@@ -34,7 +35,7 @@ export function LiveEmbed({
   return (
     <button
       type="button"
-      className={`live-launch ${className}`}
+      className={`live-launch ${interaction.mediaTrigger} ${className}`}
       onClick={() => setLive(true)}
       aria-label={`Run the live ${title} demo`}
     >
@@ -42,7 +43,7 @@ export function LiveEmbed({
         <Image src={cover.src} width={cover.width} height={cover.height} sizes="(max-width: 700px) 94vw, 90vw" alt="" />
       )}
       <span className="live-scan" aria-hidden />
-      <span className="live-launch-overlay">
+      <span className={`live-launch-overlay ${interaction.button}`}>
         <span className="live-launch-btn">
           <span className="live-launch-play" aria-hidden>
             ▶

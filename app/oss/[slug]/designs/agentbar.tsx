@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { CSSProperties } from "react";
 import type { Hero } from "../../heroes";
 import MenuStrip from "./agentbar/MenuStrip";
@@ -80,9 +81,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
       {/* ---- nav --------------------------------------------------------- */}
       <nav className={styles.nav}>
-        <Link className={styles.brand} href="/">
-          <span className={styles.brandMark}>✦</span> Pablo
-        </Link>
+        <SiteMark className={styles.brand} href="/" />
         <div className={styles.navLinks}>
           <Link href="/oss">OSS</Link>
           <Link href="/portfolio">Portfolio</Link>

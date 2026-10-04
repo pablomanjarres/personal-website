@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { CSSProperties, ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import s from "./lumen.module.css";
@@ -58,9 +59,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
       {/* -------- nav ----------------------------------------------------- */}
       <nav className={s.nav}>
-        <Link className={s.brand} href="/">
-          <span className={s.brandMark}>✦</span> Pablo
-        </Link>
+        <SiteMark className={s.brand} href="/" />
         <div className={s.navRight}>
           <span className={s.chalkTray} aria-hidden="true">
             <i className={`${s.nib} ${s.nibNavy}`} />

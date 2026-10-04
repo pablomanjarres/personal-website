@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { CSSProperties, ReactNode } from "react";
 import type { Hero } from "../../heroes";
 import styles from "./valhalla.module.css";
@@ -68,9 +69,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
 
       {/* -------- nav (hand-rolled, contract shape) ------------------------- */}
       <nav className={styles.nav}>
-        <Link className={styles.brand} href="/">
-          <span className={styles.brandMark}>✦</span> Pablo
-        </Link>
+        <SiteMark className={styles.brand} href="/" />
         <div className={styles.navLinks}>
           <Link className={styles.navLink} href="/oss">
             Open source

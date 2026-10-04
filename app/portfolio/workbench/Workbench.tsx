@@ -73,7 +73,7 @@ export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
           <p className={styles.introduction}>{story.introduction}</p>
           <StudyActions study={study} className={styles.caseActions} />
         </div>
-        <div className={styles.productVisual} data-enter="pop"><StudyProductVisual study={study} priority caption={false} /></div>
+        <div className={styles.productVisual} data-enter="pop"><StudyProductVisual study={study} priority caption={false} sizes="(max-width: 700px) 88vw, (max-width: 800px) 90vw, (max-width: 1550px) 40vw, 620px" /></div>
       </header>
       <div data-reveal="panel"><StudyBrief study={study} className={styles.caseBrief} /></div>
       <section className={styles.context} aria-label="Project context" data-reveal="panel">
@@ -85,7 +85,7 @@ export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
         <div className={`${styles.decisionLayout} ${supportingMedia ? styles.withScreen : ""}`}>
           <StudyDecisions study={study} className={styles.caseDecisions} />
           {supportingMedia && <div className={styles.screenNote}>
-            <StudyMedia asset={supportingMedia} className={styles.supportingScreen} caption boundPortrait={false} />
+            <StudyMedia asset={supportingMedia} className={styles.supportingScreen} caption boundPortrait={false} sizes="(max-width: 700px) calc(88vw - 56px), (max-width: 800px) 82vw, (max-width: 1550px) 24vw, 375px" />
           </div>}
         </div>
       </section>

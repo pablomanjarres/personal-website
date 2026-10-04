@@ -249,29 +249,14 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-family: var(--v-display);
-  font-weight: 600;
-  font-size: clamp(20px, 2.1vw, 27px);
-  letter-spacing: 0.02em;
   color: var(--v-text);
   text-decoration: none;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85);
-}
-.brandMark {
-  color: var(--v-aurora);
-  font-size: 0.86em;
-  filter: drop-shadow(0 0 8px rgba(63, 185, 80, 0.7));
-  transition: filter 0.2s ease;
 }
 .brand:hover,
 .brand:focus-visible {
   color: var(--v-aurora-bright);
   outline: none;
-}
-.brand:hover .brandMark,
-.brand:focus-visible .brandMark {
-  filter: drop-shadow(0 0 13px rgba(63, 185, 80, 0.95));
 }
 .navLinks {
   display: flex;
