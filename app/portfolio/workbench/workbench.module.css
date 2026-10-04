@@ -86,9 +86,10 @@
 .introCopy h1 { font-size: 25px; letter-spacing: -.03em; font-weight: 500; margin-bottom: 22px; }
 .caseHeadline { font-size: clamp(38px, 4.7vw, 70px); letter-spacing: -.06em; line-height: 1.08; max-width: 14ch; }
 .introduction { color: var(--bench-muted); font-size: 18px; line-height: 1.65; max-width: 48ch; margin-top: 28px !important; }
-.caseActions { margin-top: 24px; gap: 10px; }
-.caseActions a { padding: 9px 18px; background: var(--bench-ink); color: var(--bench-paper); border-radius: 9px; font-size: 14px; }
-.caseActions a:hover { background: var(--bench-action); }
+.caseActions { margin-top: 26px; gap: 12px; }
+.caseActions a { padding: 11px 19px; border: 1px solid var(--bench-edge); background: transparent; color: var(--bench-ink); border-radius: 999px; font-size: 14px; }
+.caseActions a:first-child { background: var(--bench-ink); color: var(--bench-paper); border-color: var(--bench-ink); }
+@media (hover: hover) and (pointer: fine) { .caseActions a:hover { background: var(--bench-action); color: var(--bench-paper); border-color: var(--bench-action); } }
 .productVisual { --enter-delay: 180ms; width: 100%; min-width: 0; }
 .productVisual img { width: 100%; height: auto; max-height: 620px; object-fit: contain; }
 .caseBrief { margin: 46px 0 0; padding: 27px 0; border-block: 1px solid var(--bench-edge); display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 30px; }

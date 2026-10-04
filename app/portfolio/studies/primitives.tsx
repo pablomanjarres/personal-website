@@ -26,7 +26,7 @@ export function StudyMedia({ asset, className = "", priority = false, detail = f
 export function StudyDemo({ study, className = "", fullScreenHref }: { study: ProjectStudy; className?: string; fullScreenHref?: string }) {
   const capture = getStudyPreview(study);
   if (!study.project.embedUrl || !capture?.src) return null;
-  return <section className={`${styles.demo} ${className}`} aria-label={`${study.project.title} demo`}><LiveEmbed embedUrl={study.project.embedUrl} cover={{ src: capture.src, width: capture.width, height: capture.height }} title={study.project.title} className={interaction.action} /><p>Interactive demo{fullScreenHref && <> · <Link href={fullScreenHref} className={interaction.action}>Open full screen <span aria-hidden>↗</span></Link></>}</p></section>;
+  return <section className={`${styles.demo} ${className}`} aria-label={`${study.project.title} demo`}><LiveEmbed embedUrl={study.project.embedUrl} cover={{ src: capture.src, width: capture.width, height: capture.height }} title={study.project.title} className={interaction.action} /><p>Interactive demo{fullScreenHref && <> · <Link href={fullScreenHref} className={`${interaction.action} ${interaction.textLink}`}>Open full screen <span aria-hidden>↗</span></Link></>}</p></section>;
 }
 
 export function StudyLink({ href, children, className = "" }: { href: string; children: ReactNode; className?: string }) {
@@ -34,5 +34,5 @@ export function StudyLink({ href, children, className = "" }: { href: string; ch
 }
 
 export function StudyActions({ study, className = "" }: { study: ProjectStudy; className?: string }) {
-  return <nav className={`${styles.actions} ${className}`} aria-label={`${study.project.title} links`}>{study.project.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className={styles.action}>{link.label}<span aria-hidden> ↗</span></a>)}</nav>;
+  return <nav className={`${styles.actions} ${className}`} aria-label={`${study.project.title} links`}>{study.project.links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className={`${styles.action} ${interaction.button}`}>{link.label}<span className={interaction.arrow} aria-hidden>↗</span></a>)}</nav>;
 }
