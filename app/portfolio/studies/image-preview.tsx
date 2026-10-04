@@ -8,7 +8,7 @@ import interaction from "@/app/site/interaction.module.css";
 import type { StudyAsset } from "./data";
 import styles from "./image-preview.module.css";
 
-type Preview = { style: CSSProperties; motion: string | null };
+type Preview = { style: CSSProperties; motion: string | null; source: "pointer" | "focus" };
 type Props = { asset: StudyAsset & { src: string }; children: ReactNode; className?: string; style?: CSSProperties };
 
 export function StudyImagePreview({ asset, children, className = "", style }: Props) {
@@ -23,7 +23,7 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
     const hoverMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
     let hovering = false;
     const close = () => setPreview(null);
-    const open = () => {
+    const open = (source: Preview["source"]) => {
       const tokens = getComputedStyle(origin);
       setPreview({
         style: {
@@ -32,15 +32,16 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
           "--motion-ease": tokens.getPropertyValue("--motion-ease").trim() || "ease",
         } as CSSProperties,
         motion: origin.closest("[data-motion]")?.getAttribute("data-motion") ?? null,
+        source,
       });
     };
     const pointerEnter = (event: PointerEvent) => {
       if (!hoverMedia.matches || event.pointerType === "touch") return;
       hovering = true;
-      open();
+      open("pointer");
     };
     const pointerLeave = () => { hovering = false; close(); };
-    const focusIn = () => { if (hoverMedia.matches && focusTarget.matches(":focus-visible")) open(); };
+    const focusIn = () => { if (hoverMedia.matches && focusTarget.matches(":focus-visible")) open("focus"); };
     const focusOut = () => { if (!hovering) close(); };
     const updatePointer = () => {
       if (!focusAncestor) origin.tabIndex = hoverMedia.matches ? 0 : -1;
@@ -68,13 +69,22 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
   useEffect(() => {
     if (!preview) return;
     const close = () => setPreview(null);
-    const keyDown = (event: KeyboardEvent) => { if (event.key === "Escape") close(); };
+    const scroll = () => { if (preview.source === "pointer") close(); };
+    const keyDown = (event: KeyboardEvent) => {
+      if (["Escape", "ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) close();
+    };
     window.addEventListener("keydown", keyDown);
-    window.addEventListener("scroll", close, { capture: true, passive: true });
+    window.addEventListener("scroll", scroll, { capture: true, passive: true });
+    window.addEventListener("wheel", close, { capture: true, passive: true });
+    window.addEventListener("touchmove", close, { capture: true, passive: true });
+    window.addEventListener("pointerdown", close, true);
     window.addEventListener("resize", close);
     return () => {
       window.removeEventListener("keydown", keyDown);
-      window.removeEventListener("scroll", close, true);
+      window.removeEventListener("scroll", scroll, true);
+      window.removeEventListener("wheel", close, true);
+      window.removeEventListener("touchmove", close, true);
+      window.removeEventListener("pointerdown", close, true);
       window.removeEventListener("resize", close);
     };
   }, [preview]);
