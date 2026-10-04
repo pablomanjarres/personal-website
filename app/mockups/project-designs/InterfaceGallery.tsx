@@ -1,4 +1,4 @@
-import type { ProjectStudy } from "@/app/portfolio/studies/data";
+import { getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
 import type { StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 import { StudyMedia, StudyActions } from "@/app/portfolio/studies/primitives";
@@ -56,7 +56,7 @@ export function InterfaceGalleryIndex({ studies, direction }: IndexProps) {
 
 export function InterfaceGalleryDetail({ study, direction }: DetailProps) {
   const story = getCaseStudy(study);
-  const supportingScreen = study.media.find((asset, index) => index > 0 && asset.kind === "screen");
+  const supportingScreen = getStudySupportingMedia(study);
   const video = study.media.find(asset => asset.kind === "video");
   return (
     <article className={`${styles.gallery} ${styles.caseExhibit}`}>
