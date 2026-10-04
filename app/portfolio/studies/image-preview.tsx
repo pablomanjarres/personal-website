@@ -8,7 +8,7 @@ import interaction from "@/app/site/interaction.module.css";
 import type { StudyAsset } from "./data";
 import styles from "./image-preview.module.css";
 
-type Preview = { style: CSSProperties; motion: string | null; source: "pointer" | "focus" };
+type Preview = { style: CSSProperties; width: number; motion: string | null; source: "pointer" | "focus" };
 type Props = { asset: StudyAsset & { src: string }; children: ReactNode; className?: string; style?: CSSProperties };
 
 export function StudyImagePreview({ asset, children, className = "", style }: Props) {
@@ -23,7 +23,14 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
     const hoverMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
     let hovering = false;
     const close = () => setPreview(null);
+    const fitPreview = () => {
+      const width = Math.max(0, Math.min(window.innerWidth * .92, window.innerHeight * .86 * asset.width / asset.height, 1600) - 18);
+      const inlineWidth = origin.querySelector("img")?.getBoundingClientRect().width ?? 0;
+      return { width, eligible: hoverMedia.matches && inlineWidth > 0 && width >= inlineWidth * 1.2 };
+    };
     const open = (source: Preview["source"]) => {
+      const fit = fitPreview();
+      if (!fit.eligible) return false;
       const tokens = getComputedStyle(origin);
       setPreview({
         style: {
@@ -31,41 +38,44 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
           "--ink": tokens.getPropertyValue("--ink").trim() || workbenchTheme.ink,
           "--motion-ease": tokens.getPropertyValue("--motion-ease").trim() || "ease",
         } as CSSProperties,
+        width: fit.width,
         motion: origin.closest("[data-motion]")?.getAttribute("data-motion") ?? null,
         source,
       });
+      return true;
     };
     const pointerEnter = (event: PointerEvent) => {
       if (!hoverMedia.matches || event.pointerType === "touch") return;
-      hovering = true;
-      open("pointer");
+      hovering = open("pointer");
     };
     const pointerLeave = () => { hovering = false; close(); };
     const focusIn = () => { if (hoverMedia.matches && focusTarget.matches(":focus-visible")) open("focus"); };
     const focusOut = () => { if (!hovering) close(); };
     const updatePointer = () => {
-      if (!focusAncestor) origin.tabIndex = hoverMedia.matches ? 0 : -1;
+      if (!focusAncestor) origin.tabIndex = fitPreview().eligible ? 0 : -1;
       hovering = false;
       close();
     };
-    if (!focusAncestor) origin.tabIndex = hoverMedia.matches ? 0 : -1;
+    updatePointer();
     origin.addEventListener("pointerenter", pointerEnter);
     origin.addEventListener("pointerleave", pointerLeave);
     focusTarget.addEventListener("focusin", focusIn);
     focusTarget.addEventListener("focusout", focusOut);
     hoverMedia.addEventListener("change", updatePointer);
+    window.addEventListener("resize", updatePointer);
     return () => {
       origin.removeEventListener("pointerenter", pointerEnter);
       origin.removeEventListener("pointerleave", pointerLeave);
       focusTarget.removeEventListener("focusin", focusIn);
       focusTarget.removeEventListener("focusout", focusOut);
       hoverMedia.removeEventListener("change", updatePointer);
+      window.removeEventListener("resize", updatePointer);
       if (!focusAncestor) {
         if (oldTabIndex === null) origin.removeAttribute("tabindex");
         else origin.setAttribute("tabindex", oldTabIndex);
       }
     };
-  }, []);
+  }, [asset.width, asset.height]);
   useEffect(() => {
     if (!preview) return;
     const close = () => setPreview(null);
@@ -78,20 +88,18 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
     window.addEventListener("wheel", close, { capture: true, passive: true });
     window.addEventListener("touchmove", close, { capture: true, passive: true });
     window.addEventListener("pointerdown", close, true);
-    window.addEventListener("resize", close);
     return () => {
       window.removeEventListener("keydown", keyDown);
       window.removeEventListener("scroll", scroll, true);
       window.removeEventListener("wheel", close, true);
       window.removeEventListener("touchmove", close, true);
       window.removeEventListener("pointerdown", close, true);
-      window.removeEventListener("resize", close);
     };
   }, [preview]);
   return <figure ref={originRef} className={`${className} ${interaction.action}`} style={style} data-media-kind={asset.kind}>
     {children}
-    {preview && createPortal(<figure className={styles.preview} aria-hidden={true} data-motion={preview.motion} style={{ ...preview.style, "--preview-ratio": asset.width / asset.height } as CSSProperties}>
-      <Image src={asset.src} alt="" width={asset.width} height={asset.height} sizes="92vw" loading="eager" />
+    {preview && createPortal(<figure className={styles.preview} aria-hidden={true} data-motion={preview.motion} style={{ ...preview.style, "--preview-width": `${preview.width + 18}px` } as CSSProperties}>
+      <Image src={asset.src} alt="" width={asset.width} height={asset.height} sizes={`${preview.width}px`} loading="eager" />
     </figure>, document.body)}
   </figure>;
 }
