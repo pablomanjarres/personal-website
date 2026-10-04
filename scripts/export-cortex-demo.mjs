@@ -40,7 +40,8 @@ try {
   const output = resolve(source, "demo-dist");
   const assetFiles = files(resolve(output, "assets")).map(name => `assets/${name}`).sort();
   const javascript = assetFiles.filter(name => name.endsWith(".js")).map(name => readFileSync(resolve(output, name), "utf8")).join("\n");
-  const forbidden = [/Good (?:morning|afternoon|evening), Pablo/i, /Mac Mini Debt/i, /Corporaciones/, /nella-daily-dev-log/, /Voice memo in Mars/, /1895000|1895e3/, /serviceWorker\.register/];
+  const forbidden = [/Good (?:morning|afternoon|evening), Pablo/i, /Mac Mini Debt/i, /Corporaciones/, /nella-daily-dev-log/, /Voice memo in Mars/, /1895000|1895e3/, /serviceWorker\.register/,
+    /Notes you or Claude save land here/, /Add a grocery bill via Claude/, /Ask Claude to build one/, /Say .save that. to Claude mid-session/];
   const failedRule = forbidden.findIndex(pattern => pattern.test(javascript));
   if (failedRule >= 0) throw new Error(`The public Cortex bundle failed privacy rule ${failedRule + 1}.`);
   if (assetFiles.some(name => name.includes("instrument-serif"))) throw new Error("The public Cortex bundle contains retired font assets.");

@@ -19,6 +19,10 @@ const literalChanges = {
   "src/components/layout/Sidebar.tsx": { "http://localhost:19100/lm": "#/settings" },
   "src/features/cloud-costs/CloudCostsPage.tsx": { "Actual AWS and GCP usage, normalized to USD and kept private on this Mac.": "Fictional AWS and GCP usage for exploring the infrastructure ledger." },
   "src/lib/theme.ts": { "cortex-ui-theme": "cortex-public-demo-theme-v3" },
+  "src/features/student/MaterialsTab.tsx": { "Notes you or Claude save land here.": "Saved notes for this course appear here." },
+  "src/features/student/NotesTab.tsx": { "Say “save that” to Claude mid-session and it lands here.": "Save your study notes to keep them here." },
+  "src/features/gym/components/MarketLog.tsx": { "Ask Claude to build one from your previous buys.": "Saved shopping lists appear here." },
+  "src/features/gym/components/NutritionLog.tsx": { "Add a grocery bill via Claude and items land here.": "Saved grocery items appear here." },
 };
 
 export function transformDemoSource(code, file) {
