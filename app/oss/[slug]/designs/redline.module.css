@@ -190,11 +190,6 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-family: var(--font-redline-display, "Helvetica Neue"), sans-serif;
-  font-weight: 700;
-  font-size: clamp(18px, 2vw, 23px);
-  letter-spacing: 0.02em;
   color: var(--rl-ink);
   text-decoration: none;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
@@ -204,17 +199,6 @@
 .brand:focus-visible {
   color: #fff;
   outline: none;
-}
-.brandMark {
-  color: var(--rl-red);
-  filter: drop-shadow(0 0 8px var(--rl-red-glow));
-  font-size: 0.82em;
-  transition: filter 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.brand:hover .brandMark,
-.brand:focus-visible .brandMark {
-  filter: drop-shadow(0 0 13px var(--rl-red-glow));
-  transform: rotate(72deg);
 }
 .navRight {
   display: flex;
