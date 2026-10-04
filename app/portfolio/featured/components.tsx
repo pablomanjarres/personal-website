@@ -10,7 +10,7 @@ import interaction from "@/app/site/interaction.module.css";
 const styles = { ...localStyles, ...interaction };
 
 export function ProjectLink({ item, className = "", children }: { item: FeaturedProject; className?: string; children: ReactNode }) {
-  return <Link href={item.href} className={`${styles.action} ${className}`}>{children}</Link>;
+  return <Link href={item.href} className={`${styles.action} ${interaction.textLink} ${className}`}>{children}</Link>;
 }
 
 export function ProjectVisual({ item, className = "", sizes = "(max-width: 700px) 90vw, 65vw" }: {
@@ -26,7 +26,7 @@ export function ProjectVisual({ item, className = "", sizes = "(max-width: 700px
 }
 
 export function BuildingLink({ href, className = "", children = profile.building }: { href: string; className?: string; children?: ReactNode }) {
-  return <Link href={href} className={`${styles.action} ${className}`}>{children}</Link>;
+  return <Link href={href} className={`${styles.action} ${interaction.textLink} ${className}`}>{children}</Link>;
 }
 
 export function ProjectArchive({ projectHref, className = "" }: { projectHref: (slug: string) => string; className?: string }) {
@@ -37,16 +37,16 @@ export function ProjectArchive({ projectHref, className = "" }: { projectHref: (
 }
 
 export function EmailLink({ subject = "Hello Pablo", className = "", children = profile.email }: { subject?: string; className?: string; children?: ReactNode }) {
-  return <a href={`mailto:${profile.email}?subject=${encodeURIComponent(subject)}`} className={`${styles.action} ${className}`}>{children}</a>;
+  return <a href={`mailto:${profile.email}?subject=${encodeURIComponent(subject)}`} className={`${styles.action} ${interaction.textLink} ${className}`}>{children}</a>;
 }
 
 export function BookingLink({ className = "", children = "Book a conversation" }: { className?: string; children?: ReactNode }) {
-  return <a href={profile.booking} target="_blank" rel="noreferrer" className={`${styles.action} ${className}`}>{children}</a>;
+  return <a href={profile.booking} target="_blank" rel="noreferrer" className={`${styles.action} ${interaction.button} ${className}`}>{children}</a>;
 }
 
 export function FooterLinks({ className = "", destination = { href: "/portfolio", label: "All projects" } }: { className?: string; destination?: { href: string; label: string } }) {
   return <div className={`${styles.footerLinks} ${className}`}><span>{profile.name}</span>
-    <nav aria-label="Social profiles">{profile.socials.filter(social => ["gh", "in", "x"].includes(social.id)).map(social => <a key={social.id} href={social.url} target="_blank" rel="noreferrer" className={styles.action}>{social.label}</a>)}</nav>
-    <Link href={destination.href} className={styles.action}>{destination.label}</Link>
+    <nav aria-label="Social profiles">{profile.socials.filter(social => ["gh", "in", "x"].includes(social.id)).map(social => <a key={social.id} href={social.url} target="_blank" rel="noreferrer" className={`${styles.action} ${interaction.textLink}`}>{social.label}</a>)}</nav>
+    <Link href={destination.href} className={`${styles.action} ${interaction.textLink}`}>{destination.label}</Link>
   </div>;
 }
