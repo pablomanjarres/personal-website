@@ -47,6 +47,10 @@ function realNavigation(html) {
   assert.ok(!links(html).some(href => href.startsWith("/mockups")), "Production navigation points into mockups");
   assert.ok(!/next project/i.test(normalize(html)), "Removed Next project section returned");
 }
+function imagePath(src) {
+  const url = new URL(src, origin);
+  return decodeURIComponent(url.pathname === "/_next/image" ? new URL(url.searchParams.get("url"), origin).pathname : url.pathname);
+}
 function localImages(html, path) {
   const images = tags(html, "img");
   for (const image of images) {
@@ -94,8 +98,45 @@ test("Open Studio is the real homepage with the approved selected work", () => {
   for (const href of ["#work", "#about", "#contact", "/portfolio"]) assert.ok(links(html).includes(href));
   contains(html, "Software Engineer"); contains(html, "Product Designer"); contains(html, "Founder");
   assert.ok(tags(html, "img").some(image => image.src.includes("forest.webp")), "Approved jacket portrait is missing");
-  assert.ok(tags(html, "img").some(image => image.src.includes("paired-phones.webp")), "Real paired Anki export is missing");
   canonical(html, "/"); realNavigation(html); localImages(html, "/");
+});
+
+test("Selected product presentations reach public and saved routes without replacing the live screen", () => {
+  const presentations = [
+    { slug: "anki", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone" },
+    { slug: "cortex", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair" },
+    { slug: "construcredit", src: "/portfolio/presentations/construcredit-dashboard.webp", width: 4500, height: 3000, alt: "ConstruCredit loan dashboard on a laptop resting on a green chair" },
+  ];
+  const concepts = ["signal", "open-studio", "blueprint", "after-hours", "green-room", "soft-focus"];
+  const directions = ["playground", "workbench", "atlas", "cinema", "gallery", "stack"];
+  for (const presentation of presentations) {
+    const paths = ["/", "/portfolio", projectPath(presentation.slug), ...concepts.map(concept => `/mockups/${concept}`), ...directions.flatMap(direction => [`/mockups/projects/${direction}`, `/mockups/projects/${direction}/${presentation.slug}`])];
+    for (const path of paths) {
+      const image = tags(htmlFor(path), "img").find(image => imagePath(image.src) === presentation.src && image.alt === presentation.alt);
+      assert.ok(image, `${path}: missing accessible presentation for ${presentation.slug}`);
+      assert.equal(Number(image.width), presentation.width, `${path}: incorrect intrinsic width`);
+      assert.equal(Number(image.height), presentation.height, `${path}: incorrect intrinsic height`);
+    }
+    const detail = htmlFor(projectPath(presentation.slug));
+    assert.equal(imagePath(tags(detail, "img")[0].src), presentation.src, `${presentation.slug}: presentation is not the lead visual`);
+    for (const [attribute, value] of [["property", "og:image"], ["name", "twitter:image"]]) {
+      const image = tags(detail, "meta").find(tag => tag[attribute] === value)?.content;
+      assert.ok(image, `${presentation.slug}: missing ${value}`);
+      assert.equal(imagePath(image), presentation.src);
+      assert.ok(existsSync(resolve(publicRoot, `.${imagePath(image)}`)), `${presentation.slug}: missing social image file`);
+    }
+    assert.equal(tags(detail, "meta").find(tag => tag.property === "og:image:alt")?.content, presentation.alt);
+    assert.equal(Number(tags(detail, "meta").find(tag => tag.property === "og:image:width")?.content), 1200);
+    assert.equal(Number(tags(detail, "meta").find(tag => tag.property === "og:image:height")?.content), Math.round(1200 * presentation.height / presentation.width));
+  }
+  const review = tags(htmlFor(projectPath("anki")), "img").find(image => imagePath(image.src) === "/portfolio/presentations/anki-review.webp");
+  assert.ok(review, "Anki detail lost its supporting review presentation");
+  assert.equal(review.alt, "Anki calculus review with a tangent graph on an angled iPhone");
+  assert.equal(Number(review.width), 4000); assert.equal(Number(review.height), 3000);
+  const cortex = htmlFor(projectPath("cortex"));
+  const launcher = cortex.match(/<button\b[^>]*aria-label="Run the live Cortex demo"[^>]*>([^]*?)<\/button>/)?.[1];
+  assert.ok(launcher, "Cortex lost its real demo launcher");
+  assert.equal(imagePath(tags(launcher, "img")[0].src), "/portfolio/previews/cortex.png");
 });
 
 test("The production archive reaches every registered project", () => {
