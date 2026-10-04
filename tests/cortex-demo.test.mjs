@@ -29,6 +29,16 @@ test("Cortex export uses the current graphite and teal app", () => {
   }
 });
 
+test("Public Cortex hints describe saved content without private workflow instructions", () => {
+  const js = bundle();
+  for (const value of ["Notes you or Claude save land here.", "Add a grocery bill via Claude and items land here.",
+    "Ask Claude to build one from your previous buys.", "Say “save that” to Claude mid-session and it lands here."]) {
+    assert.ok(!js.includes(value), `Private workflow hint remains: ${value}`);
+  }
+  for (const value of ["Saved notes for this course appear here.", "Saved grocery items appear here.", "Saved shopping lists appear here.",
+    "Save your study notes to keep them here."]) assert.ok(js.includes(value), `Product hint is missing: ${value}`);
+});
+
 test("Cortex export records pinned source and every shipped asset", () => {
   assert.ok(existsSync(resolve(demo, "export.json")), "Pinned export manifest is missing");
   const manifest = JSON.parse(text("export.json"));
