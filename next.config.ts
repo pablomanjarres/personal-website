@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/**", search: "" },
       { pathname: "/images/anki/**", search: "?v=mobile-edge-1" },
-      { pathname: "/images/anki/paired-phones.webp", search: "?v=paired-export-2" },
       { pathname: "/mockups/body-previews/**", search: "?v=mobile-edge-1" },
       { pathname: "/mockups/body-previews/**", search: "?v=paired-export-2" },
       { pathname: "/mockups/project-previews/**", search: "?v=mobile-edge-1" },

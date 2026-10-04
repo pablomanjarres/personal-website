@@ -12,15 +12,10 @@ import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionId };
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
-function mapAsset(study: ProjectStudy) {
-  return study.media.find(asset => asset.kind === "screen")
-    ?? getStudyPreview(study);
-}
-
 function ProductLandmark({ study, direction, compact = false, priority = false }: {
   study: ProjectStudy; direction: StudyDirectionId; compact?: boolean; priority?: boolean;
 }) {
-  const asset = mapAsset(study);
+  const asset = getStudyPreview(study);
   const media = <StudyMedia asset={asset} className={compact ? styles.compactMedia : styles.mapMedia} priority={priority} sizes={compact ? "(max-width: 700px) 41vw, 33vw" : undefined} />;
   return <article id={`project-${study.project.slug}`} className={compact ? styles.compactLandmark : styles.landmark} data-reveal>
     <div className={styles.landmarkLabel}>
