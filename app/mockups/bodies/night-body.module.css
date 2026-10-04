@@ -70,8 +70,8 @@
 .body .booking:hover { background: var(--night-cyan); }
 @media (prefers-reduced-motion: no-preference) {
   :global(:is([data-motion="active"], [data-motion="paused"])) .beam { animation: screeningLight 12s ease-in-out infinite; transform-origin: 78% 10%; }
-  :global([data-motion="active"]) .screen img { transition: scale 700ms cubic-bezier(.2, .8, .2, 1); }
-  :global([data-motion="active"]) .screen:hover img { scale: 1.025; }
+  :global([data-motion="active"]) .screen:not([data-zoomable="true"]) img { transition: scale 700ms cubic-bezier(.2, .8, .2, 1); }
+  :global([data-motion="active"]) .screen:not([data-zoomable="true"]):hover img { scale: 1.025; }
 }
 @keyframes screeningLight { 0%, 100% { rotate: -3deg; opacity: .55; } 50% { rotate: 5deg; opacity: 1; } }
 @media (max-width: 900px) {
