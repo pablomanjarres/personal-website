@@ -162,20 +162,9 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-family: var(--f-mono);
-  font-weight: 600;
-  font-size: clamp(15px, 1.7vw, 18px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--paper);
   text-decoration: none;
   text-shadow: 0 1px 8px rgba(4, 5, 8, 0.6);
-}
-.brandMark {
-  color: var(--green);
-  font-size: 1.05em;
-  text-shadow: 0 0 12px rgba(63, 185, 80, 0.55);
 }
 .navLinks {
   display: flex;
