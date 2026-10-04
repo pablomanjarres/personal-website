@@ -1,2 +1,24 @@
 .action { min-height: 44px; text-decoration: none; }
 .action.action:focus-visible { outline: 3px solid var(--action-focus-color, currentColor); outline-offset: 6px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; transform-origin: center; }
+.textLink { display: inline-flex; align-items: center; gap: 12px; text-underline-offset: 5px; }
+.arrow { display: inline-block; flex: none; margin: 0; line-height: 1; }
+.button:is(:disabled, [aria-disabled="true"]) { opacity: .55; cursor: not-allowed; }
+@media (prefers-reduced-motion: no-preference) {
+  :global([data-motion="active"]) :is(.button.button, .textLink.textLink, summary.action) { transition: transform var(--action-time, 180ms) var(--action-ease, cubic-bezier(.2, .8, .2, 1)), background-color var(--action-time, 180ms) ease, color var(--action-time, 180ms) ease, box-shadow var(--action-time, 180ms) ease; }
+  :global([data-motion="active"]) .arrow { transition: transform var(--action-time, 180ms) var(--action-ease, cubic-bezier(.2, .8, .2, 1)); }
+  @media (hover: hover) and (pointer: fine) {
+    :global([data-motion="active"]) .button:not(:disabled, [aria-disabled="true"]):hover,
+    :global([data-motion="active"]) .mediaTrigger:not(:disabled, [aria-disabled="true"]):hover .button { transform: translateY(-2px) scale(1.025); }
+    :global([data-motion="active"]) .button:not(:disabled, [aria-disabled="true"]):hover .arrow { transform: translate(2px, var(--action-arrow-y, -2px)); }
+    :global([data-motion="active"]) :is(.textLink, summary.action):not([aria-disabled="true"]):hover { transform: translateX(3px); }
+  }
+  :global([data-motion="active"]) .button:not(:disabled, [aria-disabled="true"]):active,
+  :global([data-motion="active"]) .mediaTrigger:not(:disabled, [aria-disabled="true"]):active .button { transform: scale(.96); }
+  :global([data-motion="active"]) :is(.textLink, summary.action):not([aria-disabled="true"]):active { transform: scale(.985); }
+}
+:global([data-motion="paused"]) :is(.button, .textLink, summary.action),
+:global([data-motion="reduced"]) :is(.button, .textLink, summary.action),
+:global([data-motion="paused"]) .arrow,
+:global([data-motion="reduced"]) .arrow { transform: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .button, .textLink, summary.action, .arrow { transform: none !important; transition: none !important; } }

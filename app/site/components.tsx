@@ -7,8 +7,8 @@ import styles from "./shell.module.css";
 
 export type SiteTheme = { id: string; paper: string; ink: string; accent: string; panel?: string; actionHover?: string };
 
-export function SiteMark({ href = "#main", className = "" }: { href?: string; className?: string }) {
-  return <Link href={href} className={`${styles.brand} ${className}`} aria-label="Pablo Manjarres, home">pm<span aria-hidden>.</span></Link>;
+export function SiteMark({ href = "#main", className = "", style }: { href?: string; className?: string; style?: CSSProperties }) {
+  return <Link href={href} className={`${styles.brand} ${className}`} style={style} aria-label="Pablo Manjarres, home"><span className={styles.wordmark}>pm<span aria-hidden>.</span></span></Link>;
 }
 
 type NavigationItem = { label: string; href: string };
@@ -19,8 +19,8 @@ const homeNavigation: readonly NavigationItem[] = [
 export function SiteHeader({ navigation = homeNavigation, brandHref = "#main" }: { navigation?: readonly NavigationItem[]; brandHref?: string }) {
   return <header className={styles.nav}>
     <SiteMark href={brandHref} />
-    <nav aria-label="Main navigation">{navigation.map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}</nav>
-    <a className={styles.navContact} href={profile.booking} target="_blank" rel="noreferrer">Let’s talk <span aria-hidden>↗</span></a>
+    <nav aria-label="Main navigation">{navigation.map(item => <Link key={item.href} href={item.href} className={styles.navLink}>{item.label}</Link>)}</nav>
+    <a className={styles.navContact} href={profile.booking} target="_blank" rel="noreferrer">Let’s talk <span className={styles.arrow} aria-hidden>↗</span></a>
   </header>;
 }
 
@@ -45,7 +45,7 @@ export function Portrait({ portrait, className, preload = true, alt = "Pablo Man
 }
 
 export function ActionLinks({ className = "" }: { className?: string }) {
-  return <div className={`${styles.actions} ${className}`}><a className={styles.primary} href="#work">Explore my work <span aria-hidden>↘</span></a><a className={styles.secondary} href={`mailto:${profile.email}`}>Get in touch</a></div>;
+  return <div className={`${styles.actions} ${className}`}><a className={styles.primary} href="#work">Explore my work <span className={styles.arrow} aria-hidden>↘</span></a><a className={styles.secondary} href={`mailto:${profile.email}`}>Get in touch</a></div>;
 }
 
 export function RoleSummary({ className = "" }: { className?: string }) {
