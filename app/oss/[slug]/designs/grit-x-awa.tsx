@@ -13,6 +13,7 @@
 import { useEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
+import { SiteMark } from "@/app/site/components";
 import type { Hero } from "../../heroes";
 import styles from "./grit-x-awa.module.css";
 
@@ -188,9 +189,7 @@ export default function Hero({ hero, slug }: { hero: Hero; slug: string }) {
       </div>
 
       <nav className={styles.nav}>
-        <Link className={`${styles.brand} ${styles.reveal}`} href="/" style={ms(T.brand)}>
-          <b className={styles.brandMark}>✦</b> Pablo
-        </Link>
+        <SiteMark className={`${styles.brand} ${styles.reveal}`} href="/" style={ms(T.brand)} />
         <div className={`${styles.navLinks} ${styles.reveal}`} style={ms(T.nav)}>
           <Link className={styles.navLink} href="/oss">
             Open source
