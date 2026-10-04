@@ -77,6 +77,13 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
   window.innerWidth = 1280; window.innerHeight = 720;
   window.matchMedia = () => media;
   const body = {}, effects = [];
+  const observers = [];
+  class ResizeObserver {
+    constructor(callback) { this.callback = callback; this.targets = new Set(); observers.push(this); }
+    observe(target) { this.targets.add(target); }
+    disconnect() { this.targets.clear(); }
+    notify() { if (this.targets.has(frame)) this.callback([{ target: frame }]); }
+  }
   let state = null, effectIndex = 0, refIndex = 0, output;
   const { StudyImagePreview } = load("image-preview.tsx", {
     "next/image": { default: "img" },
@@ -92,7 +99,7 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
     "@/app/site/theme": { workbenchTheme: { paper: "#fafaf7", ink: "#292b2d" } },
     "@/app/site/interaction.module.css": { default: { action: "action" } },
     "./image-preview.module.css": { default: { frame: "frame" } },
-  }, { window, document: { body }, getComputedStyle: () => ({ borderRadius: "24px" }) });
+  }, { window, ResizeObserver, document: { body }, getComputedStyle: () => ({ borderRadius: "24px" }) });
   function render() {
     effectIndex = 0; refIndex = 0;
     output = StudyImagePreview({ asset: mediaAsset, imageProps: JSON.parse(JSON.stringify({ src: mediaAsset.src, alt: mediaAsset.alt, width: mediaAsset.width, height: mediaAsset.height, sizes: "(max-width: 700px) 88vw, 24vw", preload: false, style: { width: "100%", height: "auto" } })), caption: jsx("figcaption", { children: mediaAsset.label }), className: "media", style: { aspectRatio: "4 / 3" } });
@@ -100,7 +107,7 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
     return output;
   }
   render();
-  return { origin, frame, focusTarget, window, media, body, render, setImageWidth: value => { inlineWidth = value; },
+  return { origin, frame, focusTarget, window, media, body, render, observers, notifyFrameResize: () => observers.forEach(observer => observer.notify()), setImageWidth: value => { inlineWidth = value; },
     get preview() { return [render().props.children].flat().find(child => child?.tag === "div" && child.props["data-zoomed"]); },
     get image() { return imageProps(render()); },
     cleanup() { for (const effect of effects) effect.cleanup?.(); },
@@ -196,6 +203,29 @@ test("Resize refreshes the enlargement threshold using image aspect ratio and re
   runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
   assert.equal(runtime.preview, undefined, "Eligibility must use the current rendered image width");
   runtime.cleanup();
+});
+
+test("A layout change updates eligibility without a viewport resize and disconnects its frame observer", () => {
+  const runtime = mount({ inlineWidth: 1000 });
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "false");
+  runtime.setImageWidth(303);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.window.innerWidth, 1280);
+  assert.equal(runtime.window.innerHeight, 720);
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "true", "Moving into a smaller project column must enable zoom");
+  assert.equal(runtime.origin.getAttribute("tabindex"), "0");
+  runtime.focusTarget.dispatch("focusin");
+  assert.ok(runtime.preview);
+  runtime.setImageWidth(280);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.preview, undefined, "Changing the image frame resets magnification");
+  assert.equal(runtime.observers.length, 1);
+  assert.ok(runtime.observers[0].targets.has(runtime.frame));
+  runtime.cleanup();
+  assert.equal(runtime.observers[0].targets.size, 0);
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), null);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), null, "Disconnected observers must not write after unmount");
 });
 
 test("Keyboard focus uses the existing link and Escape dismisses without moving focus", () => {
