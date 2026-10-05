@@ -1,7 +1,6 @@
 .workbench {
   --bench-paper: var(--paper);
   --bench-ink: var(--ink);
-  --bench-orange: var(--accent);
   --bench-action: #b43d0d;
   --bench-plate: #efeeea;
   --bench-edge: #d9d8d2;
