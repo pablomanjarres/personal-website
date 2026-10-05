@@ -23,9 +23,10 @@ for (const route of routes) test(`${route} renders the shared personal website m
   assert.match(homeLink[1], /aria-label="Pablo Manjarres, home"/);
   assert.equal(homeLink[2].replace(/<[^>]*>/g, "").trim(), "pm.");
   const iconLinks = [...html.matchAll(/<link\b([^>]*)>/g)].map(([, attributes]) => attributes);
-  assert.ok(iconLinks.some(attributes => /rel="icon"/.test(attributes) && /href="\/favicon\.ico"/.test(attributes)), `${route}: missing ICO browser fallback`);
+  assert.ok(iconLinks.some(attributes => /rel="icon"/.test(attributes) && /href="\/favicon\.ico(?:\?[^"]*)?"/.test(attributes)), `${route}: missing ICO browser fallback`);
+  assert.ok(iconLinks.some(attributes => /rel="icon"/.test(attributes) && /href="\/icon\.svg\?v=pm-1"/.test(attributes)), `${route}: missing refreshed SVG browser icon`);
   assert.ok(iconLinks.some(attributes => /rel="shortcut icon"/.test(attributes) && /href="\/favicon\.ico\?v=pm-1"/.test(attributes)), `${route}: missing refreshed browser icon URL`);
-  assert.ok(iconLinks.some(attributes => /rel="apple-touch-icon"/.test(attributes) && /href="\/apple-icon\.png/.test(attributes)), `${route}: missing Apple touch icon`);
+  assert.ok(iconLinks.some(attributes => /rel="apple-touch-icon"/.test(attributes) && /href="\/apple-icon\.png\?v=pm-1"/.test(attributes)), `${route}: missing Apple touch icon`);
 });
 
 test("Browser fallback icons contain the approved personal website mark", () => {
