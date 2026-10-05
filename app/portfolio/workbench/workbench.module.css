@@ -32,7 +32,7 @@
 .projectLabel h2 a { display: inline-flex; align-items: center; }
 .projectLabel span { color: var(--bench-muted); font-size: 13px; }
 .leadProject .projectLabel { padding-right: 20%; }
-.benchProject:nth-child(3) { padding-top: 110px; }
+.benchProject:nth-child(3) { grid-column: 2; }
 .benchProject:nth-child(3) .projectMount { background: var(--bench-orange); padding: 16% 8%; }
 .benchProject[data-media-kind="presentation"] .projectMount { background: transparent; padding: 0; }
 .projectMedia[data-media-kind="presentation"] { box-shadow: none; border-radius: var(--bench-corner); overflow: hidden; }
@@ -72,7 +72,7 @@
   .projectLabel { display: block; margin-top: 18px; }
   .projectLabel h2 { font-size: 30px; }
   .projectLabel span { display: block; margin-top: 4px; font-size: 12px; }
-  .benchProject:nth-child(3) { padding: 0; margin-left: 9%; }
+  .benchProject:nth-child(3) { margin-left: 9%; }
   .ledger { display: block; margin-top: 75px; }
   .ledger h2 { font-size: 30px; margin-bottom: 20px; }
   .ledgerItems { grid-template-columns: 1fr; }
