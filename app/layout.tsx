@@ -355,7 +355,11 @@ const fontVariables = [
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pablomanjarres.com"),
-  icons: { shortcut: "/favicon.ico?v=pm-1" },
+  icons: {
+    icon: { url: "/icon.svg?v=pm-1", type: "image/svg+xml", sizes: "any" },
+    shortcut: "/favicon.ico?v=pm-1",
+    apple: { url: "/apple-icon.png?v=pm-1", type: "image/png", sizes: "180x180" },
+  },
   title: "Pablo Manjarres | Software engineer and product designer",
   description: "Software engineer, product designer, and founder. I design products and build the software behind them.",
   openGraph: {
