@@ -67,9 +67,9 @@
     transition: transform var(--motion-time) var(--motion-ease), box-shadow var(--motion-time) var(--motion-ease);
   }
   :global([data-motion="active"]) .study:has(:focus-visible) .mainVisual {
-    transform: rotate(0deg) translateY(-12px) scale(1.025);
     box-shadow: 0 26px 50px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
   }
+  :global([data-motion="active"]) .study:has(:focus-visible) .mainVisual:not(:has([data-zoomable="true"])) { transform: rotate(0deg) translateY(-12px) scale(1.025); }
   :global([data-motion="active"]) .ticket:has(:focus-visible) .fold { transform: scale(1.18); transform-origin: top right; }
   :global([data-motion="active"]) .book:focus-visible {
     transform: translateY(-4px);
@@ -78,9 +78,9 @@
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   :global([data-motion="active"]) .study:hover .mainVisual {
-    transform: rotate(0deg) translateY(-12px) scale(1.025);
     box-shadow: 0 26px 50px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
   }
+  :global([data-motion="active"]) .study:hover .mainVisual:not(:has([data-zoomable="true"])) { transform: rotate(0deg) translateY(-12px) scale(1.025); }
   :global([data-motion="active"]) .ticket:hover .fold { transform: scale(1.18); transform-origin: top right; }
   :global([data-motion="active"]) .book:hover {
     transform: translateY(-4px);

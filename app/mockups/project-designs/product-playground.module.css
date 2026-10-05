@@ -88,7 +88,7 @@
 .video { margin: 25px 0 0; }
 .video video { border-radius: 10px; background: var(--deep); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  :global([data-motion="active"]) .stripItem:hover .stripImage { transform: translateY(-2px); }
+  :global([data-motion="active"]) .stripItem:hover .stripImage:not([data-zoomable="true"]) { transform: translateY(-2px); }
   .stripImage { transition: transform 250ms ease; }
 }
 @media (max-width: 900px) {

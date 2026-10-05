@@ -51,7 +51,7 @@
 .footerLinks { max-width: 1280px; margin: auto; color: var(--celadon); }
 @media (prefers-reduced-motion: no-preference) {
   :global([data-motion="active"]) .plot .preview { transition: transform 550ms cubic-bezier(.16, 1, .3, 1); }
-  :global([data-motion="active"]) .plot:is(:hover, :focus-within) .preview { transform: translateY(-8px) rotate(-1deg); }
+  :global([data-motion="active"]) .plot:is(:hover, :focus-within) .preview:not(:has([data-zoomable="true"])) { transform: translateY(-8px) rotate(-1deg); }
 }
 @media (max-width: 1000px) {
   .plot[data-project="anki"] { padding: 45px; gap: 30px; }

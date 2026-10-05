@@ -43,14 +43,14 @@
 @media (prefers-reduced-motion: no-preference) {
   :global([data-motion="active"]) .projectVisual { transition: transform 650ms var(--motion-ease); }
   :global([data-motion="active"]) .indexLens { transition: transform 800ms var(--motion-ease); }
-  :global([data-motion="active"]) .benchProject:has(:focus-visible) .projectVisual { transform: translateY(-10px) scale(1.025); }
+  :global([data-motion="active"]) .benchProject:has(:focus-visible) .projectVisual:not(:has([data-zoomable="true"])) { transform: translateY(-10px) scale(1.025); }
   :global([data-motion="active"]) .benchProject:has(:focus-visible) .indexLens { transform: translate(7px, -5px) rotate(4deg); }
   :global([data-motion="active"]) .ledgerLink { transition: color 220ms ease, background 220ms ease; }
   :global([data-motion="active"]) .ledgerLink > span, :global([data-motion="active"]) .ledgerLink > small { transition: translate 400ms var(--motion-ease); }
   :global([data-motion="active"]) .ledgerLink:focus-visible > span { translate: 8px 0; }
   :global([data-motion="active"]) .ledgerLink:focus-visible > small { translate: -4px 0; }
   @media (hover: hover) and (pointer: fine) {
-    :global([data-motion="active"]) .benchProject:hover .projectVisual { transform: translateY(-10px) scale(1.025); }
+    :global([data-motion="active"]) .benchProject:hover .projectVisual:not(:has([data-zoomable="true"])) { transform: translateY(-10px) scale(1.025); }
     :global([data-motion="active"]) .benchProject:hover .indexLens { transform: translate(7px, -5px) rotate(4deg); }
     :global([data-motion="active"]) .ledgerLink:hover > span { translate: 8px 0; }
     :global([data-motion="active"]) .ledgerLink:hover > small { translate: -4px 0; }
