@@ -1,75 +1,96 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { createPortal } from "react-dom";
-import { workbenchTheme } from "@/app/site/theme";
 import interaction from "@/app/site/interaction.module.css";
 import type { StudyAsset } from "./data";
 import styles from "./image-preview.module.css";
 
 type Preview = { style: CSSProperties; width: number; motion: string | null; source: "pointer" | "focus" };
-type Props = { asset: StudyAsset & { src: string }; children: ReactNode; className?: string; style?: CSSProperties };
+type Props = { asset: StudyAsset & { src: string }; imageProps: Pick<ImageProps, "src" | "alt" | "width" | "height" | "sizes" | "preload" | "style">; caption?: ReactNode; className?: string; style?: CSSProperties };
+const zoomScale = 1.7;
 
-export function StudyImagePreview({ asset, children, className = "", style }: Props) {
+export function StudyImagePreview({ asset, imageProps, caption, className = "", style }: Props) {
   const originRef = useRef<HTMLElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
   const [preview, setPreview] = useState<Preview | null>(null);
   useEffect(() => {
     const origin = originRef.current;
-    if (!origin) return;
+    const frame = frameRef.current;
+    if (!origin || !frame) return;
+    const image = frame.querySelector("img");
+    if (image) frame.style.borderRadius = getComputedStyle(image).borderRadius;
     const focusAncestor = origin.parentElement?.closest<HTMLElement>("a[href], button, [tabindex='0']");
     const focusTarget = focusAncestor ?? origin;
     const oldTabIndex = origin.getAttribute("tabindex");
+    const oldEligibility = origin.getAttribute("data-zoomable");
     const hoverMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
     let hovering = false;
     const close = () => setPreview(null);
     const fitPreview = () => {
       const width = Math.max(0, Math.min(window.innerWidth * .92, window.innerHeight * .86 * asset.width / asset.height, 1600) - 18);
-      const inlineWidth = origin.querySelector("img")?.getBoundingClientRect().width ?? 0;
-      return { width, eligible: hoverMedia.matches && inlineWidth > 0 && width >= inlineWidth * 1.2 };
+      const inlineWidth = frame.getBoundingClientRect().width;
+      return { width: inlineWidth * zoomScale, eligible: hoverMedia.matches && inlineWidth > 0 && width >= inlineWidth * 1.2 };
     };
     const open = (source: Preview["source"]) => {
       const fit = fitPreview();
       if (!fit.eligible) return false;
-      const tokens = getComputedStyle(origin);
       setPreview({
-        style: {
-          "--paper": tokens.getPropertyValue("--paper").trim() || workbenchTheme.paper,
-          "--ink": tokens.getPropertyValue("--ink").trim() || workbenchTheme.ink,
-          "--motion-ease": tokens.getPropertyValue("--motion-ease").trim() || "ease",
-        } as CSSProperties,
+        style: { "--zoom-scale": zoomScale } as CSSProperties,
         width: fit.width,
         motion: origin.closest("[data-motion]")?.getAttribute("data-motion") ?? null,
         source,
       });
       return true;
     };
+    const pointerMove = (event: PointerEvent) => {
+      if (!hovering || event.pointerType === "touch") return;
+      const bounds = frame.getBoundingClientRect();
+      const position = (value: number, start: number, size: number) => `${Math.max(0, Math.min(100, (value - start) / size * 100))}%`;
+      frame.style.setProperty("--zoom-x", position(event.clientX, bounds.left, bounds.width));
+      frame.style.setProperty("--zoom-y", position(event.clientY, bounds.top, bounds.height));
+    };
     const pointerEnter = (event: PointerEvent) => {
       if (!hoverMedia.matches || event.pointerType === "touch") return;
       hovering = open("pointer");
+      pointerMove(event);
     };
     const pointerLeave = () => { hovering = false; close(); };
-    const focusIn = () => { if (hoverMedia.matches && focusTarget.matches(":focus-visible")) open("focus"); };
+    const focusIn = () => {
+      if (!hoverMedia.matches || !focusTarget.matches(":focus-visible")) return;
+      frame.style.setProperty("--zoom-x", "50%");
+      frame.style.setProperty("--zoom-y", "50%");
+      open("focus");
+    };
     const focusOut = () => { if (!hovering) close(); };
     const updatePointer = () => {
-      if (!focusAncestor) origin.tabIndex = fitPreview().eligible ? 0 : -1;
+      const { eligible } = fitPreview();
+      origin.setAttribute("data-zoomable", String(eligible));
+      if (!focusAncestor) origin.tabIndex = eligible ? 0 : -1;
       hovering = false;
       close();
     };
     updatePointer();
-    origin.addEventListener("pointerenter", pointerEnter);
-    origin.addEventListener("pointerleave", pointerLeave);
+    const frameObserver = new ResizeObserver(updatePointer);
+    frameObserver.observe(frame);
+    frame.addEventListener("pointerenter", pointerEnter);
+    frame.addEventListener("pointermove", pointerMove);
+    frame.addEventListener("pointerleave", pointerLeave);
     focusTarget.addEventListener("focusin", focusIn);
     focusTarget.addEventListener("focusout", focusOut);
     hoverMedia.addEventListener("change", updatePointer);
     window.addEventListener("resize", updatePointer);
     return () => {
-      origin.removeEventListener("pointerenter", pointerEnter);
-      origin.removeEventListener("pointerleave", pointerLeave);
+      frameObserver.disconnect();
+      frame.removeEventListener("pointerenter", pointerEnter);
+      frame.removeEventListener("pointermove", pointerMove);
+      frame.removeEventListener("pointerleave", pointerLeave);
       focusTarget.removeEventListener("focusin", focusIn);
       focusTarget.removeEventListener("focusout", focusOut);
       hoverMedia.removeEventListener("change", updatePointer);
       window.removeEventListener("resize", updatePointer);
+      if (oldEligibility === null) origin.removeAttribute("data-zoomable");
+      else origin.setAttribute("data-zoomable", oldEligibility);
       if (!focusAncestor) {
         if (oldTabIndex === null) origin.removeAttribute("tabindex");
         else origin.setAttribute("tabindex", oldTabIndex);
@@ -97,9 +118,9 @@ export function StudyImagePreview({ asset, children, className = "", style }: Pr
     };
   }, [preview]);
   return <figure ref={originRef} className={`${className} ${interaction.action}`} style={style} data-media-kind={asset.kind}>
-    {children}
-    {preview && createPortal(<figure className={styles.preview} aria-hidden={true} data-motion={preview.motion} style={{ ...preview.style, "--preview-width": `${preview.width + 18}px` } as CSSProperties}>
-      <Image src={asset.src} alt="" width={asset.width} height={asset.height} sizes={`${preview.width}px`} loading="eager" />
-    </figure>, document.body)}
+    <div ref={frameRef} className={styles.frame} data-zoomed={Boolean(preview)} data-motion={preview?.motion} style={preview?.style}>
+      <Image {...imageProps} alt={imageProps.alt} sizes={preview ? `${preview.width}px` : imageProps.sizes} />
+    </div>
+    {caption}
   </figure>;
 }

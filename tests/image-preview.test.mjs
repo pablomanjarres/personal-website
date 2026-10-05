@@ -31,13 +31,17 @@ test("StudyMedia enables previews for full images without changing videos, unava
     "@/app/site/interaction.module.css": { default: {} },
   });
   for (const kind of ["presentation", "screen"]) {
-    const media = StudyMedia({ asset: { ...asset, kind }, caption: false });
+    const media = StudyMedia({ asset: { ...asset, kind } });
     assert.equal(media.tag, StudyImagePreview, `${kind} images do not enable automatic enlargement`);
-    const image = imageProps(media);
+    const image = media.props.imageProps;
+    assert.ok(image, "Image configuration must cross the client boundary as plain data");
+    assert.equal(media.props.children, undefined, "The client must not inspect a server-rendered image element");
     assert.equal(image.src, asset.src);
     assert.equal(image.alt, asset.alt);
     assert.equal(image.width, 4000);
     assert.equal(image.height, 3000);
+    assert.equal(JSON.parse(JSON.stringify(image)).sizes, image.sizes);
+    assert.equal(media.props.caption?.tag, "figcaption", "The caption must be separate from the zoomable image");
   }
   for (const props of [{ asset, detail: true }, { asset: { ...asset, kind: "video" } }, { asset: { ...asset, kind: "unavailable", src: undefined } }]) {
     assert.equal(StudyMedia(props).tag, "figure");
@@ -59,21 +63,33 @@ class Element {
 
 function mount({ linked = false, fine = true, paused = false, mediaAsset = asset, inlineWidth = 320 } = {}) {
   const origin = new Element(), focusTarget = linked ? new Element() : origin;
+  const frame = new Element();
+  const frameStyles = new Map();
+  frame.style = { setProperty: (name, value) => frameStyles.set(name, value), getPropertyValue: name => frameStyles.get(name) ?? "" };
+  frame.getBoundingClientRect = () => ({ left: 100, top: 200, width: inlineWidth, height: inlineWidth * mediaAsset.height / mediaAsset.width });
   const image = new Element();
-  image.getBoundingClientRect = () => ({ width: inlineWidth, height: inlineWidth * mediaAsset.height / mediaAsset.width });
+  image.getBoundingClientRect = frame.getBoundingClientRect;
   origin.querySelector = selector => selector === "img" ? image : null;
+  frame.querySelector = origin.querySelector;
   origin.parentElement = { closest: () => linked ? focusTarget : null };
   origin.closest = () => ({ getAttribute: () => paused ? "paused" : "active" });
   const window = new Element(), media = new Element(); media.matches = fine;
   window.innerWidth = 1280; window.innerHeight = 720;
   window.matchMedia = () => media;
   const body = {}, effects = [];
-  let state = null, effectIndex = 0, output;
+  const observers = [];
+  class ResizeObserver {
+    constructor(callback) { this.callback = callback; this.targets = new Set(); observers.push(this); }
+    observe(target) { this.targets.add(target); }
+    disconnect() { this.targets.clear(); }
+    notify() { if (this.targets.has(frame)) this.callback([{ target: frame }]); }
+  }
+  let state = null, effectIndex = 0, refIndex = 0, output;
   const { StudyImagePreview } = load("image-preview.tsx", {
     "next/image": { default: "img" },
     "react-dom": { createPortal: (child, container) => ({ portal: true, child, container }) },
     "react": {
-      useRef: () => ({ current: origin }), useState: () => [state, next => { state = next; }],
+      useRef: () => ({ current: refIndex++ === 0 ? origin : frame }), useState: () => [state, next => { state = next; }],
       useEffect: (callback, dependencies) => {
         const index = effectIndex++, previous = effects[index];
         if (previous && dependencies.every((value, i) => value === previous.dependencies[i])) return;
@@ -82,54 +98,68 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
     },
     "@/app/site/theme": { workbenchTheme: { paper: "#fafaf7", ink: "#292b2d" } },
     "@/app/site/interaction.module.css": { default: { action: "action" } },
-    "./image-preview.module.css": { default: { preview: "preview" } },
-  }, { window, document: { body }, getComputedStyle: () => ({ getPropertyValue: name => ({ "--paper": "#f5f7f3", "--ink": "#183d39", "--motion-ease": "ease" })[name] ?? "" }) });
+    "./image-preview.module.css": { default: { frame: "frame" } },
+  }, { window, ResizeObserver, document: { body }, getComputedStyle: () => ({ borderRadius: "24px" }) });
   function render() {
-    effectIndex = 0;
-    output = StudyImagePreview({ asset: mediaAsset, children: jsx("img", { src: mediaAsset.src }), className: "media", style: { aspectRatio: "4 / 3" } });
+    effectIndex = 0; refIndex = 0;
+    output = StudyImagePreview({ asset: mediaAsset, imageProps: JSON.parse(JSON.stringify({ src: mediaAsset.src, alt: mediaAsset.alt, width: mediaAsset.width, height: mediaAsset.height, sizes: "(max-width: 700px) 88vw, 24vw", preload: false, style: { width: "100%", height: "auto" } })), caption: jsx("figcaption", { children: mediaAsset.label }), className: "media", style: { aspectRatio: "4 / 3" } });
     for (const effect of effects) if (effect.callback) { effect.cleanup = effect.callback(); effect.callback = null; }
     return output;
   }
   render();
-  return { origin, focusTarget, window, media, body, render, setImageWidth: value => { inlineWidth = value; },
-    get preview() { return render().props.children.find(child => child?.portal); },
+  return { origin, frame, focusTarget, window, media, body, render, observers, notifyFrameResize: () => observers.forEach(observer => observer.notify()), setImageWidth: value => { inlineWidth = value; },
+    get preview() { return [render().props.children].flat().find(child => child?.tag === "div" && child.props["data-zoomed"]); },
+    get image() { return imageProps(render()); },
     cleanup() { for (const effect of effects) effect.cleanup?.(); },
   };
 }
 
-test("Pointer hover opens a larger portal immediately and leaving closes it while the linked origin stays unchanged", () => {
+test("Pointer hover magnifies the existing image in place and leaving resets it without changing its link or caption", () => {
   const runtime = mount({ linked: true });
   assert.equal(runtime.preview, undefined);
   assert.equal(runtime.origin.getAttribute("tabindex"), null, "A linked image must not add another tab stop");
-  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 180, clientY: 260 });
   const preview = runtime.preview;
-  assert.ok(preview, "Hover did not automatically open the preview");
-  assert.equal(preview.container, runtime.body, "The preview must escape transformed and clipped parents");
-  assert.equal(preview.child.props["aria-hidden"], true);
-  assert.equal(preview.child.props.style["--paper"], "#f5f7f3");
-  assert.equal(preview.child.props.children.props.src, asset.src);
+  assert.ok(preview, "Hover did not automatically zoom the inline image");
+  assert.equal(preview.props.children.props.src, asset.src);
+  assert.equal(preview.props.children.props.alt, asset.alt);
+  assert.equal(runtime.render().props.children.filter(child => child?.portal).length, 0, "Zoom must not add a viewport overlay");
+  assert.equal(runtime.render().props.children[1].tag, "figcaption", "The caption stays outside the clipped frame");
+  assert.equal(runtime.frame.style.getPropertyValue("--zoom-x"), "25%");
+  assert.equal(runtime.frame.style.getPropertyValue("--zoom-y"), "25%");
+  runtime.frame.dispatch("pointermove", { pointerType: "mouse", clientX: 340, clientY: 380 });
+  assert.equal(runtime.frame.style.getPropertyValue("--zoom-x"), "75%");
+  assert.equal(runtime.frame.style.getPropertyValue("--zoom-y"), "75%");
+  assert.equal(runtime.frame.style.borderRadius, "24px", "The clip must keep the original rounded image corners");
   assert.equal(runtime.render().props.onClick, undefined, "Image links keep their click behavior");
-  runtime.origin.dispatch("pointerleave");
+  runtime.frame.dispatch("pointerleave");
   assert.equal(runtime.preview, undefined);
+  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  assert.equal(runtime.preview, undefined, "Hovering the figure or caption must not activate zoom");
   runtime.cleanup();
   assert.equal(runtime.origin.listeners.size, 0);
+  assert.equal(runtime.frame.listeners.size, 0);
   assert.equal(runtime.focusTarget.listeners.size, 0);
 });
 
-test("Image downloads follow the same aspect-constrained width as the hover preview", () => {
-  const widths = [];
-  for (const mediaAsset of [asset, { ...asset, width: 1200, height: 2600 }]) {
-    const runtime = mount({ mediaAsset, inlineWidth: 150 });
-    runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
-    const preview = runtime.preview.child;
-    const width = preview.props.style["--preview-width"];
-    assert.equal(typeof width, "string", "The preview and image must share their width");
-    assert.ok(Number.isFinite(Number.parseFloat(width)), "The browser image budget must use the fitted pixel width");
-    assert.equal(Number.parseFloat(preview.props.children.props.sizes), Number.parseFloat(width) - 18, "The image budget must exclude the frame padding and border");
-    widths.push(width);
-    runtime.cleanup();
+test("The same image requests more detail only while magnified and preserves caller sizes when ordinary or disabled", () => {
+  const runtime = mount();
+  const sizes = runtime.image.sizes;
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 260, clientY: 320 });
+  const scale = runtime.preview.props.style["--zoom-scale"];
+  assert.ok(scale > 1, "The inline zoom must magnify the image");
+  assert.equal(Number.parseFloat(runtime.image.sizes), 320 * scale);
+  assert.equal(runtime.image.src, asset.src);
+  assert.equal(runtime.image.style.width, "100%");
+  runtime.frame.dispatch("pointerleave");
+  assert.equal(runtime.image.sizes, sizes);
+  runtime.cleanup();
+  for (const props of [{ fine: false }, { inlineWidth: 1000 }]) {
+    const disabled = mount(props);
+    disabled.frame.dispatch("pointerenter", { pointerType: "mouse" });
+    assert.equal(disabled.image.sizes, sizes);
+    disabled.cleanup();
   }
-  assert.notEqual(widths[0], widths[1], "A portrait preview must not request the same viewport width as a landscape preview");
 });
 
 test("Only small images enlarge on hover or focus; full-width images keep their links without another tab stop", () => {
@@ -137,38 +167,65 @@ test("Only small images enlarge on hover or focus; full-width images keep their 
     for (const inlineWidth of [320, 1000]) {
       const runtime = mount({ linked, inlineWidth });
       const eligible = inlineWidth === 320;
+      assert.equal(runtime.origin.getAttribute("data-zoomable"), String(eligible), "Consumers must share the same eligibility state");
       assert.equal(runtime.origin.getAttribute("tabindex"), linked ? null : eligible ? "0" : "-1");
-      runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
-      assert.equal(Boolean(runtime.preview), eligible, "Full-width images must not shrink into a hover overlay");
-      runtime.origin.dispatch("pointerleave");
+      runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
+      assert.equal(Boolean(runtime.preview), eligible, "Full-width images must remain ordinary");
+      runtime.frame.dispatch("pointerleave");
       runtime.focusTarget.dispatch("focusin");
       assert.equal(Boolean(runtime.preview), eligible, "Keyboard previews must follow the same enlargement rule");
       runtime.cleanup();
+      assert.equal(runtime.origin.getAttribute("data-zoomable"), null);
     }
   }
 });
 
 test("Resize refreshes the enlargement threshold using image aspect ratio and rendered width", () => {
   const runtime = mount();
-  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
   assert.ok(runtime.preview);
   runtime.window.innerHeight = 300;
   runtime.window.dispatch("resize");
   assert.equal(runtime.preview, undefined);
   assert.equal(runtime.origin.getAttribute("tabindex"), "-1");
-  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "false");
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
   assert.equal(runtime.preview, undefined, "Less than 20% enlargement is not useful");
   runtime.window.innerHeight = 900;
   runtime.window.dispatch("resize");
   assert.equal(runtime.origin.getAttribute("tabindex"), "0");
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "true");
   runtime.focusTarget.dispatch("focusin");
   assert.ok(runtime.preview);
   runtime.setImageWidth(1000);
   runtime.window.dispatch("resize");
   assert.equal(runtime.origin.getAttribute("tabindex"), "-1");
-  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
   assert.equal(runtime.preview, undefined, "Eligibility must use the current rendered image width");
   runtime.cleanup();
+});
+
+test("A layout change updates eligibility without a viewport resize and disconnects its frame observer", () => {
+  const runtime = mount({ inlineWidth: 1000 });
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "false");
+  runtime.setImageWidth(303);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.window.innerWidth, 1280);
+  assert.equal(runtime.window.innerHeight, 720);
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "true", "Moving into a smaller project column must enable zoom");
+  assert.equal(runtime.origin.getAttribute("tabindex"), "0");
+  runtime.focusTarget.dispatch("focusin");
+  assert.ok(runtime.preview);
+  runtime.setImageWidth(280);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.preview, undefined, "Changing the image frame resets magnification");
+  assert.equal(runtime.observers.length, 1);
+  assert.ok(runtime.observers[0].targets.has(runtime.frame));
+  runtime.cleanup();
+  assert.equal(runtime.observers[0].targets.size, 0);
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), null);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), null, "Disconnected observers must not write after unmount");
 });
 
 test("Keyboard focus uses the existing link and Escape dismisses without moving focus", () => {
@@ -208,13 +265,13 @@ test("Focus survives the browser scroll-to-focus, then deliberate scrolling dism
 test("Unlinked images support keyboard preview while coarse pointers and touch avoid overlays", () => {
   const runtime = mount();
   assert.equal(runtime.origin.getAttribute("tabindex"), "0");
-  runtime.origin.dispatch("pointerenter", { pointerType: "touch" });
+  runtime.frame.dispatch("pointerenter", { pointerType: "touch" });
   assert.equal(runtime.preview, undefined);
   runtime.origin.dispatch("focusin"); assert.ok(runtime.preview);
   runtime.media.matches = false; runtime.media.dispatch("change");
   assert.equal(runtime.preview, undefined);
   assert.equal(runtime.origin.getAttribute("tabindex"), "-1");
-  runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
   runtime.origin.dispatch("focusin");
   assert.equal(runtime.preview, undefined);
   runtime.cleanup();
@@ -224,8 +281,8 @@ test("Unlinked images support keyboard preview while coarse pointers and touch a
 test("A moving viewport dismisses the preview and preserves the page motion preference", () => {
   const runtime = mount({ paused: true });
   for (const event of ["scroll", "resize"]) {
-    runtime.origin.dispatch("pointerenter", { pointerType: "mouse" });
-    assert.equal(runtime.preview.child.props["data-motion"], "paused");
+    runtime.frame.dispatch("pointerenter", { pointerType: "mouse" });
+    assert.equal(runtime.preview.props["data-motion"], "paused");
     runtime.window.dispatch(event);
     assert.equal(runtime.preview, undefined);
   }
