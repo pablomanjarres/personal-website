@@ -9,7 +9,7 @@
 .viewHeading p { max-width: 65ch; color: var(--bench-muted); font-size: 16px; line-height: 1.6; }
 .fullSize { flex: none; font-size: 14px; }
 .viewport { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border: 1px solid var(--bench-edge); border-radius: var(--bench-corner); background: var(--bench-plate); scrollbar-color: var(--bench-muted) var(--bench-plate); }
-.screen { min-width: 960px; }
+.screen { --media-frame-width: 100%; min-width: 960px; }
 .screen img { width: 100%; height: auto; }
 .scrollCue { display: none; }
 @media (max-width: 1100px) {
