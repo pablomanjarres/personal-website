@@ -348,3 +348,34 @@ test("A moving viewport dismisses the preview and preserves the page motion pref
   runtime.cleanup();
   assert.equal(runtime.window.listeners.size, 0);
 });
+
+test("Pointer movement inside the image restarts zoom after viewport or input dismissal", () => {
+  for (const [event, details] of [["scroll", {}], ["wheel", {}], ["resize", {}], ["pointerdown", {}], ["keydown", { key: "Escape" }]]) {
+    const runtime = mount();
+    runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 260, clientY: 320 });
+    assert.ok(runtime.preview);
+    runtime.window.dispatch(event, details);
+    assert.equal(runtime.preview, undefined, `${event} must dismiss before movement resumes`);
+    runtime.frame.dispatch("pointermove", { pointerType: "mouse", clientX: 340, clientY: 380 });
+    assert.ok(runtime.preview, `${event} must not require leaving the image before zoom can restart`);
+    assert.equal(runtime.frame.style.getPropertyValue("--zoom-x"), "75%");
+    assert.equal(runtime.frame.style.getPropertyValue("--zoom-y"), "75%");
+    runtime.frame.dispatch("pointerleave");
+    assert.equal(runtime.preview, undefined);
+    runtime.cleanup();
+    assert.equal(runtime.window.listeners.size, 0);
+  }
+});
+
+test("Fresh movement inside a resized image restarts zoom without a new pointer entry", () => {
+  const runtime = mount();
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 260, clientY: 320 });
+  assert.ok(runtime.preview);
+  runtime.setImageWidth(300);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.preview, undefined);
+  runtime.frame.dispatch("pointermove", { pointerType: "mouse", clientX: 250, clientY: 312.5 });
+  assert.ok(runtime.preview);
+  assert.equal(Number.parseFloat(runtime.image.sizes), 510);
+  runtime.cleanup();
+});
