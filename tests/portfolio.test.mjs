@@ -238,6 +238,8 @@ test("All six saved homepage and project directions stay accessible", () => {
     localImages(home, homePath);
     const indexPath = `/mockups/projects/${directions[index]}`;
     const archive = htmlFor(indexPath);
+    const selectedLinks = [...new Set(links(archive).filter(href => featured.some(slug => href === `${indexPath}/${slug}`)))];
+    assert.deepEqual(selectedLinks, featured.map(slug => `${indexPath}/${slug}`), `${indexPath}: selected project order diverged`);
     localImages(archive, indexPath);
     for (const project of projects) {
       const path = `${indexPath}/${project.slug}`;
