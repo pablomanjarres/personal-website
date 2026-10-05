@@ -66,7 +66,12 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
   const frame = new Element();
   const frameStyles = new Map();
   frame.style = { setProperty: (name, value) => frameStyles.set(name, value), getPropertyValue: name => frameStyles.get(name) ?? "" };
-  frame.getBoundingClientRect = () => ({ left: 100, top: 200, width: inlineWidth, height: inlineWidth * mediaAsset.height / mediaAsset.width });
+  let inlineHeight = inlineWidth * mediaAsset.height / mediaAsset.width, visualScale = 1;
+  Object.defineProperties(frame, {
+    clientWidth: { get: () => Math.round(inlineWidth) },
+    clientHeight: { get: () => Math.round(inlineHeight) },
+  });
+  frame.getBoundingClientRect = () => ({ left: 100, top: 200, width: inlineWidth * visualScale, height: inlineHeight * visualScale });
   const image = new Element();
   image.getBoundingClientRect = frame.getBoundingClientRect;
   origin.querySelector = selector => selector === "img" ? image : null;
@@ -82,7 +87,7 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
     constructor(callback) { this.callback = callback; this.targets = new Set(); observers.push(this); }
     observe(target) { this.targets.add(target); }
     disconnect() { this.targets.clear(); }
-    notify() { if (this.targets.has(frame)) this.callback([{ target: frame }]); }
+    notify() { if (this.targets.has(frame)) this.callback([{ target: frame, contentRect: { width: inlineWidth, height: inlineHeight } }]); }
   }
   let state = null, effectIndex = 0, refIndex = 0, output;
   const { StudyImagePreview } = load("image-preview.tsx", {
@@ -107,7 +112,8 @@ function mount({ linked = false, fine = true, paused = false, mediaAsset = asset
     return output;
   }
   render();
-  return { origin, frame, focusTarget, window, media, body, render, observers, notifyFrameResize: () => observers.forEach(observer => observer.notify()), setImageWidth: value => { inlineWidth = value; },
+  return { origin, frame, focusTarget, window, media, body, render, observers, notifyFrameResize: () => observers.forEach(observer => observer.notify()), setImageWidth: value => { inlineWidth = value; inlineHeight = value * mediaAsset.height / mediaAsset.width; },
+    setImageHeight: value => { inlineHeight = value; }, setVisualScale: value => { visualScale = value; },
     get preview() { return [render().props.children].flat().find(child => child?.tag === "div" && child.props["data-zoomed"]); },
     get image() { return imageProps(render()); },
     cleanup() { for (const effect of effects) effect.cleanup?.(); },
@@ -226,6 +232,59 @@ test("A layout change updates eligibility without a viewport resize and disconne
   assert.equal(runtime.origin.getAttribute("data-zoomable"), null);
   runtime.notifyFrameResize();
   assert.equal(runtime.origin.getAttribute("data-zoomable"), null, "Disconnected observers must not write after unmount");
+});
+
+test("Initial and repeated unchanged observer deliveries preserve pointer and focus zoom", () => {
+  for (const source of ["pointer", "focus"]) {
+    const runtime = mount();
+    if (source === "pointer") runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 260, clientY: 320 });
+    else runtime.focusTarget.dispatch("focusin");
+    assert.ok(runtime.preview);
+    const sizes = runtime.image.sizes;
+    for (let delivery = 0; delivery < 3; delivery++) {
+      runtime.notifyFrameResize();
+      assert.ok(runtime.preview, `${source} zoom must survive an unchanged observer delivery`);
+      assert.equal(runtime.image.sizes, sizes, "The sharper source must not switch back during hover");
+    }
+    runtime.cleanup();
+  }
+});
+
+test("Subpixel source rounding keeps zoom open while a real frame resize dismisses it", () => {
+  const runtime = mount({ inlineWidth: 509, mediaAsset: { ...asset, width: 4500, height: 3000 } });
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 354, clientY: 369 });
+  assert.ok(runtime.preview);
+  const sizes = runtime.image.sizes;
+  for (const height of [339.5833, 339.3333, 339.5833]) {
+    runtime.setImageHeight(height);
+    runtime.notifyFrameResize();
+    assert.ok(runtime.preview, "A quarter-pixel source-ratio change must not cancel hover");
+    assert.equal(runtime.image.sizes, sizes);
+  }
+  runtime.setImageWidth(485);
+  runtime.notifyFrameResize();
+  assert.equal(runtime.preview, undefined, "A real layout resize must still dismiss zoom");
+  runtime.cleanup();
+});
+
+test("Ancestor transforms do not change layout-based eligibility or image resolution", () => {
+  const runtime = mount({ inlineWidth: 630 });
+  assert.equal(runtime.origin.getAttribute("data-zoomable"), "true");
+  runtime.setVisualScale(1.025);
+  runtime.frame.dispatch("pointerenter", { pointerType: "mouse", clientX: 415, clientY: 436 });
+  assert.ok(runtime.preview, "A small ancestor hover transform must not disable an eligible image");
+  assert.equal(Number.parseFloat(runtime.image.sizes), 630 * 1.7);
+  runtime.notifyFrameResize();
+  assert.ok(runtime.preview, "Visual motion without a layout resize must preserve hover");
+  runtime.cleanup();
+});
+
+test("Responsive image candidates keep the declared aspect ratio and caller sizing", () => {
+  const runtime = mount({ mediaAsset: { ...asset, width: 4500, height: 3000 } });
+  assert.equal(runtime.image.style.aspectRatio, "4500 / 3000", "Candidate rounding must not alter the hover frame");
+  assert.equal(runtime.image.style.width, "100%");
+  assert.equal(runtime.image.style.height, "auto");
+  runtime.cleanup();
 });
 
 test("Keyboard focus uses the existing link and Escape dismisses without moving focus", () => {
