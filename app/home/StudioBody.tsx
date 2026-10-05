@@ -3,12 +3,12 @@ import { capabilities, getFeaturedProjects, type FeaturedProject } from "@/app/p
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
 import styles from "./studio-body.module.css";
 
-function ProductStudy({ item }: { item: FeaturedProject }) {
-  const sizes = item.project.slug === "cortex"
-    ? "(max-width: 700px) 76.54vw, (max-width: 1000px) calc(36.67vw - 17.5px), (max-width: 1409px) calc(36.67vw - 14px), 503px"
-    : "(max-width: 700px) 86vw, (max-width: 1000px) calc(44vw - 15px), (max-width: 1409px) calc(44vw - 12px), 608px";
+function ProductStudy({ item, feature }: { item: FeaturedProject; feature: "lead" | "supporting" }) {
+  const sizes = feature === "lead"
+    ? "(max-width: 700px) 86vw, (max-width: 1000px) 88vw, (max-width: 1409px) calc(58.67vw - 8px), 819px"
+    : "(max-width: 700px) 75.68vw, (max-width: 1000px) calc(44vw - 15px), (max-width: 1409px) calc(44vw - 12px), 608px";
   return (
-    <article className={styles.study} data-product={item.project.slug}>
+    <article className={styles.study} data-product={item.project.slug} data-feature={feature}>
       <div className={styles.visuals} data-reveal="media">
         <ProjectVisual item={item} className={styles.mainVisual} sizes={sizes} />
         <span className={styles.mediaNote}>{item.preview.label}</span>
@@ -76,7 +76,7 @@ export default function StudioBody({ projectHref, footerDestination }: {
             <h2 id="studio-work-heading" data-reveal>Built from<br />the idea up.</h2>
             <p data-reveal>Products I’ve designed and built.<br />A look at what each one needed.</p>
           </header>
-          <div className={styles.studies}>{featuredProjects.map(item => <ProductStudy key={item.project.slug} item={item} />)}</div>
+          <div className={styles.studies}>{featuredProjects.map((item, index) => <ProductStudy key={item.project.slug} item={item} feature={index === 0 ? "lead" : "supporting"} />)}</div>
           <ProjectArchive projectHref={projectHref} className={styles.archive} />
         </div>
       </section>
