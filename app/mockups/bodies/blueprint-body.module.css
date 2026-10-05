@@ -59,7 +59,7 @@
 .footerLinks { margin-top: 80px; padding-top: 36px; border-top: 1px solid #39516f; }
 @media (prefers-reduced-motion: no-preference) {
   :global([data-motion="active"]) .preview { transition: transform .65s cubic-bezier(.16, 1, .3, 1); }
-  :global([data-motion="active"]) .study:has(a:hover, a:focus-visible) .preview { transform: perspective(1400px) rotateY(0) rotateX(0) translateY(-6px); }
+  :global([data-motion="active"]) .study:has(a:hover, a:focus-visible) .preview:not(:has([data-zoomable="true"])) { transform: perspective(1400px) rotateY(0) rotateX(0) translateY(-6px); }
   :global([data-motion="active"]) .layerFace { transition: transform .4s cubic-bezier(.16, 1, .3, 1); }
   :global([data-motion="active"]) .layer:hover .layerFace { transform: translate(6px, -6px); }
   :global([data-motion="active"]) .appointment { transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
