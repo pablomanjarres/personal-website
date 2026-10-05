@@ -101,6 +101,44 @@ test("Open Studio is the real homepage with the approved selected work", () => {
   canonical(html, "/"); realNavigation(html); localImages(html, "/");
 });
 
+test("ConstruCredit receives the same lead presentation as Anki in selected projects", () => {
+  const html = htmlFor("/portfolio");
+  const selected = [...html.matchAll(/<article\b([^>]*)>([^]*?)<\/article>/g)]
+    .filter(([, , body]) => featured.some(slug => links(body).includes(projectPath(slug))));
+  for (const slug of ["anki", "construcredit"]) {
+    const article = selected.find(([, , body]) => links(body).includes(projectPath(slug)));
+    assert.ok(article, `${slug}: missing selected project`);
+    assert.match(article[1], /leadProject/, `${slug}: missing the full-width lead treatment`);
+  }
+});
+
+test("Business case studies pair device presentations with readable interface views", () => {
+  for (const [slug, screens] of [
+    ["construcredit", ["client-portfolio", "collections"]],
+    ["cortex", ["home-focus", "student-overview"]],
+  ]) {
+    const html = htmlFor(projectPath(slug));
+    const section = html.match(/<section\b[^>]*aria-labelledby="workbench-interfaces"[^>]*>([^]*?)<\/section>/)?.[1];
+    assert.ok(section, `${slug}: missing a readable interface section`);
+    contains(section, "Inside the product.");
+    for (const screen of screens) {
+      const src = `/portfolio/interfaces/${slug}-${screen}.webp`;
+      const image = tags(section, "img").find(image => imagePath(image.src) === src);
+      assert.ok(image, `${slug}: missing ${screen} native interface capture`);
+      assert.ok(Number(image.width) >= 1600 && Number(image.height) >= 1000);
+      assert.ok(image.alt && image.alt !== `${slug}: project preview`);
+      assert.ok(image.sizes, `${slug}: missing responsive delivery sizes`);
+      assert.ok(links(section).includes(src), `${slug}: no full-size inspection link`);
+      assert.ok(existsSync(resolve(publicRoot, `.${src}`)), `${slug}: missing screen file`);
+    }
+    assert.ok(html.indexOf('aria-label="Project context"') < html.indexOf('aria-labelledby="workbench-interfaces"'), `${slug}: interface views must follow project context`);
+    assert.ok(!tags(section, "img").some(image => imagePath(image.src).includes("/presentations/")), `${slug}: device compositions must not stand in for readable screens`);
+  }
+  for (const slug of ["anki", "alfred"]) {
+    assert.ok(!htmlFor(projectPath(slug)).includes('aria-labelledby="workbench-interfaces"'), `${slug}: unrelated media must not be labeled as verified interface views`);
+  }
+});
+
 test("Selected product presentations reach public and saved routes while live demos remain available", () => {
   const presentations = [
     { slug: "anki", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone" },

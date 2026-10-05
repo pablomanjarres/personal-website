@@ -1,0 +1,24 @@
+.gallery { min-width: 0; padding: 0 0 clamp(56px, 6vw, 88px); }
+.heading { display: flex; align-items: start; justify-content: space-between; gap: 40px; margin-bottom: 40px; }
+.heading h2 { font-size: clamp(32px, 3.7vw, 54px); font-weight: 500; letter-spacing: -.055em; line-height: 1.08; }
+.heading p { max-width: 32ch; color: var(--bench-muted); font-size: 16px; line-height: 1.6; }
+.views { display: grid; gap: clamp(40px, 5vw, 72px); }
+.view { min-width: 0; }
+.viewHeading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 20px; }
+.viewHeading h3 { margin: 0 0 10px; font-size: 23px; font-weight: 500; letter-spacing: -.035em; }
+.viewHeading p { max-width: 65ch; color: var(--bench-muted); font-size: 16px; line-height: 1.6; }
+.fullSize { flex: none; font-size: 14px; }
+.viewport { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border: 1px solid var(--bench-edge); border-radius: var(--bench-corner); background: var(--bench-plate); scrollbar-color: var(--bench-muted) var(--bench-plate); }
+.screen { --media-frame-width: 100%; min-width: 960px; }
+.screen img { width: 100%; height: auto; }
+.scrollCue { display: none; }
+@media (max-width: 1100px) {
+  .scrollCue { display: block; margin-bottom: 12px !important; color: var(--bench-muted); font-size: 13px; line-height: 1.5; }
+}
+@media (max-width: 800px) {
+  .heading { display: block; margin-bottom: 30px; }
+  .heading p { margin-top: 18px !important; }
+  .viewHeading { align-items: start; gap: 16px; }
+  .viewHeading p { font-size: 15px; }
+  .viewHeading h3 { font-size: 21px; }
+}

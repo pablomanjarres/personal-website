@@ -4,10 +4,13 @@ import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, Proje
 import styles from "./studio-body.module.css";
 
 function ProductStudy({ item }: { item: FeaturedProject }) {
+  const sizes = item.project.slug === "cortex"
+    ? "(max-width: 700px) 76.54vw, (max-width: 1000px) calc(36.67vw - 17.5px), (max-width: 1409px) calc(36.67vw - 14px), 503px"
+    : "(max-width: 700px) 86vw, (max-width: 1000px) calc(44vw - 15px), (max-width: 1409px) calc(44vw - 12px), 608px";
   return (
     <article className={styles.study} data-product={item.project.slug}>
       <div className={styles.visuals} data-reveal="media">
-        <ProjectVisual item={item} className={styles.mainVisual} sizes="(max-width: 700px) 86vw, 54vw" />
+        <ProjectVisual item={item} className={styles.mainVisual} sizes={sizes} />
         <span className={styles.mediaNote}>{item.preview.label}</span>
       </div>
       <div className={styles.projectCopy} data-reveal="panel">

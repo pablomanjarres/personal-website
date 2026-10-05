@@ -4,6 +4,7 @@ import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "@/app/portfolio/
 import { getCaseStudy } from "@/app/portfolio/studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "@/app/portfolio/studies/case-study-primitives";
 import { ProjectTechnicalNotes } from "@/app/portfolio/studies/ProjectTechnicalNotes";
+import { StudyInterfaceGallery } from "@/app/portfolio/studies/interface-gallery";
 import styles from "./workbench.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; projectHref: (slug: string) => string };
@@ -51,7 +52,7 @@ export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
       <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Tools.</p></header>
       <section className={styles.selected} aria-label="Selected projects">
         {studies.slice(0, selectedWorkSlugs.length).map((study, index) => (
-          <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={index === 0} />
+          <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={index < 2} />
         ))}
       </section>
       <ProjectLedger studies={studies.slice(selectedWorkSlugs.length)} projectHref={projectHref} />
@@ -80,6 +81,7 @@ export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
         <div><h2>The problem</h2><p>{story.challenge}</p></div>
         <div><h2>What I built</h2><p>{story.outcome}</p></div>
       </section>
+      <StudyInterfaceGallery study={study} />
       <section className={styles.decisionsSection} aria-labelledby="workbench-decisions" data-reveal="panel">
         <header className={styles.sectionHeading}><h2 id="workbench-decisions">The choices behind it.</h2><p>{story.responsibility}</p></header>
         <div className={`${styles.decisionLayout} ${supportingMedia ? styles.withScreen : ""}`}>

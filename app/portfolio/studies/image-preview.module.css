@@ -1,4 +1,4 @@
-.frame { width: fit-content; max-width: 100%; margin-inline: auto; overflow: hidden; border-radius: inherit; }
+.frame { width: var(--media-frame-width, fit-content); max-width: 100%; margin-inline: auto; overflow: hidden; border-radius: inherit; }
 .frame img { transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%); }
 .frame[data-zoomed="true"] img { transform: scale(var(--zoom-scale)); }
 @media (prefers-reduced-motion: no-preference) {
