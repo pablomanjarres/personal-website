@@ -15,10 +15,10 @@ function BenchProject({ study, projectHref, lead = false }: {
 }) {
   const asset = getStudyPreview(study);
   return (
-    <article className={`${styles.benchProject} ${lead ? styles.leadProject : ""}`} data-media-kind={asset.kind} data-reveal="media" data-enter={lead ? "pop" : undefined}>
+    <article className={`${styles.benchProject} ${lead ? styles.leadProject : ""}`} data-feature={lead ? "lead" : "supporting"} data-media-kind={asset.kind} data-reveal="media" data-enter={lead ? "pop" : undefined}>
       <div className={styles.projectMount}>
         <StudyLink href={projectHref(study.project.slug)} className={styles.projectVisual}>
-          <StudyMedia asset={asset} className={styles.projectMedia} priority={lead} caption={false} sizes={lead ? "(max-width: 700px) 88vw, (max-width: 1611px) 90vw, 1450px" : "(max-width: 700px) 88vw, 53vw"} />
+          <StudyMedia asset={asset} className={styles.projectMedia} priority={lead} caption={false} sizes={lead ? "(max-width: 700px) 88vw, (max-width: 1611px) 90vw, 1450px" : "(max-width: 700px) 88vw, (max-width: 1611px) 41.85vw, 674px"} />
         </StudyLink>
         {lead && asset.kind !== "presentation" && <figure className={styles.indexLens} aria-hidden="true">
           <StudyMedia asset={asset} className={styles.lensMedia} detail caption={false} />
@@ -52,7 +52,7 @@ export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
       <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Tools.</p></header>
       <section className={styles.selected} aria-label="Selected projects">
         {studies.slice(0, selectedWorkSlugs.length).map((study, index) => (
-          <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={index < 2} />
+          <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={index === 0} />
         ))}
       </section>
       <ProjectLedger studies={studies.slice(selectedWorkSlugs.length)} projectHref={projectHref} />

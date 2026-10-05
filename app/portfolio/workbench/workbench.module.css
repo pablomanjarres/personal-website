@@ -17,7 +17,7 @@
 .indexHeader { max-width: 1450px; margin: auto; padding: 84px 0 60px; display: flex; align-items: end; justify-content: space-between; gap: 40px; }
 .indexHeader h1 { font-size: clamp(62px, 8.7vw, 128px); line-height: .98; font-weight: 600; letter-spacing: -.07em; }
 .indexHeader p { --enter-delay: 160ms; font-size: 17px; padding-bottom: 7px; }
-.selected { max-width: 1450px; margin: auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 110px 7%; }
+.selected { max-width: 1450px; margin: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px 7%; }
 .benchProject { --reveal-delay: 70ms; min-width: 0; }
 .leadProject { --enter-delay: 260ms; grid-column: 1 / -1; }
 .projectMount { position: relative; background: var(--bench-plate); padding: 8%; border-radius: var(--bench-corner); }
@@ -32,8 +32,6 @@
 .projectLabel h2 a { display: inline-flex; align-items: center; }
 .projectLabel span { color: var(--bench-muted); font-size: 13px; }
 .leadProject .projectLabel { padding-right: 20%; }
-.benchProject:nth-child(3) { grid-column: 2; }
-.benchProject:nth-child(3) .projectMount { background: var(--bench-orange); padding: 16% 8%; }
 .benchProject[data-media-kind="presentation"] .projectMount { background: transparent; padding: 0; }
 .projectMedia[data-media-kind="presentation"] { box-shadow: none; border-radius: var(--bench-corner); overflow: hidden; }
 .benchProject[data-media-kind="presentation"] .projectLabel { padding-right: 0; }
@@ -72,7 +70,6 @@
   .projectLabel { display: block; margin-top: 18px; }
   .projectLabel h2 { font-size: 30px; }
   .projectLabel span { display: block; margin-top: 4px; font-size: 12px; }
-  .benchProject:nth-child(3) { margin-left: 9%; }
   .ledger { display: block; margin-top: 75px; }
   .ledger h2 { font-size: 30px; margin-bottom: 20px; }
   .ledgerItems { grid-template-columns: 1fr; }
