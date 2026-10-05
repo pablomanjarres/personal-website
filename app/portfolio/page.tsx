@@ -6,7 +6,7 @@ import { PortfolioShell } from "@/app/portfolio/workbench/PortfolioShell";
 
 export const metadata: Metadata = {
   title: "Work | Pablo Manjarres",
-  description: "Products, apps, and developer tools I’ve designed and built. Anki, ConstruCredit, Cortex, and the rest of my work.",
+  description: "Products, apps, and developer tools I’ve designed and built. ConstruCredit, Cortex, Anki, and the rest of my work.",
   alternates: { canonical: portfolioHref },
   robots: { index: true, follow: true },
   twitter: {

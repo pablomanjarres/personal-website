@@ -15,9 +15,11 @@
 .workHeading > p { --reveal-delay: 120ms; font-size: 19px; line-height: 1.5; padding-bottom: 10px; }
 .studies { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 72px 24px; align-items: start; }
 .study { min-width: 0; }
-.study:nth-child(1) { grid-column: 1 / span 6; }
-.study:nth-child(2) { grid-column: 7 / span 6; margin-top: 48px; }
-.study:nth-child(3) { grid-column: 2 / span 5; margin-top: 25px; }
+.study[data-feature="lead"] { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: center; }
+.study[data-feature="lead"] .visuals { grid-column: 1 / span 8; }
+.study[data-feature="lead"] .projectCopy { grid-column: 9 / span 4; margin-top: 0; }
+.study[data-feature="lead"] .projectCopy h3 { font-size: clamp(34px, 3.5vw, 50px); }
+.study[data-feature="supporting"] { grid-column: span 6; }
 .visuals { position: relative; padding-bottom: 36px; }
 .mainVisual { aspect-ratio: 1.15; border-radius: 48px 100px 42px 120px; background: var(--studio-paper); transform: rotate(-3deg); }
 .mainVisual img { padding: 24px; }
@@ -87,8 +89,8 @@
 }
 @media (max-width: 1000px) {
   .studies { gap: 66px 30px; }
-  .study:nth-child(2) { margin-top: 32px; }
-  .study:nth-child(3) { grid-column: 1 / span 5; }
+  .study[data-feature="lead"] { display: block; }
+  .study[data-feature="lead"] .projectCopy { margin-top: 28px; }
   .practiceInner { gap: 50px; }
   .capabilities { gap: 28px; }
   .ticket { padding: 55px 42px; gap: 34px; }
@@ -101,12 +103,13 @@
   .workHeading h2 { font-size: 46px; }
   .workHeading > p { font-size: 17px; margin-top: 22px; }
   .studies { display: block; }
-  .study:nth-child(n) { margin: 0 0 66px; width: 100%; }
-  .study:nth-child(3) { width: 89%; }
+  .study { margin: 0 0 66px; width: 100%; }
+  .study[data-feature="supporting"] { width: 88%; margin-inline: auto; }
   .mainVisual { border-radius: 36px 66px 30px 66px; }
   .study[data-product="anki"] .mainVisual { border-radius: 70px 35px 70px 26px; }
   .study[data-product="cortex"] .mainVisual { border-radius: 60px 20px 60px 20px; }
   .projectCopy h3 { font-size: 30px; }
+  .study[data-feature="lead"] .projectCopy h3 { font-size: 34px; }
   .projectCopy p { font-size: 16px; }
   .archive { margin-top: 54px; padding-inline: 20px; }
   .practice { padding: 68px 0; border-radius: 46px 0 0 0; }
