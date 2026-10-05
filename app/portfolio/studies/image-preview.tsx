@@ -25,11 +25,13 @@ export function StudyImagePreview({ asset, imageProps, caption, className = "", 
     const oldTabIndex = origin.getAttribute("tabindex");
     const oldEligibility = origin.getAttribute("data-zoomable");
     const hoverMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const readFrameSize = () => ({ width: frame.clientWidth, height: frame.clientHeight });
+    let frameSize = readFrameSize();
     let hovering = false;
     const close = () => setPreview(null);
     const fitPreview = () => {
       const width = Math.max(0, Math.min(window.innerWidth * .92, window.innerHeight * .86 * asset.width / asset.height, 1600) - 18);
-      const inlineWidth = frame.getBoundingClientRect().width;
+      const inlineWidth = frame.clientWidth;
       return { width: inlineWidth * zoomScale, eligible: hoverMedia.matches && inlineWidth > 0 && width >= inlineWidth * 1.2 };
     };
     const open = (source: Preview["source"]) => {
@@ -64,6 +66,7 @@ export function StudyImagePreview({ asset, imageProps, caption, className = "", 
     };
     const focusOut = () => { if (!hovering) close(); };
     const updatePointer = () => {
+      frameSize = readFrameSize();
       const { eligible } = fitPreview();
       origin.setAttribute("data-zoomable", String(eligible));
       if (!focusAncestor) origin.tabIndex = eligible ? 0 : -1;
@@ -71,7 +74,12 @@ export function StudyImagePreview({ asset, imageProps, caption, className = "", 
       close();
     };
     updatePointer();
-    const frameObserver = new ResizeObserver(updatePointer);
+    const frameObserver = new ResizeObserver(() => {
+      const next = readFrameSize();
+      // Initial deliveries and image candidate rounding are not layout changes.
+      if (Math.abs(next.width - frameSize.width) <= 1 && Math.abs(next.height - frameSize.height) <= 1) return;
+      updatePointer();
+    });
     frameObserver.observe(frame);
     frame.addEventListener("pointerenter", pointerEnter);
     frame.addEventListener("pointermove", pointerMove);
@@ -119,7 +127,7 @@ export function StudyImagePreview({ asset, imageProps, caption, className = "", 
   }, [preview]);
   return <figure ref={originRef} className={`${className} ${interaction.action}`} style={style} data-media-kind={asset.kind}>
     <div ref={frameRef} className={styles.frame} data-zoomed={Boolean(preview)} data-motion={preview?.motion} style={preview?.style}>
-      <Image {...imageProps} alt={imageProps.alt} sizes={preview ? `${preview.width}px` : imageProps.sizes} />
+      <Image {...imageProps} alt={imageProps.alt} style={{ aspectRatio: `${asset.width} / ${asset.height}`, ...imageProps.style }} sizes={preview ? `${preview.width}px` : imageProps.sizes} />
     </div>
     {caption}
   </figure>;
