@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
+import sharp from "sharp";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, process.env.NEXT_OUTPUT_DIR ?? ".next", "server/app");
@@ -48,4 +49,26 @@ test("Browser fallback icons contain the approved personal website mark", () => 
   assert.equal(apple.subarray(1, 4).toString(), "PNG");
   assert.equal(apple.readUInt32BE(16), 180);
   assert.equal(apple.readUInt32BE(20), 180);
+});
+
+async function dotRightPadding(image) {
+  const { data, info } = await sharp(image).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let rightEdge = -1;
+  for (let index = 0; index < data.length; index += info.channels) {
+    if (data[index] === 20 && data[index + 1] === 110 && data[index + 2] === 101 && data[index + 3] === 255) {
+      rightEdge = Math.max(rightEdge, index / info.channels % info.width);
+    }
+  }
+  assert.ok(rightEdge >= 0, "Missing accent dot");
+  return info.width - rightEdge - 1;
+}
+
+test("Personal website icons keep the accent dot inside the frame", async () => {
+  assert.ok(await dotRightPadding(resolve(root, "app/icon.svg")) >= 4, "SVG mark is clipped");
+  const ico = readFileSync(resolve(root, "app/favicon.ico"));
+  const entry = 6 + 3 * 16;
+  const offset = ico.readUInt32LE(entry + 12);
+  const size = ico.readUInt32LE(entry + 8);
+  assert.ok(await dotRightPadding(ico.subarray(offset, offset + size)) >= 4, "ICO mark is clipped");
+  assert.ok(await dotRightPadding(resolve(root, "app/apple-icon.png")) >= 11, "Apple mark is clipped");
 });
