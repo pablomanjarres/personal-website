@@ -29,7 +29,7 @@ function registry() {
   return Array.from(exports.projects);
 }
 const projects = registry();
-const featured = ["anki", "construcredit", "cortex"];
+const featured = ["construcredit", "cortex", "anki"];
 const projectPath = slug => `/portfolio/projects/${slug}`;
 function canonical(html, path) {
   const href = tags(html, "link").find(tag => tag.rel === "canonical")?.href;
@@ -101,14 +101,16 @@ test("Open Studio is the real homepage with the approved selected work", () => {
   canonical(html, "/"); realNavigation(html); localImages(html, "/");
 });
 
-test("ConstruCredit receives the same lead presentation as Anki in selected projects", () => {
-  const html = htmlFor("/portfolio");
-  const selected = [...html.matchAll(/<article\b([^>]*)>([^]*?)<\/article>/g)]
-    .filter(([, , body]) => featured.some(slug => links(body).includes(projectPath(slug))));
-  for (const slug of ["anki", "construcredit"]) {
-    const article = selected.find(([, , body]) => links(body).includes(projectPath(slug)));
-    assert.ok(article, `${slug}: missing selected project`);
-    assert.match(article[1], /leadProject/, `${slug}: missing the full-width lead treatment`);
+test("ConstruCredit leads selected work before the supporting Cortex and Anki projects", () => {
+  for (const path of ["/", "/portfolio", "/mockups/open-studio", "/mockups/projects/workbench"]) {
+    const selected = [...htmlFor(path).matchAll(/<article\b([^>]*)>([^]*?)<\/article>/g)]
+      .filter(([, , body]) => featured.some(slug => links(body).some(href => href.endsWith(`/${slug}`))));
+    assert.equal(selected.length, featured.length, `${path}: missing selected projects`);
+    const order = selected.map(([, , body]) => featured.find(slug => links(body).some(href => href.endsWith(`/${slug}`))));
+    assert.deepEqual(order, featured, `${path}: client work must lead the selected projects`);
+    for (const [index, [attributes]] of selected.entries()) {
+      assert.match(attributes, new RegExp(`data-feature="${index === 0 ? "lead" : "supporting"}"`), `${path}: incorrect feature treatment for ${featured[index]}`);
+    }
   }
 });
 
