@@ -4,13 +4,13 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import sharp from "sharp";
+import { loadProjects } from "./load-projects.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, process.env.NEXT_OUTPUT_DIR ?? ".next", "server/app");
 const heroSource = readFileSync(resolve(root, "app/oss/heroes.ts"), "utf8");
 const slugs = [...heroSource.matchAll(/"slug":\s*"([^"]+)"/g)].map(([, slug]) => slug);
-const projectSource = readFileSync(resolve(root, "app/projects.ts"), "utf8");
-const projectSlugs = [...projectSource.matchAll(/"slug":\s*"([^"]+)"/g)].map(([, slug]) => slug);
+const projectSlugs = loadProjects().map(project => project.slug);
 const routes = ["/", "/portfolio", "/oss", ...slugs.map(slug => `/oss/${slug}`), ...projectSlugs.map(slug => `/portfolio/projects/${slug}`)];
 
 for (const route of routes) test(`${route} renders the shared personal website mark`, () => {

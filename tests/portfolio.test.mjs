@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import vm from "node:vm";
+import { loadProjects } from "./load-projects.mjs";
 import { test } from "node:test";
 import ts from "typescript";
 
@@ -18,17 +18,7 @@ const tags = (html, tag) => [...html.matchAll(new RegExp(`<${tag}\\b[^>]*>`, "gi
 const links = html => tags(html, "a").map(tag => tag.href).filter(Boolean);
 const contains = (html, value, label = value) => assert.ok(normalize(html).includes(normalize(value)), `Missing ${label}`);
 const h1 = html => normalize(html.match(/<h1\b[^>]*>([^]*?)<\/h1>/i)?.[1] ?? "");
-function registry() {
-  const source = readFileSync(resolve(root, "app/projects.ts"), "utf8");
-  const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
-  const exports = {};
-  vm.runInNewContext(code, { exports, require: name => {
-    assert.equal(name, "./ProjectLogo");
-    return { projectIdentities: {} };
-  } }, { filename: "projects.ts", timeout: 1000 });
-  return Array.from(exports.projects);
-}
-const projects = registry();
+const projects = loadProjects();
 const featured = ["construcredit", "cortex", "anki"];
 const projectPath = slug => `/portfolio/projects/${slug}`;
 function canonical(html, path) {
@@ -204,7 +194,7 @@ test("Selected product presentations reach public and saved routes while live de
 
 test("The production archive reaches every registered project", () => {
   const html = htmlFor("/portfolio");
-  assert.equal(projects.length, 20);
+  assert.equal(projects.length, 44);
   for (const project of projects) assert.ok(links(html).includes(projectPath(project.slug)), `Unreachable ${project.slug}`);
   canonical(html, "/portfolio"); realNavigation(html); localImages(html, "/portfolio");
 });

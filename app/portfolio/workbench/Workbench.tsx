@@ -5,32 +5,12 @@ import { getCaseStudy } from "@/app/portfolio/studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "@/app/portfolio/studies/case-study-primitives";
 import { ProjectTechnicalNotes } from "@/app/portfolio/studies/ProjectTechnicalNotes";
 import { StudyInterfaceGallery } from "@/app/portfolio/studies/interface-gallery";
+import { isWebsiteStudy } from "@/app/portfolio/web-studies/catalog";
+import { BenchProject } from "./BenchProject";
 import styles from "./workbench.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; projectHref: (slug: string) => string };
 type DetailProps = { study: ProjectStudy; indexHref: string; demoHref?: string };
-
-function BenchProject({ study, projectHref, lead = false }: {
-  study: ProjectStudy; projectHref: (slug: string) => string; lead?: boolean;
-}) {
-  const asset = getStudyPreview(study);
-  return (
-    <article className={`${styles.benchProject} ${lead ? styles.leadProject : ""}`} data-feature={lead ? "lead" : "supporting"} data-media-kind={asset.kind} data-reveal="media" data-enter={lead ? "pop" : undefined}>
-      <div className={styles.projectMount}>
-        <StudyLink href={projectHref(study.project.slug)} className={styles.projectVisual}>
-          <StudyMedia asset={asset} className={styles.projectMedia} priority={lead} caption={false} sizes={lead ? "(max-width: 700px) 88vw, (max-width: 1611px) 90vw, 1450px" : "(max-width: 700px) 88vw, (max-width: 1611px) 41.85vw, 674px"} />
-        </StudyLink>
-        {lead && asset.kind !== "presentation" && <figure className={styles.indexLens} aria-hidden="true">
-          <StudyMedia asset={asset} className={styles.lensMedia} detail caption={false} />
-        </figure>}
-      </div>
-      <div className={styles.projectLabel}>
-        <h2><StudyLink href={projectHref(study.project.slug)}>{study.project.title}</StudyLink></h2>
-        <span>{asset.label}</span>
-      </div>
-    </article>
-  );
-}
 
 function ProjectLedger({ studies, projectHref }: IndexProps) {
   if (!studies.length) return null;
@@ -47,15 +27,24 @@ function ProjectLedger({ studies, projectHref }: IndexProps) {
 }
 
 export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
+  const products = studies.filter(study => !isWebsiteStudy(study.project.slug));
+  const websites = studies.filter(study => isWebsiteStudy(study.project.slug));
   return (
     <div className={styles.workbench}>
       <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Tools.</p></header>
       <section className={styles.selected} aria-label="Selected projects">
-        {studies.slice(0, selectedWorkSlugs.length).map((study, index) => (
+        {products.slice(0, selectedWorkSlugs.length).map((study, index) => (
           <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={index === 0} />
         ))}
       </section>
-      <ProjectLedger studies={studies.slice(selectedWorkSlugs.length)} projectHref={projectHref} />
+      {websites.length > 0 && <section className={styles.websiteStudies} aria-labelledby="website-studies-heading">
+        <header className={styles.websiteHeading} data-reveal="panel">
+          <h2 id="website-studies-heading">Websites and identities.</h2>
+          <p>{websites.length} distinct projects, from a mountain retreat to a working studio dashboard. Open a study to see its design decisions, live website and brand kit.</p>
+        </header>
+        <div className={styles.selected}>{websites.map(study => <BenchProject key={study.project.slug} study={study} projectHref={projectHref} />)}</div>
+      </section>}
+      <ProjectLedger studies={products.slice(selectedWorkSlugs.length)} projectHref={projectHref} />
     </div>
   );
 }
@@ -63,6 +52,8 @@ export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
 export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
   const story = getCaseStudy(study);
   const supportingMedia = getStudySupportingMedia(study);
+  const preview = getStudyPreview(study);
+  const additionalPresentations = study.media.filter(asset => asset.kind === "presentation" && asset.id !== preview.id && asset.id !== supportingMedia?.id);
   const video = study.media.find(asset => asset.kind === "video");
   return (
     <article className={`${styles.workbench} ${styles.caseStudy}`}>
@@ -77,6 +68,9 @@ export function WorkbenchDetail({ study, indexHref, demoHref }: DetailProps) {
         <div className={styles.productVisual} data-enter="pop"><StudyProductVisual study={study} priority caption={false} sizes="(max-width: 700px) 88vw, (max-width: 800px) 90vw, (max-width: 1550px) 40vw, 620px" /></div>
       </header>
       <div data-reveal="panel"><StudyBrief study={study} className={styles.caseBrief} /></div>
+      {additionalPresentations.length > 0 && <section className={styles.physicalPresentations} aria-label="The design in context">
+        {additionalPresentations.map(asset => <div key={asset.id} data-reveal="media"><StudyMedia asset={asset} sizes="(max-width: 700px) 88vw, (max-width: 1611px) 90vw, 1450px" /></div>)}
+      </section>}
       <section className={styles.context} aria-label="Project context" data-reveal="panel">
         <div><h2>The problem</h2><p>{story.challenge}</p></div>
         <div><h2>What I built</h2><p>{story.outcome}</p></div>

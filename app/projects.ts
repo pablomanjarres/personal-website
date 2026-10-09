@@ -6,6 +6,7 @@
 // for order + framing. Edit freely: add/remove an entry to add/remove a project.
 
 import { projectIdentities, type ProjectIdentity } from "./ProjectLogo";
+import { createWebsiteProjects } from "./portfolio/web-studies/catalog";
 
 export type ProjectLinkKind = "live" | "repo" | "demo" | "video" | "docs";
 export type ProjectStatus = "live" | "shipped" | "wip" | "prototype" | "archived";
@@ -44,7 +45,7 @@ export type Project = {
   accent?: string; // optional per-project accent hex
 };
 
-export const projects: Project[] = [
+const existingProjects: Project[] = [
   {
     "slug": "noelle",
     "num": "01",
@@ -1851,6 +1852,8 @@ export const projects: Project[] = [
     ]
   }
 ];
+
+export const projects: Project[] = [...existingProjects, ...createWebsiteProjects(existingProjects.length)];
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
