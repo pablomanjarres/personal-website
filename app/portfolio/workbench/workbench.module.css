@@ -29,11 +29,16 @@
 .projectLabel { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-top: 22px; }
 .projectLabel h2 { font-size: clamp(26px, 3vw, 42px); font-weight: 500; letter-spacing: -.05em; line-height: 1.1; }
 .projectLabel h2 a { display: inline-flex; align-items: center; }
+.projectLogo { flex: none; width: 32px; height: 32px; margin-right: 12px; object-fit: contain; }
 .projectLabel span { color: var(--bench-muted); font-size: 13px; }
 .leadProject .projectLabel { padding-right: 20%; }
 .benchProject[data-media-kind="presentation"] .projectMount { background: transparent; padding: 0; }
 .projectMedia[data-media-kind="presentation"] { box-shadow: none; border-radius: var(--bench-corner); overflow: hidden; }
 .benchProject[data-media-kind="presentation"] .projectLabel { padding-right: 0; }
+.websiteStudies { max-width: 1450px; margin: 120px auto 0; }
+.websiteHeading { display: flex; align-items: start; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
+.websiteHeading h2 { max-width: 12ch; font-size: clamp(34px, 4vw, 58px); font-weight: 500; letter-spacing: -.055em; line-height: 1.08; }
+.websiteHeading p { max-width: 40ch; color: var(--bench-muted); font-size: 16px; line-height: 1.65; }
 .ledger { max-width: 1450px; margin: 120px auto 0; display: grid; grid-template-columns: 1fr 3fr; gap: 7%; }
 .ledger h2 { font-size: 34px; font-weight: 500; letter-spacing: -.05em; }
 .ledgerItems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
@@ -63,6 +68,9 @@
   .indexHeader p { font-size: 16px; margin-top: 20px; padding: 0; }
   .selected { display: block; }
   .benchProject + .benchProject { margin-top: 58px; }
+  .websiteStudies { margin-top: 75px; }
+  .websiteHeading { display: block; margin-bottom: 35px; }
+  .websiteHeading p { margin-top: 20px; }
   .leadProject .projectMount { padding: 10% 7% 16%; }
   .indexLens { width: 22%; border-width: 5px; right: 2%; bottom: -4%; }
   .leadProject .projectLabel { padding-right: 0; }
@@ -91,6 +99,9 @@
 .caseBrief { margin: 46px 0 0; padding: 27px 0; border-block: 1px solid var(--bench-edge); display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 30px; }
 .caseBrief dt { color: var(--bench-muted); font-size: 13px; margin-bottom: 10px; }
 .caseBrief dd { font-size: 16px; margin: 0; line-height: 1.5; }
+.physicalPresentations { padding-top: 52px; }
+.physicalPresentations img { width: 100%; height: auto; border-radius: var(--bench-corner); }
+.physicalPresentations figcaption { color: var(--bench-muted); font-size: 13px; }
 .context { display: grid; grid-template-columns: 1fr 1fr; gap: 9%; padding: 62px 0 72px; }
 .context h2 { font-size: 22px; letter-spacing: -.035em; font-weight: 500; margin-bottom: 18px; }
 .context p, .buildNotes p { font-size: 17px; line-height: 1.65; color: var(--bench-muted); max-width: 60ch; }
