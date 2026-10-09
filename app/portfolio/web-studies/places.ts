@@ -85,6 +85,7 @@ export const places = [
   },
   {
     slug: "salt",
+    screenSizes: { desktop: [3200, 2000], mobile: [880, 1920] },
     title: "Salt",
     tagline: "Coastal food. A generous table.",
     category: "Food & hospitality",

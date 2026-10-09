@@ -85,6 +85,7 @@ export const everyday = [
   },
   {
     slug: "verdant",
+    screenSizes: { desktop: [3200, 2000], mobile: [880, 1920] },
     title: "Verdant",
     tagline: "See where the energy goes.",
     category: "Renewable energy",
