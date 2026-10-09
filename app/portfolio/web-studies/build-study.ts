@@ -5,6 +5,7 @@ import type {
   StudyInterfaceView,
 } from "@/app/portfolio/studies/data";
 import type { WebsiteStudyRecord } from "./types";
+import mediaDimensions from "./media-dimensions.json";
 
 const site = "https://pablomanjarres.github.io/twenty-web-studies";
 const repository = "https://github.com/pablomanjarres/twenty-web-studies";
@@ -76,6 +77,11 @@ function buildDesktop(record: WebsiteStudyRecord): StudyInterfaceView["asset"] {
 
 export function buildMedia(record: WebsiteStudyRecord): readonly StudyAsset[] {
   const path = `/portfolio/web-studies/${record.slug}`;
+  const product =
+    mediaDimensions[record.slug as keyof typeof mediaDimensions]?.product;
+  if (!product || product.length !== 2) {
+    throw new Error(`Missing physical product dimensions: ${record.slug}`);
+  }
   return [
     {
       id: `${record.slug}-presentation`,
@@ -100,8 +106,8 @@ export function buildMedia(record: WebsiteStudyRecord): readonly StudyAsset[] {
       id: `${record.slug}-product`,
       kind: "presentation",
       src: `${path}/product.webp`,
-      width: 1600,
-      height: 1200,
+      width: product[0],
+      height: product[1],
       alt: `${record.title} website in a physical product mockup`,
       label: "Physical product mockup",
     },

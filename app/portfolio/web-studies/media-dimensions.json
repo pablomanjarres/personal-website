@@ -1,0 +1,146 @@
+{
+  "aether": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "archive": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "bloom": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "cinder": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "estelle": {
+    "product": [
+      1600,
+      1067
+    ]
+  },
+  "forma": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "helio": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "kanso": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "meridian": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "monograph": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "offgrid": {
+    "product": [
+      1600,
+      1067
+    ]
+  },
+  "orbit": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "pulse": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "salt": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "soundroom": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "sprinto": {
+    "product": [
+      1600,
+      1067
+    ]
+  },
+  "vale": {
+    "product": [
+      1600,
+      1067
+    ]
+  },
+  "verdant": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "vestra": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "wayfarer": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "offgrid-original": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "archive-original": {
+    "product": [
+      1600,
+      1067
+    ]
+  },
+  "monograph-original": {
+    "product": [
+      1600,
+      1200
+    ]
+  },
+  "sprinto-original": {
+    "product": [
+      1600,
+      1200
+    ]
+  }
+}
