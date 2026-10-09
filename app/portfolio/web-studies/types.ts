@@ -11,4 +11,8 @@ export type WebsiteStudyRecord = {
   flow: readonly string[];
   tags: readonly string[];
   accent: string;
+  screenSizes?: {
+    desktop?: readonly [width: number, height: number];
+    mobile?: readonly [width: number, height: number];
+  };
 };
