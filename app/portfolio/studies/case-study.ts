@@ -1,4 +1,5 @@
 import type { ProjectStudy } from "./data";
+import { getWebsiteCaseStudy } from "@/app/portfolio/web-studies/catalog";
 
 type Note = { title: string; body: string };
 export type CaseStudy = {
@@ -106,6 +107,8 @@ export function getReleaseHeading(study: ProjectStudy) {
 }
 
 export function getCaseStudy(study: ProjectStudy): CaseStudy {
+  const website = getWebsiteCaseStudy(study.project.slug);
+  if (website) return website;
   const curated = selectedStories[study.project.slug];
   if (curated) return curated;
   const project = study.project;

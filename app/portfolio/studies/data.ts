@@ -1,6 +1,7 @@
 import { projects, type Project } from "@/app/projects";
 import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 import { ankiMobileScreens } from "@/app/portfolio/anki-media";
+import { getWebsiteInterfaceViews, getWebsiteMedia, isWebsiteStudy } from "@/app/portfolio/web-studies/catalog";
 
 type StudyAssetBase = { id: string; alt: string; label: string; width: number; height: number };
 export type StudyAsset = StudyAssetBase & ({ kind: "screen" | "presentation" | "video"; src: string; poster?: string } | { kind: "unavailable"; src?: never; poster?: never });
@@ -50,6 +51,8 @@ const sizes: Record<string, readonly [number, number]> = {
 };
 
 function mediaFor(project: Project): readonly StudyAsset[] {
+  const website = getWebsiteMedia(project.slug);
+  if (website) return website;
   const presentation = presentations[project.slug] ?? [];
   if (project.slug === "anki") return [...presentation, ...ankiMobileScreens];
   const views = interfaceViews[project.slug];
@@ -72,7 +75,7 @@ export const studies: readonly ProjectStudy[] = [...projects].sort((a, b) => {
 export function getStudy(slug: string) { return studies.find(study => study.project.slug === slug); }
 
 export function getStudyInterfaceViews(study: ProjectStudy): readonly StudyInterfaceView[] {
-  return interfaceViews[study.project.slug] ?? [];
+  return getWebsiteInterfaceViews(study.project.slug) ?? interfaceViews[study.project.slug] ?? [];
 }
 
 export function getStudyPreview(study: ProjectStudy): StudyAsset {
@@ -80,7 +83,8 @@ export function getStudyPreview(study: ProjectStudy): StudyAsset {
 }
 
 export function getStudySupportingMedia(study: ProjectStudy): StudyAsset | undefined {
+  if (isWebsiteStudy(study.project.slug)) return study.media.find(asset => asset.kind === "screen" && asset.width < asset.height);
   const preview = getStudyPreview(study);
-  if (preview.kind === "presentation") return study.media.find(asset => asset.kind === "presentation" && asset.id !== preview.id);
+  if (preview.kind === "presentation") return study.media.find(asset => asset.kind === "presentation" && asset.id !== preview.id) ?? study.media.find(asset => asset.kind === "screen" && asset.width < asset.height);
   return study.media.find(asset => asset.kind === "screen" && asset.id !== preview.id);
 }
