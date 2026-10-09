@@ -125,10 +125,14 @@ for (const project of websites) {
     assert.ok(html.includes('aria-labelledby="workbench-interfaces"'));
     assert.ok(html.includes(project.cover));
     assert.ok(
-      html.includes(`/portfolio/web-studies/${project.slug}/mobile.webp`),
+      html.includes(
+        encodeURIComponent(`/portfolio/web-studies/${project.slug}/mobile.webp`),
+      ),
     );
     assert.ok(
-      html.includes(`/portfolio/web-studies/${project.slug}/product.webp`),
+      html.includes(
+        encodeURIComponent(`/portfolio/web-studies/${project.slug}/product.webp`),
+      ),
     );
   });
 }

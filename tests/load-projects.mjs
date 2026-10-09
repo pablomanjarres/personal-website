@@ -16,6 +16,10 @@ export function loadDataModule(path, cache = new Map()) {
   if (cache.has(file)) return cache.get(file);
   const exports = {};
   cache.set(file, exports);
+  if (file.endsWith(".json")) {
+    exports.default = JSON.parse(readFileSync(file, "utf8"));
+    return exports;
+  }
   const code = ts.transpileModule(readFileSync(file, "utf8"), {
     compilerOptions: {
       module: ts.ModuleKind.CommonJS,
