@@ -9,6 +9,12 @@ export type ProjectStudy = { project: Project; caption: string; media: readonly 
 export type StudyInterfaceView = { asset: StudyAsset & { kind: "screen"; src: string }; description: string };
 
 const presentations: Readonly<Record<string, readonly StudyAsset[]>> = {
+  lumen: [
+    { id: "lumen-presentation", kind: "presentation", src: "/portfolio/presentations/lumen-tutor-device.webp", width: 3200, height: 2400, alt: "Lumen Tutor calculus whiteboard on a laptop beside its phone interface", label: "Calculus on desktop and mobile" },
+  ],
+  portpeek: [
+    { id: "portpeek-presentation", kind: "presentation", src: "/portfolio/presentations/portpeek-device.webp", width: 3200, height: 2400, alt: "PortPeek local service list on a laptop beside its phone interface", label: "Local services on desktop and mobile" },
+  ],
   anki: [
     { id: "anki-presentation", kind: "presentation", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone", label: "Home and review on mobile" },
     { id: "anki-review-presentation", kind: "presentation", src: "/portfolio/presentations/anki-review.webp", width: 4000, height: 3000, alt: "Anki calculus review with a tangent graph on an angled iPhone", label: "A review card tied to its source" },
@@ -85,6 +91,6 @@ export function getStudyPreview(study: ProjectStudy): StudyAsset {
 export function getStudySupportingMedia(study: ProjectStudy): StudyAsset | undefined {
   if (isWebsiteStudy(study.project.slug)) return study.media.find(asset => asset.kind === "screen" && asset.width < asset.height);
   const preview = getStudyPreview(study);
-  if (preview.kind === "presentation") return study.media.find(asset => asset.kind === "presentation" && asset.id !== preview.id) ?? study.media.find(asset => asset.kind === "screen" && asset.width < asset.height);
+  if (preview.kind === "presentation") return study.media.find(asset => asset.kind === "presentation" && asset.id !== preview.id) ?? study.media.find(asset => asset.kind === "screen" && asset.width < asset.height) ?? study.media.find(asset => asset.kind === "screen");
   return study.media.find(asset => asset.kind === "screen" && asset.id !== preview.id);
 }
