@@ -129,21 +129,21 @@ export const commerce = [
     title: "Vale",
     tagline: "A little care. Every day.",
     category: "Skincare",
-    oneLiner: "A botanical observation becomes a daily ritual.",
+    oneLiner: "A daily ritual in a forest glass studio.",
     summary:
-      "Vale presents a small skincare collection as a botanical specimen index. Pressed oat, rose, and calendula sit beside individual frosted-glass vessels on a mineral-green ruled sheet. Fine annotations connect each plant, ingredient, and material, while modest serif titles keep the formulas close at hand. Visitors can switch formulas, open an ingredient note, choose a volume, and collect a personal ritual. Macro texture photographs show the character of a light serum and a richer cream. A compact morning and evening sequence, packaging study, and practical questions extend the experience. The identity brings botanical observation and a considered daily routine into one quiet, useful storefront.",
+      "Vale presents botanical skincare in a luminous forest glass studio. A large frosted vessel floats in soft green light, while rounded formula capsules and a translucent purchase tray bring the daily collection close at hand. Visitors can explore the cleanser, serum, and cream, inspect botanical ingredients, select a volume, and build a personal ritual. Macro texture photographs reveal the character of each formula. Morning and evening sequences show how the products fit together, with clear application notes and practical packaging questions. Confident sans-serif typography, quiet material depth, and the familiar leaf identity make the storefront feel gentle, immediate, and tactile.",
     challenge:
-      "Skincare information can become a wall of claims. A small formula collection needs a calmer way to connect the plant, ingredient, texture and useful product choice.",
+      "A small skincare collection needs to connect its ingredients, texture and useful product choices. The vessel and application notes should make each formula easy to compare.",
     outcome:
       "A skincare storefront with selectable formulas, ingredient notes, volume choices and a compact daily ritual.",
     decisions: [
       [
-        "Borrow the specimen sheet",
-        "Pressed plants and frosted-glass vessels sit on mineral-green ruled paper. Fine annotations make the relationship between botanical material and formula visible.",
+        "Bring the vessel into the light",
+        "Forest green, luminous glass and rounded formula capsules give the vessel room to lead. Manrope headings and DM Sans notes accompany the familiar The Foriene wordmark.",
       ],
       [
-        "Make the ritual specific",
-        "Formula and volume choices update the selected product. Ingredient notes, macro textures and a morning-to-evening sequence help the visitor compare what is on the shelf.",
+        "Build one useful ritual",
+        "Formula and volume choices update the product and price. Ingredient notes, macro textures and a morning-to-evening sequence inform the selection, while a local ritual bag keeps the chosen items together.",
       ],
       [
         "Leaves meeting above one stem",
@@ -163,6 +163,6 @@ export const commerce = [
       "Botanical",
       "Ecommerce",
     ],
-    accent: "#E2E8D8",
+    accent: "#071F19",
   },
 ] satisfies readonly WebsiteStudyRecord[];

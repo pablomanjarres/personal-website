@@ -90,19 +90,19 @@ export const everyday = [
     category: "Renewable energy",
     oneLiner: "See where a site’s energy goes.",
     summary:
-      "Verdant explains a renewable system through an interactive energy-flow canvas. Solar, wind and storage scenarios connect a source to conversion, site demand, a battery reserve and the grid. Each scenario has balanced example values in kilowatts; selecting an isometric node reveals its role in the system. Mustard controls and olive annotations keep the flow legible without a row of summary cards. Below the canvas, field photography and a ruled project ledger connect the diagram to larger infrastructure studies. A local outline form pairs an energy system with a site type. The rising-sun symbol carries the same relationship between natural potential and ordered infrastructure.",
+      "Verdant makes renewable energy easier to understand through the relationships that make a system useful. A cool white energy canvas connects generation, conversion, site demand and storage through original isometric hardware illustrations. Rounded source controls switch solar, wind and storage scenarios, while clear readout plates show balanced example flows. Selecting a component brings its role into a dark context bar. Graphite text, slate surfaces and solar yellow accents keep the technical information clear. Field photography carries the story into the landscape, and the horizon symbol connects natural potential with ordered infrastructure. A compact site planner provides a practical starting point for a future connection.",
     challenge:
-      "Energy totals are difficult to act on without understanding the relationship between source, storage and demand. The workspace needs an understandable flow before a wall of metrics.",
+      "Energy totals need the relationships between source, storage and demand to be useful. The workspace should keep connected hardware, balanced values and operating explanations visible together.",
     outcome:
       "A renewable systems website with balanced example flows, interactive isometric nodes, field project studies and a local project-outline form.",
     decisions: [
       [
-        "Make the flow the first surface",
-        "Isometric generation, inverter, site and battery objects sit on a full energy canvas. Solar, wind and storage controls change the source and its balanced example values.",
+        "Give the flow a clear surface",
+        "Original isometric hardware sits on a cool white canvas with slate readout plates and a graphite context bar. Sora headings, Manrope annotations and solar yellow controls separate the operating roles.",
       ],
       [
-        "Connect a node to its explanation",
-        "Source choices change the consistent energy values. Selecting a node opens its role in the flow, with reserve and demand context close to the diagram.",
+        "Balance the examples across every source",
+        "Solar, wind and storage choices update the complete balanced flow in kilowatts. Selecting a component shows its role beside the diagram, keeping generation, reserve and demand connected.",
       ],
       [
         "Field lines beneath a rising sun",

@@ -47,21 +47,21 @@ export const places = [
     title: "vestra",
     tagline: "Come for the view. Stay for the stillness.",
     category: "Alpine retreat",
-    oneLiner: "A stay shaped by the mountain.",
+    oneLiner: "An alpine arrival at blue hour.",
     summary:
-      "Vestra is an intimate mountain retreat where the landscape sets the pace. The website opens as a quiet alpine panorama, with a small invitation placed near the valley and an arrival folio that stays out of the view until it is needed. Forest green, warm cream and delicate serif typography carry a measured hospitality identity. Guests can explore room details, select dates and prepare a stay outline, then move through a portrait room journal and the slower rituals of a mountain day. The folded-ridge symbol suggests a sheltered valley. Photography, restrained captions and generous space make the retreat feel connected to its setting.",
+      "Vestra brings the feeling of arriving in the mountains into a calm hotel experience. A blue-hour lodge photograph opens the page, revealing warm windows, limestone walls and water beneath the peaks. Midnight blue and mist-white type keep the property in focus, while a curved arrival dock opens into filled date, room and guest controls. Guests can compare three stays, see the nightly total and prepare a clear outline. A room overlooking the pool and a sheltered courtyard carry the same architectural story below. Broad serif headings soften the dark surfaces, and the folded-ridge symbol holds the retreat within its mountain setting.",
     challenge:
       "A retreat should let the landscape establish the pace while keeping room and date choices easy to reach. Practical planning needs to appear when the guest wants it.",
     outcome:
-      "A hospitality website with a quiet panoramic opening, room journal and interactive stay outline.",
+      "An immersive alpine hotel website with coherent property photography, three room choices and a dated stay outline with a calculated total.",
     decisions: [
       [
-        "Leave the panorama open",
-        "Low-corner serif copy and restrained chapter links accompany the alpine landscape. The linen arrival folio opens without replacing the view.",
+        "Let the property set the pace",
+        "A blue-hour lodge fills the rounded opening. Broad The Foriene headings and a Manrope identity sit against midnight blue, mist white and the warmth of the windows.",
       ],
       [
-        "Outline a stay in context",
-        "Guests choose a room, dates and guest count in one folio. The resulting stay outline keeps nights, room rate and total together.",
+        "Keep the stay in a curved dock",
+        "Filled date, room and guest controls open from the arrival dock. Nights and room rate produce a clear total, and the local stay outline keeps the selected details together.",
       ],
       [
         "A sheltered valley in two ridges",
@@ -81,7 +81,7 @@ export const places = [
       "Travel",
       "Alpine",
     ],
-    accent: "#203C31",
+    accent: "#101D2D",
   },
   {
     slug: "salt",
@@ -90,19 +90,19 @@ export const places = [
     category: "Food & hospitality",
     oneLiner: "The menu is the invitation.",
     summary:
-      "Salt is a coastal neighborhood kitchen with a generous table and a menu shaped by the season. Its website opens as a printed menu spread, pairing dish names, prices and ingredient notes with an overhead plate of garlic prawns. Tomato-red edge tabs make lunch, dinner and drinks easy to explore, while navy rules and cream paper bring the warmth of a restaurant menu into the page. A scallop-shell symbol connects the identity to the coast. Kitchen photographs continue the story, and a receipt-style table planner keeps the practical details close. The experience puts appetite, good company and clear information at the center.",
+      "Salt is a coastal neighborhood kitchen with a generous table and a menu shaped by the season. Its website puts a bright white menu against deep sea blue, pairing clear dish names, prices and ingredient notes with overhead food photography. Rounded menu controls make dinner, lunch and drinks easy to explore. A bold Tahoe wordmark and scallop-shell symbol give the identity a lively coastal character, while serif dish-group titles make the menu easy to scan. Kitchen photographs continue the story, and a table planner brings the evening's practical details together. The experience puts appetite, good company and clear information at the center.",
     challenge:
       "A neighborhood kitchen needs its dishes, prices and table details to be easy to find. The appetite and practical information should arrive together rather than in separate promotional sections.",
     outcome:
       "A responsive restaurant menu with three menu states, kitchen photography and a receipt-style table planner.",
     decisions: [
       [
-        "Open the printed menu",
-        "Cream paper, navy rules and tomato-red edge tabs frame price-aligned dishes. An overhead prawn plate occupies the space where a printed menu might hold an illustration.",
+        "Make the menu immediate",
+        "A rounded white menu sits against sea blue. Pill selectors, a Tahoe masthead, Instrument Serif dish-group headings and clear DM Sans prices give appetite and information their own space.",
       ],
       [
-        "Plan a table like a receipt",
-        "Menu tabs switch between lunch, dinner and drinks. The table planner keeps guests and time in a compact serrated receipt with a clear local confirmation.",
+        "Keep dinner and table details connected",
+        "Dinner, lunch and drinks each have a complete menu. The table planner gathers party size, date and time into a serrated receipt with a clear local confirmation.",
       ],
       [
         "The coast brought to the table",
@@ -122,24 +122,24 @@ export const places = [
       "Coastal",
       "Hospitality",
     ],
-    accent: "#E64732",
+    accent: "#17627C",
   },
   {
     slug: "wayfarer",
     title: "Wayfarer",
     tagline: "Choose a line. Find a story.",
     category: "Guided travel",
-    oneLiner: "A walking journey on an open field atlas.",
+    oneLiner: "A walking journey in three connected views.",
     summary:
-      "Wayfarer is a field guide to small-group walking journeys. Its first page unfolds as a trail atlas, bringing route lines, contour drawings, destination photographs and practical itinerary details into one readable spread. Travelers can choose an alpine or countryside route, compare distance and ascent, and prepare a departure plan without losing the landscape. Blue ink, warm field paper and compact notebook typography connect the identity to time spent outdoors. Uneven editorial photographs and guide notes continue the story beyond the map. The winding trail symbol expresses a journey with room for discovery, while clear route facts help make the next step feel possible.",
+      "Wayfarer makes choosing a walking journey feel close to the ground. Its first view brings three unequal surfaces together: a tall photograph of walkers, a mineral-blue illustrated atlas and a charcoal trip planner. Destination pills change the photograph, route line, four stops and practical facts in one place. Travelers can compare alpine and countryside journeys, choose a departure and add a local plan without losing their bearings. Filled controls, compact trail quantities and warm yellow actions keep the next step clear. Walking notes continue below in rounded disclosures. The winding-trail symbol expresses a journey that leaves room for discovery, with the landscape always part of the decision.",
     challenge:
       "A traveler needs to compare distance, ascent and itinerary without losing the landscape. Route facts and destination photographs should belong to the same selected journey.",
     outcome:
       "An interactive travel atlas with linked route drawings, itinerary facts, destination photography and a local departure plan.",
     decisions: [
       [
-        "Unfold the route as an atlas",
-        "Contour drawings, trail lines, a pinned photograph and narrow itinerary folio create a field-guide spread. Blue ink and compact notebook labels keep the map useful.",
+        "Read the walk in three surfaces",
+        "A tall walking photograph, mineral-blue contour atlas and charcoal itinerary each serve a different part of the choice. Bricolage Grotesque headings and Manrope route facts hold the three views together.",
       ],
       [
         "Keep the plan tied to the trail",
@@ -152,17 +152,17 @@ export const places = [
     ],
     flow: [
       "Choose a walking route",
-      "Compare its stops and ascent",
+      "Compare its four stops, distance and ascent",
       "Prepare the departure plan",
     ],
     tags: [
       "Web design",
       "Brand identity",
-      "travel",
-      "editorial",
-      "outdoors",
-      "landing page",
+      "Guided walking",
+      "Map",
+      "Outdoors",
+      "Travel",
     ],
-    accent: "#162B3A",
+    accent: "#D8ECF2",
   },
 ] satisfies readonly WebsiteStudyRecord[];
