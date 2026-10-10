@@ -1,4 +1,4 @@
-import { getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
+import { getStudyPreview, getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
 import type { StudyDirectionId } from "../project-studies/data";
 import { StudyActions, StudyMedia } from "@/app/portfolio/studies/primitives";
 import { StudyLink } from "../project-studies/primitives";
@@ -13,7 +13,7 @@ type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionI
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function ScreenCut({ study, direction, priority = false, compact = false }: { study: ProjectStudy; direction: StudyDirectionId; priority?: boolean; compact?: boolean }) {
-  const asset = study.media.find(item => item.kind !== "video");
+  const asset = getStudyPreview(study);
   return (
     <article className={styles.screenCut} data-reveal>
       <StudyLink study={study} direction={direction} className={styles.indexLink}>

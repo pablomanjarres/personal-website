@@ -19,7 +19,7 @@ const links = html => tags(html, "a").map(tag => tag.href).filter(Boolean);
 const contains = (html, value, label = value) => assert.ok(normalize(html).includes(normalize(value)), `Missing ${label}`);
 const h1 = html => normalize(html.match(/<h1\b[^>]*>([^]*?)<\/h1>/i)?.[1] ?? "");
 const projects = loadProjects();
-const featured = ["anki", "cortex", "nella", "construcredit", "noelle"];
+const featured = ["vestra", "cortex", "nella", "construcredit", "aether"];
 const projectPath = slug => `/portfolio/projects/${slug}`;
 function canonical(html, path) {
   const href = tags(html, "link").find(tag => tag.rel === "canonical")?.href;
@@ -95,7 +95,7 @@ test("Open Studio is the real homepage with the approved selected work", () => {
 });
 
 test("The same five mockup projects lead the homepage and portfolio", () => {
-  for (const path of ["/", "/portfolio", "/mockups/open-studio", "/mockups/projects/workbench"]) {
+  for (const path of ["/", "/portfolio", "/mockups/open-studio", "/mockups/green-room", "/mockups/projects/workbench"]) {
     const selected = [...htmlFor(path).matchAll(/<article\b([^>]*)>([^]*?)<\/article>/g)]
       .filter(([, , body]) => featured.some(slug => links(body).some(href => href.endsWith(`/${slug}`))));
     assert.equal(selected.length, featured.length, `${path}: missing selected projects`);
@@ -137,6 +137,8 @@ test("Business case studies pair device presentations with readable interface vi
 test("Selected product presentations reach public and saved routes while live demos remain available", () => {
   const presentations = [
     { slug: "anki", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone" },
+    { slug: "vestra", src: "/portfolio/web-studies/vestra/product.webp", width: 1600, height: 1200, alt: "vestra website in a physical product mockup" },
+    { slug: "aether", src: "/portfolio/web-studies/aether/product.webp", width: 1600, height: 1200, alt: "Aether website in a physical product mockup" },
     { slug: "cortex", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair" },
     { slug: "construcredit", src: "/portfolio/presentations/construcredit-workspace.webp", width: 4000, height: 3000, alt: "ConstruCredit client portfolio on a laptop beside its mobile administration view" },
     { slug: "nella", src: "/portfolio/presentations/nella-features.webp", width: 3260, height: 2650, alt: "Nella feature page with code indexing and search examples on an angled MacBook" },
@@ -145,7 +147,11 @@ test("Selected product presentations reach public and saved routes while live de
   const concepts = ["signal", "open-studio", "blueprint", "after-hours", "green-room", "soft-focus"];
   const directions = ["playground", "workbench", "atlas", "cinema", "gallery", "stack"];
   for (const presentation of presentations) {
-    const paths = ["/", "/portfolio", projectPath(presentation.slug), ...concepts.map(concept => `/mockups/${concept}`), ...directions.flatMap(direction => [`/mockups/projects/${direction}`, `/mockups/projects/${direction}/${presentation.slug}`])];
+    const homepagePaths = featured.includes(presentation.slug) ? ["/", ...concepts.map(concept => `/mockups/${concept}`)] : [];
+    const paths = [...homepagePaths, "/portfolio", projectPath(presentation.slug), ...directions.flatMap(direction => [
+      ...(direction !== "gallery" || featured.includes(presentation.slug) ? [`/mockups/projects/${direction}`] : []),
+      `/mockups/projects/${direction}/${presentation.slug}`,
+    ])];
     for (const path of paths) {
       const image = tags(htmlFor(path), "img").find(image => imagePath(image.src) === presentation.src && image.alt === presentation.alt);
       assert.ok(image, `${path}: missing accessible presentation for ${presentation.slug}`);

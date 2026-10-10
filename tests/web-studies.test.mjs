@@ -13,6 +13,7 @@ const output = resolve(
   "server/app",
 );
 const catalog = loadDataModule("app/portfolio/web-studies/catalog.ts");
+const { selectedWorkSlugs } = loadDataModule("app/portfolio/selected-work.ts");
 const projects = loadProjects();
 const existing = [
   "noelle",
@@ -114,10 +115,11 @@ for (const project of websites) {
 
   test(`${project.slug}: its case study is rendered and linked from the visible website grid`, () => {
     const archive = htmlFor("/portfolio");
+    const collection = selectedWorkSlugs.includes(project.slug) ? "selected-work" : "websites";
     const section = archive.match(
-      /<section\b[^>]*aria-labelledby="websites-heading"[^>]*>([^]*?)<\/section>/,
+      new RegExp(`<section\\b[^>]*id="${collection}"[^>]*>([^]*?)<\\/section>`),
     )?.[1];
-    assert.ok(section, "Missing website studies section");
+    assert.ok(section, `Missing ${collection} section`);
     assert.match(section, new RegExp(`data-project="${project.slug}"`));
     const html = htmlFor(`/portfolio/projects/${project.slug}`);
     for (const link of project.links)

@@ -30,8 +30,6 @@
 .studyImage { min-width: 0; margin: 0; }
 .visual { aspect-ratio: 1.1; background: var(--oat); border-radius: 44% 56% 39% 61% / 40% 34% 66% 60%; }
 .visual img { object-fit: contain; padding: 7%; }
-.study[data-project="anki"] .visual { aspect-ratio: 1.44; background: var(--bone); border-radius: 16px; }
-.study[data-project="anki"] .visual img { object-fit: contain; padding: 0; }
 .study[data-project="construcredit"] .visual { aspect-ratio: 1.4; border-radius: 70px 12px 12px 12px; }
 .study[data-project="construcredit"] .visual img { padding: 5%; }
 .study[data-project="cortex"] .visual { aspect-ratio: 1.45; border-radius: 12px 12px 70px 12px; }

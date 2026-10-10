@@ -91,6 +91,10 @@ export function getStudyInterfaceViews(study: ProjectStudy): readonly StudyInter
 }
 
 export function getStudyPreview(study: ProjectStudy): StudyAsset {
+  if (selectedWorkSlugs.some(slug => slug === study.project.slug)) {
+    const product = study.media.find(asset => asset.id === `${study.project.slug}-product`);
+    if (product) return product;
+  }
   return study.media.find(asset => asset.kind !== "video") ?? study.media[0];
 }
 

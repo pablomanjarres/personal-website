@@ -1,4 +1,4 @@
-import { getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
+import { getStudyPreview, getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
 import type { StudyDirectionId } from "../project-studies/data";
 import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
 import { StudyMedia, StudyActions } from "@/app/portfolio/studies/primitives";
@@ -13,14 +13,15 @@ type IndexProps = { studies: readonly ProjectStudy[]; direction: StudyDirectionI
 type DetailProps = { study: ProjectStudy; direction: StudyDirectionId };
 
 function GalleryPiece({ study, direction, priority }: { study: ProjectStudy; direction: StudyDirectionId; priority: boolean }) {
+  const preview = getStudyPreview(study);
   return (
     <article className={styles.piece}>
       <StudyLink study={study} direction={direction} className={styles.indexMediaLink}>
-        <StudyMedia asset={study.media[0]} className={styles.indexMedia} priority={priority} caption={false} />
+        <StudyMedia asset={preview} className={styles.indexMedia} priority={priority} caption={false} />
       </StudyLink>
       <div className={styles.caption}>
         <h2><StudyLink study={study} direction={direction}>{study.project.title}</StudyLink></h2>
-        <p>{study.media[0].label}</p>
+        <p>{preview.label}</p>
       </div>
     </article>
   );
