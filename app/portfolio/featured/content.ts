@@ -12,9 +12,9 @@ export type FeaturedProject = {
 };
 
 const notes = {
-  anki: {
-    problem: "Review cards need to match what you’ve actually reached.",
-    note: "Cards stay tied to their sources.",
+  vestra: {
+    problem: "Guests need a clear path from the mountain view to a planned stay.",
+    note: "An alpine retreat with room and date choices close at hand.",
   },
   cortex: {
     problem: "Daily work lives across too many tools.",
@@ -28,9 +28,9 @@ const notes = {
     problem: "A lender needs dependable balances and a clear approval trail.",
     note: "Business rules belong in the software.",
   },
-  noelle: {
-    problem: "Social engagement needs a clear review and approval path.",
-    note: "Agents, drafts, and approvals in one workspace.",
+  aether: {
+    problem: "Independent work needs a clear view of income and savings.",
+    note: "Invoices, balances, and allocations in one account view.",
   },
 } satisfies Record<(typeof selectedWorkSlugs)[number], Pick<FeaturedProject, "problem" | "note">>;
 
