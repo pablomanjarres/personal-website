@@ -16,13 +16,21 @@ const notes = {
     problem: "Review cards need to match what you’ve actually reached.",
     note: "Cards stay tied to their sources.",
   },
+  cortex: {
+    problem: "Daily work lives across too many tools.",
+    note: "Private records, kept together.",
+  },
+  nella: {
+    problem: "Agents need context about the code they work on.",
+    note: "Code search and context for agents.",
+  },
   construcredit: {
     problem: "A lender needs dependable balances and a clear approval trail.",
     note: "Business rules belong in the software.",
   },
-  cortex: {
-    problem: "Daily work lives across too many tools.",
-    note: "Private records, kept together.",
+  noelle: {
+    problem: "Social engagement needs a clear review and approval path.",
+    note: "Agents, drafts, and approvals in one workspace.",
   },
 } satisfies Record<(typeof selectedWorkSlugs)[number], Pick<FeaturedProject, "problem" | "note">>;
 
