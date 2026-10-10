@@ -37,9 +37,7 @@
 .study[data-project="cortex"] .visual { aspect-ratio: 1.45; border-radius: 12px 12px 70px 12px; }
 .studyImage figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; padding: 20px 8px 0; font-size: 11px; line-height: 1.5; }
 .studyImage figcaption span:last-child { color: var(--copper); }
-.archive { max-width: 660px; margin: 95px auto 0; }
-.archive summary { padding: 20px 26px; background: var(--oat); border-radius: 18px; font-size: 15px; }
-.archive[open] { padding-bottom: 16px; }
+.archive { max-width: 660px; margin: 95px auto 0; padding: 20px 26px; background: var(--oat); border-radius: 18px; font-size: 15px; }
 .profile { position: relative; background: var(--wine); color: var(--bone); border-radius: 0 110px 0 0; }
 .profileInner { display: grid; grid-template-columns: .75fr 1.25fr; gap: 12%; max-width: 1500px; margin: auto; padding: 115px 6% 130px; }
 .sideNote h2 { margin-bottom: 34px; font-size: 15px; font-weight: 400; }
@@ -90,8 +88,7 @@
   .body .read { margin-top: 9px; }
   .visual { max-height: 390px; }
   .studyImage figcaption { padding-inline: 0; font-size: 10px; }
-  .archive { margin-top: 55px; }
-  .archive summary { padding-inline: 20px; }
+  .archive { margin-top: 55px; padding-inline: 20px; }
   .profile { border-radius: 0 65px 0 0; }
   .profileInner { grid-template-columns: 1fr; gap: 55px; padding: 65px 6% 75px; }
   .sideNote h2 { margin-bottom: 25px; }

@@ -16,7 +16,7 @@ export function BuildingLink({ concept, ...props }: { concept: ConceptId; classN
 }
 
 export function ProjectArchive({ concept, ...props }: { concept: ConceptId; className?: string }) {
-  return <AllProjects projectHref={slug => conceptStudyHref(concept, slug)} {...props} />;
+  return <AllProjects href={conceptStudyHref(concept)} {...props} />;
 }
 
 export function FooterLinks(props: { className?: string }) {

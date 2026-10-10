@@ -37,9 +37,7 @@
 .entry[data-project="cortex"] .visual { aspect-ratio: 1.45; background: var(--blue); border-radius: 12px 70px 12px 70px; }
 .entry[data-project="cortex"] .marginNote { top: 28%; width: 13%; }
 .entry[data-project="cortex"] .marginNote p { font-size: 17px; }
-.body .archive { width: 77%; margin: 90px 0 0 auto; font-family: var(--font-sora), sans-serif; }
-.archive summary { padding-block: 18px; font-size: 13px; }
-.archive[open] { background: var(--white); border-radius: 18px; padding-inline: 26px; }
+.body .archive { width: 77%; margin: 90px 0 0 auto; padding-block: 18px; font-family: var(--font-sora), sans-serif; font-size: 13px; }
 .letter { display: grid; grid-template-columns: 220px minmax(0, 540px); align-items: start; gap: 75px; max-width: 1000px; margin: 0 auto; padding: 100px 6% 130px; }
 .letterPortrait { padding-top: 35px; }
 .letterPortrait img { width: 100%; height: auto; object-fit: cover; border-radius: 60px 10px 10px 10px; }
@@ -84,7 +82,6 @@
   .marginNote p, .entry[data-project="cortex"] .marginNote p { font-size: 18px; }
   .body .projectLink { margin-top: 10px; }
   .body .archive { width: 100%; margin-top: 55px; }
-  .archive[open] { padding-inline: 18px; }
   .letter { grid-template-columns: 1fr; gap: 35px; padding: 35px 6% 75px; }
   .letterPortrait { display: flex; align-items: end; gap: 20px; padding: 0; }
   .letterPortrait img { width: 32%; border-radius: 35px 8px 8px 8px; }
