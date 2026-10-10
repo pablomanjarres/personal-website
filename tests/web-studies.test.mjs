@@ -115,7 +115,7 @@ for (const project of websites) {
   test(`${project.slug}: its case study is rendered and linked from the visible website grid`, () => {
     const archive = htmlFor("/portfolio");
     const section = archive.match(
-      /<section\b[^>]*aria-labelledby="website-studies-heading"[^>]*>([^]*?)<\/section>/,
+      /<section\b[^>]*aria-labelledby="websites-heading"[^>]*>([^]*?)<\/section>/,
     )?.[1];
     assert.ok(section, "Missing website studies section");
     assert.match(section, new RegExp(`data-project="${project.slug}"`));
