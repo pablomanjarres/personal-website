@@ -23,6 +23,12 @@ const presentations: Readonly<Record<string, readonly StudyAsset[]>> = {
     { id: "cortex-presentation", kind: "presentation", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair", label: "Daily workspace on desktop" },
     { id: "cortex-study-presentation", kind: "presentation", src: "/portfolio/presentations/cortex-study.webp", width: 4000, height: 3000, alt: "Cortex student workspace on a laptop beside its mobile finance view", label: "Study on desktop, finances on mobile" },
   ],
+  nella: [
+    { id: "nella-presentation", kind: "presentation", src: "/portfolio/presentations/nella-features.webp", width: 3260, height: 2650, alt: "Nella feature page with code indexing and search examples on an angled MacBook", label: "Code intelligence on desktop" },
+  ],
+  noelle: [
+    { id: "noelle-presentation", kind: "presentation", src: "/portfolio/presentations/noelle-roster.webp", width: 2870, height: 2360, alt: "Noelle agent roster and activity overview on a laptop resting on a green chair", label: "Agent roster on desktop" },
+  ],
   construcredit: [
     { id: "construcredit-presentation", kind: "presentation", src: "/portfolio/presentations/construcredit-workspace.webp", width: 4000, height: 3000, alt: "ConstruCredit client portfolio on a laptop beside its mobile administration view", label: "Lending on desktop and mobile" },
     { id: "construcredit-dashboard-presentation", kind: "presentation", src: "/portfolio/presentations/construcredit-dashboard.webp", width: 4500, height: 3000, alt: "ConstruCredit loan dashboard on a laptop resting on a green chair", label: "The lending dashboard" },
