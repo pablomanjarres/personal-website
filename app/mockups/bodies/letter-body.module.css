@@ -26,8 +26,6 @@
 .marginNote { position: absolute; width: 18%; left: 0; top: 35%; }
 .marginNote p { font-size: 19px; line-height: 1.6; }
 .body .projectLink { display: inline-flex; min-height: 44px; align-items: center; margin-top: 22px; font: 400 11px/1.5 var(--font-sora), sans-serif; text-decoration: underline; text-underline-offset: 5px; }
-.entry[data-project="anki"] .visual { aspect-ratio: 1.44; border-radius: 16px; }
-.entry[data-project="anki"] .visual img { padding: 0; object-fit: contain; }
 .entry[data-project="construcredit"] .projectHeading { width: 86%; margin-left: 0; }
 .entry[data-project="construcredit"] .placement { width: 86%; margin-left: 0; }
 .entry[data-project="construcredit"] .visual { border-radius: 12px 12px 80px 12px; background: var(--blue); }
