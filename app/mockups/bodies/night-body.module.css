@@ -46,7 +46,7 @@
 .screening[data-project="cortex"] .caption { grid-column: 6 / -1; grid-row: 2; grid-template-columns: 1fr; gap: 12px; padding-left: 32px; }
 .screening[data-project="cortex"] .caseLink { justify-self: start; }
 .archive { margin-top: -25px; padding: 0 0 20px; border-top: 1px solid color-mix(in srgb, var(--night-muted) 30%, transparent); }
-.body .archive a { color: var(--night-text); }
+.body .archive { color: var(--night-text); }
 .about { padding: 110px 6% 130px; background: var(--night-stage); overflow: hidden; }
 .aboutHeading { display: flex; justify-content: space-between; align-items: end; gap: 35px; max-width: 1320px; margin: auto; }
 .aboutHeading p { color: var(--night-muted); font-size: 17px; }
