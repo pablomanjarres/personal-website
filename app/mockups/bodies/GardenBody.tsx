@@ -6,9 +6,9 @@ import styles from "./garden-body.module.css";
 const concept = "green-room";
 const featuredProjects = getFeaturedProjects(concept);
 
-function ProjectPlot({ item }: { item: FeaturedProject }) {
+function ProjectPlot({ item, lead }: { item: FeaturedProject; lead: boolean }) {
   return (
-    <article className={styles.plot} data-project={item.project.slug}>
+    <article className={styles.plot} data-project={item.project.slug} data-feature={lead ? "lead" : "supporting"}>
       <div className={styles.projectText}>
         <h3><ProjectLink item={item}>{item.project.title}</ProjectLink></h3>
         <p>{item.product}</p>
@@ -63,7 +63,7 @@ export default function GardenBody() {
           <h2 id="garden-work-heading">A few things<br />I&apos;ve built.</h2>
           <p>Studying. Lending.<br />Keeping track of daily work.</p>
         </div>
-        <div className={styles.terrain}>{featuredProjects.map(item => <ProjectPlot key={item.project.slug} item={item} />)}</div>
+        <div className={styles.terrain}>{featuredProjects.map((item, index) => <ProjectPlot key={item.project.slug} item={item} lead={index === 0} />)}</div>
         <ProjectArchive concept={concept} className={styles.archive} />
       </section>
       <SkillsLandscape />
