@@ -28,8 +28,7 @@
 .projectLink { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 20px; border: 1px solid currentColor; border-radius: 6px; font-size: 14px; }
 .projectLink:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
 .cobalt .projectLink:hover { background: var(--white); color: var(--blue); border-color: var(--white); }
-.archive { padding: 0 6% 40px; margin-top: 24px !important; background: var(--white); }
-.archive summary { font-size: 20px; }
+.archive { padding: 0 6% 40px; margin-top: 24px !important; background: var(--white); font-size: 20px; }
 .assembly { display: grid; grid-template-columns: 1fr 1.25fr; gap: 10%; padding: 100px 7% 120px; background: #f1f5fc; }
 .assemblyIntro p { max-width: 34ch; margin-top: 30px !important; font-size: 19px; }
 .layers { display: grid; gap: 36px; padding: 0 0 0 12px; margin: 0; list-style: none; }

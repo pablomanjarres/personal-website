@@ -1,50 +1,62 @@
 import { getStudyPreview, getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
 import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
-import { StudyActions, StudyDemo, StudyLink, StudyMedia } from "@/app/portfolio/studies/primitives";
+import { StudyActions, StudyDemo, StudyMedia } from "@/app/portfolio/studies/primitives";
 import { getCaseStudy } from "@/app/portfolio/studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "@/app/portfolio/studies/case-study-primitives";
 import { ProjectTechnicalNotes } from "@/app/portfolio/studies/ProjectTechnicalNotes";
 import { StudyInterfaceGallery } from "@/app/portfolio/studies/interface-gallery";
 import { isWebsiteStudy } from "@/app/portfolio/web-studies/catalog";
+import interaction from "@/app/site/interaction.module.css";
 import { BenchProject } from "./BenchProject";
 import styles from "./workbench.module.css";
 
 type IndexProps = { studies: readonly ProjectStudy[]; projectHref: (slug: string) => string };
 type DetailProps = { study: ProjectStudy; indexHref: string; demoHref?: string };
+type Collection = { id: string; label: string; title?: string; description?: string; studies: readonly ProjectStudy[]; featured?: boolean };
 
-function ProjectLedger({ studies, projectHref }: IndexProps) {
-  if (!studies.length) return null;
+function CollectionNavigation({ collections }: { collections: readonly Collection[] }) {
   return (
-    <section className={styles.ledger} aria-label="More projects" data-reveal="panel">
-      <h2>Also built</h2>
-      <div className={styles.ledgerItems}>{studies.map(study => (
-        <StudyLink key={study.project.slug} href={projectHref(study.project.slug)} className={styles.ledgerLink}>
-          <span>{study.project.title}</span><small>{study.project.year}</small>
-        </StudyLink>
+    <nav className={styles.collectionNavigation} aria-label="Project collections">
+      {collections.map(collection => (
+        <a key={collection.id} href={`#${collection.id}`} className={`${interaction.action} ${interaction.button}`} aria-label={`${collection.label}, ${collection.studies.length} projects`}>
+          <span>{collection.label}</span><span className={styles.collectionCount} aria-hidden="true">{collection.studies.length}</span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+function ProjectCollection({ collection, projectHref }: { collection: Collection; projectHref: IndexProps["projectHref"] }) {
+  return (
+    <section id={collection.id} className={styles.projectCollection} aria-label={collection.title ? undefined : collection.label} aria-labelledby={collection.title ? `${collection.id}-heading` : undefined}>
+      {collection.title && <header className={styles.collectionHeading} data-reveal="panel">
+        <h2 id={`${collection.id}-heading`}>{collection.title}</h2>
+        {collection.description && <p>{collection.description}</p>}
+      </header>}
+      <div className={styles.selected}>{collection.studies.map((study, index) => (
+        <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={collection.featured && index === 0} />
       ))}</div>
     </section>
   );
 }
 
 export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
-  const products = studies.filter(study => !isWebsiteStudy(study.project.slug));
-  const websites = studies.filter(study => isWebsiteStudy(study.project.slug));
+  const studiesBySlug = new Map(studies.map(study => [study.project.slug, study]));
+  const selectedSlugs = new Set<string>(selectedWorkSlugs);
+  const selected = selectedWorkSlugs.map(slug => studiesBySlug.get(slug)).filter((study): study is ProjectStudy => Boolean(study));
+  const remaining = studies.filter(study => !selectedSlugs.has(study.project.slug));
+  const products = remaining.filter(study => !isWebsiteStudy(study.project.slug));
+  const websites = remaining.filter(study => isWebsiteStudy(study.project.slug));
+  const collections: Collection[] = [
+    { id: "selected-work", label: "Selected work", studies: selected, featured: true },
+    { id: "products-and-tools", label: "Products and tools", title: "Products and tools.", description: "Applications, experiments and everyday tools. Open a project to explore the interface, the build and the decisions behind it.", studies: products },
+    { id: "websites", label: "Websites", title: "Websites and identities.", description: `${websites.length} more projects across commerce, hospitality and creative work. Open a study to see the design decisions, live website and brand kit.`, studies: websites },
+  ].filter(collection => collection.studies.length > 0);
   return (
     <div className={styles.workbench}>
       <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Tools.</p></header>
-      <section className={styles.selected} aria-label="Selected projects">
-        {products.slice(0, selectedWorkSlugs.length).map((study, index) => (
-          <BenchProject key={study.project.slug} study={study} projectHref={projectHref} lead={index === 0} />
-        ))}
-      </section>
-      {websites.length > 0 && <section className={styles.websiteStudies} aria-labelledby="website-studies-heading">
-        <header className={styles.websiteHeading} data-reveal="panel">
-          <h2 id="website-studies-heading">Websites and identities.</h2>
-          <p>{websites.length} distinct projects, from a mountain retreat to a working studio dashboard. Open a study to see its design decisions, live website and brand kit.</p>
-        </header>
-        <div className={styles.selected}>{websites.map(study => <BenchProject key={study.project.slug} study={study} projectHref={projectHref} />)}</div>
-      </section>}
-      <ProjectLedger studies={products.slice(selectedWorkSlugs.length)} projectHref={projectHref} />
+      <CollectionNavigation collections={collections} />
+      {collections.map(collection => <ProjectCollection key={collection.id} collection={collection} projectHref={projectHref} />)}
     </div>
   );
 }

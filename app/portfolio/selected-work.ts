@@ -1,1 +1,1 @@
-export const selectedWorkSlugs = ["construcredit", "cortex", "anki"] as const;
+export const selectedWorkSlugs = ["anki", "cortex", "nella", "construcredit", "noelle"] as const;

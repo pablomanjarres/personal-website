@@ -19,7 +19,7 @@ const links = html => tags(html, "a").map(tag => tag.href).filter(Boolean);
 const contains = (html, value, label = value) => assert.ok(normalize(html).includes(normalize(value)), `Missing ${label}`);
 const h1 = html => normalize(html.match(/<h1\b[^>]*>([^]*?)<\/h1>/i)?.[1] ?? "");
 const projects = loadProjects();
-const featured = ["construcredit", "cortex", "anki"];
+const featured = ["anki", "cortex", "nella", "construcredit", "noelle"];
 const projectPath = slug => `/portfolio/projects/${slug}`;
 function canonical(html, path) {
   const href = tags(html, "link").find(tag => tag.rel === "canonical")?.href;
@@ -86,18 +86,21 @@ test("Open Studio is the real homepage with the approved selected work", () => {
     contains(html, projects.find(project => project.slug === slug).oneLiner);
   }
   for (const href of ["#work", "#about", "#contact", "/portfolio"]) assert.ok(links(html).includes(href));
+  const archiveLink = html.match(/<a\b[^>]*href="\/portfolio"[^>]*>Browse all ([^]*?)<\/a>/);
+  assert.ok(archiveLink, "The full portfolio needs a visible link after the featured projects");
+  assert.ok(!/<details\b[^>]*>[^]*?See all/.test(html), "The homepage collection is still collapsed");
   contains(html, "Software Engineer"); contains(html, "Product Designer"); contains(html, "Founder");
   assert.ok(tags(html, "img").some(image => image.src.includes("forest.webp")), "Approved jacket portrait is missing");
   canonical(html, "/"); realNavigation(html); localImages(html, "/");
 });
 
-test("ConstruCredit leads selected work before the supporting Cortex and Anki projects", () => {
+test("The same five mockup projects lead the homepage and portfolio", () => {
   for (const path of ["/", "/portfolio", "/mockups/open-studio", "/mockups/projects/workbench"]) {
     const selected = [...htmlFor(path).matchAll(/<article\b([^>]*)>([^]*?)<\/article>/g)]
       .filter(([, , body]) => featured.some(slug => links(body).some(href => href.endsWith(`/${slug}`))));
     assert.equal(selected.length, featured.length, `${path}: missing selected projects`);
     const order = selected.map(([, , body]) => featured.find(slug => links(body).some(href => href.endsWith(`/${slug}`))));
-    assert.deepEqual(order, featured, `${path}: client work must lead the selected projects`);
+    assert.deepEqual(order, featured, `${path}: selected project order diverged`);
     for (const [index, [attributes]] of selected.entries()) {
       assert.match(attributes, new RegExp(`data-feature="${index === 0 ? "lead" : "supporting"}"`), `${path}: incorrect feature treatment for ${featured[index]}`);
     }
@@ -136,6 +139,8 @@ test("Selected product presentations reach public and saved routes while live de
     { slug: "anki", src: "/portfolio/presentations/anki-paired.webp", width: 4000, height: 3000, alt: "Anki home and calculus review screens in two iPhones on stone" },
     { slug: "cortex", src: "/portfolio/presentations/cortex-dashboard.webp", width: 4500, height: 3000, alt: "Cortex daily dashboard on a laptop resting on a green chair" },
     { slug: "construcredit", src: "/portfolio/presentations/construcredit-workspace.webp", width: 4000, height: 3000, alt: "ConstruCredit client portfolio on a laptop beside its mobile administration view" },
+    { slug: "nella", src: "/portfolio/presentations/nella-features.webp", width: 3260, height: 2650, alt: "Nella feature page with code indexing and search examples on an angled MacBook" },
+    { slug: "noelle", src: "/portfolio/presentations/noelle-roster.webp", width: 2870, height: 2360, alt: "Noelle agent roster and activity overview on a laptop resting on a green chair" },
   ];
   const concepts = ["signal", "open-studio", "blueprint", "after-hours", "green-room", "soft-focus"];
   const directions = ["playground", "workbench", "atlas", "cinema", "gallery", "stack"];
@@ -195,6 +200,11 @@ test("Selected product presentations reach public and saved routes while live de
 test("The production archive reaches every registered project", () => {
   const html = htmlFor("/portfolio");
   assert.equal(projects.length, 44);
+  const cards = [...html.matchAll(/<article\b[^>]*data-project="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(cards.length, projects.length, "Every project needs a visible preview card");
+  assert.equal(new Set(cards).size, projects.length, "Featured projects must not repeat in later collections");
+  assert.deepEqual(cards.slice(0, featured.length), featured);
+  for (const href of ["#selected-work", "#products-and-tools", "#websites"]) assert.ok(links(html).includes(href), `Missing collection shortcut ${href}`);
   for (const project of projects) assert.ok(links(html).includes(projectPath(project.slug)), `Unreachable ${project.slug}`);
   canonical(html, "/portfolio"); realNavigation(html); localImages(html, "/portfolio");
 });

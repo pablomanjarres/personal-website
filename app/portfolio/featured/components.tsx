@@ -4,6 +4,7 @@ import { projects } from "@/app/projects";
 import { profile } from "@/app/socials";
 import type { FeaturedProject } from "./content";
 import { StudyMedia } from "../studies/primitives";
+import { portfolioHref } from "../routes";
 import localStyles from "./components.module.css";
 import interaction from "@/app/site/interaction.module.css";
 
@@ -29,11 +30,10 @@ export function BuildingLink({ href, className = "", children = profile.building
   return <Link href={href} className={`${styles.action} ${interaction.textLink} ${className}`}>{children}</Link>;
 }
 
-export function ProjectArchive({ projectHref, className = "" }: { projectHref: (slug: string) => string; className?: string }) {
-  return <details className={`${styles.archive} ${className}`}>
-    <summary className={styles.action}>See all {projects.length} projects <span aria-hidden>+</span></summary>
-    <div className={styles.archiveGrid}>{projects.map(project => <Link key={project.slug} href={projectHref(project.slug)} className={styles.action}><span>{project.title}</span><small>{project.tags[0]}</small></Link>)}</div>
-  </details>;
+export function ProjectArchive({ href = portfolioHref, className = "" }: { href?: string; className?: string }) {
+  return <Link href={href} className={`${styles.action} ${styles.archive} ${className}`}>
+    Browse all {projects.length} projects <span aria-hidden>↗</span>
+  </Link>;
 }
 
 export function EmailLink({ subject = "Hello Pablo", className = "", children = profile.email }: { subject?: string; className?: string; children?: ReactNode }) {

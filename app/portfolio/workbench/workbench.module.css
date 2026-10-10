@@ -13,9 +13,18 @@
 }
 .workbench h1, .workbench h2, .workbench p, .workbench figure { margin: 0; }
 :where(.workbench) a { color: inherit; text-decoration: none; }
-.indexHeader { max-width: 1450px; margin: auto; padding: 84px 0 60px; display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+.indexHeader { max-width: 1450px; margin: auto; padding: 84px 0 36px; display: flex; align-items: end; justify-content: space-between; gap: 40px; }
 .indexHeader h1 { font-size: clamp(62px, 8.7vw, 128px); line-height: .98; font-weight: 600; letter-spacing: -.07em; }
 .indexHeader p { --enter-delay: 160ms; font-size: 17px; padding-bottom: 7px; }
+.collectionNavigation { max-width: 1450px; margin: 0 auto 48px; display: flex; flex-wrap: wrap; gap: 12px; }
+.collectionNavigation a { padding: 12px 18px; border: 1px solid var(--bench-edge); border-radius: 999px; font-size: 14px; }
+.collectionNavigation a:hover, .collectionNavigation a:focus-visible { border-color: var(--bench-action); color: var(--bench-action); }
+.collectionCount { color: var(--bench-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.projectCollection { max-width: 1450px; margin: auto; scroll-margin-top: 32px; }
+.projectCollection + .projectCollection { margin-top: 120px; }
+.collectionHeading { display: flex; align-items: start; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
+.collectionHeading h2 { max-width: 12ch; font-size: clamp(34px, 4vw, 58px); font-weight: 500; letter-spacing: -.055em; line-height: 1.08; }
+.collectionHeading p { max-width: 40ch; color: var(--bench-muted); font-size: 16px; line-height: 1.65; }
 .selected { max-width: 1450px; margin: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px 7%; }
 .benchProject { --reveal-delay: 70ms; min-width: 0; }
 .leadProject { --enter-delay: 260ms; grid-column: 1 / -1; }
@@ -35,52 +44,35 @@
 .benchProject[data-media-kind="presentation"] .projectMount { background: transparent; padding: 0; }
 .projectMedia[data-media-kind="presentation"] { box-shadow: none; border-radius: var(--bench-corner); overflow: hidden; }
 .benchProject[data-media-kind="presentation"] .projectLabel { padding-right: 0; }
-.websiteStudies { max-width: 1450px; margin: 120px auto 0; }
-.websiteHeading { display: flex; align-items: start; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
-.websiteHeading h2 { max-width: 12ch; font-size: clamp(34px, 4vw, 58px); font-weight: 500; letter-spacing: -.055em; line-height: 1.08; }
-.websiteHeading p { max-width: 40ch; color: var(--bench-muted); font-size: 16px; line-height: 1.65; }
-.ledger { max-width: 1450px; margin: 120px auto 0; display: grid; grid-template-columns: 1fr 3fr; gap: 7%; }
-.ledger h2 { font-size: 34px; font-weight: 500; letter-spacing: -.05em; }
-.ledgerItems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
-.ledgerLink { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 60px; border-bottom: 1px solid var(--bench-edge); font-size: 18px; }
-.ledgerLink small { font-size: 12px; color: var(--bench-muted); }
-.ledgerLink:hover, .projectLabel h2 a:hover { color: var(--bench-action); }
+.projectLabel h2 a:hover { color: var(--bench-action); }
 @media (prefers-reduced-motion: no-preference) {
   :global([data-motion="active"]) .projectVisual { transition: transform 650ms var(--motion-ease); }
   :global([data-motion="active"]) .indexLens { transition: transform 800ms var(--motion-ease); }
   :global([data-motion="active"]) .benchProject:has(:focus-visible) .projectVisual:not(:has([data-zoomable="true"])) { transform: translateY(-10px) scale(1.025); }
   :global([data-motion="active"]) .benchProject:has(:focus-visible) .indexLens { transform: translate(7px, -5px) rotate(4deg); }
-  :global([data-motion="active"]) .ledgerLink { transition: color 220ms ease, background 220ms ease; }
-  :global([data-motion="active"]) .ledgerLink > span, :global([data-motion="active"]) .ledgerLink > small { transition: translate 400ms var(--motion-ease); }
-  :global([data-motion="active"]) .ledgerLink:focus-visible > span { translate: 8px 0; }
-  :global([data-motion="active"]) .ledgerLink:focus-visible > small { translate: -4px 0; }
   @media (hover: hover) and (pointer: fine) {
     :global([data-motion="active"]) .benchProject:hover .projectVisual:not(:has([data-zoomable="true"])) { transform: translateY(-10px) scale(1.025); }
     :global([data-motion="active"]) .benchProject:hover .indexLens { transform: translate(7px, -5px) rotate(4deg); }
-    :global([data-motion="active"]) .ledgerLink:hover > span { translate: 8px 0; }
-    :global([data-motion="active"]) .ledgerLink:hover > small { translate: -4px 0; }
   }
 }
 @media (max-width: 700px) {
   .workbench { --bench-corner: 14px; padding: 0 6% 70px; }
-  .indexHeader { display: block; padding: 52px 0 40px; }
+  .indexHeader { display: block; padding: 52px 0 28px; }
   .indexHeader h1 { font-size: 58px; }
   .indexHeader p { font-size: 16px; margin-top: 20px; padding: 0; }
   .selected { display: block; }
   .benchProject + .benchProject { margin-top: 58px; }
-  .websiteStudies { margin-top: 75px; }
-  .websiteHeading { display: block; margin-bottom: 35px; }
-  .websiteHeading p { margin-top: 20px; }
+  .collectionNavigation { gap: 8px; margin-bottom: 35px; }
+  .collectionNavigation a { padding-inline: 14px; }
+  .projectCollection + .projectCollection { margin-top: 75px; }
+  .collectionHeading { display: block; margin-bottom: 35px; }
+  .collectionHeading p { margin-top: 20px; }
   .leadProject .projectMount { padding: 10% 7% 16%; }
   .indexLens { width: 22%; border-width: 5px; right: 2%; bottom: -4%; }
   .leadProject .projectLabel { padding-right: 0; }
   .projectLabel { display: block; margin-top: 18px; }
   .projectLabel h2 { font-size: 30px; }
   .projectLabel span { display: block; margin-top: 4px; font-size: 12px; }
-  .ledger { display: block; margin-top: 75px; }
-  .ledger h2 { font-size: 30px; margin-bottom: 20px; }
-  .ledgerItems { grid-template-columns: 1fr; }
-  .ledgerLink { font-size: 17px; min-height: 54px; }
 }
 
 .caseStudy { --bench-edge: #d4d8d0; --bench-muted: #5f675f; max-width: 1550px; margin: auto; padding-top: 40px; padding-bottom: 24px; }
