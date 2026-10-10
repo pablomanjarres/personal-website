@@ -20,10 +20,11 @@ function OrbitProject({ project, href }: { project: Project; href: string }) {
 
 type OpenStudioProps = {
   projectHref: (slug: string) => string;
+  archiveHref?: string;
   footerDestination?: { href: string; label: string };
 };
 
-export default function OpenStudio({ projectHref, footerDestination }: OpenStudioProps) {
+export default function OpenStudio({ projectHref, archiveHref, footerDestination }: OpenStudioProps) {
   return (
     <SiteShell theme={openStudioTheme}>
       <section className={styles.hero} aria-labelledby="studio-heading">
@@ -49,7 +50,7 @@ export default function OpenStudio({ projectHref, footerDestination }: OpenStudi
         </div>
         <ActionLinks className={styles.actions} />
       </section>
-      <StudioBody projectHref={projectHref} footerDestination={footerDestination} />
+      <StudioBody projectHref={projectHref} archiveHref={archiveHref} footerDestination={footerDestination} />
     </SiteShell>
   );
 }

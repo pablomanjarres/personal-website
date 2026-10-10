@@ -63,8 +63,9 @@ function StudioInvitation({ footerDestination }: { footerDestination?: { href: s
   );
 }
 
-export default function StudioBody({ projectHref, footerDestination }: {
+export default function StudioBody({ projectHref, archiveHref, footerDestination }: {
   projectHref: (slug: string) => string;
+  archiveHref?: string;
   footerDestination?: { href: string; label: string };
 }) {
   const featuredProjects = getFeaturedProjects(projectHref);
@@ -77,7 +78,7 @@ export default function StudioBody({ projectHref, footerDestination }: {
             <p data-reveal>Products I’ve designed and built.<br />A look at what each one needed.</p>
           </header>
           <div className={styles.studies}>{featuredProjects.map((item, index) => <ProductStudy key={item.project.slug} item={item} feature={index === 0 ? "lead" : "supporting"} />)}</div>
-          <ProjectArchive projectHref={projectHref} className={styles.archive} />
+          <ProjectArchive href={archiveHref} className={styles.archive} />
         </div>
       </section>
       <StudioPractice />
