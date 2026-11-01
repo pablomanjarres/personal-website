@@ -1158,3 +1158,83 @@
   50% { box-shadow: inset 0 0 0 1px rgba(91, 208, 141, 0.7); }
 }
 
+/* ---- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 1020px) {
+  .stage {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .board {
+    justify-self: start;
+    width: min(100%, 520px);
+  }
+
+  .scrim {
+    background:
+      linear-gradient(180deg, rgba(14, 17, 15, 0.82) 0%, rgba(14, 17, 15, 0.9) 60%, rgba(14, 17, 15, 0.96) 100%);
+  }
+}
+
+@media (max-width: 720px) {
+  .navGates {
+    display: none;
+  }
+
+  .navLinks {
+    gap: 14px;
+  }
+
+  .navLink {
+    font-size: 13px;
+  }
+
+  .stallBtn {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  .ticket {
+    flex: 1 1 100%;
+  }
+
+  .ticketBody {
+    flex: 1;
+  }
+
+  .footMid {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .lot {
+    column-gap: 4px;
+    padding: 12px;
+  }
+
+  .stall {
+    min-height: 54px;
+    padding: 5px 4px;
+  }
+
+  .stallPlate {
+    font-size: 8.5px;
+  }
+
+  .gates {
+    grid-template-columns: 1fr;
+  }
+
+  .gate + .gate {
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
