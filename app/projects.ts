@@ -1850,6 +1850,45 @@ const existingProjects: Project[] = [
       { "name": "Anki MCP", "kind": "service", "oneLiner": "Fourteen tools for grounded generation and study actions through a private ChatGPT tunnel." },
       { "name": "Daily monitor", "kind": "worker", "oneLiner": "A local check for missed or failed morning card generation." }
     ]
+  },
+  {
+    "slug": "vibethon-hackathon",
+    "num": "21",
+    "title": "Hedge Parking",
+    "tagline": "Two campus gates, one parking lot, and a fair turn for every car.",
+    "oneLiner": "A rush-hour parking and valet app built in one hackathon day",
+    "year": "2026",
+    "status": "prototype",
+    "role": "Hackathon build · design + engineering",
+    "tags": ["hackathon", "operations", "fair queueing", "valet", "simulation", "Spanish UI"],
+    "stack": ["React 19", "TypeScript 7", "Vite 8", "Vitest 5", "lucide-react", "Playwright", "localStorage"],
+    "summary": "I built Hedge Parking at the EAFIT Vibethon on October 30, 2026. The brief described a real campus problem. At rush hour two gates, Las Vegas and Regional, feed the same lot and nobody coordinates them, so a stall can be promised twice and students wait without knowing how long.\n\nThe app gives the driver, both gates, the valets and the parking office one shared state. A driver sees their place in line and an estimated wait, reserves the free stall when it is their turn, or hands the keys to a valet for a numbered ticket and walks to class. Everything runs in the browser from one scenario file, and every rejected action explains itself in Spanish.",
+    "problem": "Two entrances fill one lot with no shared view. Gate staff can hand out the same stall twice, one gate can starve the other, and drivers idle in line with no estimate while their first class starts. The challenge also required the organizers' maps and events to load from JSON, with all cameras, plates and payments simulated.",
+    "highlights": [
+      "One owner for every state change. src/parqueadero/motor.ts runs each of 17 command types on a copy of the state and returns a reason in Spanish when it refuses, so a rejected action never changes anything.",
+      "A fairness rule across both gates. src/parqueadero/asignador.ts gives the next free stall to the car that arrived first at either entrance, and on a tie to the gate that has received fewer stalls.",
+      "Waits from what the lot is actually doing. src/parqueadero/espera.ts places each car in the combined order of both gates and turns the gaps between the last 8 stall movements into a minute range.",
+      "Allowed transitions only. src/parqueadero/transiciones.ts allows 4 stall moves and 4 valet moves; anything else is refused with its reason.",
+      "Eight views over one store. src/routes.ts lists driver, gate, valet, office, phone, mockups, a step simulator and a four-panel flow, and all of them read src/parqueadero/tienda.ts.",
+      "Built and logged in one day. 403 commits and 74 merged pull requests on October 30, 27 Vitest checks, and 26 typed prompts recorded in docs/prompting.raw.md."
+    ],
+    "metrics": ["2 gates, 12 stalls", "17 command types", "27 tests", "403 commits in one day"],
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/pablomanjarres/vibethon-hackathon", "kind": "repo" },
+      { "label": "Landing page", "url": "https://pablomanjarres.com/oss/vibethon-hackathon", "kind": "demo" }
+    ],
+    "cover": "/portfolio/previews/vibethon-hackathon.png",
+    "embedUrl": "/demos/hp/index.html",
+    "demoLabel": "hedge parking · rush hour at EAFIT",
+    "previewKind": "web",
+    "accent": "#5bd08d",
+    "subProjects": [
+      { "name": "Parking engine", "kind": "library", "oneLiner": "Commands, transitions, the fairness rule and wait estimates over one state, refusing with a reason." },
+      { "name": "Scenario loader", "kind": "library", "oneLiner": "Validates the organizers' JSON maps, gates, valets and events, and builds the seed state." },
+      { "name": "Driver view", "kind": "app", "oneLiner": "Place in line, estimated wait, stall reservation on the map, and the valet ticket." },
+      { "name": "Gate and valet views", "kind": "app", "oneLiner": "Each gate's passage and turn, plus the valet's next step, tickets and key board." },
+      { "name": "Office view", "kind": "app", "oneLiner": "The whole lot live, simulated events up to a chosen minute, the log and a reset to the seed." }
+    ]
   }
 ];
 
