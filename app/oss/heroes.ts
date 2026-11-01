@@ -241,7 +241,7 @@ export const heroes: Hero[] = [
     "subtitle": "At rush hour two campus gates fill the same parking lot without talking to each other. Hedge Parking gives drivers, gate staff, valets and the office one shared state: your place in line, an honest wait, the next free stall, or a valet ticket so you can walk to class.",
     "note": "Run `npm install` then `npm run dev`. The whole lot starts from one seed in `demo.json`, and every refused action tells you why.",
     "repo": "https://github.com/pablomanjarres/vibethon-hackathon",
-    "live": "https://pablomanjarres.com/portfolio/vibethon-hackathon/demo",
+    "live": "/portfolio/vibethon-hackathon/demo",
     "oss": true
   }
 ];
