@@ -496,3 +496,152 @@
   box-shadow: 0 0 0 1px rgba(240, 178, 74, 0.5);
 }
 
+/* ---- CTAs ---------------------------------------------------------------- */
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btnGlyph {
+  font-size: 0.95em;
+}
+
+/* StallButton: a parking bay seen from above. The back line is always
+   painted; the side lines and the car arrive on hover/focus. */
+.stallBtn {
+  --tone: var(--hedge);
+  --tone-ink: #062615;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 18px 0 48px;
+  color: var(--chalk);
+  text-decoration: none;
+  background: rgba(14, 17, 15, 0.72);
+  backdrop-filter: blur(6px);
+  border-radius: 2px;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.stallTicket {
+  --tone: var(--amber);
+  --tone-ink: #2e1c02;
+}
+
+.stallFree {
+  background: linear-gradient(180deg, rgba(91, 208, 141, 0.16), rgba(14, 17, 15, 0.72));
+}
+
+.stallLines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: var(--tone);
+  stroke-width: 3;
+  stroke-linecap: square;
+  vector-effect: non-scaling-stroke;
+}
+
+.lineBack,
+.lineSide {
+  stroke-dasharray: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.lineBack {
+  stroke-dashoffset: 0;
+}
+
+/* Static default: the side lines are painted too, so the bay reads at rest. */
+.lineSide {
+  stroke-dashoffset: 0;
+  opacity: 0.55;
+}
+
+.stallCar {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  width: 24px;
+  height: 14px;
+  transform: translateY(-50%);
+  fill: var(--chalk);
+  opacity: 0.85;
+}
+
+.carGlass {
+  fill: var(--asphalt);
+}
+
+.stallLamp {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tone);
+  box-shadow: 0 0 8px var(--tone);
+  opacity: 0.6;
+  transition: opacity 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stallLabel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-vibethon-hackathon-display), sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stallBtn:hover,
+.stallBtn:focus-visible {
+  background: var(--tone);
+  color: var(--tone-ink);
+}
+
+.stallBtn:hover .stallCar,
+.stallBtn:focus-visible .stallCar {
+  fill: var(--tone-ink);
+}
+
+/* On the lit bay the paint flips to ink so the side lines stay visible. */
+.stallBtn:hover .stallLines,
+.stallBtn:focus-visible .stallLines {
+  stroke: var(--tone-ink);
+}
+
+.stallBtn:hover .carGlass,
+.stallBtn:focus-visible .carGlass {
+  fill: var(--tone);
+}
+
+.stallBtn:hover .lineSide,
+.stallBtn:focus-visible .lineSide {
+  opacity: 1;
+}
+
+.stallBtn:hover .stallLamp,
+.stallBtn:focus-visible .stallLamp {
+  opacity: 1;
+  background: var(--tone-ink);
+  box-shadow: none;
+}
+
+.stallBtn:focus-visible {
+  outline: 2px solid var(--chalk);
+  outline-offset: 4px;
+}
+
