@@ -993,3 +993,168 @@
   color: var(--chalk-faint);
 }
 
+/* ==========================================================================
+   MOTION, opt-in only.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .art,
+  .loop {
+    animation: hp-settle 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .lanes {
+    animation: hp-lanes 2.4s linear infinite;
+  }
+
+  .beamLeft {
+    animation: hp-beam 7s ease-in-out infinite;
+  }
+
+  .beamRight {
+    animation: hp-beam-r 7s ease-in-out -3.5s infinite;
+  }
+
+  .liveDot {
+    animation: hp-blink 1.2s steps(2, jump-none) infinite;
+  }
+
+  /* Entrance choreography: every block carries its own --d. */
+  .kicker,
+  .sub,
+  .rule,
+  .note,
+  .board {
+    animation: hp-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  .word {
+    animation: hp-mask-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  .stripe span {
+    animation: hp-paint 0.45s cubic-bezier(0.3, 0.9, 0.3, 1) both;
+  }
+
+  .stripe span:nth-child(1) { animation-delay: calc(var(--d, 0ms) + 0ms); }
+  .stripe span:nth-child(2) { animation-delay: calc(var(--d, 0ms) + 60ms); }
+  .stripe span:nth-child(3) { animation-delay: calc(var(--d, 0ms) + 120ms); }
+  .stripe span:nth-child(4) { animation-delay: calc(var(--d, 0ms) + 180ms); }
+  .stripe span:nth-child(5) { animation-delay: calc(var(--d, 0ms) + 240ms); }
+  .stripe span:nth-child(6) { animation-delay: calc(var(--d, 0ms) + 300ms); }
+
+  .rule {
+    animation-name: hp-roll;
+  }
+
+  .stallBtn,
+  .ticket {
+    animation: hp-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  /* Hover: the side lines paint in from the back line, the car rolls in. */
+  .lineSide {
+    stroke-dashoffset: 1;
+    opacity: 1;
+    transition: stroke-dashoffset 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stallBtn:hover .lineSide,
+  .stallBtn:focus-visible .lineSide {
+    stroke-dashoffset: 0;
+  }
+
+  .stallCar {
+    transition: transform 0.5s cubic-bezier(0.3, 1.3, 0.5, 1), fill 0.25s ease;
+  }
+
+  .stallBtn:hover .stallCar,
+  .stallBtn:focus-visible .stallCar {
+    animation: hp-park 0.55s cubic-bezier(0.3, 1.2, 0.5, 1) both;
+  }
+
+  .stallBtn:hover .stallLamp,
+  .stallBtn:focus-visible .stallLamp {
+    animation: hp-blink 0.5s steps(2, jump-none) 2;
+  }
+
+  /* Board: a stall that just changed flashes once; the callout slides in. */
+  .libre,
+  .reservada {
+    animation: hp-flip 0.6s ease-out both;
+  }
+
+  .boardFoot > span:last-child {
+    animation: hp-ticket 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .gateTurn .car:first-child {
+    animation: hp-pulse 1.7s ease-in-out infinite;
+  }
+}
+
+@keyframes hp-settle {
+  from { opacity: 0; transform: scale(1.06); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hp-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hp-mask-up {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes hp-paint {
+  from { opacity: 0; transform: skewX(-24deg) scaleX(0); }
+  to { opacity: 1; transform: skewX(-24deg) scaleX(1); }
+}
+
+@keyframes hp-roll {
+  from { opacity: 0; transform: translateX(-22px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hp-lanes {
+  from { background-position: 0 0, center 0; }
+  to { background-position: 0 0, center 58px; }
+}
+
+@keyframes hp-beam {
+  0%, 100% { opacity: 0.12; transform: translateX(0) rotate(8deg); }
+  50% { opacity: 0.28; transform: translateX(3vw) rotate(4deg); }
+}
+
+@keyframes hp-beam-r {
+  0%, 100% { opacity: 0.12; transform: translateX(0) rotate(-8deg); }
+  50% { opacity: 0.28; transform: translateX(-3vw) rotate(-4deg); }
+}
+
+@keyframes hp-blink {
+  0% { opacity: 1; }
+  100% { opacity: 0.25; }
+}
+
+@keyframes hp-park {
+  0% { transform: translate(-46px, -50%); opacity: 0; }
+  70% { transform: translate(3px, -50%); opacity: 1; }
+  100% { transform: translate(0, -50%); opacity: 1; }
+}
+
+@keyframes hp-flip {
+  0% { box-shadow: 0 0 0 0 rgba(244, 242, 238, 0.5); }
+  100% { box-shadow: 0 0 0 8px rgba(244, 242, 238, 0); }
+}
+
+@keyframes hp-ticket {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hp-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(91, 208, 141, 0); }
+  50% { box-shadow: inset 0 0 0 1px rgba(91, 208, 141, 0.7); }
+}
+
