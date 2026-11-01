@@ -288,3 +288,139 @@
   border-radius: 2px;
 }
 
+/* ---- Stage --------------------------------------------------------------- */
+
+.stage {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+  padding: clamp(12px, 3vw, 36px) clamp(20px, 5vw, 60px) clamp(36px, 5vw, 64px);
+}
+
+.col {
+  max-width: 720px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 7px 14px 7px 8px;
+  border: 1px solid var(--hair-strong);
+  border-radius: 6px;
+  background: rgba(14, 17, 15, 0.62);
+  font-family: var(--font-vibethon-hackathon-mono), monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--chalk-dim);
+  backdrop-filter: blur(6px);
+}
+
+.mark {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.markHedge {
+  fill: var(--hedge);
+}
+
+.markStall {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Road-sign headline. Each word sits in a mask and rises in on entrance. */
+.title {
+  margin: 0;
+  font-family: var(--font-vibethon-hackathon-display), sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.005em;
+  text-shadow: 0 2px 24px rgba(6, 8, 7, 0.6);
+}
+
+.lineLead,
+.lineMain {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.22em;
+}
+
+.lineLead {
+  font-size: clamp(28px, 3.4vw, 46px);
+  color: var(--chalk-dim);
+}
+
+.lineMain {
+  margin-top: 4px;
+  font-size: clamp(44px, 6.2vw, 88px);
+  color: var(--chalk);
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+
+.word {
+  display: inline-block;
+}
+
+/* "fair" gets the free-stall treatment: hedge green with a painted underline. */
+.wordFair {
+  position: relative;
+  color: var(--hedge);
+}
+
+.wordFair::after {
+  content: "";
+  position: absolute;
+  left: 0.02em;
+  right: 0.02em;
+  bottom: 0.04em;
+  height: 0.07em;
+  background: var(--hedge);
+  opacity: 0.5;
+}
+
+/* Hazard stripe under the headline: six blocks, lane yellow on asphalt. */
+.stripe {
+  display: flex;
+  gap: 6px;
+  margin: 20px 0 18px;
+}
+
+.stripe span {
+  width: 34px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--lane);
+  transform: skewX(-24deg);
+}
+
+.stripe span:nth-child(even) {
+  background: var(--chalk);
+  opacity: 0.85;
+}
+
+.sub {
+  margin: 0;
+  max-width: 58ch;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.6;
+  color: var(--chalk-dim);
+}
+
