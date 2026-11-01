@@ -73,7 +73,10 @@ function seed(): Board {
   };
 }
 
-/** The split rule, as asignador.ts states it: earliest arrival, then the gate with fewer stalls. */
+/**
+ * The split rule from asignador.ts: earliest arrival, then the gate with fewer stalls.
+ * asignador.ts breaks a last tie by scenario order, where Las Vegas comes first.
+ */
 function nextGate(b: Board): Gate | null {
   const lv = b.queues.LV[0];
   const rg = b.queues.RG[0];
