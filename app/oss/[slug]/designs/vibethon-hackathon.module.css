@@ -645,3 +645,61 @@
   outline-offset: 4px;
 }
 
+/* TicketLink: a valet ticket with a tear-off stub. */
+.ticket {
+  display: inline-flex;
+  align-items: stretch;
+  height: 52px;
+  color: var(--chalk);
+  text-decoration: none;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35));
+}
+
+.ticketStub {
+  display: inline-grid;
+  place-items: center;
+  padding: 0 10px;
+  border-radius: 6px 0 0 6px;
+  background: var(--amber);
+  color: var(--asphalt);
+  font-family: var(--font-vibethon-hackathon-mono), monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border-right: 2px dashed rgba(14, 17, 15, 0.55);
+  transition: transform 0.3s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.ticketBody {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-radius: 0 6px 6px 0;
+  background: var(--chalk);
+  color: var(--asphalt);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ticketArrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.ticket:hover .ticketStub,
+.ticket:focus-visible .ticketStub {
+  transform: translateX(-6px) rotate(-6deg);
+}
+
+.ticket:hover .ticketArrow,
+.ticket:focus-visible .ticketArrow {
+  transform: translateX(5px);
+}
+
+.ticket:focus-visible {
+  outline: 2px solid var(--lane);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
