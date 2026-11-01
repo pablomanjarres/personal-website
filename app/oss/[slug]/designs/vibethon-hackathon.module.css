@@ -1,0 +1,186 @@
+/* ============================================================================
+   HEDGE PARKING (vibethon-hackathon) — "Rush hour at the gate"
+   Design brief
+   - Concept: the landing reads as campus wayfinding at dusk. A road-sign
+     headline over the live parking-lot loop, with the app's own gate board
+     running its split rule beside it. Two gates, one lot, one fair turn.
+   - Palette: asphalt #0e110f / #171b18, hedge green #5bd08d (free), amber
+     #f0b24a (reserved, tickets), sign cyan #5fe3d6 (the stall map screen),
+     chalk #f4f2ee, lane yellow #e8c547, stop red #e2634f (sparingly).
+   - Type: Barlow Condensed 800 uppercase (road signs, stall stencils),
+     Overpass (Highway Gothic descendant) for body, Overpass Mono for plates,
+     clocks and gate codes.
+   - Set-piece: TurnBoard, a 12-stall lot plus the LV and RG queues that ticks
+     every 1.7s with the real rule: earliest arrival at either gate, ties to
+     the gate with fewer stalls.
+   - Motion: masked word rise on the headline, a lane-stripe that paints in,
+     rules that roll in like lane markers, headlight beams sweeping from each
+     gate, lane dashes creeping toward the lot, a blinking live dot, stalls
+     that flash when they change. Hover: stall CTAs paint their side lines and
+     a car parks; the ticket stub tears.
+   - Unmistakably this project: the gate board, the stall CTAs and the plate
+     chips. Nothing here would fit another slug.
+   All motion is opt-in under prefers-reduced-motion: no-preference; the
+   default state is the finished, legible page.
+   ============================================================================ */
+
+.root {
+  --asphalt: #0e110f;
+  --asphalt-2: #171b18;
+  --asphalt-3: #212622;
+  --hedge: #5bd08d;
+  --hedge-deep: #1f6b43;
+  --amber: #f0b24a;
+  --amber-deep: #a8680c;
+  --cyan: #5fe3d6;
+  --chalk: #f4f2ee;
+  --chalk-dim: rgba(244, 242, 238, 0.68);
+  --chalk-faint: rgba(244, 242, 238, 0.42);
+  --lane: #e8c547;
+  --stop: #e2634f;
+  --hair: rgba(244, 242, 238, 0.14);
+  --hair-strong: rgba(244, 242, 238, 0.26);
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--asphalt);
+  color: var(--chalk);
+  font-family: var(--font-vibethon-hackathon-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Atmosphere ---------------------------------------------------------- */
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Static still: the poster under the video, and the whole background when
+   motion is reduced (the video sources only match no-preference). */
+.art {
+  position: absolute;
+  inset: 0;
+  background: var(--asphalt) var(--bg) 68% center / cover no-repeat;
+  filter: saturate(0.92) brightness(0.92);
+}
+
+.loop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% center;
+  filter: saturate(0.92) brightness(0.92);
+}
+
+/* Legibility scrim: heavy over the left text column and the footer, nearly
+   clear over the lit gates and the stall-map sign. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      96deg,
+      rgba(14, 17, 15, 0.96) 0%,
+      rgba(14, 17, 15, 0.9) 26%,
+      rgba(14, 17, 15, 0.62) 48%,
+      rgba(14, 17, 15, 0.28) 68%,
+      rgba(14, 17, 15, 0.42) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(14, 17, 15, 0.94) 0%,
+      rgba(14, 17, 15, 0.36) 24%,
+      rgba(14, 17, 15, 0) 48%,
+      rgba(14, 17, 15, 0.5) 100%
+    );
+}
+
+/* Painted parking-lane dashes in perspective along the bottom of the frame. */
+.lanes {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -6%;
+  height: 46%;
+  opacity: 0.32;
+  transform: perspective(520px) rotateX(62deg);
+  transform-origin: bottom center;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 calc(16.66% - 3px),
+      rgba(244, 242, 238, 0.5) calc(16.66% - 3px) 16.66%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 34px,
+      rgba(232, 197, 71, 0.55) 34px 58px
+    ) center / 4px 100% no-repeat;
+  mask-image: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+}
+
+/* Headlight cones from the two gates, very low alpha, screen-blended. */
+.beam {
+  position: absolute;
+  top: 34%;
+  width: 46vw;
+  height: 32vh;
+  mix-blend-mode: screen;
+  opacity: 0.22;
+  filter: blur(18px);
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(255, 236, 196, 0.85) 0%,
+    rgba(240, 178, 74, 0.35) 38%,
+    transparent 72%
+  );
+}
+
+.beamLeft {
+  left: 24%;
+  transform: rotate(8deg);
+}
+
+.beamRight {
+  right: -6%;
+  transform: rotate(-8deg);
+}
+
+.grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 60% 40%, transparent 52%, rgba(6, 8, 7, 0.78) 100%);
+}
+
+/* A painted curb along the very bottom: alternating chalk and asphalt blocks. */
+.curb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  opacity: 0.7;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--lane) 0 42px,
+    var(--asphalt) 42px 84px
+  );
+}
+
