@@ -184,3 +184,107 @@
   );
 }
 
+/* ---- Nav ----------------------------------------------------------------- */
+
+.nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(18px, 2.4vw, 28px) clamp(20px, 5vw, 60px);
+}
+
+.brand {
+  color: var(--chalk);
+  transition: color 0.2s ease;
+}
+
+.brand:hover,
+.brand:focus-visible {
+  color: var(--hedge);
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 26px);
+}
+
+.navGates {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gateChip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--chalk);
+  color: var(--asphalt);
+  font-family: var(--font-vibethon-hackathon-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.gateJoin {
+  width: 22px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--lane) 0 5px, transparent 5px 9px);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 22px);
+}
+
+.navLink {
+  position: relative;
+  padding: 6px 0;
+  color: var(--chalk-dim);
+  font-family: var(--font-vibethon-hackathon-display), sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--lane) 0 6px, transparent 6px 10px);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--chalk);
+}
+
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.navLink:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid var(--lane);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
