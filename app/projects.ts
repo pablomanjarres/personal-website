@@ -1869,7 +1869,7 @@ const existingProjects: Project[] = [
       "A fairness rule across both gates. src/parqueadero/asignador.ts gives the next free stall to the car that arrived first at either entrance, and on a tie to the gate that has received fewer stalls.",
       "Waits from what the lot is actually doing. src/parqueadero/espera.ts places each car in the combined order of both gates and turns the gaps between the last 8 stall movements into a minute range.",
       "Allowed transitions only. src/parqueadero/transiciones.ts allows 4 stall moves and 4 valet moves; anything else is refused with its reason.",
-      "Eight views over one store. src/routes.ts lists driver, gate, valet, office, phone, mockups, a step simulator and a four-panel flow, and all of them read src/parqueadero/tienda.ts.",
+      "One store behind the views. src/routes.ts lists driver, gate, valet, office, phone, mockups, a step simulator and a four-panel flow, and every view except the static mockups reads src/parqueadero/tienda.ts.",
       "Built and logged in one day. 403 commits and 74 merged pull requests on October 30, 27 Vitest checks, and 26 typed prompts recorded in docs/prompting.raw.md."
     ],
     "metrics": ["2 gates, 12 stalls", "17 command types", "27 tests", "403 commits in one day"],
