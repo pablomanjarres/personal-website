@@ -17,6 +17,7 @@ import Portpeek from "./portpeek";
 import Agentbar from "./agentbar";
 import Alfred from "./alfred";
 import Anki from "./anki";
+import VibethonHackathon from "./vibethon-hackathon";
 
 // The contract every design (bespoke or default) satisfies.
 export type DesignComponent = ComponentType<{ hero: Hero; slug: string }>;
@@ -42,4 +43,5 @@ export const designRegistry: Record<string, DesignComponent> = {
   agentbar: Agentbar,
   alfred: Alfred,
   "anki": Anki,
+  "vibethon-hackathon": VibethonHackathon,
 };

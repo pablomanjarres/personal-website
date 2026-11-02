@@ -28,6 +28,9 @@ import {
   Geist,
   Geist_Mono,
   Cormorant_Garamond,
+  Barlow_Condensed,
+  Overpass,
+  Overpass_Mono,
 } from "next/font/google";
 import "./globals.css";
 
@@ -255,6 +258,30 @@ const cormorantGaramond = Cormorant_Garamond({
   preload: false,
 });
 
+// Highway-signage faces for vibethon-hackathon: Overpass descends from the
+// Highway Gothic road-sign lettering, Barlow Condensed reads like a stall stencil.
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlowcondensed",
+  subsets: ["latin"],
+  weight: ["500", "700", "800"],
+  display: "swap",
+  preload: false,
+});
+
+const overpass = Overpass({
+  variable: "--font-overpass",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
+const overpassMono = Overpass_Mono({
+  variable: "--font-overpassmono",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 // ---- exact per-slug contract vars (aliased to the canonical family vars) ----
 // Consumed by app/oss/[slug]/designs/<slug>.tsx. Documented in
 // app/oss/[slug]/designs/CONTRACT.md. Computed-key form keeps CSS custom properties typed
@@ -321,6 +348,10 @@ const ossFontVars: CSSProperties = {
   ["--font-anki-display" as string]: "var(--font-newsreader)",
   ["--font-anki-body" as string]: "var(--font-sora)",
   ["--font-anki-mono" as string]: "var(--font-spacemono)",
+  // vibethon-hackathon — Barlow Condensed / Overpass / Overpass Mono
+  ["--font-vibethon-hackathon-display" as string]: "var(--font-barlowcondensed)",
+  ["--font-vibethon-hackathon-body" as string]: "var(--font-overpass)",
+  ["--font-vibethon-hackathon-mono" as string]: "var(--font-overpassmono)",
 };
 
 const fontVariables = [
@@ -351,6 +382,9 @@ const fontVariables = [
   geist.variable,
   geistMono.variable,
   cormorantGaramond.variable,
+  barlowCondensed.variable,
+  overpass.variable,
+  overpassMono.variable,
 ].join(" ");
 
 export const metadata: Metadata = {
