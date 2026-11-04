@@ -205,7 +205,7 @@ test("Selected product presentations reach public and saved routes while live de
 
 test("The production archive reaches every registered project", () => {
   const html = htmlFor("/portfolio");
-  assert.equal(projects.length, 45);
+  assert.equal(projects.length, 46);
   const cards = [...html.matchAll(/<article\b[^>]*data-project="([^"]+)"/g)].map(match => match[1]);
   assert.equal(cards.length, projects.length, "Every project needs a visible preview card");
   assert.equal(new Set(cards).size, projects.length, "Featured projects must not repeat in later collections");

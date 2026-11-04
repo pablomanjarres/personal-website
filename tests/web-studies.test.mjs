@@ -46,9 +46,9 @@ const htmlFor = (path) =>
     "",
   );
 
-test("The website catalog adds twenty-four unique projects and retains the existing twenty-one", () => {
+test("The website catalog adds twenty-four unique projects and retains the existing twenty-two", () => {
   assert.equal(websites.length, 24);
-  assert.equal(new Set(projects.map((project) => project.slug)).size, 45);
+  assert.equal(new Set(projects.map((project) => project.slug)).size, 46);
   assert.deepEqual(
     projects.slice(0, existing.length).map((project) => project.slug),
     existing,
