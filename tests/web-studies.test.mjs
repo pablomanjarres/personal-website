@@ -36,6 +36,8 @@ const existing = [
   "agentbar",
   "alfred",
   "anki",
+  "vibethon-hackathon",
+  "nella-labs",
 ];
 const websites = projects.filter((project) =>
   catalog.isWebsiteStudy(project.slug),
