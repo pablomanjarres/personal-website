@@ -1889,6 +1889,41 @@ const existingProjects: Project[] = [
       { "name": "Gate and valet views", "kind": "app", "oneLiner": "Each gate's passage and turn, plus the valet's next step, tickets and key board." },
       { "name": "Office view", "kind": "app", "oneLiner": "The whole lot live, simulated events up to a chosen minute, the log and a reset to the seed." }
     ]
+  },
+  {
+    "slug": "nella-labs",
+    "num": "22",
+    "title": "Nella Labs",
+    "tagline": "A quiet lab page where a field of product words draws the Nella symbol.",
+    "oneLiner": "Company site for the lab behind Nella and Noelle",
+    "year": "2026",
+    "status": "live",
+    "role": "Solo · design + engineering",
+    "tags": ["company site", "Astro", "canvas", "ASCII art", "brand", "static site"],
+    "stack": ["Astro 7", "TypeScript 5.9", "Canvas 2D", "JetBrains Mono Variable", "CSS custom properties", "Schema.org JSON-LD", "Vercel"],
+    "summary": "Nella Labs is the company behind Nella, Noelle and a writing AI, and nella-labs.com is its home. The domain used to redirect to getnella.dev, so anyone looking up the company landed on one product and never saw the rest. I replaced the redirect with one page that says what the lab does in a sentence, then lists every product with its status and a link.\n\nThe hero is a canvas that fills with words from the products' own docs, and the Nella symbol forms inside the text in the brand green. Everything is set in JetBrains Mono at three sizes on a near-black background tinted green. The page is static Astro with about 9 KB of JavaScript, and the field stops drawing when it scrolls away or the tab is hidden.",
+    "problem": "The company had more than one product, but its own domain only forwarded to one of them. There was no single place to see what Nella Labs makes or who runs it.",
+    "highlights": [
+      "One renderer for the hero. src/lib/ascii-field.ts lays 51 terms from src/data/field-words.ts across a monospace grid, draws the Nella symbol inside it in 600-weight glyphs, and repaints only the cells that changed on each frame.",
+      "Motion that knows when to stop. The field in src/lib/ascii-field.ts runs only while it is on screen and the tab is visible, reacts to the pointer only on fine pointers, and shows 1 static frame to visitors who prefer reduced motion.",
+      "One path, two renderings. src/lib/nella-symbol.ts holds the symbol's path data once. The canvas uses it as the mark, and src/components/NellaSymbol.astro draws the same paths as the SVG that visitors without JavaScript see.",
+      "Products are data. src/data/products.ts lists 3 products with a summary, status and link each, and src/components/ProductIndex.astro renders them as numbered rows divided by hairline rules instead of cards.",
+      "One color with one job. src/styles/tokens.css keeps the green #69c07a for the symbol, section glyphs, links and the nav's app-icon tile, and sets the page copy in JetBrains Mono at 14, 16 or 30 px.",
+      "Facts live in one file. src/data/company.ts owns the name, page title and social links, and the nav, footer and the Organization JSON-LD in src/layouts/BaseLayout.astro all read from it. vercel.json adds 4 security headers to every response."
+    ],
+    "metrics": ["1 static page, about 9 KB of JavaScript", "3 products in the index", "51 terms in the hero field", "4 security headers on every response"],
+    "links": [
+      { "label": "nella-labs.com", "url": "https://nella-labs.com", "kind": "live" }
+    ],
+    "cover": "/portfolio/previews/nella-labs.png",
+    "demoLabel": "nella-labs.com",
+    "previewKind": "web",
+    "accent": "#69c07a",
+    "subProjects": [
+      { "name": "ASCII field", "kind": "library", "oneLiner": "The canvas renderer behind the hero. It knows nothing about Nella; the page hands it the words and the symbol." },
+      { "name": "Product index", "kind": "component", "oneLiner": "Numbered rows built from products.ts, each with a status and a link." },
+      { "name": "Company data", "kind": "library", "oneLiner": "Name, title, statement and social links shared by the layout, nav, footer and search data." }
+    ]
   }
 ];
 
