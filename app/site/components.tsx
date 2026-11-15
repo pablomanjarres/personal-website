@@ -13,7 +13,7 @@ export function SiteMark({ href = "#main", className = "", style }: { href?: str
 
 type NavigationItem = { label: string; href: string };
 const homeNavigation: readonly NavigationItem[] = [
-  { label: "Work", href: "#work" }, { label: "About", href: "#about" }, { label: "Contact", href: "#contact" },
+  { label: "Work", href: "#work" }, { label: "Websites", href: "#websites" }, { label: "About", href: "#about" }, { label: "Contact", href: "#contact" },
 ];
 
 export function SiteHeader({ navigation = homeNavigation, brandHref = "#main" }: { navigation?: readonly NavigationItem[]; brandHref?: string }) {
