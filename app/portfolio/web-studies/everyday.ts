@@ -132,7 +132,7 @@ export const everyday = [
     category: "Music platform",
     oneLiner: "A listening mood with a place to keep it.",
     summary:
-      "Soundroom is a music discovery app for a small collection of independent ambient sketches. A wide recording-studio photograph gives the featured release a physical setting, while a compact track ledger makes the listening choices clear. Original abstract cover compositions carry each sound’s identity through the main list, mood rooms, discovery column, and persistent player. Amber selection states sit between a near-black listening canvas and a muted plum discovery desk. Listeners can play the actual short clips, seek within a track, set the volume, explore a mood, and keep a personal collection. Quiet Sora typography and carefully controlled depth make the interface feel direct, contemporary, and intimate.",
+      "Soundroom is a music discovery app for a small collection of independent ambient sketches. A wide recording-studio photograph gives the featured release a physical setting, while a compact track ledger makes the listening choices clear. Original abstract cover compositions carry each sound’s identity through the main list, mood rooms, discovery column, and persistent player. Amber marks the playing sound between a near-black listening canvas and a muted plum discovery desk. Listeners can play the actual short clips, seek within a track, set the volume, explore a mood, and keep a personal collection. Quiet Sora typography and carefully controlled depth make the interface feel direct, contemporary, and intimate.",
     challenge:
       "A small music collection needs a way to move from discovery to actual listening. Track selection, playback and a personal collection should remain visible in the same workspace.",
     outcome:
@@ -140,7 +140,7 @@ export const everyday = [
     decisions: [
       [
         "Give a release a physical setting",
-        "A wide recording-studio photograph leads the dark discovery view. An amber track ledger and plum mood desk surround the persistent player.",
+        "A wide recording-studio photograph leads the dark discovery view. A quiet track ledger, with amber marking the current sound, and a plum mood desk surround the persistent player.",
       ],
       [
         "Let the sound do the work",

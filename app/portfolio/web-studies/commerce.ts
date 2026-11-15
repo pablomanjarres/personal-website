@@ -131,7 +131,7 @@ export const commerce = [
     category: "Skincare",
     oneLiner: "A daily ritual in a forest glass studio.",
     summary:
-      "Vale presents botanical skincare in a luminous forest glass studio. A large frosted vessel floats in soft green light, while rounded formula capsules and a translucent purchase tray bring the daily collection close at hand. Visitors can explore the cleanser, serum, and cream, inspect botanical ingredients, select a volume, and build a personal ritual. Macro texture photographs reveal the character of each formula. Morning and evening sequences show how the products fit together, with clear application notes and practical packaging questions. Confident sans-serif typography, quiet material depth, and the familiar leaf identity make the storefront feel gentle, immediate, and tactile.",
+      "Vale presents botanical skincare in a luminous forest glass studio. A large frosted vessel floats in soft green light, while rounded formula capsules and a translucent purchase tray bring the daily collection close at hand. Visitors can explore the cleanser, serum, and cream, inspect botanical ingredients, select a volume, and build a personal ritual. Macro texture photographs and botanical specimens reveal the character of each formula. Morning and evening sequences show how the products fit together, with clear application notes and practical packaging questions. Confident sans-serif typography, quiet material depth, and the familiar leaf identity make the storefront feel gentle, immediate, and tactile.",
     challenge:
       "A small skincare collection needs to connect its ingredients, texture and useful product choices. The vessel and application notes should make each formula easy to compare.",
     outcome:
