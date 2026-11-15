@@ -215,6 +215,26 @@ test("The production archive reaches every registered project", () => {
   canonical(html, "/portfolio"); realNavigation(html); localImages(html, "/portfolio");
 });
 
+test("Websites and identities are reachable from the homepage and every navigation bar", () => {
+  const home = htmlFor("/");
+  const shelf = home.match(/<section\b[^>]*id="websites"[^>]*>([^]*?)<\/section>/)?.[1];
+  assert.ok(shelf, "The homepage needs a websites shelf");
+  contains(shelf, "Websites and identities");
+  const shown = [...shelf.matchAll(/data-website="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(shown.length, 6, "The homepage shelf shows six website studies");
+  for (const slug of shown) {
+    assert.ok(!featured.includes(slug), `${slug} already appears in selected work`);
+    assert.ok(links(shelf).includes(projectPath(slug)), `Missing website study link ${slug}`);
+  }
+  const collection = projects.filter(project => project.cover?.startsWith("/portfolio/web-studies/") && !featured.includes(project.slug));
+  contains(shelf, `See all ${collection.length} websites`);
+  assert.ok(links(shelf).includes("/portfolio#websites"), "The shelf needs a link to the full collection");
+  assert.ok(links(home).includes("#websites"), "Homepage navigation needs a Websites link");
+  for (const path of ["/portfolio", projectPath("cortex")]) {
+    assert.ok(links(htmlFor(path)).includes("/portfolio#websites"), `${path}: navigation needs a Websites link`);
+  }
+});
+
 for (const project of projects) test(`Canonical project preserves facts: ${project.slug}`, () => {
   const path = projectPath(project.slug);
   const html = htmlFor(path);
