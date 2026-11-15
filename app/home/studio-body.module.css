@@ -79,30 +79,24 @@
   :global([data-motion="active"]) :is(.mainVisual, .siteVisual, .fold, .book, .websitesAll) {
     transition: transform var(--motion-time) var(--motion-ease), box-shadow var(--motion-time) var(--motion-ease);
   }
-  :global([data-motion="active"]) .study:has(:focus-visible) .mainVisual {
+  :global([data-motion="active"]) :is(.study:has(:focus-visible) .mainVisual, .site:has(:focus-visible) .siteVisual) {
     box-shadow: 0 26px 50px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
   }
   :global([data-motion="active"]) .study:has(:focus-visible) .mainVisual:not(:has([data-zoomable="true"])) { transform: rotate(0deg) translateY(-12px) scale(1.025); }
   :global([data-motion="active"]) .ticket:has(:focus-visible) .fold { transform: scale(1.18); transform-origin: top right; }
-  :global([data-motion="active"]) .site:has(:focus-visible) .siteVisual:not(:has([data-zoomable="true"])) {
-    transform: translateY(-10px);
-    box-shadow: 0 22px 44px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
-  }
+  :global([data-motion="active"]) .site:has(:focus-visible) .siteVisual:not(:has([data-zoomable="true"])) { transform: translateY(-10px); }
   :global([data-motion="active"]) :is(.book, .websitesAll):focus-visible {
     transform: translateY(-4px);
     box-shadow: 0 10px 22px color-mix(in srgb, var(--studio-petrol) 20%, transparent);
   }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  :global([data-motion="active"]) .study:hover .mainVisual {
+  :global([data-motion="active"]) :is(.study:hover .mainVisual, .site:hover .siteVisual) {
     box-shadow: 0 26px 50px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
   }
   :global([data-motion="active"]) .study:hover .mainVisual:not(:has([data-zoomable="true"])) { transform: rotate(0deg) translateY(-12px) scale(1.025); }
   :global([data-motion="active"]) .ticket:hover .fold { transform: scale(1.18); transform-origin: top right; }
-  :global([data-motion="active"]) .site:hover .siteVisual:not(:has([data-zoomable="true"])) {
-    transform: translateY(-10px);
-    box-shadow: 0 22px 44px color-mix(in srgb, var(--studio-petrol) 14%, transparent);
-  }
+  :global([data-motion="active"]) .site:hover .siteVisual:not(:has([data-zoomable="true"])) { transform: translateY(-10px); }
   :global([data-motion="active"]) :is(.book, .websitesAll):hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 22px color-mix(in srgb, var(--studio-petrol) 20%, transparent);
