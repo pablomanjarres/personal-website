@@ -33,5 +33,5 @@
 .shell[data-concept="green-room"] .nav { background: #193b2e; color: #f0f2e9; max-width: none; }
 .shell[data-concept="green-room"] .brand .wordmark > span { color: #b6c7ab; }
 .shell[data-concept="after-hours"] .nav { max-width: none; padding-left: 6%; padding-right: 6%; }
-@media (max-width: 580px) { .nav { padding: 18px 5%; gap: 12px; } .brand .wordmark { font-size: 28px; } .nav nav { padding: 0 6px; font-size: 13px; } .nav nav a { padding-inline: 8px; } .navContact { display: none; } }
+@media (max-width: 580px) { .nav { grid-template-columns: auto minmax(0, 1fr); padding: 18px 5%; gap: 12px; } .nav nav { justify-self: end; } .brand .wordmark { font-size: 28px; } .nav nav { padding: 0 6px; font-size: 13px; } .nav nav a { padding-inline: 8px; } .navContact { display: none; } }
 @media (max-width: 360px) { .brand .wordmark { font-size: 24px; } .nav nav { padding: 0 4px; font-size: 12px; } .nav nav a { padding-inline: 6px; } }
