@@ -1,6 +1,34 @@
 import type { Project } from "@/app/projects";
-import { selectedWorkSlugs } from "../selected-work";
-import { getStudy, getStudyPreview, type StudyAsset } from "../studies/data";
+import { groupStudies, websitesCollection, websitesHref } from "../collections";
+import { featuredWebsiteSlugs, selectedWorkSlugs } from "../selected-work";
+import { getStudy, getStudyPreview, studies, type StudyAsset } from "../studies/data";
+import { getWebsiteCategory } from "../web-studies/catalog";
+
+export type FeaturedWebsite = {
+  project: Project;
+  href: string;
+  category: string;
+  preview: StudyAsset;
+};
+
+export type WebsiteShelf = {
+  id: string;
+  title: string;
+  href: string;
+  total: number;
+  items: readonly FeaturedWebsite[];
+};
+
+export function getWebsiteShelf(projectHref: (slug: string) => string): WebsiteShelf {
+  const { websites } = groupStudies(studies);
+  const items = featuredWebsiteSlugs.map(slug => {
+    const study = websites.find(candidate => candidate.project.slug === slug);
+    const category = getWebsiteCategory(slug);
+    if (!study || !category) throw new Error(`Missing featured website: ${slug}`);
+    return { project: study.project, href: projectHref(slug), category, preview: getStudyPreview(study) };
+  });
+  return { id: websitesCollection.id, title: websitesCollection.title, href: websitesHref, total: websites.length, items };
+}
 
 export type FeaturedProject = {
   project: Project;

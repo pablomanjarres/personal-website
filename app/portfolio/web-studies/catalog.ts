@@ -26,6 +26,10 @@ export function isWebsiteStudy(slug: string) {
   return records.has(slug);
 }
 
+export function getWebsiteCategory(slug: string) {
+  return records.get(slug)?.category;
+}
+
 export function createWebsiteProjects(offset: number) {
   return websiteRecords.map((record, index) =>
     buildProject(record, offset + index + 1),

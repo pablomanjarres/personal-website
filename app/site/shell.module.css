@@ -13,8 +13,8 @@
 .brand.brand:focus-visible { outline: 3px solid var(--action-focus-color, currentColor); outline-offset: 6px; }
 .brand .wordmark { color: inherit; font: 900 32px/1 var(--font-display), sans-serif; letter-spacing: -.08em; }
 .brand .wordmark > span { color: var(--accent); }
-.nav nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 254px; font-size: 15px; }
-.nav nav a { display: inline-flex; justify-content: center; align-items: center; min-width: 44px; min-height: 44px; padding: 8px 0; border-bottom: 1px solid transparent; }
+.nav nav { display: grid; grid-auto-flow: column; grid-auto-columns: auto; font-size: 15px; }
+.nav nav a { display: inline-flex; justify-content: center; align-items: center; min-width: 44px; min-height: 44px; padding: 8px 14px; border-bottom: 1px solid transparent; }
 .navLink { composes: action button from "./interaction.module.css"; border-radius: 999px; }
 .navContact { composes: action button from "./interaction.module.css"; padding: 11px 22px; border: 1px solid currentColor; border-radius: 999px; font-size: 14px; }
 .arrow { composes: arrow from "./interaction.module.css"; }
@@ -33,5 +33,5 @@
 .shell[data-concept="green-room"] .nav { background: #193b2e; color: #f0f2e9; max-width: none; }
 .shell[data-concept="green-room"] .brand .wordmark > span { color: #b6c7ab; }
 .shell[data-concept="after-hours"] .nav { max-width: none; padding-left: 6%; padding-right: 6%; }
-@media (max-width: 580px) { .nav { padding: 18px 5%; gap: 12px; } .brand .wordmark { font-size: 28px; } .nav nav { width: min(228px, 61vw); padding: 0 6px; font-size: 13px; } .navContact { display: none; } }
-@media (max-width: 360px) { .brand .wordmark { font-size: 24px; } .nav nav { width: 54vw; padding: 0 4px; } }
+@media (max-width: 580px) { .nav { grid-template-columns: auto minmax(0, 1fr); padding: 18px 5%; gap: 12px; } .nav nav { justify-self: end; } .brand .wordmark { font-size: 28px; } .nav nav { padding: 0 6px; font-size: 13px; } .nav nav a { padding-inline: 8px; } .navContact { display: none; } }
+@media (max-width: 360px) { .brand .wordmark { font-size: 24px; } .nav nav { padding: 0 4px; font-size: 12px; } .nav nav a { padding-inline: 6px; } }

@@ -1,11 +1,10 @@
 import { getStudyPreview, getStudySupportingMedia, type ProjectStudy } from "@/app/portfolio/studies/data";
-import { selectedWorkSlugs } from "@/app/portfolio/selected-work";
+import { groupStudies, websitesCollection } from "@/app/portfolio/collections";
 import { StudyActions, StudyDemo, StudyMedia } from "@/app/portfolio/studies/primitives";
 import { getCaseStudy } from "@/app/portfolio/studies/case-study";
 import { StudyBack, StudyBrief, StudyComponents, StudyDecisions, StudyFlow, StudyMeasures, StudyProductVisual } from "@/app/portfolio/studies/case-study-primitives";
 import { ProjectTechnicalNotes } from "@/app/portfolio/studies/ProjectTechnicalNotes";
 import { StudyInterfaceGallery } from "@/app/portfolio/studies/interface-gallery";
-import { isWebsiteStudy } from "@/app/portfolio/web-studies/catalog";
 import interaction from "@/app/site/interaction.module.css";
 import { BenchProject } from "./BenchProject";
 import styles from "./workbench.module.css";
@@ -41,20 +40,15 @@ function ProjectCollection({ collection, projectHref }: { collection: Collection
 }
 
 export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
-  const studiesBySlug = new Map(studies.map(study => [study.project.slug, study]));
-  const selectedSlugs = new Set<string>(selectedWorkSlugs);
-  const selected = selectedWorkSlugs.map(slug => studiesBySlug.get(slug)).filter((study): study is ProjectStudy => Boolean(study));
-  const remaining = studies.filter(study => !selectedSlugs.has(study.project.slug));
-  const products = remaining.filter(study => !isWebsiteStudy(study.project.slug));
-  const websites = remaining.filter(study => isWebsiteStudy(study.project.slug));
+  const { selected, products, websites } = groupStudies(studies);
   const collections: Collection[] = [
     { id: "selected-work", label: "Selected work", studies: selected, featured: true },
     { id: "products-and-tools", label: "Products and tools", title: "Products and tools.", description: "Applications, experiments and everyday tools. Open a project to explore the interface, the build and the decisions behind it.", studies: products },
-    { id: "websites", label: "Websites", title: "Websites and identities.", description: `${websites.length} more projects across commerce, hospitality and creative work. Open a study to see the design decisions, live website and brand kit.`, studies: websites },
+    { ...websitesCollection, description: `${websites.length} more projects across commerce, hospitality and creative work. Open a study to see the design decisions, live website and brand kit.`, studies: websites },
   ].filter(collection => collection.studies.length > 0);
   return (
     <div className={styles.workbench}>
-      <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Tools.</p></header>
+      <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Websites.</p></header>
       <CollectionNavigation collections={collections} />
       {collections.map(collection => <ProjectCollection key={collection.id} collection={collection} projectHref={projectHref} />)}
     </div>

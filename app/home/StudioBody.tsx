@@ -1,6 +1,10 @@
+import Link from "next/link";
 import { profile } from "@/app/socials";
-import { capabilities, getFeaturedProjects, type FeaturedProject } from "@/app/portfolio/featured/content";
+import ProjectLogo from "@/app/ProjectLogo";
+import { capabilities, getFeaturedProjects, getWebsiteShelf, type FeaturedProject, type WebsiteShelf } from "@/app/portfolio/featured/content";
 import { BookingLink, EmailLink, FooterLinks, ProjectArchive, ProjectLink, ProjectVisual } from "@/app/portfolio/featured/components";
+import { StudyMedia } from "@/app/portfolio/studies/primitives";
+import interaction from "@/app/site/interaction.module.css";
 import styles from "./studio-body.module.css";
 
 function ProductStudy({ item, feature }: { item: FeaturedProject; feature: "lead" | "supporting" }) {
@@ -19,6 +23,36 @@ function ProductStudy({ item, feature }: { item: FeaturedProject; feature: "lead
         <ProjectLink item={item} className={styles.readLink}>Read the project</ProjectLink>
       </div>
     </article>
+  );
+}
+
+function WebsiteShelfSection({ shelf }: { shelf: WebsiteShelf }) {
+  return (
+    <section id={shelf.id} className={styles.websites} aria-labelledby="studio-websites-heading">
+      <header className={styles.websitesHeading}>
+        <h3 id="studio-websites-heading" data-reveal>{shelf.title}</h3>
+        <div className={styles.websitesIntro} data-reveal>
+          <p>Brand identities and websites for shops, studios, clubs and trips. Each study links to the live site and its brand kit.</p>
+          <Link href={shelf.href} className={`${interaction.action} ${interaction.button} ${styles.websitesAll}`}>
+            See all {shelf.total} websites <span className={interaction.arrow} aria-hidden>↗</span>
+          </Link>
+        </div>
+      </header>
+      <ul className={styles.sites}>
+        {shelf.items.map(item => (
+          <li key={item.project.slug} className={styles.site} data-website={item.project.slug} data-reveal="media">
+            <Link href={item.href} className={`${interaction.action} ${styles.siteLink}`}>
+              <StudyMedia asset={item.preview} className={styles.siteVisual} caption={false} sizes="(max-width: 1000px) 43vw, (max-width: 1409px) 28vw, 395px" />
+              <span className={styles.siteName}>
+                {item.project.identity && <ProjectLogo identity={item.project.identity} title="" className={styles.siteLogo} />}
+                {item.project.title}
+              </span>
+              <span className={styles.siteCategory}>{item.category}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
@@ -69,6 +103,7 @@ export default function StudioBody({ projectHref, archiveHref, footerDestination
   footerDestination?: { href: string; label: string };
 }) {
   const featuredProjects = getFeaturedProjects(projectHref);
+  const websiteShelf = getWebsiteShelf(projectHref);
   return (
     <div className={styles.studio}>
       <section id="work" className={styles.work} aria-labelledby="studio-work-heading">
@@ -78,6 +113,7 @@ export default function StudioBody({ projectHref, archiveHref, footerDestination
             <p data-reveal>Products I’ve designed and built.<br />A look at what each one needed.</p>
           </header>
           <div className={styles.studies}>{featuredProjects.map((item, index) => <ProductStudy key={item.project.slug} item={item} feature={index === 0 ? "lead" : "supporting"} />)}</div>
+          <WebsiteShelfSection shelf={websiteShelf} />
           <ProjectArchive href={archiveHref} className={styles.archive} />
         </div>
       </section>
