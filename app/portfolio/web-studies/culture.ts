@@ -90,7 +90,7 @@ export const culture = [
     category: "Luxury & jewelry",
     oneLiner: "An intimate study of metal and touch.",
     summary:
-      "Estelle presents sculptural jewellery as a quiet exhibition of form, material, and touch. Two unequal photographic apertures show each piece close and worn, separated by a slender atelier wordmark on ivory. A folded ring and a pair of elongated petal earrings establish a small, considered collection. Visitors can study gold and silver through matching views, read dimensions and finish notes, and move from the polished object to the workbench behind it. Delicate serif titles and fine annotations keep the attention on the metal. A personal viewing folio gathers the chosen piece, material, and preferred atelier hour into one unhurried encounter.",
+      "Estelle presents sculptural jewellery as a quiet exhibition of form, material, and touch. Two unequal photographic apertures show each piece close and worn, separated by a slender atelier wordmark on ivory. A folded ring and a pair of elongated petal earrings establish a small, considered collection. Visitors can study gold and silver through matching views, read dimensions and finish notes, and move from the polished object to the workbench behind it. Measured serif titles and quiet annotations keep the attention on the metal. A personal viewing folio gathers the chosen piece, material, and preferred atelier hour into one unhurried encounter.",
     challenge:
       "Jewelry needs both a close view of its form and a sense of how it is worn. Material selection must keep those views and the product facts aligned.",
     outcome:
@@ -98,7 +98,7 @@ export const culture = [
     decisions: [
       [
         "Hold two unequal apertures",
-        "Macro and worn photographs flank a slender atelier identity on ivory. Fine annotations describe the object without competing with its surface.",
+        "Macro and worn photographs flank a slender atelier identity on ivory. Quiet annotations describe the object without competing with its surface.",
       ],
       [
         "Study a material before a viewing",
