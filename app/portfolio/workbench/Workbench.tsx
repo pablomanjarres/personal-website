@@ -48,7 +48,7 @@ export function WorkbenchIndex({ studies, projectHref }: IndexProps) {
   ].filter(collection => collection.studies.length > 0);
   return (
     <div className={styles.workbench}>
-      <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Tools.</p></header>
+      <header className={styles.indexHeader}><h1 data-enter="word">On the bench.</h1><p data-enter="fade">Software. Products. Websites.</p></header>
       <CollectionNavigation collections={collections} />
       {collections.map(collection => <ProjectCollection key={collection.id} collection={collection} projectHref={projectHref} />)}
     </div>
