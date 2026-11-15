@@ -42,7 +42,7 @@ function WebsiteShelfSection({ shelf }: { shelf: WebsiteShelf }) {
         {shelf.items.map(item => (
           <li key={item.project.slug} className={styles.site} data-website={item.project.slug} data-reveal="media">
             <Link href={item.href} className={`${interaction.action} ${styles.siteLink}`}>
-              <StudyMedia asset={item.preview} className={styles.siteVisual} caption={false} sizes="(max-width: 700px) 64vw, (max-width: 1000px) 42vw, (max-width: 1409px) 28vw, 395px" />
+              <StudyMedia asset={item.preview} className={styles.siteVisual} caption={false} sizes="(max-width: 1000px) 43vw, (max-width: 1409px) 28vw, 395px" />
               <span className={styles.siteName}>
                 {item.project.identity && <ProjectLogo identity={item.project.identity} title="" className={styles.siteLogo} />}
                 {item.project.title}
