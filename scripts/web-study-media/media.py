@@ -34,6 +34,17 @@ NEW_URL = os.environ.get("WEB_STUDY_NEW_URL", "http://127.0.0.1:4802")
 SCREENS = {"desktop": False, "mobile": True}
 
 
+def format_regions(config):
+    """Region JSON with one line per layer, so a study's file stays short and diffs stay readable."""
+    images = []
+    for name, image in config["images"].items():
+        layers = ",\n".join(f"        {json.dumps(layer, separators=(', ', ': '))}" for layer in image["layers"])
+        images.append(f'    "{name}": {{\n      "layers": [\n{layers}\n      ]\n    }}')
+    head = {key: value for key, value in config.items() if key != "images"}
+    lines = [f"  {json.dumps(key)}: {json.dumps(value)}," for key, value in head.items()]
+    return "{\n" + "\n".join(lines) + '\n  "images": {\n' + ",\n".join(images) + "\n  }\n}\n"
+
+
 def region_file(slug):
     path = REGIONS / f"{slug}.json"
     if not path.exists():
@@ -161,7 +172,7 @@ def main():
     report = []
     for image in images:
         report += fit_image(args.slug, config, image, args.refit)
-    path.write_text(json.dumps(config, indent=2) + "\n")
+    path.write_text(format_regions(config))
     print(f"{'image':13} {'layer':24} {'matches':10} fit error raw / low-pass (0-255)")
     for image, name, matches, raw, lp in report:
         print(f"{image:13} {name:24} {matches:10} {raw} / {lp}{'  CHECK' if lp > 6 else ''}")
