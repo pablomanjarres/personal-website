@@ -17,18 +17,32 @@ def match_new_to_old(new, old, fit="width"):
 
 
 def photo_grade(target, warped_old, inside):
-    """Per-channel gain and bias that turn the clean old render into the screen as photographed."""
+    """Gain, bias and tint that turn the clean old render into the screen as photographed.
+
+    Contrast and brightness are fitted on luminance, which stays well conditioned on
+    mostly light screens where a per-channel fit would drift into a colour cast; a
+    small per-channel offset then carries the photo's tint."""
     a = warped_old[inside].reshape(-1, 3)
     b = target.astype(np.float32)[inside].reshape(-1, 3)
-    gain, bias = np.ones(3), np.zeros(3)
+    la, lb = a.mean(axis=1), b.mean(axis=1)
     keep = np.ones(len(a), bool)
+    gain, bias = 1.0, float(np.median(lb - la))
     for _ in range(3):
-        for c in range(3):
-            A = np.stack([a[keep, c], np.ones(keep.sum())], axis=1)
-            gain[c], bias[c] = np.linalg.lstsq(A, b[keep, c], rcond=None)[0]
-        error = np.abs(a * gain + bias - b).mean(axis=1)
+        if la[keep].std() > 8:
+            A = np.stack([la[keep], np.ones(keep.sum())], axis=1)
+            gain, bias = np.linalg.lstsq(A, lb[keep], rcond=None)[0]
+            gain, bias = float(np.clip(gain, 0.2, 1.4)), float(np.clip(bias, -80, 200))
+        error = np.abs(la * gain + bias - lb)
         keep = error < max(np.percentile(error, 70), 4)
-    return np.clip(gain, 0.4, 1.3), np.clip(bias, -60, 80)
+    tint = np.clip(np.median(b[keep] - (a[keep] * gain + bias), axis=0), -30, 30)
+    return np.full(3, gain), bias + tint
+
+
+def masked_blur(values, mask, sigma):
+    """Gaussian blur that only averages pixels inside the mask, so nothing outside bleeds in."""
+    weight = cv2.GaussianBlur(mask.astype(np.float32), (0, 0), sigma)
+    blurred = cv2.GaussianBlur(values * mask[..., None], (0, 0), sigma)
+    return blurred / np.maximum(weight, 1e-3)[..., None]
 
 
 def layer_pixels(target, layer, old, new, H):
@@ -42,7 +56,8 @@ def layer_pixels(target, layer, old, new, H):
     graded = warped_new * gain + bias
     if layer.get("glare"):
         residual = target.astype(np.float32) - (warped_old * gain + bias)
-        graded += np.clip(cv2.GaussianBlur(residual, (0, 0), layer.get("glareSigma", 24)), 0, 90)
+        glare = masked_blur(residual, inside, layer.get("glareSigma", 24))
+        graded += np.clip(glare, 0, 90)
     return graded
 
 
