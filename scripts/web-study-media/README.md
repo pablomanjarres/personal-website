@@ -54,6 +54,7 @@ means the old render lines up with the published screen.
 - `cornerRadius` and `inset` (render pixels) shape the screen mask; `exclude` lists polygons to keep.
 - `fit`: `width` (default), `height` or `contain` when the new render's size differs from the old one;
   `maxHeight` and `newMaxHeight` crop the old and new renders from the top first.
+- A layer with `soften` (polygons, optional `sigma`) blurs reflections of the old screen until they are no longer legible.
 - A layer with `fill` (polygons) and `sample` (polygons) paints over leftovers with a gradient fitted to the
   sample area; `keepLayers` protects layers already drawn.
 
