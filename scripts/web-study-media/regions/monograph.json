@@ -1,0 +1,17 @@
+{
+  "slug": "monograph",
+  "path": "/monograph/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop-wall", "render": {"viewport": [1600, 991]}, "roi": [30, 85, 1555, 970], "mode": "replace", "matches": "1511/2062", "H": [[0.47867885, 5.612e-05, 39.72186857], [-0.00029202, 0.47871466, 95.24858552], [2.4e-07, 3.5e-07, 1.00013559]], "fitError": {"raw": 3.46, "lowPass": 2.42}, "exclude": [[[1140, 565], [1600, 565], [1600, 1200], [1140, 1200]]], "inset": 4},
+        {"name": "reading-panel", "render": {"viewport": [1600, 991], "steps": [{"click": ".monograph-story-1 .monograph-story-title", "wait": 800}], "element": ".monograph-reading"}, "roi": [1120, 545, 470, 580], "mode": "replace", "matches": "644/1006", "H": [[0.28387899, -0.00039241, 1134.3736566], [0.00132586, 0.28193851, 557.33483124], [1.43e-06, -9.6e-07, 1.00465628]], "fitError": {"raw": 5.41, "lowPass": 2.71}, "inset": 4}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "tablet", "render": {"viewport": [820, 1180], "mobile": true}, "roi": [490, 185, 580, 850], "mode": "photo", "cornerRadius": 40, "glare": true, "matches": "731/912", "H": [[0.27036409, -0.03217167, 576.60582174], [0.02749705, 0.31958092, 198.75814066], [-1.637e-05, 1.5e-07, 0.99945633]], "fitError": {"raw": 4.52, "lowPass": 3.3}}
+      ]
+    }
+  }
+}

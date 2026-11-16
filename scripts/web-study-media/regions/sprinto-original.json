@@ -1,0 +1,17 @@
+{
+  "slug": "sprinto-original",
+  "path": "/sprinto-original/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop-fold", "render": {"viewport": [1600, 720], "fullPage": true, "clip": [0, 0, 1600, 994], "steps": [{"eval": "document.querySelectorAll('.sprinto-original-ticker > *').forEach(e => e.style.transform='translateX(-23px)')"}]}, "roi": [60, 40, 1540, 1010], "mode": "replace", "exclude": [[[0, 708], [567, 708], [567, 1200], [0, 1200]]], "matches": "1567/2193", "H": [[0.46512438, -0.01374223, 99.4570872], [0.01422832, 0.46542786, 61.47976834], [-6.5e-07, 1.46e-06, 0.99998311]], "fitError": {"raw": 5.88, "lowPass": 4.84}, "renderNew": {"steps": [], "viewport": [1800, 810], "clip": [0, 0, 1800, 1118]}},
+        {"name": "booking-dialog", "render": {"viewport": [1600, 991], "steps": [{"click": ".sprinto-original-court-times button:has-text('18:30')", "wait": 700}], "clip": [588, 322, 424, 346]}, "roi": [28, 710, 535, 440], "mode": "replace", "renderNew": {"steps": [{"click": "button[aria-label='Book The Social Club at 18:30']", "wait": 700}], "clip": [588, 316.6, 424, 357.8]}, "matches": "192/225", "H": [[0.61889321, 0.00422363, 30.98908239], [-0.0001575, 0.63100759, 712.29535759], [1.3e-07, 1.453e-05, 0.99508542]], "fitError": {"raw": 2.26, "lowPass": 1.82}}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "tablet", "render": {"viewport": [816, 1168], "mobile": true}, "roi": [520, 240, 560, 820], "mode": "photo", "cornerRadius": 44, "glare": true, "matches": "546/848", "H": [[0.26832528, 0.06094906, 533.89821255], [-0.03611933, 0.30239501, 332.51922614], [3.098e-05, 8.45e-06, 0.99813858]], "fitError": {"raw": 13.4, "lowPass": 11.58}, "renderNew": {"viewport": [816, 1186]}}
+      ]
+    }
+  }
+}

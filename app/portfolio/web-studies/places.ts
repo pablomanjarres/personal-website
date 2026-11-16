@@ -8,7 +8,7 @@ export const places = [
     category: "Architecture studio",
     oneLiner: "Architecture, read as a measured dossier.",
     summary:
-      "Forma presents architecture through the spaces themselves. A large framed photograph opens beside a narrow project archive, giving each interior room to speak before the studio describes its approach. Selecting a project changes its image, facts, material palette, and spatial study. The page then follows the scale of a physical dossier: a measured plan, a broad detail photograph, a smaller material crop, and quiet practice notes. Paper, charcoal, hairline rules, and compact technical labels recall an architect’s presentation board. The nested volume symbol expresses the relationship between structure and the lives it holds.",
+      "Forma presents architecture through the spaces themselves. A large framed photograph opens beside a narrow project archive, giving each interior room to speak before the studio describes its approach. Selecting a project changes its image, facts, material palette, and spatial study. The page then follows the scale of a physical dossier: a measured plan, a broad detail photograph, a smaller material crop, and quiet practice notes. Paper, hairline rules and compact technical labels recall an architect’s presentation board, and the page closes on a charcoal band with a single invitation. The nested volume symbol expresses the relationship between structure and the lives it holds.",
     challenge:
       "An architecture practice needs to show the experience of a room and the decisions behind it. Photographs, plans and material facts should stay connected to the selected project.",
     outcome:
@@ -99,7 +99,7 @@ export const places = [
     decisions: [
       [
         "Make the menu immediate",
-        "A rounded white menu sits against sea blue. Pill selectors, a Tahoe masthead, Instrument Serif dish-group headings and clear DM Sans prices give appetite and information their own space.",
+        "A rounded white menu sits against sea blue. Pill selectors, a Tahoe masthead, Instrument Serif dish-group headings and dotted leaders running to each price give appetite and information their own space.",
       ],
       [
         "Keep dinner and table details connected",
@@ -132,7 +132,7 @@ export const places = [
     category: "Guided travel",
     oneLiner: "A walking journey in three connected views.",
     summary:
-      "Wayfarer makes choosing a walking journey feel close to the ground. Its first view brings three unequal surfaces together: a tall photograph of walkers, a mineral-blue illustrated atlas and a charcoal trip planner. Destination pills change the photograph, route line, four stops and practical facts in one place. Travelers can compare alpine and countryside journeys, choose a departure and add a local plan without losing their bearings. Filled controls, compact trail quantities and warm yellow actions keep the next step clear. Walking notes continue below in rounded disclosures. The winding-trail symbol expresses a journey that leaves room for discovery, with the landscape always part of the decision.",
+      "Wayfarer makes choosing a walking journey feel close to the ground. Its first view brings three unequal surfaces together: a tall photograph of walkers, a mineral-blue illustrated atlas and a charcoal trip planner. Destination pills change the photograph, route line, four stops and practical facts in one place. Travelers can compare alpine and countryside journeys, choose a departure and add a local plan without losing their bearings. Filled pills, ruled trail figures and a warm yellow action keep the next step clear, and on a phone that action stays docked at the bottom of the screen. Walking notes continue below as ruled disclosures, each opened by a small round plus. The winding-trail symbol expresses a journey that leaves room for discovery, with the landscape always part of the decision.",
     challenge:
       "A traveler needs to compare distance, ascent and itinerary without losing the landscape. Route facts and destination photographs should belong to the same selected journey.",
     outcome:

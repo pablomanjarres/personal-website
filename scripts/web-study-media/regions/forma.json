@@ -1,0 +1,18 @@
+{
+  "slug": "forma",
+  "path": "/forma/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop-fold", "render": {"viewport": [1600, 991]}, "roi": [36, 32, 1420, 885], "mode": "replace", "matches": "1448/1900", "H": [[0.43803308, 0.00011075, 44.60773204], [0.00014625, 0.43787939, 39.68393016], [2.9e-07, 3e-07, 1.00007039]], "fitError": {"raw": 5.36, "lowPass": 4.53}},
+        {"name": "dossier-card", "render": {"viewport": [1600, 991], "element": "#dossier"}, "renderNew": {"steps": [{"eval": "Object.assign(document.querySelector('#dossier').style, { boxSizing: 'border-box', minHeight: '704.5px' })", "wait": 100}]}, "roi": [556, 738, 1020, 455], "mode": "replace", "matches": "215/556", "H": [[0.31115845, -0.00034739, 562.72987048], [0.0001638, 0.31140308, 741.0945142], [1.5e-07, -2e-07, 0.99600418]], "fitError": {"raw": 1.38, "lowPass": 0.76}}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "laptop", "render": {"viewport": [1274, 876]}, "roi": [250, 55, 710, 720], "mode": "replace", "cornerRadius": 24, "inset": 6, "maxHeight": 1737, "newMaxHeight": 1737, "exclude": [[[649, 161], [641, 163], [598, 180], [535, 203], [535, 212], [537, 212], [550, 207], [554, 218], [557, 221], [560, 221], [596, 207], [628, 196], [633, 192], [633, 185], [630, 178], [635, 175], [649, 170]]], "matches": "473/769", "H": [[0.26736122, 0.09409026, 262.90674145], [-0.09335287, 0.26447666, 312.31209942], [1.715e-05, 1.088e-05, 1.0008612]], "fitError": {"raw": 19.23, "lowPass": 18.62}},
+        {"name": "phone", "render": {"viewport": [440, 956], "mobile": true, "steps": [{"eval": "(() => { let e = document.querySelector('header'), c = 'rgba(0, 0, 0, 0)'; while (e && (c = getComputedStyle(e).backgroundColor) === 'rgba(0, 0, 0, 0)') e = e.parentElement; const bar = document.createElement('div'); bar.style.cssText = 'height:68px;background:' + c; document.body.prepend(bar); })()", "wait": 100}]}, "roi": [655, 715, 250, 290], "mode": "replace", "cornerRadius": 116, "exclude": [[[762, 735], [763, 741], [770, 744], [805, 746], [811, 744], [813, 741], [813, 737], [811, 734], [802, 732], [768, 731]]], "matches": "screen corners", "H": [[0.17710211, -0.03864097, 710.06640625], [0.00851119, 0.11814915, 724.07287598], [-3.31e-06, -2.101e-05, 1.0]], "fitError": {"raw": 20.85, "lowPass": 17.44}, "pinH": true}
+      ]
+    }
+  }
+}

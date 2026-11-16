@@ -1,0 +1,17 @@
+{
+  "slug": "pulse",
+  "path": "/pulse/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop", "render": {"viewport": [1600, 991]}, "roi": [70, 140, 1520, 960], "mode": "replace", "exclude": [[[29.5, 560.5], [414.5, 560.5], [414.5, 1172], [29.5, 1172]]], "H": [[0.46219906, 0.01285759, 75.78567962], [-0.01317293, 0.46604054, 180.66953744], [-1.03e-06, 2.14e-06, 1.00093127]], "matches": "498/1215", "fitError": {"raw": 3.02, "lowPass": 2.03}, "inset": 7, "renderNew": {"viewport": [1640, 1016]}},
+        {"name": "visit-dialog", "render": {"viewport": [1600, 991], "steps": [{"click": "button[aria-label='Open visit for Emma Wilson']", "wait": 700}], "element": "[role=dialog]"}, "roi": [20, 550, 410, 630], "mode": "replace", "H": [[0.40832526, 0.00067404, 29.20479162], [-0.00267745, 0.40975799, 560.47612184], [-3.14e-06, 1.31e-06, 0.99898732]], "matches": "104/324", "fitError": {"raw": 2.5, "lowPass": 1.85}, "inset": 2}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "tablet", "render": {"viewport": [820, 1180], "mobile": true, "clip": [26, 2, 768, 1171]}, "roi": [500, 220, 580, 850], "mode": "photo", "cornerRadius": 36, "glare": true, "matches": "screen corners", "H": [[0.2661212, 0.05715982, 547.20001221], [-0.03666485, 0.29837534, 333.20001221], [2.996e-05, 3.84e-06, 1.0]], "fitError": {"raw": 5.46, "lowPass": 3.46}, "pinH": true}
+      ]
+    }
+  }
+}

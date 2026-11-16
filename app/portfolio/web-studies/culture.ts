@@ -8,7 +8,7 @@ export const culture = [
     category: "Creative studio",
     oneLiner: "Good ideas need room to go off script.",
     summary:
-      "Offgrid is an independent design studio with a clear appetite for the unexpected. Its first screen is a cobalt typographic poster: a small manifesto, a ruled vertical project menu, and a large cropped Tahoe wordmark carry the identity without a promotional image. Selected work opens into three different art-directed worlds, combining original typographic compositions, photographic material, printed pieces, and purposeful changes in scale. Warm milk and marigold give the supporting pages a direct, tactile character. Visitors can switch projects to see their visual language, scope, and story, read the studio’s working principles, and build a downloadable project brief as a starting point for a future conversation.",
+      "Offgrid is an independent design studio with a clear appetite for the unexpected. Its first screen is a cobalt typographic poster: a small manifesto, a ruled vertical project menu, and a large cropped Tahoe wordmark carry the identity without a promotional image. Selected work opens into three different art-directed worlds, combining original typographic compositions, photographic material, printed pieces, and purposeful changes in scale. A near-black work stage and a warm milk studio page give the supporting sections a direct, tactile character. Visitors can switch projects to see their visual language, scope, and story, read the studio’s working principles, and build a downloadable project brief as a starting point for a future conversation.",
     challenge:
       "A creative studio needs a strong identity without reducing every project to the same promotional tile. The work should show distinct visual languages and offer a clear starting point for a brief.",
     outcome:
@@ -90,7 +90,7 @@ export const culture = [
     category: "Luxury & jewelry",
     oneLiner: "An intimate study of metal and touch.",
     summary:
-      "Estelle presents sculptural jewellery as a quiet exhibition of form, material, and touch. Two unequal photographic apertures show each piece close and worn, separated by a slender atelier wordmark on ivory. A folded ring and a pair of elongated petal earrings establish a small, considered collection. Visitors can study gold and silver through matching views, read dimensions and finish notes, and move from the polished object to the workbench behind it. Delicate serif titles and fine annotations keep the attention on the metal. A personal viewing folio gathers the chosen piece, material, and preferred atelier hour into one unhurried encounter.",
+      "Estelle presents sculptural jewellery as a quiet exhibition of form, material, and touch. Two unequal photographic apertures show each piece close and worn, separated by a slender atelier wordmark on ivory. A folded ring and a pair of elongated petal earrings establish a small, considered collection. Visitors can study gold and silver through matching views, read dimensions and finish notes, and move from the polished object to the workbench behind it. Measured serif titles and quiet annotations keep the attention on the metal. A personal viewing folio gathers the chosen piece, material, and preferred atelier hour into one unhurried encounter.",
     challenge:
       "Jewelry needs both a close view of its form and a sense of how it is worn. Material selection must keep those views and the product facts aligned.",
     outcome:
@@ -98,7 +98,7 @@ export const culture = [
     decisions: [
       [
         "Hold two unequal apertures",
-        "Macro and worn photographs flank a slender atelier identity on ivory. Fine annotations describe the object without competing with its surface.",
+        "Macro and worn photographs flank a slender atelier identity on ivory. Quiet annotations describe the object without competing with its surface.",
       ],
       [
         "Study a material before a viewing",

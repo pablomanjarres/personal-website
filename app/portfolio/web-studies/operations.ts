@@ -8,7 +8,7 @@ export const operations = [
     category: "Project workspace",
     oneLiner: "A clear week for a creative team.",
     summary:
-      "Orbit brings a small creative team’s work into one considered studio dashboard. A broad week roadmap gives research, design, content, and review their own saturated stage colors, while a continuous allocation strip connects planned hours to the actual project. Compact task rows keep owners, deadlines, checklists, and progress close together. Team workload and a timed review agenda give the work a human rhythm without overwhelming the main view. A task drawer with violet controls opens the next useful decision: change a status, complete a step, or keep a working note. Quiet paper, precise typography, and clear contrast make the shared plan easy to read on a desktop or a phone.",
+      "Orbit brings a small creative team’s work into one considered studio dashboard. A broad week roadmap gives research, design, content, and review their own saturated stage colors, while a continuous allocation strip connects planned hours to the actual project. Clear task rows keep owners, deadlines, checklists, and progress close together. Team workload and a timed review agenda give the work a human rhythm without overwhelming the main view. A task drawer with violet controls opens the next useful decision: change a status, complete a step, or keep a working note. Quiet paper, precise typography, and clear contrast make the shared plan easy to read on a desktop or a phone.",
     challenge:
       "A project plan is hard to read when dates, ownership and progress are scattered. The workspace needs one working week that stays connected to the tasks underneath it.",
     outcome:
@@ -57,7 +57,7 @@ export const operations = [
     decisions: [
       [
         "Make activity readable",
-        "A broad weekly care chart sits beside the daily appointment rail. Portraits, timed records and unequal card sizes support a humane working hierarchy.",
+        "A broad weekly care chart sits beside the daily appointment rail. Portraits, timed records and one ruled summary panel support a humane working hierarchy.",
       ],
       [
         "Keep visits in one schedule",
@@ -90,7 +90,7 @@ export const operations = [
     category: "Logistics dashboard",
     oneLiner: "The destination handoff in one working map.",
     summary:
-      "Meridian brings the freight desk onto a detailed destination planning map. A compact utility bar and icon rail frame richly layered shipment cards, each with an original vessel, aircraft, or truck illustration. Selecting a movement reveals its destination port schematic, expected arrival, cargo, and operational handoff state. Berth, collection, and transfer points support the next planning decision without implying live vehicle positioning. A secondary world view connects the same shipments over geographic coastlines, while the manifest provides a concise operational ledger. Midnight surfaces, restrained cyan routes, and clear status accents keep the working geography in focus. The crossing-route identity connects each destination to one shared operational view.",
+      "Meridian brings the freight desk onto a detailed destination planning map. A compact utility bar and icon rail frame compact shipment cards, each with an original vessel, aircraft, or truck illustration and a journey progress line. Selecting a movement reveals its destination port schematic, expected arrival, cargo, and operational handoff state. Berth, collection, and transfer points support the next planning decision without implying live vehicle positioning. A secondary world view connects the same shipments over geographic coastlines, while the manifest provides a concise operational ledger. Midnight surfaces, restrained cyan routes, and clear status accents keep the working geography in focus. The crossing-route identity connects each destination to one shared operational view.",
     challenge:
       "The freight desk needs arrival, cargo and collection details beside the selected movement. A destination plan must be legible without pretending to show a live vehicle position.",
     outcome:
@@ -131,7 +131,7 @@ export const operations = [
     category: "Developer platform",
     oneLiner: "A release from traffic signal to build detail.",
     summary:
-      "Helio is a developer workspace built around the life of an application. A pearl sidebar gives projects and environments a clear home; a wide cobalt traffic plot connects request volume, response health, and latency to a selected hour. The deployment ledger opens each commit into its build details, while a focused release dialog traces compilation, distribution, configuration errors, and recovery. A region view reveals the connected compute core, with concise code recipes and visible usage limits below the console. Compact typography, pale surfaces, and precise signal colors keep dense information calm. Its geometric identity expresses one application reaching a distributed network.",
+      "Helio is a developer workspace built around the life of an application. A pearl sidebar gives projects and environments a clear home; a wide cobalt traffic plot connects request volume, response health, and latency to a selected hour. The deployment ledger opens each commit into its build details, while a focused release dialog traces compilation, distribution, configuration errors, and recovery. A region view reveals the connected compute core, with concise code recipes and visible usage limits below the console. Clear typography, pale surfaces, and precise signal colors keep dense information calm. Its geometric identity expresses one application reaching a distributed network.",
     challenge:
       "A developer needs to connect request health to the release that produced it. Analytics and deployment records must offer useful detail without hiding the application itself.",
     outcome:
@@ -139,7 +139,7 @@ export const operations = [
     decisions: [
       [
         "Use one dominant signal",
-        "A cobalt request plot leads the pearl console. The compact release ledger and sidebar place build context around that primary application view.",
+        "A cobalt request plot leads the pearl console. The release ledger and sidebar place build context around that primary application view.",
       ],
       [
         "Follow a release through its states",

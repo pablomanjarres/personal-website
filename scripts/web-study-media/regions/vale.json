@@ -1,0 +1,17 @@
+{
+  "slug": "vale",
+  "path": "/vale/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop-fold", "render": {"viewport": [1600, 991]}, "roi": [15, 130, 1240, 830], "mode": "replace", "matches": "496/759", "H": [[0.40779271, -0.00084229, 24.4681198], [-0.00251823, 0.40718439, 138.87128278], [-4.42e-06, -3.81e-06, 0.99850906]], "fitError": {"raw": 5.21, "lowPass": 4.56}, "cornerRadius": 18, "exclude": [[[1290, 380], [1400, 380], [1400, 985], [1290, 985]]]},
+        {"name": "bag-drawer", "render": {"viewport": [1600, 991], "steps": [{"click": "button:has-text('Add to ritual')", "wait": 700}], "element": "[role=dialog]"}, "roi": [1262, 352, 338, 660], "mode": "replace", "matches": "79/103", "H": [[0.31888238, -0.00154131, 1215.4905186], [-0.00125064, 0.32099781, 345.29753574], [-2e-06, -1.1e-06, 0.95702011]], "fitError": {"raw": 1.31, "lowPass": 0.92}, "cornerRadius": 26}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "phone", "render": {"viewport": [440, 948], "mobile": true}, "roi": [340, 200, 880, 660], "mode": "photo", "cornerRadius": 120, "glare": false, "matches": "72/133", "H": [[0.4293506, 0.2257478, 339.77027004], [-0.15118049, 0.24230573, 341.59841192], [2.187e-05, -3.502e-05, 1.00172239]], "fitError": {"raw": 9.62, "lowPass": 8.72}, "inset": 0, "exclude": [[[593, 270], [593, 277], [587, 284], [510, 313], [491, 313], [482, 306], [482, 298], [487, 292], [565, 262], [583, 262], [588, 264]]], "renderNew": {"steps": [{"eval": "document.getElementById('texture').style.visibility='hidden'"}, {"wait": 200}]}}
+      ]
+    }
+  }
+}
