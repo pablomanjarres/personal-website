@@ -23,7 +23,7 @@ Serve both builds of twenty-web-studies (`npm run build`, then `npx vite preview
 | --- | --- | --- |
 | `WEB_STUDY_OLD_URL` | `http://127.0.0.1:4801` | the build the published images were made from |
 | `WEB_STUDY_NEW_URL` | `http://127.0.0.1:4802` | the build to publish |
-| `WEB_STUDY_SOURCE_REF` | `origin/main` | git ref holding the published images |
+| `WEB_STUDY_SOURCE_REF` | `333429e` | commit holding the images the region files were fitted to |
 
 ## Commands
 
