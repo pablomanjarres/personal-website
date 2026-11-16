@@ -1,0 +1,18 @@
+{
+  "slug": "verdant",
+  "path": "/verdant/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop-system", "render": {"viewport": [1600, 991]}, "roi": [80, 25, 1420, 895], "mode": "replace", "matches": "394/668", "H": [[0.43723703, -8.618e-05, 90.06850905], [-0.00010752, 0.43947323, 34.26665108], [-1.7e-07, -7e-08, 1.00004706]], "fitError": {"raw": 1.68, "lowPass": 1.13}},
+        {"name": "source-card", "render": {"viewport": [1600, 991], "steps": [{"click": ".vd-source", "wait": 500}], "element": ".vd-source"}, "renderNew": {"viewport": [1665, 991]}, "roi": [55, 925, 335, 270], "mode": "replace", "matches": "44/66", "H": [[0.4334447, 0.00103642, 62.99965825], [0.00180808, 0.44061327, 903.94055663], [1.42e-06, 7.05e-06, 0.96722778]], "fitError": {"raw": 1.94, "lowPass": 1.09}}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "laptop", "render": {"viewport": [1600, 1088]}, "roi": [240, 50, 780, 720], "mode": "photo", "glare": true, "matches": "screen corners", "H": [[0.21069048, 0.07400931, 265.29998779], [-0.07352786, 0.20847692, 313.0], [1.303e-05, 8.39e-06, 1.0]], "fitError": {"raw": 11.4, "lowPass": 10.39}, "exclude": [[[548, 198], [551, 206.5], [553, 214], [555, 218.5], [559, 220], [627.5, 195.5], [630.5, 193.5], [632, 188], [632, 179], [634, 171]]], "cornerRadius": 10, "pinH": true},
+        {"name": "phone", "render": {"viewport": [440, 941], "mobile": true, "steps": [{"eval": "const page = document.querySelector('.verdant'); document.body.style.background = getComputedStyle(page).backgroundColor; document.body.style.paddingTop = '61px';", "wait": 300}]}, "roi": [655, 715, 225, 290], "mode": "photo", "cornerRadius": 95, "glare": true, "exclude": [[[804.9, 730.8], [806.6, 731.1], [808.1, 731.9], [809.4, 733.0], [810.4, 734.4], [811.0, 736.1], [811.1, 737.8], [810.8, 739.5], [810.0, 741.0], [808.9, 742.3], [807.5, 743.3], [805.8, 743.9], [804.1, 744.0], [772.1, 742.2], [770.4, 741.9], [768.9, 741.1], [767.6, 740.0], [766.6, 738.6], [766.0, 736.9], [765.9, 735.2], [766.2, 733.5], [767.0, 732.0], [768.1, 730.7], [769.5, 729.7], [771.2, 729.1], [772.9, 729.0]]], "H": [[0.17773782, -0.04018994, 711.40002441], [0.0114688, 0.11839024, 724.70001221], [1.4e-07, -2.214e-05, 1.0]], "matches": "screen corners", "fitError": {"raw": 13.0, "lowPass": 11.4}, "pinH": true}
+      ]
+    }
+  }
+}
