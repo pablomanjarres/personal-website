@@ -31,7 +31,7 @@ REGIONS = HERE / "regions"
 MEDIA = REPO / "public" / "portfolio" / "web-studies"
 OLD_URL = os.environ.get("WEB_STUDY_OLD_URL", "http://127.0.0.1:4801")
 NEW_URL = os.environ.get("WEB_STUDY_NEW_URL", "http://127.0.0.1:4802")
-SCREENS = {"desktop": ([1600, 991], False), "mobile": ([440, 948], True)}
+SCREENS = {"desktop": False, "mobile": True}
 
 
 def region_file(slug):
@@ -110,8 +110,10 @@ def compose_image(slug, config, image):
 
 
 def capture_screens(slug, config):
-    for name, (viewport, mobile) in SCREENS.items():
-        spec = {"path": config["path"], "viewport": viewport, "scale": 2, "mobile": mobile}
+    """Plain renders at the published size, which the study record also declares (2x pixels)."""
+    for name, mobile in SCREENS.items():
+        height, width = published(slug, name).shape[:2]
+        spec = {"path": config["path"], "viewport": [width // 2, height // 2], "scale": 2, "mobile": mobile}
         spec.update(config.get("screens", {}).get(name, {}))
         write_webp(MEDIA / slug / f"{name}.webp", render(NEW_URL, spec, CACHE / slug / f"new-{name}.png"))
 

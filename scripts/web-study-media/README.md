@@ -3,7 +3,7 @@
 Regenerates `public/portfolio/web-studies/<slug>/{desktop,mobile,presentation,product}.webp`
 after a study in `pablomanjarres/twenty-web-studies` changes.
 
-- `desktop.webp` and `mobile.webp` are plain renders of the current build at 1600×991 and 440×948, both at 2x.
+- `desktop.webp` and `mobile.webp` are plain renders of the current build at half their published size, at 2x (1600×991 and 440×948 for most studies).
 - `presentation.webp` and `product.webp` are compositions: angled desktop panels, cards and device photos.
   Each screen in them is a **layer** in `regions/<slug>.json`. The tool renders the layer's page state
   from the previous build, fits that render to the published image (SIFT, RANSAC, then ECC), and draws
