@@ -99,11 +99,11 @@ export const everyday = [
     decisions: [
       [
         "Give the flow a clear surface",
-        "Original isometric hardware sits on a cool white canvas with slate readout plates and a graphite context bar. Sora headings, Manrope annotations and solar yellow controls separate the operating roles.",
+        "Original isometric hardware sits on a cool white canvas with slate readout plates and a graphite context bar. Sora headings, Manrope annotations, slate source controls and solar yellow highlights separate the operating roles.",
       ],
       [
         "Balance the examples across every source",
-        "Solar, wind and storage choices update the complete balanced flow in kilowatts. Selecting a component shows its role beside the diagram, keeping generation, reserve and demand connected.",
+        "Solar, wind and storage choices update the complete balanced flow in kilowatts. Selecting a component shows its role in the context bar below the diagram, keeping generation, reserve and demand connected.",
       ],
       [
         "Field lines beneath a rising sun",

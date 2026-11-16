@@ -8,7 +8,7 @@ export const originals = [
     category: "Creative studio",
     oneLiner: "Good weird, pasted up as a studio poster.",
     summary:
-      "Offgrid gives a creative studio a website with the energy of a pasted-up street poster. Wide retro typography sits against cobalt blue and marigold, with fashion photography, ribbed-glass imagery and offset project frames making the work feel physical. The layout changes scale from a loud first screen to a clear project index, then a simple brief builder. Visitors can filter the work by discipline and assemble a short project note. The symbol is an open grid with one cell moved outside its frame, giving the studio a recognizable mark that expresses an idea leaving the expected structure.",
+      "Offgrid gives a creative studio a website with the energy of a pasted-up street poster. Wide retro typography sits against cobalt blue and marigold, with a tilted fashion photograph, ribbed-glass imagery and a clean photographic project grid making the work feel physical. The layout changes scale from a loud first screen to a clear project index, then a simple brief builder. Visitors can filter the work by discipline and assemble a short project note. The symbol is an open grid with one cell moved outside its frame, giving the studio a recognizable mark that expresses an idea leaving the expected structure.",
     challenge:
       "The studio needs to make its personality immediate while leaving its work easy to browse. A loud first screen should give way to clear disciplines and a useful project note.",
     outcome:
@@ -90,7 +90,7 @@ export const originals = [
     category: "Art & culture",
     oneLiner: "An art journal with the scale of a printed issue.",
     summary:
-      "Monograph is an independent art and culture journal for curious readers. Its editorial world brings together exhibition visits, artist conversations, and considered writing on the spaces around us. A generous serif masthead and deep gallery blue establish a confident publishing identity, while warm paper surfaces give photographs room to breathe. The magazine moves between large visual essays and shorter studio notes without flattening them into the same format. Readers can explore stories by subject and save the pieces they want to return to. The experience feels like opening a beautifully printed issue, with the ease of a digital reading room.",
+      "Monograph is an independent art and culture journal for curious readers. Its editorial world brings together exhibition visits, artist conversations, and considered writing on the spaces around us. A generous serif masthead and deep gallery blue establish a confident publishing identity, while warm paper surfaces give photographs room to breathe. The magazine moves between large visual essays and shorter studio notes without flattening them into the same format. Readers can explore stories by subject and save the cover story to their reading list. The experience feels like opening a beautifully printed issue, with the ease of a digital reading room.",
     challenge:
       "A journal needs to move between a large visual essay and smaller studio notes without flattening their editorial differences. The printed issue should feel connected to the digital reading room.",
     outcome:
