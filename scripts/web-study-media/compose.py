@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-from fitting import polygons_mask, screen_mask, warp
+from fitting import polygons_mask, screen_interior, screen_mask, warp
 
 
 def match_new_to_old(new, old, fit="width"):
@@ -37,8 +37,7 @@ def layer_pixels(target, layer, old, new, H):
     if layer.get("mode", "replace") != "photo":
         return warped_new
     warped_old = warp(old, H, size).astype(np.float32)
-    inside = warp(screen_mask(old.shape, layer.get("cornerRadius", 0), layer.get("inset", 0) + 6), H, size) > 0.99
-    inside &= ~polygons_mask(layer.get("exclude"), target.shape)
+    inside = screen_interior(target.shape, old.shape, H, layer)
     gain, bias = photo_grade(target, warped_old, inside)
     graded = warped_new * gain + bias
     if layer.get("glare"):

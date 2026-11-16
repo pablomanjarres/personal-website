@@ -71,11 +71,17 @@ def polygons_mask(polygons, shape):
     return mask.astype(bool)
 
 
+def screen_interior(target_shape, render_shape, H, layer):
+    """Pixels of the published image that show the layer's screen, kept clear of its edges and exclusions."""
+    size = (target_shape[1], target_shape[0])
+    inside = warp(screen_mask(render_shape, layer.get("cornerRadius", 0), layer.get("inset", 0) + 6), H, size) > 0.99
+    return inside & ~polygons_mask(layer.get("exclude"), target_shape)
+
+
 def fit_error(target, source, H, layer):
     """Mean absolute difference (0-255) between the published image and the old render, inside the screen."""
     size = (target.shape[1], target.shape[0])
-    inside = warp(screen_mask(source.shape, layer.get("cornerRadius", 0), layer.get("inset", 0) + 6), H, size) > 0.99
-    inside &= ~polygons_mask(layer.get("exclude"), target.shape)
+    inside = screen_interior(target.shape, source.shape, H, layer)
     if not inside.any():
         return float("inf"), float("inf")
     a = target.astype(np.float32)
