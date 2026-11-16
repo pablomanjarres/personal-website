@@ -65,7 +65,7 @@ def fit_image(slug, config, image, refit):
         if "fill" in layer or "soften" in layer:
             continue
         old = render(OLD_URL, render_spec(config, layer), CACHE / slug / f"old-{image}-{name}.png")
-        if refit or not layer.get("H"):
+        if (refit and not layer.get("pinH")) or not layer.get("H"):
             H, layer["matches"] = fit_layer(target, old, layer)
             layer["H"] = [[round(float(v), 8) for v in row] for row in H]
         raw, lp = fit_error(target, old, np.array(layer["H"]), layer)

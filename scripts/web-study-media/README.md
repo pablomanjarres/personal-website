@@ -52,6 +52,7 @@ means the old render lines up with the published screen.
 - `mode`: `replace` for flat compositions; `photo` for device photos, which matches the screen's tint and
   brightness, and adds the photo's glare when `glare` is true.
 - `cornerRadius` and `inset` (render pixels) shape the screen mask; `exclude` lists polygons to keep.
+- `pinH: true` keeps a stored homography through `--refit`, for screens placed from measured corners.
 - `fit`: `width` (default), `height` or `contain` when the new render's size differs from the old one;
   `maxHeight` and `newMaxHeight` crop the old and new renders from the top first.
 - A layer with `soften` (polygons, optional `sigma`) blurs reflections of the old screen until they are no longer legible.
