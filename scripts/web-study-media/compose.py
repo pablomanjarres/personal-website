@@ -102,8 +102,18 @@ def drop_shadow(out, alpha, shadow):
     return out * (1 - shade[..., None])
 
 
+def soft_polygons(polygons, shape, supersample=4):
+    """Polygon coverage with anti-aliased edges, so excluded notches and corners stay smooth."""
+    h, w = shape[:2]
+    big = np.zeros((h * supersample, w * supersample), np.uint8)
+    for polygon in polygons or []:
+        cv2.fillPoly(big, [np.int32(np.round(np.float64(polygon) * supersample))], 255)
+    return cv2.resize(big, (w, h), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
+
+
 def layer_alpha(target, layer, new, H):
     size = (target.shape[1], target.shape[0])
     alpha = warp(screen_mask(new.shape, layer.get("cornerRadius", 0), layer.get("inset", 0)), H, size)
-    alpha[polygons_mask(layer.get("exclude"), target.shape)] = 0
+    if layer.get("exclude"):
+        alpha *= 1 - soft_polygons(layer["exclude"], target.shape)
     return np.clip(alpha, 0, 1)
