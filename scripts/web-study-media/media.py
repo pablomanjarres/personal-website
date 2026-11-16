@@ -23,8 +23,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from compose import drop_shadow, layer_alpha, layer_pixels, match_new_to_old, smooth_fill
-from fitting import fit_error, refine_ecc, sift_homography
+from compose import drop_shadow, layer_alpha, layer_pixels, match_new_to_old, smooth_fill, soften
+from fitting import fit_error, polygons_mask, refine_ecc, sift_homography
 from sources import CACHE, HERE, REPO, published, read_rgb, render, write_webp
 
 REGIONS = HERE / "regions"
@@ -62,7 +62,7 @@ def fit_image(slug, config, image, refit):
     report = []
     for layer in config["images"][image]["layers"]:
         name = layer["name"]
-        if "fill" in layer:
+        if "fill" in layer or "soften" in layer:
             continue
         old = render(OLD_URL, render_spec(config, layer), CACHE / slug / f"old-{image}-{name}.png")
         if refit or not layer.get("H"):
@@ -84,6 +84,9 @@ def compose_image(slug, config, image):
         if "fill" in layer:
             keep = [footprints[other] for other in layer.get("keepLayers", []) if other in footprints]
             out = smooth_fill(out, layer["fill"], layer["sample"], keep)
+            continue
+        if "soften" in layer:
+            out = soften(out, polygons_mask(layer["soften"], target.shape), layer.get("sigma", 6))
             continue
         H = np.array(layer["H"])
         old = read_rgb(CACHE / slug / f"old-{image}-{name}.png")

@@ -45,6 +45,13 @@ def masked_blur(values, mask, sigma):
     return blurred / np.maximum(weight, 1e-3)[..., None]
 
 
+def soften(out, mask, sigma):
+    """Blur a region using only its own pixels, so reflections of an old screen stop being legible
+    without pulling in the edges around them."""
+    soft = cv2.GaussianBlur(mask.astype(np.float32), (0, 0), 2)[..., None]
+    return soft * masked_blur(out, mask, sigma) + (1 - soft) * out
+
+
 def layer_pixels(target, layer, old, new, H):
     size = (target.shape[1], target.shape[0])
     warped_new = warp(new, H, size).astype(np.float32)
