@@ -1,0 +1,19 @@
+{
+  "slug": "cinder",
+  "path": "/cinder/",
+  "images": {
+    "presentation": {
+      "layers": [
+        {"name": "desktop-fold", "render": {"viewport": [1600, 991]}, "roi": [140, 110, 1460, 960], "mode": "replace", "matches": "580/911", "H": [[0.44459099, -0.0193178, 170.22320556], [0.01706868, 0.4440681, 122.71327239], [-3e-07, -6.4e-07, 0.99984728]], "fitError": {"raw": 4.1, "lowPass": 3.61}},
+        {"name": "old-card-edge", "fill": [[[528, 1026], [624, 1027], [624, 1200], [528, 1200]]], "keepLayers": ["desktop-fold"], "sample": [[[628, 1075], [800, 1075], [800, 1200], [628, 1200]]]},
+        {"name": "old-card-left-edge", "fill": [[[6, 728], [25, 728], [25, 1192], [6, 1192]]], "sample": [[[0, 600], [7, 600], [7, 1200], [0, 1200]], [[0, 1186], [60, 1186], [60, 1200], [0, 1200]]]},
+        {"name": "basket-overlay", "render": {"viewport": [1600, 991], "steps": [{"click": "button:has-text('Add Daybreak')", "wait": 700}], "element": "[role=dialog]"}, "roi": [15, 730, 595, 445], "mode": "replace", "fit": "height", "matches": "219/274", "H": [[0.55872313, -0.00023202, 22.61041051], [-0.00031545, 0.55783038, 737.6210007], [-2.9e-07, -6.9e-07, 1.00266063]], "fitError": {"raw": 12.87, "lowPass": 12.24}, "maxHeight": 790, "newMaxHeight": 898}
+      ]
+    },
+    "product": {
+      "layers": [
+        {"name": "tablet", "render": {"viewport": [834, 1168], "mobile": true}, "roi": [470, 180, 650, 870], "mode": "photo", "cornerRadius": 44, "glare": true, "matches": "540/774", "H": [[0.26667657, -0.0335548, 579.43833258], [0.02748869, 0.31905366, 199.61201723], [-1.55e-05, -2.39e-06, 1.00374477]], "fitError": {"raw": 6.34, "lowPass": 4.73}}
+      ]
+    }
+  }
+}
